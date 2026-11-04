@@ -10,6 +10,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from service.account_record import account_record
+
 ROOT = Path(__file__).resolve().parents[1]
 LIVE = ROOT / "papertrading/live"
 INDEX = Path(__file__).with_name("index.html")
@@ -82,43 +84,7 @@ def snapshot(live: Path = LIVE, now: datetime | None = None) -> dict:
         if not account_id or not all(c.isalnum() or c in "-_" for c in account_id):
             continue
         state = _read_json(live / account_id / "state.json") or {}
-        equity_log = state.get("equity_log") or []
-        latest_equity = equity_log[-1] if equity_log else {}
-        events = state.get("trades_log") or []
-        latest_open = next((event for event in reversed(events)
-                            if event.get("action") in ("OPEN_LONG", "OPEN_SHORT")), None)
-        latest_event = events[-1] if events else None
-        position = state.get("position", row.get("position", 0))
-        equity = latest_equity.get("strategy_equity", state.get("initial_capital"))
-        capital = state.get("initial_capital", row.get("initial_capital_rub"))
-        mark_price = latest_equity.get("mark_price")
-        entry_flow = state.get("entry_flow")
-        open_pnl = (round(position * mark_price + (-entry_flow if position > 0 else entry_flow), 2)
-                    if position and isinstance(mark_price, (int, float))
-                    and isinstance(entry_flow, (int, float)) else 0 if not position else None)
-        accounts.append({
-            "account_id": account_id, "symbol": row.get("symbol") or state.get("symbol"),
-            "strategy": row.get("strategy") or state.get("strategy"),
-            "timeframe": row.get("timeframe") or state.get("timeframe"),
-            "status": row.get("status"), "paper_status": row.get("paper_status"),
-            "source": row.get("source"),
-            "error": row.get("error"),
-            "last_completed_bar": row.get("last_completed_bar") or state.get("last_bar"),
-            "position": position, "side": "LONG" if position > 0 else "SHORT" if position < 0 else "FLAT",
-            "pending": row.get("pending") or state.get("pending"),
-            "closed_trades": state.get("closed_trades", 0),
-            "started_at": state.get("started_at"),
-            "equity": equity, "initial_capital": capital,
-            "return_pct": round((equity / capital - 1) * 100, 3) if equity is not None and capital else None,
-            "mark_price": mark_price,
-            "open_pnl_rub": open_pnl,
-            "open_pnl_pct": round(open_pnl / capital * 100, 4) if open_pnl is not None and capital else None,
-            "entry_price": latest_open.get("price") if position and latest_open else None,
-            "last_event": latest_event,
-            "position_weight_pct": row.get("position_weight_pct"),
-            "orders_created": row.get("orders_created", 0),
-            "new_events": row.get("new_events", 0),
-        })
+        accounts.append(account_record(row, state))
     failures = [row for row in accounts if row["status"] != "OK"]
     shared_source_error = bool(failures and len(failures) == len(accounts)
                                and all(row["status"] == "DATA_UNAVAILABLE" for row in failures)

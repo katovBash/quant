@@ -73,9 +73,10 @@ class DashboardTests(unittest.TestCase):
     def test_strategy_list_contains_configured_stocks_before_first_poll(self):
         with TemporaryDirectory() as tmp:
             rules = snapshot(Path(tmp))["rules"]
-            ema = next(row for row in rules if row["id"] == "ema-level-79-atr025-long-short-1h")
-            self.assertIn("WUSH", ema["configured_symbols"])
-            self.assertTrue(ema["top10"])
+            turtle = next(row for row in rules if row["id"] == "dennis-turtle-55-20-1h")
+            self.assertIn("SFIN", turtle["configured_symbols"])
+            self.assertIn("WUSH", turtle["configured_symbols"])
+            self.assertTrue(turtle["top10"])
 
     def test_open_pnl_is_zero_when_flat_and_marks_long_or_short_positions(self):
         with TemporaryDirectory() as tmp:

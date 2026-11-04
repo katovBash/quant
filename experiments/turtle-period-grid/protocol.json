@@ -1,0 +1,38 @@
+{
+  "frozen_on": "2026-11-04",
+  "hypothesis": "Nearby breakout and exit windows may reduce whipsaw while retaining monthly returns; test the full grid, not only the best historical ticker.",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "universe": "Every TQBR SECID in data/moex_scan/universe_2026-10-30.json with evaluable 1D and 1H candles; the same non-return-selected symbols on all three frames",
+  "signal_timeframes": ["1D", "1H", "4H"],
+  "unavailable_timeframes": ["15M", "30M"],
+  "entry_lengths": [15, 20, 30, 40, 55, 70],
+  "exit_lengths": [5, 10, 20, 30],
+  "grid_constraint": "exit_length < entry_length; 19 Turtle pairs plus baseline",
+  "reference_variants": ["dennis_turtle_20_10", "dennis_turtle_55_20"],
+  "baseline": "buy and hold 25% of each independent 1m RUB account from first evaluable open",
+  "signal_rule": "Close-confirmed breakout above prior entry_length highs / below prior entry_length lows; exit long below prior exit_length lows / short above prior exit_length highs; all windows exclude current bar and fill at next open",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "commission_bps_per_side": 5,
+  "slippage_equivalent_bps_per_side": 10,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, corporate actions, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "monthly_regime": "ex post only: monthly market return >5% growth, <-5% decline, else sideways if high-low range <=10% of first open, otherwise volatile_mixed",
+  "selection": "retain all outcomes and compare neighboring windows, monthly PnL and control; no automatic approval or paper-trading switch",
+  "walk_forward": {
+    "folds": [
+      {"name": "2025", "train_start": "2024-01-01", "train_end": "2025-01-01", "test_start": "2025-01-01", "test_end": "2026-01-01", "train_months": 12, "test_months": 12},
+      {"name": "2026_ytd", "train_start": "2024-01-01", "train_end": "2026-01-01", "test_start": "2026-01-01", "test_end": "2026-10-01", "train_months": 24, "test_months": 9}
+    ],
+    "selector": "For each timeframe choose one global parameter pair on every symbol with complete training months; rank by median per-symbol profitable-month share, then median per-symbol mean monthly return, then median per-symbol worst month PnL. Test on available complete test months without retuning.",
+    "neighbor_rule": "Entry or exit length adjacent in the ordered grid while other length stays fixed and exit < entry; report train and test differences for every neighbor.",
+    "cost_stress_bps_per_side": [5, 15, 25],
+    "stress_scope": "same complete-history symbols; all unique fold-selected pairs per timeframe plus 20/10 and 55/20",
+    "future_blind_holdout": "new completed bars after 2026-11-04 only; pending, not represented by 2026_ytd"
+  },
+  "limitations": ["intraday windows count bars, not trading days", "25% position size differs from current 10% paper setup", "historical fills use next open while paper runner fills at the next observed completed close", "transaction slippage modeled as cash-cost equivalent, not fill-price shift", "no exchange lots or short borrow", "dividends and corporate actions not modeled", "historical sample already inspected"]
+}
