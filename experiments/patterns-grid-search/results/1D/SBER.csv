@@ -1,0 +1,19 @@
+symbol,timeframe,indicator,variant,parameters,mode,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_buy_hold_pct,late_profit_factor,late_drawdown_pct
+SBER,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",long,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,28,12,42.86,10.75,0.0,10.75,1.567,-7.71,15,3,-2.16,1.42,0.411,-6.23
+SBER,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,29,7,24.14,-5.53,0.0,-5.53,0.729,-15.97,15,3,-3.97,1.42,0.449,-6.5
+SBER,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",long_short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,57,19,33.33,4.68,0.0,4.68,1.087,-13.0,30,6,-6.04,1.42,0.433,-10.12
+SBER,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",long,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,11,5,45.45,22.96,0.0,22.96,2.957,-6.36,6,2,-0.72,1.42,0.627,-6.25
+SBER,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,12,4,33.33,2.1,0.0,2.1,1.186,-8.9,6,2,-2.59,1.42,0.509,-5.35
+SBER,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",long_short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,23,9,39.13,25.48,0.0,25.48,1.974,-9.17,12,4,-3.29,1.42,0.563,-9.05
+SBER,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",long,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,6,5,83.33,21.18,0.0,21.18,7.628,-5.56,3,3,1.65,1.42,inf,-3.94
+SBER,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,6,2,33.33,-4.69,0.0,-4.69,0.473,-11.71,3,1,0.09,1.42,1.053,-3.93
+SBER,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",long_short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,12,7,58.33,15.5,0.0,15.5,2.186,-9.9,6,4,1.74,1.42,1.714,-7.06
+SBER,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",long,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,35,15,42.86,2.8,0.0,2.8,1.158,-6.71,17,10,4.04,1.42,2.092,-1.7
+SBER,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,36,11,30.56,-18.33,0.0,-18.33,0.396,-25.07,18,5,0.83,1.42,1.134,-3.81
+SBER,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",long_short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,71,26,36.62,-16.11,0.0,-16.11,0.592,-24.81,35,15,4.9,1.42,1.437,-4.18
+SBER,1D,patterns,hammer,"{""pattern"": ""hammer""}",long,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,6,3,50.0,46.8,0.0,46.8,12.148,-8.46,2,0,-2.57,1.42,0.0,-6.73
+SBER,1D,patterns,hammer,"{""pattern"": ""hammer""}",short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,7,3,42.86,8.49,0.0,8.49,4.78,-3.21,3,0,-0.9,1.42,0.0,-3.12
+SBER,1D,patterns,hammer,"{""pattern"": ""hammer""}",long_short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,13,6,46.15,59.29,0.0,59.29,8.92,-8.72,5,0,-3.44,1.42,0.0,-8.72
+SBER,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",long,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,3,3,100.0,26.44,0.0,26.44,inf,-7.58,1,0,-3.34,1.42,0.0,-6.16
+SBER,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,2,1,50.0,0.01,0.0,0.01,4.069,-5.25,0,0,-2.2,1.42,0.0,-2.37
+SBER,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",long_short,1340,2022-01-03 00:00:00,2026-10-30 00:00:00,5,4,80.0,26.46,0.0,26.46,33.874,-7.58,1,0,-5.46,1.42,0.0,-6.62

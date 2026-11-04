@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "rows": 3400,
+  "duplicates": [],
+  "timeframes": {
+    "1H": {
+      "symbols": 100,
+      "min_required": 100,
+      "variants": 17,
+      "incomplete_symbols": {},
+      "ok": true
+    },
+    "4H": {
+      "symbols": 100,
+      "min_required": 100,
+      "variants": 17,
+      "incomplete_symbols": {},
+      "ok": true
+    }
+  },
+  "pairs_with_at_least_100_closed_trades": 99,
+  "pairs_below_100_closed_trades": 3301,
+  "monthly": {
+    "rows": 112200,
+    "pairs": 3400,
+    "missing_or_short": {},
+    "duplicates": [],
+    "min_periods_available": 33,
+    "ok": true
+  },
+  "yearly": {
+    "rows": 10200,
+    "pairs": 3400,
+    "missing_or_short": {},
+    "duplicates": [],
+    "min_periods_available": 3,
+    "ok": true
+  }
+}

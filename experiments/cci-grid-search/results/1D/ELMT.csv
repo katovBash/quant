@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+ELMT,1D,cci_reversal-01,cci_reversal,"{""period"": 10, ""threshold"": 100}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,38,19,50.0,-19.97,-13.88,-6.09,0.371,-24.46,32,15,-21.49,0.255,-24.19
+ELMT,1D,cci_reversal-02,cci_reversal,"{""period"": 10, ""threshold"": 150}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,30,14,46.67,-13.17,-13.88,0.71,0.526,-19.88,24,9,-17.84,0.317,-19.89
+ELMT,1D,cci_reversal-03,cci_reversal,"{""period"": 14, ""threshold"": 100}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,26,10,38.46,-16.46,-13.88,-2.58,0.443,-20.16,20,7,-18.48,0.311,-19.5
+ELMT,1D,cci_reversal-04,cci_reversal,"{""period"": 14, ""threshold"": 150}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,22,11,50.0,-17.83,-13.88,-3.95,0.359,-22.49,18,8,-17.8,0.279,-19.6
+ELMT,1D,cci_reversal-05,cci_reversal,"{""period"": 20, ""threshold"": 100}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,24,10,41.67,-9.72,-13.88,4.16,0.573,-17.37,20,7,-8.05,0.578,-13.87
+ELMT,1D,cci_reversal-06,cci_reversal,"{""period"": 20, ""threshold"": 150}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,20,13,65.0,-2.62,-13.88,11.26,0.849,-15.82,16,10,-4.74,0.727,-15.82
+ELMT,1D,cci_reversal-07,cci_reversal,"{""period"": 30, ""threshold"": 100}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,11,5,45.45,-4.36,-13.88,9.52,0.572,-16.07,8,4,-3.61,0.576,-16.07
+ELMT,1D,cci_reversal-08,cci_reversal,"{""period"": 30, ""threshold"": 150}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,9,3,33.33,-3.92,-13.88,9.96,0.638,-15.87,8,3,-2.01,0.769,-15.87
+ELMT,1D,cci_reversal-09,cci_reversal,"{""period"": 40, ""threshold"": 100}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,9,5,55.56,-0.33,-13.88,13.55,0.92,-15.31,8,5,2.49,1.307,-14.05
+ELMT,1D,cci_reversal-10,cci_reversal,"{""period"": 40, ""threshold"": 150}",742,2024-06-06 00:00:00,2026-10-30 00:00:00,9,6,66.67,3.45,-13.88,17.33,1.562,-9.4,8,6,5.56,2.396,-9.4

@@ -1,0 +1,73 @@
+symbol,timeframe,sample,comparison,lookback,setting_a,setting_b,label,value_pct,observations
+UNAC,1H,train,neighbor_agreement,20,"(20, 6, 2)","(20, 6, 3)",all,84.11,3555
+UNAC,1H,holdout,neighbor_agreement,20,"(20, 6, 2)","(20, 6, 3)",all,83.78,9204
+UNAC,1H,train,neighbor_agreement,20,"(20, 6, 2)","(20, 10, 2)",all,95.19,3555
+UNAC,1H,holdout,neighbor_agreement,20,"(20, 6, 2)","(20, 10, 2)",all,96.96,9204
+UNAC,1H,train,neighbor_agreement,20,"(20, 6, 3)","(20, 10, 3)",all,92.35,3555
+UNAC,1H,holdout,neighbor_agreement,20,"(20, 6, 3)","(20, 10, 3)",all,94.97,9204
+UNAC,1H,train,neighbor_agreement,20,"(20, 10, 2)","(20, 10, 3)",all,81.27,3555
+UNAC,1H,holdout,neighbor_agreement,20,"(20, 10, 2)","(20, 10, 3)",all,81.79,9204
+UNAC,1H,train,neighbor_agreement,40,"(40, 6, 2)","(40, 6, 3)",all,94.85,3535
+UNAC,1H,holdout,neighbor_agreement,40,"(40, 6, 2)","(40, 6, 3)",all,91.07,9204
+UNAC,1H,train,neighbor_agreement,40,"(40, 6, 2)","(40, 10, 2)",all,85.71,3535
+UNAC,1H,holdout,neighbor_agreement,40,"(40, 6, 2)","(40, 10, 2)",all,88.24,9204
+UNAC,1H,train,neighbor_agreement,40,"(40, 6, 3)","(40, 10, 3)",all,77.77,3535
+UNAC,1H,holdout,neighbor_agreement,40,"(40, 6, 3)","(40, 10, 3)",all,81.06,9204
+UNAC,1H,train,neighbor_agreement,40,"(40, 10, 2)","(40, 10, 3)",all,86.9,3535
+UNAC,1H,holdout,neighbor_agreement,40,"(40, 10, 2)","(40, 10, 3)",all,83.89,9204
+UNAC,1H,train,neighbor_agreement,80,"(80, 6, 2)","(80, 6, 3)",all,99.03,3495
+UNAC,1H,holdout,neighbor_agreement,80,"(80, 6, 2)","(80, 6, 3)",all,97.06,9204
+UNAC,1H,train,neighbor_agreement,80,"(80, 6, 2)","(80, 10, 2)",all,89.93,3495
+UNAC,1H,holdout,neighbor_agreement,80,"(80, 6, 2)","(80, 10, 2)",all,85.09,9204
+UNAC,1H,train,neighbor_agreement,80,"(80, 6, 3)","(80, 10, 3)",all,85.04,3495
+UNAC,1H,holdout,neighbor_agreement,80,"(80, 6, 3)","(80, 10, 3)",all,77.76,9204
+UNAC,1H,train,neighbor_agreement,80,"(80, 10, 2)","(80, 10, 3)",all,94.13,3495
+UNAC,1H,holdout,neighbor_agreement,80,"(80, 10, 2)","(80, 10, 3)",all,89.72,9204
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,range,9.57,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,trend_up,-0.13,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,trend_down,-1.33,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,uncertain,-8.11,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,range,9.88,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,trend_up,-0.0,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,trend_down,-1.48,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,uncertain,-8.4,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,range,7.81,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,trend_up,-0.13,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,trend_down,-1.33,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,uncertain,-6.35,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,range,7.26,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,trend_up,-0.0,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,trend_down,-1.48,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,uncertain,-5.78,12759
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,range,13.25,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,trend_up,0.04,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,trend_down,-1.57,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,uncertain,-11.72,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,range,17.2,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,trend_up,0.14,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,trend_down,-1.49,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,uncertain,-15.85,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,range,10.72,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,trend_up,0.04,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,trend_down,-1.57,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,uncertain,-9.19,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,range,13.91,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,trend_up,0.14,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,trend_down,-1.49,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,uncertain,-12.56,12739
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,range,4.24,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,trend_up,-0.06,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,trend_down,-1.24,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,uncertain,-2.94,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,range,6.26,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,trend_up,0.04,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,trend_down,-1.29,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,uncertain,-5.0,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,range,9.07,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,trend_up,-0.06,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,trend_down,-1.24,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,uncertain,-7.78,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,range,13.53,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,trend_up,0.04,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,trend_down,-1.29,12699
+UNAC,1H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,uncertain,-12.28,12699

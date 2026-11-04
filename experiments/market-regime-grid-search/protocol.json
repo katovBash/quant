@@ -1,0 +1,42 @@
+{
+  "hypothesis": "Past-only range, upward and downward labels predict subsequent price behavior better than a simple baseline on the same ticker and sample",
+  "study": "forecast_only",
+  "protocol_version": 2,
+  "snapshot_universe": "data/moex_scan/universe_2026-10-30.json",
+  "timeframes": ["15M", "30M", "1H", "4H", "1D"],
+  "minute_source_for_short_frames": "data/moex_scan/minute_coverage.json",
+  "labels": ["range", "trend_up", "trend_down", "uncertain"],
+  "features": {
+    "range_bounds": "highest high and lowest low of the previous N closed bars; current bar excluded",
+    "range_width": "(resistance - support) / ATR(14); a range label also requires current close inside the frozen boundaries",
+    "direction": "(current close - close N bars ago) / ATR(14)",
+    "confirmation": "classification made only after the current bar is closed"
+  },
+  "grid": {
+    "lookback_bars": [20, 40, 80],
+    "max_range_width_atr": [6, 10],
+    "min_trend_displacement_atr": [2, 3],
+    "forward_horizon_bars": [5, 10, 20]
+  },
+  "forecast_targets": {
+    "range": "all next H closes stay inside support and resistance frozen at prediction time",
+    "trend_up": "close H bars later exceeds close at prediction time",
+    "trend_down": "close H bars later is below close at prediction time",
+    "uncertain": "no directional forecast; count its frequency"
+  },
+  "evaluation": [
+    "label frequency and forecast hit rate by ticker, timeframe, horizon and early/late sample",
+    "range baseline is the outcome frequency among all bars whose current close is inside the preceding range",
+    "up/down baseline is the unconditional outcome frequency among all valid bars",
+    "lift in percentage points against the relevant baseline",
+    "label stability across neighboring thresholds and time periods"
+  ],
+  "anti_overfit_rules": [
+    "no feature may use a candle after the classification time",
+    "forward outcomes are evaluation labels, never classifier inputs",
+    "holdout period and ticker set fixed before examining results",
+    "all parameter combinations and losses retained",
+    "overlapping forecast horizons are descriptive and not independent trials",
+    "no EMA, trading signal, position, or paper-account decision is included"
+  ]
+}

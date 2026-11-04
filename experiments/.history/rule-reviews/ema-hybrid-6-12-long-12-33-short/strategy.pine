@@ -1,0 +1,37 @@
+//@version=6
+strategy("MOEX · EMA6/12 long + EMA12/33 short", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+float ema6 = ta.ema(close, 6)
+float ema12 = ta.ema(close, 12)
+float ema33 = ta.ema(close, 33)
+
+bool longEntry = barstate.isconfirmed and ta.crossover(ema6, ema12)
+bool longExit = barstate.isconfirmed and ta.crossunder(ema6, ema12)
+bool shortEntry = barstate.isconfirmed and ta.crossunder(ema12, ema33)
+bool shortExit = barstate.isconfirmed and ta.crossover(ema12, ema33)
+float shares = math.floor(strategy.equity * 0.25 / close)
+
+// Opposing entry signals reverse the position at the next bar's open.
+// If both entries occur on the same bar, close and wait for a new signal.
+if longEntry and shortEntry
+    strategy.close_all(alert_message = "EMA mixed signal: flat {{ticker}} {{interval}}")
+else if longEntry and shares >= 1
+    strategy.entry("Long", strategy.long, qty = shares,
+         alert_message = "EMA6/12 LONG {{ticker}} {{interval}}")
+else if shortEntry and shares >= 1
+    strategy.entry("Short", strategy.short, qty = shares,
+         alert_message = "EMA12/33 SHORT {{ticker}} {{interval}}")
+else if strategy.position_size > 0 and longExit
+    strategy.close("Long", alert_message = "EMA6/12 EXIT LONG {{ticker}} {{interval}}")
+else if strategy.position_size < 0 and shortExit
+    strategy.close("Short", alert_message = "EMA12/33 EXIT SHORT {{ticker}} {{interval}}")
+
+plot(ema6, "EMA 6", color = color.fuchsia, linewidth = 2)
+plot(ema12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(ema33, "EMA 33", color = color.orange, linewidth = 2)
+plotshape(longEntry, "Long signal", shape.triangleup, location.belowbar, color.lime)
+plotshape(shortEntry, "Short signal", shape.triangledown, location.abovebar, color.red)

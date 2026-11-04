@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+SFIN,1D,cci_reversal-01,cci_reversal,"{""period"": 10, ""threshold"": 100}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,89,59,66.29,19.18,3.72,15.46,1.266,-25.44,38,25,9.01,1.295,-24.95
+SFIN,1D,cci_reversal-02,cci_reversal,"{""period"": 10, ""threshold"": 150}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,47,33,70.21,-45.96,3.72,-49.68,0.428,-58.81,26,19,-13.19,0.721,-32.38
+SFIN,1D,cci_reversal-03,cci_reversal,"{""period"": 14, ""threshold"": 100}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,61,39,63.93,26.28,3.72,22.56,1.503,-33.54,22,16,13.65,2.068,-22.47
+SFIN,1D,cci_reversal-04,cci_reversal,"{""period"": 14, ""threshold"": 150}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,39,29,74.36,-27.34,3.72,-31.06,0.583,-59.05,20,17,23.32,3.438,-22.46
+SFIN,1D,cci_reversal-05,cci_reversal,"{""period"": 20, ""threshold"": 100}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,45,28,62.22,19.42,3.72,15.7,1.452,-33.32,19,14,24.87,3.295,-21.51
+SFIN,1D,cci_reversal-06,cci_reversal,"{""period"": 20, ""threshold"": 150}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,31,24,77.42,23.68,3.72,19.96,1.664,-33.55,15,12,24.0,4.06,-18.71
+SFIN,1D,cci_reversal-07,cci_reversal,"{""period"": 30, ""threshold"": 100}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,35,26,74.29,27.46,3.72,23.74,1.69,-34.11,15,11,30.5,7.56,-18.91
+SFIN,1D,cci_reversal-08,cci_reversal,"{""period"": 30, ""threshold"": 150}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,25,19,76.0,26.63,3.72,22.91,1.703,-32.44,12,10,32.08,5.59,-18.66
+SFIN,1D,cci_reversal-09,cci_reversal,"{""period"": 40, ""threshold"": 100}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,30,23,76.67,54.76,3.72,51.04,2.434,-35.85,12,10,43.28,7.151,-15.95
+SFIN,1D,cci_reversal-10,cci_reversal,"{""period"": 40, ""threshold"": 150}",1332,2022-01-03 00:00:00,2026-10-30 00:00:00,19,13,68.42,41.14,3.72,37.42,2.475,-33.26,10,8,42.71,7.293,-16.31

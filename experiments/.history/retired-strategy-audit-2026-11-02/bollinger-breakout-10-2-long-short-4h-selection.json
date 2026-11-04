@@ -1,0 +1,151 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "bollinger-breakout-10-2-long-short-4h",
+  "experiment": "bollinger-grid-search",
+  "timeframe": "4H",
+  "selector": {
+    "rule_id": "bollinger_breakout-02"
+  },
+  "label": "Bollinger · пробой 10/2 · 4H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": 2.7,
+  "profitable_tickers": 143,
+  "liquid_screened_tickers": 31,
+  "top10": [
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 117.2,
+      "median_60d_turnover_rub": 1722642529.6,
+      "closed_trades": 105,
+      "late_trades": 78,
+      "late_return_pct": 70.28,
+      "profit_factor": 2.798,
+      "max_drawdown_pct": -9.88,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/SMLT.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 106.43,
+      "median_60d_turnover_rub": 81495708.7,
+      "closed_trades": 113,
+      "late_trades": 85,
+      "late_return_pct": 78.65,
+      "profit_factor": 2.383,
+      "max_drawdown_pct": -17.91,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/SFIN.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "UNAC",
+      "net_return_pct": 63.43,
+      "median_60d_turnover_rub": 49389439.5,
+      "closed_trades": 106,
+      "late_trades": 87,
+      "late_return_pct": 19.32,
+      "profit_factor": 2.055,
+      "max_drawdown_pct": -8.31,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/UNAC.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SGZH",
+      "net_return_pct": 62.13,
+      "median_60d_turnover_rub": 144048692.4,
+      "closed_trades": 113,
+      "late_trades": 81,
+      "late_return_pct": 35.4,
+      "profit_factor": 1.935,
+      "max_drawdown_pct": -15.27,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/SGZH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "MTLR",
+      "net_return_pct": 58.57,
+      "median_60d_turnover_rub": 362986945.21,
+      "closed_trades": 112,
+      "late_trades": 84,
+      "late_return_pct": 23.09,
+      "profit_factor": 2.03,
+      "max_drawdown_pct": -9.52,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/MTLR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "PLZL",
+      "net_return_pct": 49.57,
+      "median_60d_turnover_rub": 2069493565.6,
+      "closed_trades": 109,
+      "late_trades": 85,
+      "late_return_pct": 31.81,
+      "profit_factor": 2.011,
+      "max_drawdown_pct": -7.51,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/PLZL.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "MSNG",
+      "net_return_pct": 42.84,
+      "median_60d_turnover_rub": 59664999.0,
+      "closed_trades": 112,
+      "late_trades": 79,
+      "late_return_pct": 36.03,
+      "profit_factor": 2.17,
+      "max_drawdown_pct": -5.75,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/MSNG.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SVCB",
+      "net_return_pct": 41.5,
+      "median_60d_turnover_rub": 594926805.25,
+      "closed_trades": 100,
+      "late_trades": 76,
+      "late_return_pct": 14.57,
+      "profit_factor": 2.004,
+      "max_drawdown_pct": -7.13,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/SVCB.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "VTBR",
+      "net_return_pct": 39.36,
+      "median_60d_turnover_rub": 2461122346.65,
+      "closed_trades": 119,
+      "late_trades": 87,
+      "late_return_pct": 22.55,
+      "profit_factor": 1.899,
+      "max_drawdown_pct": -7.37,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/VTBR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SPBE",
+      "net_return_pct": 38.67,
+      "median_60d_turnover_rub": 563496560.55,
+      "closed_trades": 115,
+      "late_trades": 85,
+      "late_return_pct": 26.02,
+      "profit_factor": 1.449,
+      "max_drawdown_pct": -14.71,
+      "source_csv": "experiments/bollinger-grid-search/results/4H/SPBE.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "MSNG",
+    "MTLR",
+    "PLZL",
+    "SFIN",
+    "SGZH",
+    "SMLT",
+    "SPBE",
+    "SVCB",
+    "UNAC",
+    "VTBR"
+  ]
+}

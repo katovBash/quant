@@ -1,0 +1,561 @@
+{
+  "universe_tickers": 258,
+  "minute_cache_tickers": 0,
+  "experiments": {
+    "adx-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/adx-grid-search/results/manifest.json",
+      "source_progress": "experiments/adx-grid-search/results/progress.csv"
+    },
+    "bollinger-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/bollinger-grid-search/results/manifest.json",
+      "source_progress": "experiments/bollinger-grid-search/results/progress.csv"
+    },
+    "cci-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/cci-grid-search/results/manifest.json",
+      "source_progress": "experiments/cci-grid-search/results/progress.csv"
+    },
+    "donchian-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/donchian-grid-search/results/manifest.json",
+      "source_progress": "experiments/donchian-grid-search/results/progress.csv"
+    },
+    "double-indicator/sma-cross-sideways-filters-smlt-1h": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 1,
+          "recorded_runs": 1,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false
+        },
+        "1D": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false
+        }
+      },
+      "source_manifest": "experiments/double-indicator/sma-cross-sideways-filters-smlt-1h/results/manifest.json",
+      "source_progress": "experiments/double-indicator/sma-cross-sideways-filters-smlt-1h/results/progress.csv"
+    },
+    "ema-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 255,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/ema-grid-search/results/manifest.json",
+      "source_progress": "experiments/ema-grid-search/results/progress.csv"
+    },
+    "ema-levels-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/ema-levels-grid-search/results/manifest.json",
+      "source_progress": "experiments/ema-levels-grid-search/results/progress.csv"
+    },
+    "four-point-levels-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/four-point-levels-grid-search/results/manifest.json",
+      "source_progress": "experiments/four-point-levels-grid-search/results/progress.csv"
+    },
+    "macd-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/macd-grid-search/results/manifest.json",
+      "source_progress": "experiments/macd-grid-search/results/progress.csv"
+    },
+    "market-regime-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 258,
+          "configured_in_manifest": true,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 258,
+          "configured_in_manifest": true,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/market-regime-grid-search/results/manifest.json",
+      "source_progress": "experiments/market-regime-grid-search/results/progress.csv"
+    },
+    "patterns-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/patterns-grid-search/results/manifest.json",
+      "source_progress": "experiments/patterns-grid-search/results/progress.csv"
+    },
+    "roc-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/roc-grid-search/results/manifest.json",
+      "source_progress": "experiments/roc-grid-search/results/progress.csv"
+    },
+    "rsi-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/rsi-grid-search/results/manifest.json",
+      "source_progress": "experiments/rsi-grid-search/results/progress.csv"
+    },
+    "sma-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/sma-grid-search/results/manifest.json",
+      "source_progress": "experiments/sma-grid-search/results/progress.csv"
+    },
+    "williams-r-grid-search": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 0,
+          "configured_in_manifest": false,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258,
+          "configured_in_manifest": true
+        }
+      },
+      "source_manifest": "experiments/williams-r-grid-search/results/manifest.json",
+      "source_progress": "experiments/williams-r-grid-search/results/progress.csv"
+    },
+    "market-regime-transition": {
+      "frames": {
+        "15M": {
+          "completed_tickers": 0,
+          "recorded_runs": 258,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "30M": {
+          "completed_tickers": 0,
+          "recorded_runs": 258,
+          "minute_cache_tickers": 0,
+          "state": "awaiting_minute_candles"
+        },
+        "1H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258
+        },
+        "4H": {
+          "completed_tickers": 254,
+          "recorded_runs": 258
+        },
+        "1D": {
+          "completed_tickers": 251,
+          "recorded_runs": 258
+        }
+      },
+      "source_manifest": "experiments/market-regime-grid-search/transition_protocol.json",
+      "source_progress": "experiments/market-regime-grid-search/transition-results/progress.csv"
+    }
+  }
+}

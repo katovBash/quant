@@ -1,0 +1,32 @@
+//@version=6
+strategy("Turtle 55/20 · 1H · research review", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0,
+     slippage = 0, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+bool chartOk = timeframe.isintraday and timeframe.multiplier == 60
+bool active = time >= timestamp("Europe/Moscow", 2024, 1, 1, 0, 0)
+float entryHigh = ta.highest(high[1], 55)
+float entryLow = ta.lowest(low[1], 55)
+float exitHigh = ta.highest(high[1], 20)
+float exitLow = ta.lowest(low[1], 20)
+bool longSignal = chartOk and active and bar_index >= 55 and barstate.isconfirmed and close > entryHigh
+bool shortSignal = chartOk and active and bar_index >= 55 and barstate.isconfirmed and close < entryLow
+bool longExit = chartOk and active and barstate.isconfirmed and close < exitLow
+bool shortExit = chartOk and active and barstate.isconfirmed and close > exitHigh
+float shares = math.floor(strategy.equity * 0.25 / close)
+
+if longSignal and shares >= 1 and strategy.position_size <= 0
+    strategy.entry("Long", strategy.long, qty = shares)
+else if shortSignal and shares >= 1 and strategy.position_size >= 0
+    strategy.entry("Short", strategy.short, qty = shares)
+else if strategy.position_size > 0 and longExit
+    strategy.close("Long")
+else if strategy.position_size < 0 and shortExit
+    strategy.close("Short")
+
+plot(entryHigh, "55-bar high", color = color.new(color.teal, 20))
+plot(entryLow, "55-bar low", color = color.new(color.red, 20))
+plot(exitHigh, "20-bar high", color = color.new(color.teal, 75))
+plot(exitLow, "20-bar low", color = color.new(color.red, 75))

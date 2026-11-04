@@ -1,0 +1,21 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+FIXR,1D,bollinger_reversal-01,bollinger_reversal,"{""period"": 10, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,19,8,42.11,-17.7,-14.96,-2.74,0.278,-18.95,19,8,-17.7,0.278,-18.95
+FIXR,1D,bollinger_reversal-02,bollinger_reversal,"{""period"": 10, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,9,6,66.67,-15.35,-14.96,-0.39,0.33,-18.6,9,6,-15.35,0.33,-18.6
+FIXR,1D,bollinger_reversal-03,bollinger_reversal,"{""period"": 20, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,13,7,53.85,-8.64,-14.96,6.32,0.659,-15.93,13,7,-8.64,0.659,-15.93
+FIXR,1D,bollinger_reversal-04,bollinger_reversal,"{""period"": 20, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,7,5,71.43,-7.9,-14.96,7.06,0.679,-13.85,7,5,-7.9,0.679,-13.85
+FIXR,1D,bollinger_reversal-05,bollinger_reversal,"{""period"": 30, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,5,3,60.0,0.14,-14.96,15.1,2.813,-8.45,5,3,0.14,2.813,-8.45
+FIXR,1D,bollinger_reversal-06,bollinger_reversal,"{""period"": 30, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,5,2,40.0,-12.57,-14.96,2.39,0.24,-15.12,5,2,-12.57,0.24,-15.12
+FIXR,1D,bollinger_reversal-07,bollinger_reversal,"{""period"": 40, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,5,2,40.0,-12.89,-14.96,2.07,0.212,-16.21,5,2,-12.89,0.212,-16.21
+FIXR,1D,bollinger_reversal-08,bollinger_reversal,"{""period"": 40, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,5,4,80.0,4.22,-14.96,19.18,4.56,-8.43,5,4,4.22,4.56,-8.43
+FIXR,1D,bollinger_reversal-09,bollinger_reversal,"{""period"": 50, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,3,2,66.67,-4.55,-14.96,10.41,0.846,-10.06,3,2,-4.55,0.846,-10.06
+FIXR,1D,bollinger_reversal-10,bollinger_reversal,"{""period"": 50, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,2,2,100.0,6.4,-14.96,21.36,inf,-8.45,2,2,6.4,inf,-8.45
+FIXR,1D,bollinger_breakout-01,bollinger_breakout,"{""period"": 10, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,19,10,52.63,13.97,-14.96,28.93,2.165,-6.62,19,10,13.97,2.165,-6.62
+FIXR,1D,bollinger_breakout-02,bollinger_breakout,"{""period"": 10, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,9,3,33.33,10.19,-14.96,25.15,1.647,-7.17,9,3,10.19,1.647,-7.17
+FIXR,1D,bollinger_breakout-03,bollinger_breakout,"{""period"": 20, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,13,3,23.08,0.18,-14.96,15.14,0.71,-13.71,13,3,0.18,0.71,-13.71
+FIXR,1D,bollinger_breakout-04,bollinger_breakout,"{""period"": 20, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,7,3,42.86,7.6,-14.96,22.56,1.521,-7.87,7,3,7.6,1.521,-7.87
+FIXR,1D,bollinger_breakout-05,bollinger_breakout,"{""period"": 30, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,5,2,40.0,13.01,-14.96,27.97,4.108,-4.05,5,2,13.01,4.108,-4.05
+FIXR,1D,bollinger_breakout-06,bollinger_breakout,"{""period"": 30, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,5,2,40.0,9.9,-14.96,24.86,2.231,-6.29,5,2,9.9,2.231,-6.29
+FIXR,1D,bollinger_breakout-07,bollinger_breakout,"{""period"": 40, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,5,2,40.0,9.01,-14.96,23.97,1.888,-6.74,5,2,9.01,1.888,-6.74
+FIXR,1D,bollinger_breakout-08,bollinger_breakout,"{""period"": 40, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,5,1,20.0,-4.06,-14.96,10.9,0.3,-9.45,5,1,-4.06,0.3,-9.45
+FIXR,1D,bollinger_breakout-09,bollinger_breakout,"{""period"": 50, ""sigma"": 1.5}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,3,1,33.33,4.73,-14.96,19.69,1.244,-6.07,3,1,4.73,1.244,-6.07
+FIXR,1D,bollinger_breakout-10,bollinger_breakout,"{""period"": 50, ""sigma"": 2.0}",399,2025-08-20 00:00:00,2026-10-30 00:00:00,3,1,33.33,-0.2,-14.96,14.76,0.735,-6.14,3,1,-0.2,0.735,-6.14

@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+RTKM,1D,cci_reversal-01,cci_reversal,"{""period"": 10, ""threshold"": 100}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,93,58,62.37,19.17,-12.57,31.74,1.494,-8.82,38,25,8.78,1.645,-8.82
+RTKM,1D,cci_reversal-02,cci_reversal,"{""period"": 10, ""threshold"": 150}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,53,28,52.83,-12.14,-12.57,0.43,0.752,-17.14,24,12,-5.85,0.79,-12.01
+RTKM,1D,cci_reversal-03,cci_reversal,"{""period"": 14, ""threshold"": 100}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,63,34,53.97,-5.09,-12.57,7.48,0.917,-13.05,30,17,-1.03,1.04,-11.71
+RTKM,1D,cci_reversal-04,cci_reversal,"{""period"": 14, ""threshold"": 150}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,43,26,60.47,-9.53,-12.57,3.04,0.808,-19.21,22,14,-1.0,1.066,-9.84
+RTKM,1D,cci_reversal-05,cci_reversal,"{""period"": 20, ""threshold"": 100}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,43,24,55.81,-15.47,-12.57,-2.9,0.594,-23.22,22,15,2.59,1.202,-10.53
+RTKM,1D,cci_reversal-06,cci_reversal,"{""period"": 20, ""threshold"": 150}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,19,9,47.37,-22.79,-12.57,-10.22,0.322,-29.1,6,2,-13.04,0.037,-15.33
+RTKM,1D,cci_reversal-07,cci_reversal,"{""period"": 30, ""threshold"": 100}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,25,13,52.0,-24.82,-12.57,-12.25,0.326,-26.5,12,6,-7.52,0.569,-13.35
+RTKM,1D,cci_reversal-08,cci_reversal,"{""period"": 30, ""threshold"": 150}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,15,8,53.33,-19.69,-12.57,-7.12,0.354,-22.55,6,3,-7.44,0.293,-12.63
+RTKM,1D,cci_reversal-09,cci_reversal,"{""period"": 40, ""threshold"": 100}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,17,9,52.94,-20.5,-12.57,-7.93,0.362,-25.95,8,4,-2.0,0.803,-13.2
+RTKM,1D,cci_reversal-10,cci_reversal,"{""period"": 40, ""threshold"": 150}",1340,2022-01-03 00:00:00,2026-10-30 00:00:00,15,10,66.67,-3.4,-12.57,9.17,0.895,-13.34,6,5,-1.76,0.905,-10.53

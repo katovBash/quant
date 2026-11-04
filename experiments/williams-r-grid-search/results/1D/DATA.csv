@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+DATA,1D,williams_reversal-01,williams_reversal,"{""lower"": -80, ""period"": 7, ""upper"": -20}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,52,32,61.54,-2.44,-4.06,1.62,0.937,-13.7,49,31,-1.18,0.975,-12.47
+DATA,1D,williams_reversal-02,williams_reversal,"{""lower"": -90, ""period"": 7, ""upper"": -10}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,20,11,55.0,-1.86,-4.06,2.2,0.934,-13.05,18,10,-3.36,0.844,-10.05
+DATA,1D,williams_reversal-03,williams_reversal,"{""lower"": -80, ""period"": 10, ""upper"": -20}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,36,25,69.44,-3.28,-4.06,0.78,0.899,-12.07,35,25,2.46,1.141,-10.61
+DATA,1D,williams_reversal-04,williams_reversal,"{""lower"": -90, ""period"": 10, ""upper"": -10}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,18,11,61.11,0.02,-4.06,4.08,1.022,-13.47,17,11,0.16,1.033,-11.76
+DATA,1D,williams_reversal-05,williams_reversal,"{""lower"": -80, ""period"": 14, ""upper"": -20}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,19,10,52.63,-11.46,-4.06,-7.4,0.462,-20.36,18,9,-8.87,0.496,-17.1
+DATA,1D,williams_reversal-06,williams_reversal,"{""lower"": -90, ""period"": 14, ""upper"": -10}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,11,5,45.45,-5.17,-4.06,-1.11,0.67,-15.2,10,5,-3.98,0.681,-13.47
+DATA,1D,williams_reversal-07,williams_reversal,"{""lower"": -80, ""period"": 21, ""upper"": -20}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,15,8,53.33,-13.54,-4.06,-9.48,0.39,-23.03,14,7,-12.02,0.38,-20.0
+DATA,1D,williams_reversal-08,williams_reversal,"{""lower"": -90, ""period"": 21, ""upper"": -10}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,9,5,55.56,-5.44,-4.06,-1.38,0.574,-20.89,8,5,-4.27,0.567,-19.29
+DATA,1D,williams_reversal-09,williams_reversal,"{""lower"": -80, ""period"": 30, ""upper"": -20}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,5,1,20.0,-20.81,-4.06,-16.75,0.072,-24.89,4,0,-18.74,0.0,-21.84
+DATA,1D,williams_reversal-10,williams_reversal,"{""lower"": -90, ""period"": 30, ""upper"": -10}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,5,1,20.0,-13.46,-4.06,-9.4,0.217,-22.12,4,1,-12.47,0.152,-20.61

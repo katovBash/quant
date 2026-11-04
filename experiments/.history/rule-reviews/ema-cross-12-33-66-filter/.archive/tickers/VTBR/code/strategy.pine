@@ -1,0 +1,77 @@
+//@version=6
+strategy("VTBR · EMA 12/33 + EMA66 filter", overlay = true, pyramiding = 0,
+     initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false)
+
+// Saved VTBR strategy: fixed entry mode on a 1D chart.
+string entryMode = "12/33 cross"
+string supportLine = "33"
+bool useWeekly = input.bool(false, "Фильтр 1W: EMA33 > EMA66")
+int lotSize = input.int(1, "Размер лота VTBR", minval = 1)
+float riskPercent = input.float(0.5, "Риск на сделку, %", minval = 0.1, maxval = 2.0, step = 0.1)
+float maxWeight = input.float(25.0, "Максимальная доля, %", minval = 1.0, maxval = 100.0)
+
+if not timeframe.isdaily
+    runtime.error("Выберите дневной график 1D.")
+if syminfo.ticker != "VTBR"
+    runtime.error("Стратегия рассчитана на российскую акцию VTBR.")
+
+float e12 = ta.ema(close, 12)
+float e33 = ta.ema(close, 33)
+float e66 = ta.ema(close, 66)
+float atr = ta.atr(14)
+
+// The previous completed week is stable on both historical and live bars.
+[w33, w66, wClose, wBar] = request.security(syminfo.tickerid, "W",
+     [ta.ema(close, 33)[1], ta.ema(close, 66)[1], close[1], bar_index[1]],
+     lookahead = barmerge.lookahead_on)
+bool weeklyOK = not useWeekly or (wBar >= 65 and w33 > w66 and wClose > w33)
+bool ready = bar_index >= 65 and not na(atr) and atr > 0 and weeklyOK
+
+// 12/33: faster signal inside the existing 33/66 uptrend.
+bool fastCross = ta.crossover(e12, e33) and e33 > e66 and close > e33
+// 33/66: slower regime-change signal, with 12 above 33 as confirmation.
+bool slowCross = ta.crossover(e33, e66) and e12 > e33 and close > e33
+// Support: a bullish candle tests the selected EMA and recovers above EMA12.
+float base = supportLine == "33" ? e33 : e66
+bool supportTouch = low <= base + 0.25 * atr and close > base and close > open
+bool supportBounce = supportTouch and close > e12 and e33 > e66 and
+     (supportLine == "33" ? e12 > e33 : true)
+bool selectedEntry = switch entryMode
+    "12/33 cross" => fastCross
+    "33/66 cross" => slowCross
+    => supportBounce
+bool entrySignal = barstate.isconfirmed and ready and selectedEntry and strategy.position_size == 0
+
+bool trendFailed = entryMode == "33/66 cross" ? e33 < e66 : e12 < e33
+bool exitSignal = barstate.isconfirmed and strategy.position_size > 0 and
+     (trendFailed or close < e66 or (useWeekly and not weeklyOK))
+
+var float stopLevel = na
+if entrySignal
+    float initialStop = close - 3.0 * atr
+    float maxByRisk = strategy.equity * riskPercent / 100.0 / (3.0 * atr)
+    float maxByWeight = strategy.equity * maxWeight / 100.0 / close
+    float qty = math.floor(math.min(maxByRisk, maxByWeight) / lotSize) * lotSize
+    if initialStop > 0 and qty >= lotSize
+        stopLevel := initialStop
+        strategy.entry("Long", strategy.long, qty = qty, alert_message = "BUY")
+        strategy.exit("ATR stop", "Long", stop = stopLevel, alert_message = "STOP")
+
+if strategy.position_size > 0
+    stopLevel := math.max(nz(stopLevel, close - 3.0 * atr), close - 3.0 * atr)
+    strategy.exit("ATR stop", "Long", stop = stopLevel, alert_message = "STOP")
+    if exitSignal
+        strategy.close("Long", comment = "Trend exit", alert_message = "SELL")
+if strategy.position_size == 0 and strategy.position_size[1] > 0
+    stopLevel := na
+
+plot(e12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(e33, "EMA 33", color = color.orange, linewidth = 2)
+plot(e66, "EMA 66", color = color.blue, linewidth = 2)
+plot(useWeekly ? w33 : na, "1W EMA 33, last closed", color = color.new(color.purple, 35), style = plot.style_stepline)
+plot(useWeekly ? w66 : na, "1W EMA 66, last closed", color = color.new(color.fuchsia, 35), style = plot.style_stepline)
+plot(strategy.position_size > 0 ? stopLevel : na, "ATR stop", color = color.red, style = plot.style_linebr)
+plotshape(entrySignal, "Buy signal", shape.triangleup, location.belowbar, color.lime, size = size.small)
+plotshape(exitSignal, "Sell signal", shape.triangledown, location.abovebar, color.red, size = size.small)

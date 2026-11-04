@@ -1,0 +1,25 @@
+{
+  "study": "range_to_breakout_forecast",
+  "status": "exploratory_after_first_regime_results",
+  "lookback_bars": 20,
+  "max_range_width_atr": 6,
+  "min_trend_displacement_atr": 2,
+  "forward_horizons_bars": [5, 10, 20],
+  "range_definition": "a zone starts at a past-only range label; its initial support/resistance are frozen and it stays active until a later close exits the frozen bounds",
+  "breakout_outcome": "first future close above frozen resistance or below frozen support; otherwise no breakout within H bars",
+  "features_at_prediction_time": {
+    "duration_days": "calendar days since the active frozen channel started",
+    "position_in_channel": "current close in lower, middle or upper third of frozen range",
+    "regression_channel_slope": "least-squares slope of previous 20 closes, normalized by current ATR",
+    "weekday": "weekday of the completed signal bar, Monday=0 through Sunday=6"
+  },
+  "slope_bins_atr_per_bar": [-0.05, 0.05],
+  "duration_bins_days": [1, 5],
+  "evaluation": "compare channel position with all range events; compare duration, slope and weekday both with all range events and with events in the same channel-position third, on the same ticker, timeframe, horizon and sample",
+  "limitations": [
+    "overlapping forecast horizons and repeated bars in one range episode are dependent",
+    "late sample dates were explored earlier in this repository and are not a blind holdout",
+    "day-of-week and duration are hypotheses to test; no pattern is assumed profitable",
+    "no EMA signal, trade execution or paper account is involved"
+  ]
+}

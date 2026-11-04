@@ -1,0 +1,128 @@
+//@version=6
+strategy("MRKU 4H · 26W volume zone proxy · review", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0,
+     slippage = 0, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+// Use on MOEX:MRKU, 4-hour chart. This recreates the experiment's coarse
+// daily-OHLCV allocation, not TradingView's built-in Volume Profile.
+bool chartOk = timeframe.isintraday and timeframe.multiplier == 240
+bool active = time >= timestamp("Europe/Moscow", 2024, 1, 1, 0, 0)
+
+// On the first 4H bar of each new day, the previous daily bar is complete.
+// The one-bar offset with lookahead_on keeps historical and live values causal.
+[priorLow, priorHigh, priorVolume, priorDay, priorWeek] = request.security(
+     syminfo.tickerid, "D", [low[1], high[1], volume[1], time[1], time("W")[1]],
+     lookahead = barmerge.lookahead_on)
+
+var array<float> dailyLows = array.new<float>()
+var array<float> dailyHighs = array.new<float>()
+var array<float> dailyVolumes = array.new<float>()
+var array<int> dailyWeeks = array.new<int>()
+var int lastStoredDay = na
+var float vah = na
+var float val = na
+var float poc = na
+
+if timeframe.change("D") and not na(priorDay) and (na(lastStoredDay) or priorDay > lastStoredDay)
+    array.push(dailyLows, priorLow)
+    array.push(dailyHighs, priorHigh)
+    array.push(dailyVolumes, priorVolume)
+    array.push(dailyWeeks, priorWeek)
+    lastStoredDay := priorDay
+
+// Recompute once per week from the last 26 completed weeks of daily bars.
+if timeframe.change("W")
+    vah := na
+    val := na
+    poc := na
+    int count = array.size(dailyWeeks)
+    int first = na
+    int weekCount = 0
+    int previousWeek = na
+    if count > 0
+        for reverseIndex = 0 to count - 1
+            int index = count - 1 - reverseIndex
+            int weekStamp = array.get(dailyWeeks, index)
+            if na(previousWeek) or weekStamp != previousWeek
+                weekCount += 1
+                previousWeek := weekStamp
+            if weekCount > 26
+                break
+            first := index
+    if weekCount == 26 and not na(first)
+        float minimum = array.get(dailyLows, first)
+        float maximum = array.get(dailyHighs, first)
+        for index = first to count - 1
+            minimum := math.min(minimum, array.get(dailyLows, index))
+            maximum := math.max(maximum, array.get(dailyHighs, index))
+        float binWidth = (maximum - minimum) / 48.0
+        if binWidth > 0
+            array<float> mass = array.new_float(48, 0.0)
+            for index = first to count - 1
+                float dayLow = array.get(dailyLows, index)
+                float dayHigh = array.get(dailyHighs, index)
+                float dayVolume = math.max(array.get(dailyVolumes, index), 0.0)
+                int lowBin = int(math.max(0, math.min(47, math.floor((dayLow - minimum) / binWidth))))
+                int highBin = int(math.max(0, math.min(47, math.floor((dayHigh - minimum) / binWidth))))
+                float share = dayVolume / (highBin - lowBin + 1)
+                for bin = lowBin to highBin
+                    array.set(mass, bin, array.get(mass, bin) + share)
+            float total = 0.0
+            float largest = -1.0
+            int pocBin = 0
+            for bin = 0 to 47
+                float amount = array.get(mass, bin)
+                total += amount
+                if amount > largest
+                    largest := amount
+                    pocBin := bin
+            if total > 0
+                int left = pocBin
+                int right = pocBin
+                float included = array.get(mass, pocBin)
+                for expansion = 0 to 47
+                    if included >= 0.70 * total or (left == 0 and right == 47)
+                        break
+                    float below = left > 0 ? array.get(mass, left - 1) : -1.0
+                    float above = right < 47 ? array.get(mass, right + 1) : -1.0
+                    if above >= below
+                        right += 1
+                        included += array.get(mass, right)
+                    else
+                        left -= 1
+                        included += array.get(mass, left)
+                val := minimum + (left + 0.5) * binWidth
+                vah := minimum + (right + 0.5) * binWidth
+                poc := minimum + (pocBin + 0.5) * binWidth
+
+// The Python experiment uses SMA(TR, 14), not Pine's default RMA ATR.
+float volatility = ta.sma(ta.tr(true), 14)
+float width = 0.5 * volatility
+bool valid = chartOk and active and bar_index >= 33 and not na(volatility) and volatility > 0
+bool rawLong = valid and not na(val) and low >= val - width and low <= val + width and close > val
+bool rawShort = valid and not na(vah) and high >= vah - width and high <= vah + width and close < vah
+bool longSignal = barstate.isconfirmed and rawLong and not rawLong[1] and not rawShort
+bool shortSignal = barstate.isconfirmed and rawShort and not rawShort[1] and not rawLong
+
+float ema25 = ta.ema(close, 25)
+bool emaUp = valid and low >= ema25 - width and low <= ema25 + width and close > ema25
+bool emaDown = valid and high >= ema25 - width and high <= ema25 + width and close < ema25
+bool emaLongExit = barstate.isconfirmed and emaUp and not emaUp[1] and not emaDown
+bool emaShortExit = barstate.isconfirmed and emaDown and not emaDown[1] and not emaUp
+
+float shares = math.floor(strategy.equity * 0.25 / close)
+if longSignal and shares >= 1
+    strategy.entry("Long", strategy.long, qty = shares)
+else if shortSignal and shares >= 1
+    strategy.entry("Short", strategy.short, qty = shares)
+else if strategy.position_size > 0 and emaShortExit
+    strategy.close("Long")
+else if strategy.position_size < 0 and emaLongExit
+    strategy.close("Short")
+
+plot(val, "26W VAL · support", color = color.teal, linewidth = 2, style = plot.style_stepline)
+plot(vah, "26W VAH · resistance", color = color.red, linewidth = 2, style = plot.style_stepline)
+plot(poc, "26W POC", color = color.new(color.yellow, 25), style = plot.style_stepline)
+plot(ema25, "EMA 25 · exit", color = color.orange)

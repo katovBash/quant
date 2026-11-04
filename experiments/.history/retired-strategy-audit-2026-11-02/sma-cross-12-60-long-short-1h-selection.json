@@ -1,0 +1,151 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "sma-cross-12-60-long-short-1h",
+  "experiment": "sma-grid-search",
+  "timeframe": "1H",
+  "selector": {
+    "rule_id": "sma_cross-06"
+  },
+  "label": "SMA 12/60 · пересечение · 1H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": -0.55,
+  "profitable_tickers": 124,
+  "liquid_screened_tickers": 34,
+  "top10": [
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 118.68,
+      "median_60d_turnover_rub": 1722642529.6,
+      "closed_trades": 267,
+      "late_trades": 181,
+      "late_return_pct": 93.85,
+      "profit_factor": 2.173,
+      "max_drawdown_pct": -6.33,
+      "source_csv": "experiments/sma-grid-search/results/1H/SMLT.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 103.53,
+      "median_60d_turnover_rub": 81495708.7,
+      "closed_trades": 242,
+      "late_trades": 182,
+      "late_return_pct": 68.72,
+      "profit_factor": 2.112,
+      "max_drawdown_pct": -10.88,
+      "source_csv": "experiments/sma-grid-search/results/1H/SFIN.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 86.74,
+      "median_60d_turnover_rub": 100576312.52,
+      "closed_trades": 274,
+      "late_trades": 200,
+      "late_return_pct": 60.3,
+      "profit_factor": 1.872,
+      "max_drawdown_pct": -10.59,
+      "source_csv": "experiments/sma-grid-search/results/1H/WUSH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SGZH",
+      "net_return_pct": 72.15,
+      "median_60d_turnover_rub": 144048692.4,
+      "closed_trades": 284,
+      "late_trades": 200,
+      "late_return_pct": 29.05,
+      "profit_factor": 1.687,
+      "max_drawdown_pct": -12.3,
+      "source_csv": "experiments/sma-grid-search/results/1H/SGZH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "MTLR",
+      "net_return_pct": 59.02,
+      "median_60d_turnover_rub": 362986945.21,
+      "closed_trades": 256,
+      "late_trades": 188,
+      "late_return_pct": 22.25,
+      "profit_factor": 1.632,
+      "max_drawdown_pct": -6.44,
+      "source_csv": "experiments/sma-grid-search/results/1H/MTLR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "UGLD",
+      "net_return_pct": 54.08,
+      "median_60d_turnover_rub": 114096216.0,
+      "closed_trades": 224,
+      "late_trades": 176,
+      "late_return_pct": 28.13,
+      "profit_factor": 1.672,
+      "max_drawdown_pct": -8.43,
+      "source_csv": "experiments/sma-grid-search/results/1H/UGLD.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "RUAL",
+      "net_return_pct": 52.8,
+      "median_60d_turnover_rub": 617176391.4,
+      "closed_trades": 246,
+      "late_trades": 164,
+      "late_return_pct": 41.73,
+      "profit_factor": 1.716,
+      "max_drawdown_pct": -8.5,
+      "source_csv": "experiments/sma-grid-search/results/1H/RUAL.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "UNAC",
+      "net_return_pct": 51.39,
+      "median_60d_turnover_rub": 49389439.5,
+      "closed_trades": 262,
+      "late_trades": 194,
+      "late_return_pct": 24.41,
+      "profit_factor": 1.489,
+      "max_drawdown_pct": -9.95,
+      "source_csv": "experiments/sma-grid-search/results/1H/UNAC.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "RAGR",
+      "net_return_pct": 49.42,
+      "median_60d_turnover_rub": 348623592.27,
+      "closed_trades": 170,
+      "late_trades": 170,
+      "late_return_pct": 49.42,
+      "profit_factor": 2.043,
+      "max_drawdown_pct": -6.86,
+      "source_csv": "experiments/sma-grid-search/results/1H/RAGR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "MAGN",
+      "net_return_pct": 44.62,
+      "median_60d_turnover_rub": 1064227069.55,
+      "closed_trades": 258,
+      "late_trades": 186,
+      "late_return_pct": 25.35,
+      "profit_factor": 1.573,
+      "max_drawdown_pct": -7.15,
+      "source_csv": "experiments/sma-grid-search/results/1H/MAGN.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "MAGN",
+    "MTLR",
+    "RAGR",
+    "RUAL",
+    "SFIN",
+    "SGZH",
+    "SMLT",
+    "UGLD",
+    "UNAC",
+    "WUSH"
+  ]
+}

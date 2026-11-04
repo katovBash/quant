@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+ASTR,1D,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,150,59,39.33,13.78,-13.32,27.1,1.23,-10.47,101,40,13.9,1.371,-8.21
+ASTR,1D,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,65,25,38.46,5.21,-13.32,18.53,1.123,-14.53,36,14,6.97,1.273,-11.11
+ASTR,1D,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,105,44,41.9,13.15,-13.32,26.47,1.249,-11.48,69,30,13.69,1.418,-8.19
+ASTR,1D,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,63,26,41.27,1.08,-13.32,14.4,1.018,-14.09,40,17,0.94,1.023,-10.29
+ASTR,1D,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,89,27,30.34,-8.0,-13.32,5.32,0.808,-16.83,55,18,0.7,1.025,-11.85
+ASTR,1D,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,47,17,36.17,-0.75,-13.32,12.57,0.98,-10.86,32,11,-1.87,0.929,-10.76
+ASTR,1D,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,55,18,32.73,7.91,-13.32,21.23,1.271,-9.4,36,12,5.3,1.256,-9.4
+ASTR,1D,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,31,12,38.71,1.64,-13.32,14.96,1.064,-11.21,22,8,-1.47,0.924,-11.21
+ASTR,1D,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,45,12,26.67,-3.61,-13.32,9.71,0.889,-15.96,28,7,0.74,1.047,-9.78
+ASTR,1D,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",908,2023-10-13 00:00:00,2026-10-30 00:00:00,26,9,34.62,-3.36,-13.32,9.96,0.875,-17.37,16,6,-1.17,0.934,-10.83

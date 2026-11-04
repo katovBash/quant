@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+DATA,1D,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,103,34,33.01,-5.93,-4.06,-1.87,0.866,-16.78,95,32,-2.31,0.943,-15.53
+DATA,1D,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,42,19,45.24,15.91,-4.06,19.97,1.553,-6.69,39,18,14.91,1.56,-6.69
+DATA,1D,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,85,27,31.76,-6.32,-4.06,-2.26,0.825,-19.58,79,24,-4.5,0.857,-19.09
+DATA,1D,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,46,19,41.3,9.6,-4.06,13.66,1.333,-8.27,41,16,12.87,1.541,-7.87
+DATA,1D,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,49,17,34.69,4.4,-4.06,8.46,1.174,-7.51,46,16,2.32,1.1,-7.51
+DATA,1D,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,30,12,40.0,10.45,-4.06,14.51,1.474,-7.5,29,12,9.32,1.476,-7.5
+DATA,1D,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,31,12,38.71,9.88,-4.06,13.94,1.568,-8.36,30,11,2.95,1.162,-8.36
+DATA,1D,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,13,7,53.85,16.17,-4.06,20.23,2.355,-7.72,12,6,12.35,2.055,-7.72
+DATA,1D,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,18,8,44.44,16.54,-4.06,20.6,3.095,-7.08,17,7,11.93,2.486,-7.08
+DATA,1D,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",654,2024-10-01 00:00:00,2026-10-30 00:00:00,10,6,60.0,16.15,-4.06,20.21,3.152,-7.08,9,5,11.55,2.509,-7.08

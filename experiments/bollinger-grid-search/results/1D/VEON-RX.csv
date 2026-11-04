@@ -1,0 +1,21 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+VEON-RX,1D,bollinger_reversal-01,bollinger_reversal,"{""period"": 10, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,55,29,52.73,-72.68,-8.62,-64.06,0.309,-81.56,18,10,-44.63,0.259,-46.73
+VEON-RX,1D,bollinger_reversal-02,bollinger_reversal,"{""period"": 10, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,23,14,60.87,-75.54,-8.62,-66.92,0.145,-89.4,10,7,-32.78,0.412,-46.73
+VEON-RX,1D,bollinger_reversal-03,bollinger_reversal,"{""period"": 20, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,27,14,51.85,-73.82,-8.62,-65.2,0.127,-87.27,10,5,-40.88,0.225,-49.51
+VEON-RX,1D,bollinger_reversal-04,bollinger_reversal,"{""period"": 20, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,17,6,35.29,-76.4,-8.62,-67.78,0.029,-94.18,6,1,-30.94,0.023,-35.9
+VEON-RX,1D,bollinger_reversal-05,bollinger_reversal,"{""period"": 30, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,15,3,20.0,-80.88,-8.62,-72.26,0.042,-90.78,6,1,-46.81,0.048,-50.73
+VEON-RX,1D,bollinger_reversal-06,bollinger_reversal,"{""period"": 30, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,15,7,46.67,-59.12,-8.62,-50.5,0.132,-86.61,6,3,-23.43,0.323,-49.51
+VEON-RX,1D,bollinger_reversal-07,bollinger_reversal,"{""period"": 40, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,13,5,38.46,-74.94,-8.62,-66.32,0.072,-92.42,6,2,-43.32,0.054,-52.39
+VEON-RX,1D,bollinger_reversal-08,bollinger_reversal,"{""period"": 40, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,13,6,46.15,-55.36,-8.62,-46.74,0.153,-87.08,6,3,-23.63,0.294,-50.73
+VEON-RX,1D,bollinger_reversal-09,bollinger_reversal,"{""period"": 50, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,13,5,38.46,-73.72,-8.62,-65.1,0.077,-92.25,6,2,-38.52,0.086,-48.34
+VEON-RX,1D,bollinger_reversal-10,bollinger_reversal,"{""period"": 50, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,13,8,61.54,-51.88,-8.62,-43.26,0.22,-86.3,6,4,-22.36,0.382,-50.73
+VEON-RX,1D,bollinger_breakout-01,bollinger_breakout,"{""period"": 10, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,55,18,32.73,84.93,-8.62,93.55,1.741,-25.11,18,8,44.32,2.126,-22.08
+VEON-RX,1D,bollinger_breakout-02,bollinger_breakout,"{""period"": 10, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,23,10,43.48,124.14,-8.62,132.76,2.732,-28.65,10,4,32.78,1.807,-26.08
+VEON-RX,1D,bollinger_breakout-03,bollinger_breakout,"{""period"": 20, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,27,14,51.85,159.12,-8.62,167.74,4.802,-18.7,10,6,54.39,5.139,-14.97
+VEON-RX,1D,bollinger_breakout-04,bollinger_breakout,"{""period"": 20, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,17,9,52.94,172.79,-8.62,181.41,8.634,-28.04,6,4,35.58,6.67,-22.26
+VEON-RX,1D,bollinger_breakout-05,bollinger_breakout,"{""period"": 30, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,15,10,66.67,186.1,-8.62,194.72,13.312,-18.28,6,5,50.68,16.686,-14.61
+VEON-RX,1D,bollinger_breakout-06,bollinger_breakout,"{""period"": 30, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,15,6,40.0,68.86,-8.62,77.48,2.409,-38.51,6,2,9.55,0.9,-32.1
+VEON-RX,1D,bollinger_breakout-07,bollinger_breakout,"{""period"": 40, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,13,9,69.23,135.84,-8.62,144.46,9.879,-21.18,6,5,45.62,10.339,-17.93
+VEON-RX,1D,bollinger_breakout-08,bollinger_breakout,"{""period"": 40, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,13,6,46.15,60.14,-8.62,68.76,2.693,-35.35,6,2,7.79,1.037,-31.49
+VEON-RX,1D,bollinger_breakout-09,bollinger_breakout,"{""period"": 50, ""sigma"": 1.5}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,13,8,61.54,109.23,-8.62,117.85,6.42,-24.6,6,4,33.58,4.667,-20.38
+VEON-RX,1D,bollinger_breakout-10,bollinger_breakout,"{""period"": 50, ""sigma"": 2.0}",1205,2022-01-03 00:00:00,2026-10-30 00:00:00,13,6,46.15,52.34,-8.62,60.96,2.496,-36.67,6,2,6.02,0.921,-32.61

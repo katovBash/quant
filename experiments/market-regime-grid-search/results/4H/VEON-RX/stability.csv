@@ -1,0 +1,73 @@
+symbol,timeframe,sample,comparison,lookback,setting_a,setting_b,label,value_pct,observations
+VEON-RX,4H,train,neighbor_agreement,20,"(20, 6, 2)","(20, 6, 3)",all,85.22,697
+VEON-RX,4H,holdout,neighbor_agreement,20,"(20, 6, 2)","(20, 6, 3)",all,85.3,1279
+VEON-RX,4H,train,neighbor_agreement,20,"(20, 6, 2)","(20, 10, 2)",all,95.12,697
+VEON-RX,4H,holdout,neighbor_agreement,20,"(20, 6, 2)","(20, 10, 2)",all,95.47,1279
+VEON-RX,4H,train,neighbor_agreement,20,"(20, 6, 3)","(20, 10, 3)",all,92.25,697
+VEON-RX,4H,holdout,neighbor_agreement,20,"(20, 6, 3)","(20, 10, 3)",all,91.4,1279
+VEON-RX,4H,train,neighbor_agreement,20,"(20, 10, 2)","(20, 10, 3)",all,82.35,697
+VEON-RX,4H,holdout,neighbor_agreement,20,"(20, 10, 2)","(20, 10, 3)",all,81.24,1279
+VEON-RX,4H,train,neighbor_agreement,40,"(40, 6, 2)","(40, 6, 3)",all,93.65,677
+VEON-RX,4H,holdout,neighbor_agreement,40,"(40, 6, 2)","(40, 6, 3)",all,90.54,1279
+VEON-RX,4H,train,neighbor_agreement,40,"(40, 6, 2)","(40, 10, 2)",all,79.91,677
+VEON-RX,4H,holdout,neighbor_agreement,40,"(40, 6, 2)","(40, 10, 2)",all,86.4,1279
+VEON-RX,4H,train,neighbor_agreement,40,"(40, 6, 3)","(40, 10, 3)",all,70.01,677
+VEON-RX,4H,holdout,neighbor_agreement,40,"(40, 6, 3)","(40, 10, 3)",all,79.44,1279
+VEON-RX,4H,train,neighbor_agreement,40,"(40, 10, 2)","(40, 10, 3)",all,83.75,677
+VEON-RX,4H,holdout,neighbor_agreement,40,"(40, 10, 2)","(40, 10, 3)",all,83.58,1279
+VEON-RX,4H,train,neighbor_agreement,80,"(80, 6, 2)","(80, 6, 3)",all,98.74,637
+VEON-RX,4H,holdout,neighbor_agreement,80,"(80, 6, 2)","(80, 6, 3)",all,98.83,1279
+VEON-RX,4H,train,neighbor_agreement,80,"(80, 6, 2)","(80, 10, 2)",all,89.01,637
+VEON-RX,4H,holdout,neighbor_agreement,80,"(80, 6, 2)","(80, 10, 2)",all,90.62,1279
+VEON-RX,4H,train,neighbor_agreement,80,"(80, 6, 3)","(80, 10, 3)",all,81.48,637
+VEON-RX,4H,holdout,neighbor_agreement,80,"(80, 6, 3)","(80, 10, 3)",all,83.66,1279
+VEON-RX,4H,train,neighbor_agreement,80,"(80, 10, 2)","(80, 10, 3)",all,91.21,637
+VEON-RX,4H,holdout,neighbor_agreement,80,"(80, 10, 2)","(80, 10, 3)",all,91.87,1279
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,range,-2.42,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,trend_up,0.14,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,trend_down,-0.42,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,uncertain,2.7,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,range,-2.9,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,trend_up,0.02,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,trend_down,-0.71,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,uncertain,3.58,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,range,-2.76,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,trend_up,0.14,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,trend_down,-0.42,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,uncertain,3.04,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,range,-2.05,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,trend_up,0.02,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,trend_down,-0.71,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,uncertain,2.73,1976
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,range,3.19,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,trend_up,0.03,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,trend_down,-0.54,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,uncertain,-2.68,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,range,6.09,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,trend_up,0.02,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,trend_down,-0.73,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,uncertain,-5.37,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,range,-3.3,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,trend_up,0.03,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,trend_down,-0.54,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,uncertain,3.8,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,range,-3.34,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,trend_up,0.02,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,trend_down,-0.73,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,uncertain,4.05,1956
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,range,0.69,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,trend_up,0.07,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,trend_down,-1.03,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,uncertain,0.26,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,range,0.92,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,trend_up,0.23,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,trend_down,-0.87,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,uncertain,-0.28,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,range,-0.91,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,trend_up,0.07,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,trend_down,-1.03,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,uncertain,1.87,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,range,-1.26,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,trend_up,0.23,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,trend_down,-0.87,1916
+VEON-RX,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,uncertain,1.9,1916

@@ -1,0 +1,94 @@
+{
+  "id": "dennis-turtle-55-20-1h",
+  "timeframe": "1H",
+  "snapshot": "2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "gross_before_costs",
+  "selection_rule": "33 full months, >=100 closed trades, positive full-period PnL; rank by positive months, then full-period PnL",
+  "top10": [
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 152.05,
+      "closed_trades": 115,
+      "positive_months": 27,
+      "months": 33,
+      "worst_month_pnl_rub": -48900.0
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 72.46,
+      "closed_trades": 125,
+      "positive_months": 26,
+      "months": 33,
+      "worst_month_pnl_rub": -36349.54
+    },
+    {
+      "symbol": "MTLR",
+      "net_return_pct": 44.63,
+      "closed_trades": 149,
+      "positive_months": 25,
+      "months": 33,
+      "worst_month_pnl_rub": -55407.04
+    },
+    {
+      "symbol": "EUTR",
+      "net_return_pct": 32.05,
+      "closed_trades": 113,
+      "positive_months": 24,
+      "months": 33,
+      "worst_month_pnl_rub": -54508.95
+    },
+    {
+      "symbol": "NLMK",
+      "net_return_pct": 27.98,
+      "closed_trades": 171,
+      "positive_months": 24,
+      "months": 33,
+      "worst_month_pnl_rub": -39541.5
+    },
+    {
+      "symbol": "LKOH",
+      "net_return_pct": 13.96,
+      "closed_trades": 169,
+      "positive_months": 24,
+      "months": 33,
+      "worst_month_pnl_rub": -27557.0
+    },
+    {
+      "symbol": "SVCB",
+      "net_return_pct": 12.33,
+      "closed_trades": 140,
+      "positive_months": 24,
+      "months": 33,
+      "worst_month_pnl_rub": -40981.06
+    },
+    {
+      "symbol": "IRKT",
+      "net_return_pct": 67.64,
+      "closed_trades": 123,
+      "positive_months": 23,
+      "months": 33,
+      "worst_month_pnl_rub": -66798.0
+    },
+    {
+      "symbol": "MRKC",
+      "net_return_pct": 44.78,
+      "closed_trades": 109,
+      "positive_months": 23,
+      "months": 33,
+      "worst_month_pnl_rub": -37923.27
+    },
+    {
+      "symbol": "ROSN",
+      "net_return_pct": 22.71,
+      "closed_trades": 153,
+      "positive_months": 23,
+      "months": 33,
+      "worst_month_pnl_rub": -36901.25
+    }
+  ],
+  "tested_tickers": 263,
+  "profitable_tickers": 164,
+  "median_return_pct": 2.65,
+  "limitation": "История до расходов, 25% на позицию; paper 10% с расходами. SFIN может искажаться корпоративными событиями; все пары требуют новой проверки."
+}

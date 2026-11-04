@@ -1,0 +1,13 @@
+symbol,timeframe,sample,comparison,lookback,setting_a,setting_b,label,value_pct,observations
+CNRU,1D,holdout,neighbor_agreement,20,"(20, 6, 2)","(20, 6, 3)",all,78.5,493
+CNRU,1D,holdout,neighbor_agreement,20,"(20, 6, 2)","(20, 10, 2)",all,99.39,493
+CNRU,1D,holdout,neighbor_agreement,20,"(20, 6, 3)","(20, 10, 3)",all,97.36,493
+CNRU,1D,holdout,neighbor_agreement,20,"(20, 10, 2)","(20, 10, 3)",all,76.47,493
+CNRU,1D,holdout,neighbor_agreement,40,"(40, 6, 2)","(40, 6, 3)",all,90.91,473
+CNRU,1D,holdout,neighbor_agreement,40,"(40, 6, 2)","(40, 10, 2)",all,90.06,473
+CNRU,1D,holdout,neighbor_agreement,40,"(40, 6, 3)","(40, 10, 3)",all,86.05,473
+CNRU,1D,holdout,neighbor_agreement,40,"(40, 10, 2)","(40, 10, 3)",all,86.89,473
+CNRU,1D,holdout,neighbor_agreement,80,"(80, 6, 2)","(80, 6, 3)",all,97.46,433
+CNRU,1D,holdout,neighbor_agreement,80,"(80, 6, 2)","(80, 10, 2)",all,89.38,433
+CNRU,1D,holdout,neighbor_agreement,80,"(80, 6, 3)","(80, 10, 3)",all,78.98,433
+CNRU,1D,holdout,neighbor_agreement,80,"(80, 10, 2)","(80, 10, 3)",all,87.07,433

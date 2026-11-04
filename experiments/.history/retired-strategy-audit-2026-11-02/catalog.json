@@ -1,0 +1,151 @@
+{
+  "source_snapshot": "2026-10-30",
+  "rules": [
+    {
+      "id": "adx-di-14-20-long-short-1h",
+      "experiment": "adx-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "adx_di_14_20",
+        "mode": "long_short"
+      },
+      "label": "ADX +DI/−DI 14/20 · 1H"
+    },
+    {
+      "id": "bollinger-breakout-10-2-long-short-4h",
+      "experiment": "bollinger-grid-search",
+      "timeframe": "4H",
+      "selector": {
+        "rule_id": "bollinger_breakout-02"
+      },
+      "label": "Bollinger · пробой 10/2 · 4H"
+    },
+    {
+      "id": "breakout-20-long-short-1h",
+      "experiment": "patterns-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "breakout_20",
+        "mode": "long_short"
+      },
+      "label": "Пробой диапазона 20 свечей · 1H"
+    },
+    {
+      "id": "cci-reversal-10-100-long-short-4h",
+      "experiment": "cci-grid-search",
+      "timeframe": "4H",
+      "selector": {
+        "rule_id": "cci_reversal-01"
+      },
+      "label": "CCI 10/100 · разворот · 4H"
+    },
+    {
+      "id": "donchian-breakout-20-long-short-1h",
+      "experiment": "donchian-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "rule_id": "donchian_breakout-04"
+      },
+      "label": "Donchian 20 · пробой · 1H"
+    },
+    {
+      "id": "ema-cross-12-33-long-short-1h",
+      "experiment": "ema-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "fast": "12",
+        "slow": "33",
+        "mode": "long_short"
+      },
+      "label": "EMA 12/33 · пересечение · 1H"
+    },
+    {
+      "id": "ema-cross-13-48-long-short-1h",
+      "experiment": "ema-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "fast": "13",
+        "slow": "48",
+        "mode": "long_short"
+      },
+      "label": "EMA 13/48 · пересечение · 1H"
+    },
+    {
+      "id": "ema-level-25-atr05-long-short-1d",
+      "experiment": "ema-levels-grid-search",
+      "timeframe": "1D",
+      "selector": {
+        "variant": "ema_level_25_0.5",
+        "mode": "long_short"
+      },
+      "label": "EMA 25 · зона 0,5 ATR · 1D"
+    },
+    {
+      "id": "ema-level-45-atr025-long-short-1h",
+      "experiment": "ema-levels-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "ema_level_45_0.25",
+        "mode": "long_short"
+      },
+      "label": "EMA 45 · зона 0,25 ATR · 1H"
+    },
+    {
+      "id": "ema-level-79-atr025-long-short-1h",
+      "experiment": "ema-levels-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "ema_level_79_0.25",
+        "mode": "long_short"
+      },
+      "label": "EMA 79 · зона 0,25 ATR · 1H"
+    },
+    {
+      "id": "ema-level-94-atr05-long-short-1h",
+      "experiment": "ema-levels-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "ema_level_94_0.5",
+        "mode": "long_short"
+      },
+      "label": "EMA 94 · зона 0,5 ATR · 1H"
+    },
+    {
+      "id": "four-point-levels-5-1p5-long-short-1h",
+      "experiment": "four-point-levels-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "four_points_5_1.5",
+        "mode": "long_short"
+      },
+      "label": "Четырёхточечные уровни 5/1,5 · 1H"
+    },
+    {
+      "id": "rsi-21-60-40-long-short-1h",
+      "experiment": "rsi-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "rsi_21_60_40",
+        "mode": "long_short"
+      },
+      "label": "RSI 21 · уровни 60/40 · 1H"
+    },
+    {
+      "id": "sma-cross-12-60-long-short-1h",
+      "experiment": "sma-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "rule_id": "sma_cross-06"
+      },
+      "label": "SMA 12/60 · пересечение · 1H"
+    },
+    {
+      "id": "sma-cross-10-59-atr025-long-short-1h",
+      "experiment": "double-indicator/sma-cross-sideways-filters-smlt-1h",
+      "timeframe": "1H",
+      "selector": null,
+      "limitation": "Перебор только на SMLT; сопоставимого расчёта той же пары по другим акциям нет.",
+      "label": "SMA 10/59 · зона 0,25 ATR · 1H"
+    }
+  ]
+}

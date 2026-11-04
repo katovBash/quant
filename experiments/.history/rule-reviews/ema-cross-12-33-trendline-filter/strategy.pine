@@ -1,0 +1,56 @@
+//@version=6
+strategy("MOEX · EMA12/33 long + short · confirmed trendlines", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+float ema12 = ta.ema(close, 12)
+float ema33 = ta.ema(close, 33)
+float pivotHigh = ta.pivothigh(high, 3, 3)
+float pivotLow = ta.pivotlow(low, 3, 3)
+var int highBar1 = na
+var int highBar2 = na
+var int lowBar1 = na
+var int lowBar2 = na
+var float highPrice1 = na
+var float highPrice2 = na
+var float lowPrice1 = na
+var float lowPrice2 = na
+if barstate.isconfirmed and not na(pivotHigh)
+    highBar1 := highBar2
+    highPrice1 := highPrice2
+    highBar2 := bar_index - 3
+    highPrice2 := pivotHigh
+if barstate.isconfirmed and not na(pivotLow)
+    lowBar1 := lowBar2
+    lowPrice1 := lowPrice2
+    lowBar2 := bar_index - 3
+    lowPrice2 := pivotLow
+
+float resistance = not na(highBar1) and not na(highBar2) ? highPrice2 + (highPrice2 - highPrice1) * (bar_index - highBar2) / (highBar2 - highBar1) : na
+float support = not na(lowBar1) and not na(lowBar2) ? lowPrice2 + (lowPrice2 - lowPrice1) * (bar_index - lowBar2) / (lowBar2 - lowBar1) : na
+bool crossUp = barstate.isconfirmed and ta.crossover(ema12, ema33)
+bool crossDown = barstate.isconfirmed and ta.crossunder(ema12, ema33)
+bool allowLong = not na(resistance) and close > resistance
+bool allowShort = not na(support) and close < support
+float shares = math.floor(strategy.equity * 0.25 / close)
+
+// Only confirmed pivots are used; the EMA cross always exits the old position.
+if crossUp
+    if allowLong and shares >= 1
+        strategy.entry("Long", strategy.long, qty = shares,
+             alert_message = "EMA12/33 TRENDLINE LONG {{ticker}} {{interval}}")
+    else if strategy.position_size < 0
+        strategy.close("Short", alert_message = "EMA12/33 TRENDLINE CLOSE SHORT {{ticker}} {{interval}}")
+if crossDown
+    if allowShort and shares >= 1
+        strategy.entry("Short", strategy.short, qty = shares,
+             alert_message = "EMA12/33 TRENDLINE SHORT {{ticker}} {{interval}}")
+    else if strategy.position_size > 0
+        strategy.close("Long", alert_message = "EMA12/33 TRENDLINE CLOSE LONG {{ticker}} {{interval}}")
+
+plot(ema12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(ema33, "EMA 33", color = color.orange, linewidth = 2)
+plot(resistance, "Confirmed pivot resistance", color = color.red)
+plot(support, "Confirmed pivot support", color = color.lime)

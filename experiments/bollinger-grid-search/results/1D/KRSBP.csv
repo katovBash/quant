@@ -1,0 +1,21 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+KRSBP,1D,bollinger_reversal-01,bollinger_reversal,"{""period"": 10, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,59,33,55.93,-31.94,32.05,-63.99,0.45,-43.61,30,18,-2.17,0.849,-10.09
+KRSBP,1D,bollinger_reversal-02,bollinger_reversal,"{""period"": 10, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,39,20,51.28,-17.1,32.05,-49.15,0.631,-38.41,16,10,12.53,3.202,-7.81
+KRSBP,1D,bollinger_reversal-03,bollinger_reversal,"{""period"": 20, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,35,19,54.29,3.4,32.05,-28.65,1.089,-26.19,16,8,11.41,2.687,-5.01
+KRSBP,1D,bollinger_reversal-04,bollinger_reversal,"{""period"": 20, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,29,14,48.28,-3.83,32.05,-35.88,0.913,-23.09,12,6,0.44,1.065,-8.54
+KRSBP,1D,bollinger_reversal-05,bollinger_reversal,"{""period"": 30, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,35,20,57.14,25.85,32.05,-6.2,1.789,-14.46,16,9,7.37,1.814,-6.51
+KRSBP,1D,bollinger_reversal-06,bollinger_reversal,"{""period"": 30, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,27,20,74.07,-5.05,32.05,-37.1,0.886,-49.46,14,10,12.94,3.288,-5.51
+KRSBP,1D,bollinger_reversal-07,bollinger_reversal,"{""period"": 40, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,24,15,62.5,-7.79,32.05,-39.84,0.825,-49.46,14,8,11.93,2.183,-8.13
+KRSBP,1D,bollinger_reversal-08,bollinger_reversal,"{""period"": 40, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,16,8,50.0,-28.41,32.05,-60.46,0.337,-49.99,8,4,-1.83,0.842,-13.92
+KRSBP,1D,bollinger_reversal-09,bollinger_reversal,"{""period"": 50, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,16,9,56.25,-22.34,32.05,-54.39,0.448,-50.72,8,5,2.61,1.39,-11.4
+KRSBP,1D,bollinger_reversal-10,bollinger_reversal,"{""period"": 50, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,12,6,50.0,-16.12,32.05,-48.17,0.586,-49.99,6,2,-1.11,0.89,-12.74
+KRSBP,1D,bollinger_breakout-01,bollinger_breakout,"{""period"": 10, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,59,23,38.98,26.15,32.05,-5.9,1.588,-17.29,30,8,-5.64,0.676,-12.7
+KRSBP,1D,bollinger_breakout-02,bollinger_breakout,"{""period"": 10, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,39,19,48.72,0.15,32.05,-31.9,1.005,-22.39,16,6,-15.82,0.26,-22.39
+KRSBP,1D,bollinger_breakout-03,bollinger_breakout,"{""period"": 20, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,35,17,48.57,16.79,32.05,-15.26,1.585,-11.6,16,7,-4.24,0.626,-10.12
+KRSBP,1D,bollinger_breakout-04,bollinger_breakout,"{""period"": 20, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,29,12,41.38,0.95,32.05,-31.1,1.03,-18.77,12,4,-8.2,0.396,-11.43
+KRSBP,1D,bollinger_breakout-05,bollinger_breakout,"{""period"": 30, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,35,11,31.43,-8.85,32.05,-40.9,0.762,-18.3,16,3,-14.41,0.143,-16.98
+KRSBP,1D,bollinger_breakout-06,bollinger_breakout,"{""period"": 30, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,27,5,18.52,-19.43,32.05,-51.48,0.594,-29.66,14,3,-17.02,0.092,-19.79
+KRSBP,1D,bollinger_breakout-07,bollinger_breakout,"{""period"": 40, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,24,7,29.17,-9.19,32.05,-41.24,0.781,-27.38,14,3,-21.23,0.055,-22.47
+KRSBP,1D,bollinger_breakout-08,bollinger_breakout,"{""period"": 40, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,16,5,31.25,2.37,32.05,-29.68,1.079,-18.81,8,3,-5.71,0.546,-14.17
+KRSBP,1D,bollinger_breakout-09,bollinger_breakout,"{""period"": 50, ""sigma"": 1.5}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,16,6,37.5,18.79,32.05,-13.26,1.846,-17.78,8,3,-0.59,0.949,-7.85
+KRSBP,1D,bollinger_breakout-10,bollinger_breakout,"{""period"": 50, ""sigma"": 2.0}",1298,2022-01-03 00:00:00,2026-10-30 00:00:00,12,5,41.67,1.47,32.05,-30.58,1.052,-25.17,6,3,-0.92,0.909,-11.56

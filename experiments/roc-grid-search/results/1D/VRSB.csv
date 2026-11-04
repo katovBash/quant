@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+VRSB,1D,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,217,84,38.71,51.91,3.01,48.9,1.372,-14.58,87,34,1.46,1.046,-10.9
+VRSB,1D,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,114,41,35.96,36.25,3.01,33.24,1.298,-18.4,35,15,0.99,1.052,-8.55
+VRSB,1D,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,170,67,39.41,61.48,3.01,58.47,1.537,-14.89,71,27,7.34,1.285,-9.11
+VRSB,1D,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,95,38,40.0,49.47,3.01,46.46,1.463,-15.6,36,11,-2.09,0.931,-9.87
+VRSB,1D,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,118,41,34.75,79.25,3.01,76.24,1.65,-16.75,50,16,-3.31,0.879,-10.06
+VRSB,1D,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,73,29,39.73,60.77,3.01,57.76,1.55,-20.84,27,11,-2.17,0.931,-13.4
+VRSB,1D,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,81,27,33.33,58.16,3.01,55.15,1.891,-27.48,30,10,8.88,1.686,-8.42
+VRSB,1D,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,51,17,33.33,59.84,3.01,56.83,2.053,-26.33,18,8,15.11,2.617,-5.86
+VRSB,1D,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,44,16,36.36,74.51,3.01,71.5,2.644,-16.34,10,6,11.52,2.84,-5.37
+VRSB,1D,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",1312,2022-01-03 00:00:00,2026-10-30 00:00:00,33,12,36.36,73.17,3.01,70.16,3.039,-14.53,8,5,12.04,3.366,-6.47

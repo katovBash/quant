@@ -1,0 +1,10 @@
+//@version=6
+strategy("TEMPLATE · EMA strategy · fill rules before use", overlay = true, pyramiding = 0,
+     initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false)
+
+// TODO: define EMA periods, confirmed entry and exit rules, sizing and plots.
+// This template deliberately places no orders.
+if barstate.isfirst
+    runtime.error("Fill in the strategy rules before running this template.")

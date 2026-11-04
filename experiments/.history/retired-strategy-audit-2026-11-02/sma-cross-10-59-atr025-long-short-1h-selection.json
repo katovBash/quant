@@ -1,0 +1,17 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "sma-cross-10-59-atr025-long-short-1h",
+  "experiment": "double-indicator/sma-cross-sideways-filters-smlt-1h",
+  "timeframe": "1H",
+  "selector": null,
+  "limitation": "Перебор только на SMLT; сопоставимого расчёта той же пары по другим акциям нет.",
+  "label": "SMA 10/59 · зона 0,25 ATR · 1H",
+  "status": "NO_CROSS_TICKER_RESULTS",
+  "tested_tickers": 0,
+  "top10": [],
+  "active_paper_symbols": [
+    "SMLT"
+  ]
+}

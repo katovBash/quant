@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+STSB,1H,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,1017,290,28.52,-73.79,24.51,-98.3,0.599,-77.77,722,205,-62.39,0.57,-63.27
+STSB,1H,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,192,60,31.25,-38.42,24.51,-62.93,0.63,-40.9,132,40,-27.94,0.646,-30.43
+STSB,1H,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,861,243,28.22,-64.82,24.51,-89.33,0.621,-68.28,618,178,-47.47,0.664,-48.65
+STSB,1H,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,228,57,25.0,-60.12,24.51,-84.63,0.486,-64.79,159,35,-49.23,0.466,-51.59
+STSB,1H,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,600,191,31.83,-29.75,24.51,-54.26,0.808,-41.45,440,136,-17.32,0.853,-27.7
+STSB,1H,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,214,61,28.5,-37.03,24.51,-61.54,0.648,-41.45,143,46,-10.71,0.857,-21.66
+STSB,1H,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,417,128,30.7,-31.71,24.51,-56.22,0.73,-42.24,288,95,-3.05,0.961,-18.7
+STSB,1H,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,153,56,36.6,-2.54,24.51,-27.05,0.966,-23.63,109,41,9.91,1.132,-16.44
+STSB,1H,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,322,97,30.12,-15.76,24.51,-40.27,0.778,-38.56,226,69,14.68,1.087,-13.53
+STSB,1H,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",8090,2024-01-03 10:00:00,2026-10-30 23:00:00,122,47,38.52,12.2,24.51,-12.31,1.077,-28.08,81,35,29.04,1.477,-9.5

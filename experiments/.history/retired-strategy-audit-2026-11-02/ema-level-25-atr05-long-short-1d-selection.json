@@ -1,0 +1,35 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "ema-level-25-atr05-long-short-1d",
+  "experiment": "ema-levels-grid-search",
+  "timeframe": "1D",
+  "selector": {
+    "variant": "ema_level_25_0.5",
+    "mode": "long_short"
+  },
+  "label": "EMA 25 · зона 0,5 ATR · 1D",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 251,
+  "median_return_pct": 18.32,
+  "profitable_tickers": 204,
+  "liquid_screened_tickers": 1,
+  "top10": [
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 34.89,
+      "median_60d_turnover_rub": 1722642529.6,
+      "closed_trades": 105,
+      "late_trades": 38,
+      "late_return_pct": 21.56,
+      "profit_factor": 1.597,
+      "max_drawdown_pct": -17.35,
+      "source_csv": "experiments/ema-levels-grid-search/results/1D/SMLT.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "SMLT"
+  ]
+}

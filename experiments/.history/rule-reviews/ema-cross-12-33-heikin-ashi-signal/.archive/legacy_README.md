@@ -1,0 +1,7 @@
+# EMA12/33 по Heikin Ashi, исполнение по обычным ценам
+
+Отдельная стратегия: EMA12 и EMA33 рассчитываются на синтетических **Heikin Ashi закрытиях**, но заявки оцениваются по **обычным OHLC**. На закрытом пересечении вверх открывается long и закрывается short; вниз — наоборот. Рыночная заявка исполняется на следующем баре. Размер — 25% капитала; 1 млн ₽ начально, комиссия 0,05% за сторону и проскальзывание 1 тик.
+
+[Pine для TradingView](../strategy.pine) можно поставить на **обычный свечной график**: он сам запрашивает HA-сигнал. Если запускать на HA-графике, в свойствах должна быть включена опция `Using standard OHLC` / `Standard bars`; файл также задаёт `fill_orders_on_standard_ohlc = true`. Без неё Strategy Tester использует синтетические цены HA, которые нельзя получить обычным ордером. [Документация TradingView](https://www.tradingview.com/pine-script-docs/concepts/strategies/).
+
+[Результаты по всем доступным интервалам](../../../legacy-ema/12-33-cross/execute/variants/long-short/execute/variants/heikin-ashi-signal/execute/RESEARCH.md) · [полный CSV](../../../legacy-ema/12-33-cross/execute/variants/long-short/execute/variants/heikin-ashi-signal/execute/all_results.csv) · [тикеры](tickers/README.md) · [исторический отбор](success/README.md). В CSV отдельно показана диагностическая колонка синтетических исполнений. Она **не** используется для отбора paper trading. Отчёты Pine и локального симулятора ещё нужно сверить по сделкам; short без платы за заём и дивидендных обязательств.

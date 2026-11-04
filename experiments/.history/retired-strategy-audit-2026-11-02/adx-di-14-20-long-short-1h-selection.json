@@ -1,0 +1,61 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "adx-di-14-20-long-short-1h",
+  "experiment": "adx-grid-search",
+  "timeframe": "1H",
+  "selector": {
+    "variant": "adx_di_14_20",
+    "mode": "long_short"
+  },
+  "label": "ADX +DI/−DI 14/20 · 1H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": -23.55,
+  "profitable_tickers": 30,
+  "liquid_screened_tickers": 3,
+  "top10": [
+    {
+      "symbol": "PLZL",
+      "net_return_pct": 46.87,
+      "median_60d_turnover_rub": 2069493565.6,
+      "closed_trades": 422,
+      "late_trades": 281,
+      "late_return_pct": 35.4,
+      "profit_factor": 1.534,
+      "max_drawdown_pct": -7.1,
+      "source_csv": "experiments/adx-grid-search/results/1H/PLZL.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 33.86,
+      "median_60d_turnover_rub": 1722642529.6,
+      "closed_trades": 419,
+      "late_trades": 283,
+      "late_return_pct": 21.72,
+      "profit_factor": 1.22,
+      "max_drawdown_pct": -12.13,
+      "source_csv": "experiments/adx-grid-search/results/1H/SMLT.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SGZH",
+      "net_return_pct": 33.03,
+      "median_60d_turnover_rub": 144048692.4,
+      "closed_trades": 411,
+      "late_trades": 303,
+      "late_return_pct": 3.11,
+      "profit_factor": 1.205,
+      "max_drawdown_pct": -13.7,
+      "source_csv": "experiments/adx-grid-search/results/1H/SGZH.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "PLZL",
+    "SGZH",
+    "SMLT"
+  ]
+}

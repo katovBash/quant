@@ -1,0 +1,20 @@
+//@version=6
+strategy("MOEX · EMA 12/33 cross · any ticker/timeframe", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false)
+
+float ema12 = ta.ema(close, 12)
+float ema33 = ta.ema(close, 33)
+bool buySignal = barstate.isconfirmed and ta.crossover(ema12, ema33)
+bool sellSignal = barstate.isconfirmed and ta.crossunder(ema12, ema33)
+
+if buySignal and strategy.position_size == 0
+    float shares = math.floor(strategy.equity * 0.25 / close)
+    if shares >= 1
+        strategy.entry("Long", strategy.long, qty = shares, alert_message = "EMA12/33 BUY {{ticker}} {{interval}}")
+if sellSignal and strategy.position_size > 0
+    strategy.close("Long", alert_message = "EMA12/33 SELL {{ticker}} {{interval}}")
+
+plot(ema12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(ema33, "EMA 33", color = color.orange, linewidth = 2)

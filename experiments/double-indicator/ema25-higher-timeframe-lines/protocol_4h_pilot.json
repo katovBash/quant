@@ -1,0 +1,59 @@
+{
+  "frozen_on": "2026-11-02",
+  "source_snapshot": "2026-10-30",
+  "symbols": [
+    "SBER",
+    "GAZP"
+  ],
+  "universe_selection": "Same fixed 100-symbol liquidity and available-history cohort as protocol_full100_long_history.json; selected without this 4H-line result, but earlier 1D/1W and EMA results were seen",
+  "signal_timeframes": [
+    "1H",
+    "4H",
+    "1D"
+  ],
+  "unavailable_signal_timeframes": {
+    "15M": "no cached 1M candles",
+    "30M": "no cached 1M candles"
+  },
+  "higher_line_timeframes": [
+    "4H"
+  ],
+  "higher_line_source": "4H bars derived from cached 1H candles using four_hour; use only bars whose final 1H source candle precedes the signal candle start",
+  "higher_line_pivot_wings": [
+    1,
+    2
+  ],
+  "higher_line_max_pivot_age": 60,
+  "higher_line_rule": "last two confirmed high pivots form resistance and last two confirmed low pivots form support; right wing closed before the signal, projected one 4H bar ahead",
+  "ema_period": 25,
+  "ema_zone_atr": 0.5,
+  "higher_line_zone_atr": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "bend_bars": [
+    1,
+    3
+  ],
+  "entry": "EMA25 first-touch signal on closed signal-timeframe bar, near projected 4H support with EMA slope bending up for long or near resistance with EMA slope bending down for short; execute next open",
+  "exit": "opposite EMA25 first-touch signal closes current side even when 4H line blocks replacement entry",
+  "control": "same EMA25 0.5 ATR signal without 4H line filter, identical candles and costs",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "fee_bps_per_side": 5,
+  "slippage": "one tick per side",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "100 consecutive closed trades per stock/timeframe/variant; report every rolling window and nonoverlapping blocks with net PnL, wins, win rate, PF and elapsed days",
+  "calendar_reports": "monthly and yearly diagnostics only, not promotion gates",
+  "not_included": [
+    "short borrow",
+    "dividends",
+    "exchange lots",
+    "corporate actions"
+  ],
+  "candidate_policy": "no strategy or paper account without at least one complete 100-trade block, cost review and manual TradingView reconciliation",
+  "research_status": "exploratory because 4H-line hypothesis was chosen after earlier EMA25 line results were seen",
+  "pilot_of": "protocol_4h_lines.json"
+}

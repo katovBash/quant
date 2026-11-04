@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+CARM,1D,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,128,47,36.72,-1.43,-18.8,17.37,0.988,-13.31,69,25,3.29,1.093,-12.6
+CARM,1D,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,64,21,32.81,0.66,-18.8,19.46,0.941,-15.78,32,12,8.62,1.191,-13.02
+CARM,1D,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,99,42,42.42,38.73,-18.8,57.53,1.778,-8.48,58,25,30.14,2.072,-4.92
+CARM,1D,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,55,22,40.0,4.37,-18.8,23.17,1.03,-14.43,32,13,3.58,1.022,-14.43
+CARM,1D,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,67,24,35.82,14.85,-18.8,33.65,1.272,-15.53,33,13,16.65,1.709,-12.88
+CARM,1D,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,49,20,40.82,23.27,-18.8,42.07,1.566,-16.22,22,11,26.74,2.714,-9.12
+CARM,1D,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,43,15,34.88,22.88,-18.8,41.68,1.66,-9.63,24,9,16.03,1.674,-9.63
+CARM,1D,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,31,13,41.94,13.72,-18.8,32.52,1.379,-11.3,16,8,17.37,2.022,-9.34
+CARM,1D,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,30,10,33.33,7.99,-18.8,26.79,1.261,-11.5,16,6,13.68,2.242,-7.98
+CARM,1D,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",978,2023-07-03 00:00:00,2026-10-30 00:00:00,20,9,45.0,5.67,-18.8,24.47,1.175,-12.99,11,6,14.08,2.487,-6.21

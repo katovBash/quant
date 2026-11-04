@@ -1,0 +1,152 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "breakout-20-long-short-1h",
+  "experiment": "patterns-grid-search",
+  "timeframe": "1H",
+  "selector": {
+    "variant": "breakout_20",
+    "mode": "long_short"
+  },
+  "label": "Пробой диапазона 20 свечей · 1H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": -6.15,
+  "profitable_tickers": 93,
+  "liquid_screened_tickers": 16,
+  "top10": [
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 211.41,
+      "median_60d_turnover_rub": 81495708.7,
+      "closed_trades": 211,
+      "late_trades": 159,
+      "late_return_pct": 105.56,
+      "profit_factor": 2.611,
+      "max_drawdown_pct": -10.47,
+      "source_csv": "experiments/patterns-grid-search/results/1H/SFIN.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 93.69,
+      "median_60d_turnover_rub": 100576312.52,
+      "closed_trades": 217,
+      "late_trades": 154,
+      "late_return_pct": 57.01,
+      "profit_factor": 1.95,
+      "max_drawdown_pct": -12.03,
+      "source_csv": "experiments/patterns-grid-search/results/1H/WUSH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "PLZL",
+      "net_return_pct": 56.31,
+      "median_60d_turnover_rub": 2069493565.6,
+      "closed_trades": 264,
+      "late_trades": 181,
+      "late_return_pct": 47.25,
+      "profit_factor": 1.846,
+      "max_drawdown_pct": -7.07,
+      "source_csv": "experiments/patterns-grid-search/results/1H/PLZL.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 51.61,
+      "median_60d_turnover_rub": 1722642529.6,
+      "closed_trades": 246,
+      "late_trades": 177,
+      "late_return_pct": 31.0,
+      "profit_factor": 1.393,
+      "max_drawdown_pct": -13.81,
+      "source_csv": "experiments/patterns-grid-search/results/1H/SMLT.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "VSEH",
+      "net_return_pct": 46.12,
+      "median_60d_turnover_rub": 74900161.26,
+      "closed_trades": 168,
+      "late_trades": 150,
+      "late_return_pct": 25.56,
+      "profit_factor": 1.755,
+      "max_drawdown_pct": -8.3,
+      "source_csv": "experiments/patterns-grid-search/results/1H/VSEH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SGZH",
+      "net_return_pct": 45.34,
+      "median_60d_turnover_rub": 144048692.4,
+      "closed_trades": 246,
+      "late_trades": 173,
+      "late_return_pct": 26.26,
+      "profit_factor": 1.439,
+      "max_drawdown_pct": -14.15,
+      "source_csv": "experiments/patterns-grid-search/results/1H/SGZH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "AFKS",
+      "net_return_pct": 37.78,
+      "median_60d_turnover_rub": 561938517.25,
+      "closed_trades": 266,
+      "late_trades": 187,
+      "late_return_pct": 26.44,
+      "profit_factor": 1.345,
+      "max_drawdown_pct": -8.32,
+      "source_csv": "experiments/patterns-grid-search/results/1H/AFKS.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "NLMK",
+      "net_return_pct": 33.99,
+      "median_60d_turnover_rub": 651398977.1,
+      "closed_trades": 281,
+      "late_trades": 210,
+      "late_return_pct": 9.84,
+      "profit_factor": 1.384,
+      "max_drawdown_pct": -10.14,
+      "source_csv": "experiments/patterns-grid-search/results/1H/NLMK.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "MTLR",
+      "net_return_pct": 33.99,
+      "median_60d_turnover_rub": 362986945.21,
+      "closed_trades": 265,
+      "late_trades": 194,
+      "late_return_pct": 3.55,
+      "profit_factor": 1.325,
+      "max_drawdown_pct": -9.6,
+      "source_csv": "experiments/patterns-grid-search/results/1H/MTLR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "MAGN",
+      "net_return_pct": 30.79,
+      "median_60d_turnover_rub": 1064227069.55,
+      "closed_trades": 269,
+      "late_trades": 202,
+      "late_return_pct": 16.53,
+      "profit_factor": 1.364,
+      "max_drawdown_pct": -6.43,
+      "source_csv": "experiments/patterns-grid-search/results/1H/MAGN.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "AFKS",
+    "MAGN",
+    "MTLR",
+    "NLMK",
+    "PLZL",
+    "SFIN",
+    "SGZH",
+    "SMLT",
+    "VSEH",
+    "WUSH"
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "ema-level-79-atr025-long-short-1h",
+  "experiment": "ema-levels-grid-search",
+  "timeframe": "1H",
+  "selector": {
+    "variant": "ema_level_79_0.25",
+    "mode": "long_short"
+  },
+  "label": "EMA 79 · зона 0,25 ATR · 1H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": -14.19,
+  "profitable_tickers": 62,
+  "liquid_screened_tickers": 14,
+  "top10": [
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 104.11,
+      "median_60d_turnover_rub": 100576312.52,
+      "closed_trades": 338,
+      "late_trades": 252,
+      "late_return_pct": 60.66,
+      "profit_factor": 2.12,
+      "max_drawdown_pct": -6.88,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/WUSH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "NLMK",
+      "net_return_pct": 45.72,
+      "median_60d_turnover_rub": 651398977.1,
+      "closed_trades": 328,
+      "late_trades": 252,
+      "late_return_pct": 21.96,
+      "profit_factor": 1.644,
+      "max_drawdown_pct": -7.97,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/NLMK.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "ENPG",
+      "net_return_pct": 43.32,
+      "median_60d_turnover_rub": 113901943.47,
+      "closed_trades": 337,
+      "late_trades": 253,
+      "late_return_pct": 23.39,
+      "profit_factor": 1.541,
+      "max_drawdown_pct": -7.99,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/ENPG.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "UGLD",
+      "net_return_pct": 33.85,
+      "median_60d_turnover_rub": 114096216.0,
+      "closed_trades": 308,
+      "late_trades": 242,
+      "late_return_pct": 5.69,
+      "profit_factor": 1.475,
+      "max_drawdown_pct": -14.77,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/UGLD.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "VTBR",
+      "net_return_pct": 33.13,
+      "median_60d_turnover_rub": 2461122346.65,
+      "closed_trades": 357,
+      "late_trades": 245,
+      "late_return_pct": 17.67,
+      "profit_factor": 1.505,
+      "max_drawdown_pct": -8.12,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/VTBR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "UPRO",
+      "net_return_pct": 31.12,
+      "median_60d_turnover_rub": 192363747.75,
+      "closed_trades": 368,
+      "late_trades": 268,
+      "late_return_pct": 20.67,
+      "profit_factor": 1.405,
+      "max_drawdown_pct": -9.48,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/UPRO.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 30.53,
+      "median_60d_turnover_rub": 1722642529.6,
+      "closed_trades": 356,
+      "late_trades": 265,
+      "late_return_pct": 19.95,
+      "profit_factor": 1.267,
+      "max_drawdown_pct": -15.75,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/SMLT.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "ASTR",
+      "net_return_pct": 26.88,
+      "median_60d_turnover_rub": 109091594.1,
+      "closed_trades": 370,
+      "late_trades": 253,
+      "late_return_pct": 19.92,
+      "profit_factor": 1.412,
+      "max_drawdown_pct": -9.38,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/ASTR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "AFLT",
+      "net_return_pct": 22.07,
+      "median_60d_turnover_rub": 621200901.1,
+      "closed_trades": 332,
+      "late_trades": 240,
+      "late_return_pct": 3.78,
+      "profit_factor": 1.257,
+      "max_drawdown_pct": -8.65,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/AFLT.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SELG",
+      "net_return_pct": 21.97,
+      "median_60d_turnover_rub": 150798504.9,
+      "closed_trades": 366,
+      "late_trades": 268,
+      "late_return_pct": 0.11,
+      "profit_factor": 1.23,
+      "max_drawdown_pct": -16.33,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/SELG.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "AFLT",
+    "ASTR",
+    "ENPG",
+    "NLMK",
+    "SELG",
+    "SMLT",
+    "UGLD",
+    "UPRO",
+    "VTBR",
+    "WUSH"
+  ]
+}

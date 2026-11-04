@@ -1,0 +1,56 @@
+//@version=6
+strategy("MOEX · EMA33/66 cross · weekly filter · long only", overlay = true, pyramiding = 0,
+     initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false)
+
+// Fixed signal rules. Lot size is an execution setting: 1 for VTBR, 10 for GAZP.
+int lotSize = input.int(1, "Размер лота", minval = 1)
+float riskPercent = input.float(0.5, "Риск на сделку, %", minval = 0.1, maxval = 2.0, step = 0.1)
+float maxWeight = input.float(25.0, "Максимальная доля, %", minval = 1.0, maxval = 100.0)
+
+if not timeframe.isdaily
+    runtime.error("Выберите дневной график 1D.")
+
+float e12 = ta.ema(close, 12)
+float e33 = ta.ema(close, 33)
+float e66 = ta.ema(close, 66)
+float atr = ta.atr(14)
+// Only the previous completed week is used, avoiding future weekly values.
+[w33, w66, wClose, wBar] = request.security(syminfo.tickerid, "W",
+     [ta.ema(close, 33)[1], ta.ema(close, 66)[1], close[1], bar_index[1]],
+     lookahead = barmerge.lookahead_on)
+bool weeklyOK = wBar >= 65 and w33 > w66 and wClose > w33
+bool ready = bar_index >= 65 and not na(atr) and atr > 0 and weeklyOK
+bool entrySignal = barstate.isconfirmed and ready and
+     (ta.crossover(e33, e66) and e12 > e33 and close > e33) and strategy.position_size == 0
+bool exitSignal = barstate.isconfirmed and strategy.position_size > 0 and
+     (e33 < e66 or close < e66 or not weeklyOK)
+
+var float stopLevel = na
+if entrySignal
+    float initialStop = close - 3.0 * atr
+    float maxByRisk = strategy.equity * riskPercent / 100.0 / (3.0 * atr)
+    float maxByWeight = strategy.equity * maxWeight / 100.0 / close
+    float qty = math.floor(math.min(maxByRisk, maxByWeight) / lotSize) * lotSize
+    if initialStop > 0 and qty >= lotSize
+        stopLevel := initialStop
+        strategy.entry("Long", strategy.long, qty = qty, alert_message = "BUY {{ticker}} {{interval}}")
+        strategy.exit("ATR stop", "Long", stop = stopLevel, alert_message = "STOP {{ticker}} {{interval}}")
+
+if strategy.position_size > 0
+    stopLevel := math.max(nz(stopLevel, close - 3.0 * atr), close - 3.0 * atr)
+    strategy.exit("ATR stop", "Long", stop = stopLevel, alert_message = "STOP {{ticker}} {{interval}}")
+    if exitSignal
+        strategy.close("Long", comment = "Trend exit", alert_message = "SELL {{ticker}} {{interval}}")
+if strategy.position_size == 0 and strategy.position_size[1] > 0
+    stopLevel := na
+
+plot(e12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(e33, "EMA 33", color = color.orange, linewidth = 2)
+plot(e66, "EMA 66", color = color.blue, linewidth = 2)
+plot(w33, "1W EMA 33, last closed", color = color.new(color.purple, 35), style = plot.style_stepline)
+plot(w66, "1W EMA 66, last closed", color = color.new(color.fuchsia, 35), style = plot.style_stepline)
+plot(strategy.position_size > 0 ? stopLevel : na, "ATR stop", color = color.red, style = plot.style_linebr)
+plotshape(entrySignal, "Buy signal", shape.triangleup, location.belowbar, color.lime, size = size.small)
+plotshape(exitSignal, "Sell signal", shape.triangledown, location.abovebar, color.red, size = size.small)

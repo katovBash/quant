@@ -1,0 +1,21 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "cci-reversal-10-100-long-short-4h",
+  "experiment": "cci-grid-search",
+  "timeframe": "4H",
+  "selector": {
+    "rule_id": "cci_reversal-01"
+  },
+  "label": "CCI 10/100 · разворот · 4H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": -22.09,
+  "profitable_tickers": 10,
+  "liquid_screened_tickers": 0,
+  "top10": [],
+  "active_paper_symbols": [
+    "JNOS"
+  ]
+}

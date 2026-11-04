@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+RBCM,1H,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,727,229,31.5,-36.39,0.25,-36.64,0.836,-49.55,534,164,-42.63,0.693,-49.55
+RBCM,1H,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,149,40,26.85,-49.68,0.25,-49.93,0.627,-59.44,93,18,-55.02,0.32,-57.27
+RBCM,1H,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,671,198,29.51,-40.48,0.25,-40.73,0.804,-53.05,515,143,-45.87,0.642,-48.71
+RBCM,1H,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,159,54,33.96,-21.6,0.25,-21.85,0.83,-37.39,99,34,-26.35,0.649,-33.04
+RBCM,1H,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,502,137,27.29,-19.38,0.25,-19.63,0.89,-42.09,403,96,-39.48,0.614,-41.97
+RBCM,1H,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,153,55,35.95,-3.21,0.25,-3.46,0.975,-30.02,104,32,-20.6,0.706,-30.02
+RBCM,1H,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,376,107,28.46,-10.76,0.25,-11.01,0.92,-31.85,312,80,-23.44,0.733,-31.85
+RBCM,1H,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,136,48,35.29,8.19,0.25,7.94,1.093,-20.05,95,33,-6.39,0.89,-20.05
+RBCM,1H,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,263,84,31.94,7.07,0.25,6.82,1.074,-17.95,205,65,0.71,1.013,-17.95
+RBCM,1H,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",9641,2024-01-03 09:00:00,2026-10-30 23:00:00,116,42,36.21,2.44,0.25,2.19,1.037,-15.87,80,28,3.27,1.08,-15.39

@@ -1,0 +1,113 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "ema-level-45-atr025-long-short-1h",
+  "experiment": "ema-levels-grid-search",
+  "timeframe": "1H",
+  "selector": {
+    "variant": "ema_level_45_0.25",
+    "mode": "long_short"
+  },
+  "label": "EMA 45 · зона 0,25 ATR · 1H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": -21.86,
+  "profitable_tickers": 42,
+  "liquid_screened_tickers": 7,
+  "top10": [
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 97.11,
+      "median_60d_turnover_rub": 1722642529.6,
+      "closed_trades": 480,
+      "late_trades": 334,
+      "late_return_pct": 71.14,
+      "profit_factor": 1.741,
+      "max_drawdown_pct": -9.45,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/SMLT.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 81.18,
+      "median_60d_turnover_rub": 100576312.52,
+      "closed_trades": 506,
+      "late_trades": 369,
+      "late_return_pct": 51.06,
+      "profit_factor": 1.601,
+      "max_drawdown_pct": -9.65,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/WUSH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "RAGR",
+      "net_return_pct": 43.14,
+      "median_60d_turnover_rub": 348623592.27,
+      "closed_trades": 337,
+      "late_trades": 337,
+      "late_return_pct": 43.14,
+      "profit_factor": 1.641,
+      "max_drawdown_pct": -10.84,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/RAGR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SELG",
+      "net_return_pct": 30.36,
+      "median_60d_turnover_rub": 150798504.9,
+      "closed_trades": 508,
+      "late_trades": 380,
+      "late_return_pct": 13.02,
+      "profit_factor": 1.271,
+      "max_drawdown_pct": -16.47,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/SELG.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "VTBR",
+      "net_return_pct": 22.6,
+      "median_60d_turnover_rub": 2461122346.65,
+      "closed_trades": 478,
+      "late_trades": 344,
+      "late_return_pct": 9.03,
+      "profit_factor": 1.296,
+      "max_drawdown_pct": -7.09,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/VTBR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "NVTK",
+      "net_return_pct": 18.53,
+      "median_60d_turnover_rub": 2891487027.35,
+      "closed_trades": 460,
+      "late_trades": 323,
+      "late_return_pct": 4.38,
+      "profit_factor": 1.21,
+      "max_drawdown_pct": -9.19,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/NVTK.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "GAZP",
+      "net_return_pct": 17.84,
+      "median_60d_turnover_rub": 7817572087.2,
+      "closed_trades": 489,
+      "late_trades": 362,
+      "late_return_pct": 0.03,
+      "profit_factor": 1.206,
+      "max_drawdown_pct": -18.25,
+      "source_csv": "experiments/ema-levels-grid-search/results/1H/GAZP.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "GAZP",
+    "NVTK",
+    "RAGR",
+    "SELG",
+    "SMLT",
+    "VTBR",
+    "WUSH"
+  ]
+}

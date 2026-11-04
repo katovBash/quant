@@ -1,0 +1,172 @@
+{
+  "rows": 180,
+  "monthly_rows": 5940,
+  "yearly_rows": 540,
+  "filtered_monthly_pass": 0,
+  "decision": "NO_CANDIDATE",
+  "by_group": {
+    "1H_baseline": {
+      "rows": 10,
+      "monthly_strict_pass": 0,
+      "annual_strict_pass": 2,
+      "fewer_trades": 0,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 0,
+      "median_return_change_pp": 0.0,
+      "median_trade_change": 0.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 4,
+          "positive": 2,
+          "median_return_pct": 0.11
+        },
+        "decline": {
+          "observations": 9,
+          "positive": 4,
+          "median_return_pct": -2.76
+        },
+        "directionally_flat": {
+          "observations": 7,
+          "positive": 4,
+          "median_return_pct": 6.06
+        }
+      }
+    },
+    "1H_1D": {
+      "rows": 40,
+      "monthly_strict_pass": 0,
+      "annual_strict_pass": 3,
+      "fewer_trades": 40,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 20,
+      "median_return_change_pp": -1.82,
+      "median_trade_change": -988.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 16,
+          "positive": 7,
+          "median_return_pct": -0.14
+        },
+        "decline": {
+          "observations": 36,
+          "positive": 9,
+          "median_return_pct": -0.17
+        },
+        "directionally_flat": {
+          "observations": 28,
+          "positive": 13,
+          "median_return_pct": -0.04
+        }
+      }
+    },
+    "1H_1W": {
+      "rows": 40,
+      "monthly_strict_pass": 0,
+      "annual_strict_pass": 7,
+      "fewer_trades": 40,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 20,
+      "median_return_change_pp": -1.28,
+      "median_trade_change": -995.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 16,
+          "positive": 6,
+          "median_return_pct": -0.32
+        },
+        "decline": {
+          "observations": 36,
+          "positive": 10,
+          "median_return_pct": -0.11
+        },
+        "directionally_flat": {
+          "observations": 28,
+          "positive": 14,
+          "median_return_pct": 0.02
+        }
+      }
+    },
+    "4H_baseline": {
+      "rows": 10,
+      "monthly_strict_pass": 0,
+      "annual_strict_pass": 4,
+      "fewer_trades": 0,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 0,
+      "median_return_change_pp": 0.0,
+      "median_trade_change": 0.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 4,
+          "positive": 3,
+          "median_return_pct": 4.44
+        },
+        "decline": {
+          "observations": 9,
+          "positive": 7,
+          "median_return_pct": 10.04
+        },
+        "directionally_flat": {
+          "observations": 7,
+          "positive": 4,
+          "median_return_pct": 4.23
+        }
+      }
+    },
+    "4H_1D": {
+      "rows": 40,
+      "monthly_strict_pass": 0,
+      "annual_strict_pass": 5,
+      "fewer_trades": 40,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 6,
+      "median_return_change_pp": -9.97,
+      "median_trade_change": -234.5,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 16,
+          "positive": 5,
+          "median_return_pct": -0.18
+        },
+        "decline": {
+          "observations": 36,
+          "positive": 12,
+          "median_return_pct": -0.22
+        },
+        "directionally_flat": {
+          "observations": 28,
+          "positive": 12,
+          "median_return_pct": -0.11
+        }
+      }
+    },
+    "4H_1W": {
+      "rows": 40,
+      "monthly_strict_pass": 0,
+      "annual_strict_pass": 1,
+      "fewer_trades": 40,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 2,
+      "median_return_change_pp": -12.48,
+      "median_trade_change": -237.5,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 16,
+          "positive": 3,
+          "median_return_pct": -0.06
+        },
+        "decline": {
+          "observations": 36,
+          "positive": 2,
+          "median_return_pct": -0.12
+        },
+        "directionally_flat": {
+          "observations": 28,
+          "positive": 10,
+          "median_return_pct": 0.0
+        }
+      }
+    }
+  },
+  "errors": []
+}

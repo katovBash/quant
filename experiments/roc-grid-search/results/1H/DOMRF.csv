@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+DOMRF,1H,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,127,37,29.13,-7.94,5.02,-12.96,0.705,-10.14,127,37,-7.94,0.705,-10.14
+DOMRF,1H,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,4,4,100.0,5.32,5.02,0.3,inf,-3.01,4,4,5.32,inf,-3.01
+DOMRF,1H,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,153,50,32.68,-12.35,5.02,-17.37,0.629,-14.56,153,50,-12.35,0.629,-14.56
+DOMRF,1H,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,6,3,50.0,-1.4,5.02,-6.42,0.792,-6.71,6,3,-1.4,0.792,-6.71
+DOMRF,1H,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,116,37,31.9,0.25,5.02,-4.77,1.011,-5.46,116,37,0.25,1.011,-5.46
+DOMRF,1H,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,9,4,44.44,1.53,5.02,-3.49,1.227,-6.28,9,4,1.53,1.227,-6.28
+DOMRF,1H,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,106,37,34.91,4.09,5.02,-0.93,1.207,-5.0,106,37,4.09,1.207,-5.0
+DOMRF,1H,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,17,8,47.06,-0.75,5.02,-5.77,1.102,-5.72,17,8,-0.75,1.102,-5.72
+DOMRF,1H,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,91,23,25.27,-6.78,5.02,-11.8,0.697,-9.31,91,23,-6.78,0.697,-9.31
+DOMRF,1H,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",4829,2025-11-20 16:00:00,2026-10-30 23:00:00,15,8,53.33,5.09,5.02,0.07,2.197,-3.01,15,8,5.09,2.197,-3.01

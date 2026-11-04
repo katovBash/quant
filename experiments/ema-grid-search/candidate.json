@@ -1,0 +1,20 @@
+{
+  "slug": "ema-cross-13-48-long-short-1h",
+  "scope": "basket",
+  "symbols": ["PLZL", "VTBR", "GAZP"],
+  "review_stage": "tv_review",
+  "source_csv": "results/1H/PLZL.csv.gz",
+  "selector": {"symbol": "PLZL", "timeframe": "1H", "fast": "13", "slow": "48", "mode": "long_short"},
+  "pine": "strategy_13_48_1H.pine",
+  "python": "strategy_13_48_1H.py",
+  "rule": "Только для ручной сверки: EMA13/48, long+short на 1H; вход на следующем открытии после подтверждённого пересечения, разворот при обратном пересечении, 25% капитала, начальный капитал 1 млн ₽. Область наблюдения: PLZL, VTBR, GAZP; это не правило для всех акций.",
+  "frozen_on": "2026-11-01",
+  "review": {
+    "no_lookahead_checked": true,
+    "stable_neighbors_checked": true,
+    "control_checked": true,
+    "costs_checked": false,
+    "cross_ticker_checked": true,
+    "notes": "Все 254 доступных 1H тикера проверены без смены EMA; результат сохранён в results/fixed_13_48_1H_long_short.csv. Это seen_history: PLZL, VTBR и GAZP уже участвовали в отборе; на всём списке 109/254 прибыльны, медиана отрицательная. Базовая комиссия 0,05% и один тик включены, но заём для short, дивидендные обязательства, фактические лоты и совпадение сделок с TradingView ещё не проверены. Только ручной TV review, не paper trading."
+  }
+}

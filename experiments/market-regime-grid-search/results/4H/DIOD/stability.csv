@@ -1,0 +1,73 @@
+symbol,timeframe,sample,comparison,lookback,setting_a,setting_b,label,value_pct,observations
+DIOD,4H,train,neighbor_agreement,20,"(20, 6, 2)","(20, 6, 3)",all,84.08,735
+DIOD,4H,holdout,neighbor_agreement,20,"(20, 6, 2)","(20, 6, 3)",all,86.51,1898
+DIOD,4H,train,neighbor_agreement,20,"(20, 6, 2)","(20, 10, 2)",all,91.84,735
+DIOD,4H,holdout,neighbor_agreement,20,"(20, 6, 2)","(20, 10, 2)",all,95.94,1898
+DIOD,4H,train,neighbor_agreement,20,"(20, 6, 3)","(20, 10, 3)",all,87.21,735
+DIOD,4H,holdout,neighbor_agreement,20,"(20, 6, 3)","(20, 10, 3)",all,92.52,1898
+DIOD,4H,train,neighbor_agreement,20,"(20, 10, 2)","(20, 10, 3)",all,79.46,735
+DIOD,4H,holdout,neighbor_agreement,20,"(20, 10, 2)","(20, 10, 3)",all,83.09,1898
+DIOD,4H,train,neighbor_agreement,40,"(40, 6, 2)","(40, 6, 3)",all,94.41,715
+DIOD,4H,holdout,neighbor_agreement,40,"(40, 6, 2)","(40, 6, 3)",all,92.15,1898
+DIOD,4H,train,neighbor_agreement,40,"(40, 6, 2)","(40, 10, 2)",all,80.7,715
+DIOD,4H,holdout,neighbor_agreement,40,"(40, 6, 2)","(40, 10, 2)",all,86.88,1898
+DIOD,4H,train,neighbor_agreement,40,"(40, 6, 3)","(40, 10, 3)",all,73.01,715
+DIOD,4H,holdout,neighbor_agreement,40,"(40, 6, 3)","(40, 10, 3)",all,81.45,1898
+DIOD,4H,train,neighbor_agreement,40,"(40, 10, 2)","(40, 10, 3)",all,86.71,715
+DIOD,4H,holdout,neighbor_agreement,40,"(40, 10, 2)","(40, 10, 3)",all,86.72,1898
+DIOD,4H,train,neighbor_agreement,80,"(80, 6, 2)","(80, 6, 3)",all,98.67,675
+DIOD,4H,holdout,neighbor_agreement,80,"(80, 6, 2)","(80, 6, 3)",all,96.47,1898
+DIOD,4H,train,neighbor_agreement,80,"(80, 6, 2)","(80, 10, 2)",all,89.78,675
+DIOD,4H,holdout,neighbor_agreement,80,"(80, 6, 2)","(80, 10, 2)",all,87.51,1898
+DIOD,4H,train,neighbor_agreement,80,"(80, 6, 3)","(80, 10, 3)",all,80.89,675
+DIOD,4H,holdout,neighbor_agreement,80,"(80, 6, 3)","(80, 10, 3)",all,82.46,1898
+DIOD,4H,train,neighbor_agreement,80,"(80, 10, 2)","(80, 10, 3)",all,89.78,675
+DIOD,4H,holdout,neighbor_agreement,80,"(80, 10, 2)","(80, 10, 3)",all,91.41,1898
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,range,7.74,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,trend_up,1.54,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,trend_down,-1.32,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 2)",,uncertain,-7.96,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,range,5.37,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,trend_up,1.31,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,trend_down,-1.03,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 6, 3)",,uncertain,-5.65,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,range,3.64,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,trend_up,1.54,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,trend_down,-1.32,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 2)",,uncertain,-3.86,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,range,0.06,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,trend_up,1.31,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,trend_down,-1.03,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,20,"(20, 10, 3)",,uncertain,-0.34,2633
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,range,6.51,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,trend_up,0.84,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,trend_down,-1.13,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 2)",,uncertain,-6.23,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,range,9.22,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,trend_up,0.91,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,trend_down,-0.74,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 6, 3)",,uncertain,-9.39,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,range,0.33,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,trend_up,0.84,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,trend_down,-1.13,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 2)",,uncertain,-0.05,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,range,0.78,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,trend_up,0.91,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,trend_down,-0.74,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,40,"(40, 10, 3)",,uncertain,-0.95,2613
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,range,3.71,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,trend_up,0.55,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,trend_down,-1.39,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 2)",,uncertain,-2.87,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,range,5.95,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,trend_up,0.59,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,trend_down,-1.39,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 6, 3)",,uncertain,-5.15,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,range,5.98,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,trend_up,0.55,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,trend_down,-1.39,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 2)",,uncertain,-5.13,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,range,4.39,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,trend_up,0.59,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,trend_down,-1.39,2573
+DIOD,4H,holdout_vs_train,label_frequency_change_pp,80,"(80, 10, 3)",,uncertain,-3.58,2573

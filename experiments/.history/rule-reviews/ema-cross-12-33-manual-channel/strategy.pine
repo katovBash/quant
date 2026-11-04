@@ -1,0 +1,52 @@
+//@version=6
+strategy("VTBR · EMA12/33 · manual channel anchors", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+// Select two historical points on the upper line and two on the lower line.
+// TradingView asks for these four chart points when the script is added.
+float upperA = input.price(0.0, "Верх A · цена", inline = "U1", confirm = true)
+int upperATime = input.time(0, "Время", inline = "U1", confirm = true)
+float upperB = input.price(0.0, "Верх B · цена", inline = "U2", confirm = true)
+int upperBTime = input.time(0, "Время", inline = "U2", confirm = true)
+float lowerA = input.price(0.0, "Низ A · цена", inline = "L1", confirm = true)
+int lowerATime = input.time(0, "Время", inline = "L1", confirm = true)
+float lowerB = input.price(0.0, "Низ B · цена", inline = "L2", confirm = true)
+int lowerBTime = input.time(0, "Время", inline = "L2", confirm = true)
+
+float ema12 = ta.ema(close, 12)
+float ema33 = ta.ema(close, 33)
+bool distinctAnchors = upperATime != upperBTime and lowerATime != lowerBTime
+int lastAnchor = math.max(math.max(upperATime, upperBTime), math.max(lowerATime, lowerBTime))
+bool afterAnchors = time > lastAnchor
+float resistance = distinctAnchors ? upperA + (upperB - upperA) * (time - upperATime) / (upperBTime - upperATime) : na
+float support = distinctAnchors ? lowerA + (lowerB - lowerA) * (time - lowerATime) / (lowerBTime - lowerATime) : na
+float width = resistance - support
+bool validChannel = afterAnchors and not na(width) and close > 0 and width / close >= 0.03
+float channelPosition = validChannel ? (close - support) / width : na
+bool crossUp = barstate.isconfirmed and ta.crossover(ema12, ema33)
+bool crossDown = barstate.isconfirmed and ta.crossunder(ema12, ema33)
+bool allowLong = validChannel and channelPosition >= 0 and channelPosition <= 0.35
+bool allowShort = validChannel and channelPosition >= 0.65 and channelPosition <= 1
+float shares = math.floor(strategy.equity * 0.25 / close)
+
+// Entries only after all four anchor points exist in the past.
+if crossUp
+    if allowLong and shares >= 1
+        strategy.entry("Long", strategy.long, qty = shares)
+    else if strategy.position_size < 0
+        strategy.close("Short")
+if crossDown
+    if allowShort and shares >= 1
+        strategy.entry("Short", strategy.short, qty = shares)
+    else if strategy.position_size > 0
+        strategy.close("Long")
+
+plot(ema12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(ema33, "EMA 33", color = color.orange, linewidth = 2)
+plot(afterAnchors ? resistance : na, "Верхняя линия", color = color.red, linewidth = 2)
+plot(afterAnchors ? support : na, "Нижняя линия", color = color.lime, linewidth = 2)
+plot(validChannel ? support + width * 0.35 : na, "Граница long зоны", color = color.new(color.lime, 65))
+plot(validChannel ? support + width * 0.65 : na, "Граница short зоны", color = color.new(color.red, 65))

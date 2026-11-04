@@ -1,0 +1,21 @@
+{
+  "slug": "ema-example-long-short",
+  "scope": "basket",
+  "symbols": ["PLZL", "VTBR"],
+  "source_csv": "results/1H/PLZL.csv.gz",
+  "monthly_report": "results/monthly_validation.json",
+  "trade_window_report": "results/trade_windows_100.csv",
+  "selector": {"symbol": "PLZL", "timeframe": "1H", "fast": "12", "slow": "33", "mode": "long_short"},
+  "pine": "strategy.pine",
+  "python": "strategy.py",
+  "rule": "Точные условия входа, выхода, размера позиции и расходов.",
+  "frozen_on": "2026-11-01",
+  "review": {
+    "no_lookahead_checked": false,
+    "stable_neighbors_checked": false,
+    "control_checked": false,
+    "costs_checked": false,
+    "cross_ticker_checked": false,
+    "notes": "Обоснование выбора и ссылки на сверку; пример не готов к переносу."
+  }
+}

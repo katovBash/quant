@@ -1,0 +1,1615 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_universe_tickers": 255,
+  "ranking_note": "Fixed rule on all available tickers; top10 after historical screen and turnover gate. Late period is seen history. Short borrow and dividends are unverified. Largest trade contribution is not checked.",
+  "rules": [
+    {
+      "id": "adx-di-14-20-long-short-1h",
+      "experiment": "adx-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "adx_di_14_20",
+        "mode": "long_short"
+      },
+      "label": "ADX +DI/−DI 14/20 · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -23.55,
+      "profitable_tickers": 30,
+      "liquid_screened_tickers": 3,
+      "top10": [
+        {
+          "symbol": "PLZL",
+          "net_return_pct": 46.87,
+          "median_60d_turnover_rub": 2069493565.6,
+          "closed_trades": 422,
+          "late_trades": 281,
+          "late_return_pct": 35.4,
+          "profit_factor": 1.534,
+          "max_drawdown_pct": -7.1,
+          "source_csv": "experiments/adx-grid-search/results/1H/PLZL.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 33.86,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 419,
+          "late_trades": 283,
+          "late_return_pct": 21.72,
+          "profit_factor": 1.22,
+          "max_drawdown_pct": -12.13,
+          "source_csv": "experiments/adx-grid-search/results/1H/SMLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SGZH",
+          "net_return_pct": 33.03,
+          "median_60d_turnover_rub": 144048692.4,
+          "closed_trades": 411,
+          "late_trades": 303,
+          "late_return_pct": 3.11,
+          "profit_factor": 1.205,
+          "max_drawdown_pct": -13.7,
+          "source_csv": "experiments/adx-grid-search/results/1H/SGZH.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "PLZL",
+        "SGZH",
+        "SMLT"
+      ]
+    },
+    {
+      "id": "bollinger-breakout-10-2-long-short-4h",
+      "experiment": "bollinger-grid-search",
+      "timeframe": "4H",
+      "selector": {
+        "rule_id": "bollinger_breakout-02"
+      },
+      "label": "Bollinger · пробой 10/2 · 4H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": 2.7,
+      "profitable_tickers": 143,
+      "liquid_screened_tickers": 31,
+      "top10": [
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 117.2,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 105,
+          "late_trades": 78,
+          "late_return_pct": 70.28,
+          "profit_factor": 2.798,
+          "max_drawdown_pct": -9.88,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/SMLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SFIN",
+          "net_return_pct": 106.43,
+          "median_60d_turnover_rub": 81495708.7,
+          "closed_trades": 113,
+          "late_trades": 85,
+          "late_return_pct": 78.65,
+          "profit_factor": 2.383,
+          "max_drawdown_pct": -17.91,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/SFIN.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "UNAC",
+          "net_return_pct": 63.43,
+          "median_60d_turnover_rub": 49389439.5,
+          "closed_trades": 106,
+          "late_trades": 87,
+          "late_return_pct": 19.32,
+          "profit_factor": 2.055,
+          "max_drawdown_pct": -8.31,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/UNAC.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SGZH",
+          "net_return_pct": 62.13,
+          "median_60d_turnover_rub": 144048692.4,
+          "closed_trades": 113,
+          "late_trades": 81,
+          "late_return_pct": 35.4,
+          "profit_factor": 1.935,
+          "max_drawdown_pct": -15.27,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/SGZH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MTLR",
+          "net_return_pct": 58.57,
+          "median_60d_turnover_rub": 362986945.21,
+          "closed_trades": 112,
+          "late_trades": 84,
+          "late_return_pct": 23.09,
+          "profit_factor": 2.03,
+          "max_drawdown_pct": -9.52,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/MTLR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "PLZL",
+          "net_return_pct": 49.57,
+          "median_60d_turnover_rub": 2069493565.6,
+          "closed_trades": 109,
+          "late_trades": 85,
+          "late_return_pct": 31.81,
+          "profit_factor": 2.011,
+          "max_drawdown_pct": -7.51,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/PLZL.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MSNG",
+          "net_return_pct": 42.84,
+          "median_60d_turnover_rub": 59664999.0,
+          "closed_trades": 112,
+          "late_trades": 79,
+          "late_return_pct": 36.03,
+          "profit_factor": 2.17,
+          "max_drawdown_pct": -5.75,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/MSNG.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SVCB",
+          "net_return_pct": 41.5,
+          "median_60d_turnover_rub": 594926805.25,
+          "closed_trades": 100,
+          "late_trades": 76,
+          "late_return_pct": 14.57,
+          "profit_factor": 2.004,
+          "max_drawdown_pct": -7.13,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/SVCB.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "VTBR",
+          "net_return_pct": 39.36,
+          "median_60d_turnover_rub": 2461122346.65,
+          "closed_trades": 119,
+          "late_trades": 87,
+          "late_return_pct": 22.55,
+          "profit_factor": 1.899,
+          "max_drawdown_pct": -7.37,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/VTBR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SPBE",
+          "net_return_pct": 38.67,
+          "median_60d_turnover_rub": 563496560.55,
+          "closed_trades": 115,
+          "late_trades": 85,
+          "late_return_pct": 26.02,
+          "profit_factor": 1.449,
+          "max_drawdown_pct": -14.71,
+          "source_csv": "experiments/bollinger-grid-search/results/4H/SPBE.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "MSNG",
+        "MTLR",
+        "PLZL",
+        "SFIN",
+        "SGZH",
+        "SMLT",
+        "SPBE",
+        "SVCB",
+        "UNAC",
+        "VTBR"
+      ]
+    },
+    {
+      "id": "breakout-20-long-short-1h",
+      "experiment": "patterns-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "breakout_20",
+        "mode": "long_short"
+      },
+      "label": "Пробой диапазона 20 свечей · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -6.15,
+      "profitable_tickers": 93,
+      "liquid_screened_tickers": 16,
+      "top10": [
+        {
+          "symbol": "SFIN",
+          "net_return_pct": 211.41,
+          "median_60d_turnover_rub": 81495708.7,
+          "closed_trades": 211,
+          "late_trades": 159,
+          "late_return_pct": 105.56,
+          "profit_factor": 2.611,
+          "max_drawdown_pct": -10.47,
+          "source_csv": "experiments/patterns-grid-search/results/1H/SFIN.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 93.69,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 217,
+          "late_trades": 154,
+          "late_return_pct": 57.01,
+          "profit_factor": 1.95,
+          "max_drawdown_pct": -12.03,
+          "source_csv": "experiments/patterns-grid-search/results/1H/WUSH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "PLZL",
+          "net_return_pct": 56.31,
+          "median_60d_turnover_rub": 2069493565.6,
+          "closed_trades": 264,
+          "late_trades": 181,
+          "late_return_pct": 47.25,
+          "profit_factor": 1.846,
+          "max_drawdown_pct": -7.07,
+          "source_csv": "experiments/patterns-grid-search/results/1H/PLZL.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 51.61,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 246,
+          "late_trades": 177,
+          "late_return_pct": 31.0,
+          "profit_factor": 1.393,
+          "max_drawdown_pct": -13.81,
+          "source_csv": "experiments/patterns-grid-search/results/1H/SMLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "VSEH",
+          "net_return_pct": 46.12,
+          "median_60d_turnover_rub": 74900161.26,
+          "closed_trades": 168,
+          "late_trades": 150,
+          "late_return_pct": 25.56,
+          "profit_factor": 1.755,
+          "max_drawdown_pct": -8.3,
+          "source_csv": "experiments/patterns-grid-search/results/1H/VSEH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SGZH",
+          "net_return_pct": 45.34,
+          "median_60d_turnover_rub": 144048692.4,
+          "closed_trades": 246,
+          "late_trades": 173,
+          "late_return_pct": 26.26,
+          "profit_factor": 1.439,
+          "max_drawdown_pct": -14.15,
+          "source_csv": "experiments/patterns-grid-search/results/1H/SGZH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "AFKS",
+          "net_return_pct": 37.78,
+          "median_60d_turnover_rub": 561938517.25,
+          "closed_trades": 266,
+          "late_trades": 187,
+          "late_return_pct": 26.44,
+          "profit_factor": 1.345,
+          "max_drawdown_pct": -8.32,
+          "source_csv": "experiments/patterns-grid-search/results/1H/AFKS.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "NLMK",
+          "net_return_pct": 33.99,
+          "median_60d_turnover_rub": 651398977.1,
+          "closed_trades": 281,
+          "late_trades": 210,
+          "late_return_pct": 9.84,
+          "profit_factor": 1.384,
+          "max_drawdown_pct": -10.14,
+          "source_csv": "experiments/patterns-grid-search/results/1H/NLMK.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MTLR",
+          "net_return_pct": 33.99,
+          "median_60d_turnover_rub": 362986945.21,
+          "closed_trades": 265,
+          "late_trades": 194,
+          "late_return_pct": 3.55,
+          "profit_factor": 1.325,
+          "max_drawdown_pct": -9.6,
+          "source_csv": "experiments/patterns-grid-search/results/1H/MTLR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MAGN",
+          "net_return_pct": 30.79,
+          "median_60d_turnover_rub": 1064227069.55,
+          "closed_trades": 269,
+          "late_trades": 202,
+          "late_return_pct": 16.53,
+          "profit_factor": 1.364,
+          "max_drawdown_pct": -6.43,
+          "source_csv": "experiments/patterns-grid-search/results/1H/MAGN.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "AFKS",
+        "MAGN",
+        "MTLR",
+        "NLMK",
+        "PLZL",
+        "SFIN",
+        "SGZH",
+        "SMLT",
+        "VSEH",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "cci-reversal-10-100-long-short-4h",
+      "experiment": "cci-grid-search",
+      "timeframe": "4H",
+      "selector": {
+        "rule_id": "cci_reversal-01"
+      },
+      "label": "CCI 10/100 · разворот · 4H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -22.09,
+      "profitable_tickers": 10,
+      "liquid_screened_tickers": 0,
+      "top10": [],
+      "active_paper_symbols": [
+        "JNOS"
+      ]
+    },
+    {
+      "id": "donchian-breakout-20-long-short-1h",
+      "experiment": "donchian-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "rule_id": "donchian_breakout-04"
+      },
+      "label": "Donchian 20 · пробой · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -6.15,
+      "profitable_tickers": 93,
+      "liquid_screened_tickers": 16,
+      "top10": [
+        {
+          "symbol": "SFIN",
+          "net_return_pct": 211.41,
+          "median_60d_turnover_rub": 81495708.7,
+          "closed_trades": 211,
+          "late_trades": 159,
+          "late_return_pct": 105.56,
+          "profit_factor": 2.611,
+          "max_drawdown_pct": -10.47,
+          "source_csv": "experiments/donchian-grid-search/results/1H/SFIN.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 93.69,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 217,
+          "late_trades": 154,
+          "late_return_pct": 57.01,
+          "profit_factor": 1.95,
+          "max_drawdown_pct": -12.03,
+          "source_csv": "experiments/donchian-grid-search/results/1H/WUSH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "PLZL",
+          "net_return_pct": 56.31,
+          "median_60d_turnover_rub": 2069493565.6,
+          "closed_trades": 264,
+          "late_trades": 181,
+          "late_return_pct": 47.25,
+          "profit_factor": 1.846,
+          "max_drawdown_pct": -7.07,
+          "source_csv": "experiments/donchian-grid-search/results/1H/PLZL.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 51.61,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 246,
+          "late_trades": 177,
+          "late_return_pct": 31.0,
+          "profit_factor": 1.393,
+          "max_drawdown_pct": -13.81,
+          "source_csv": "experiments/donchian-grid-search/results/1H/SMLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "VSEH",
+          "net_return_pct": 46.12,
+          "median_60d_turnover_rub": 74900161.26,
+          "closed_trades": 168,
+          "late_trades": 150,
+          "late_return_pct": 25.56,
+          "profit_factor": 1.755,
+          "max_drawdown_pct": -8.3,
+          "source_csv": "experiments/donchian-grid-search/results/1H/VSEH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SGZH",
+          "net_return_pct": 45.34,
+          "median_60d_turnover_rub": 144048692.4,
+          "closed_trades": 246,
+          "late_trades": 173,
+          "late_return_pct": 26.26,
+          "profit_factor": 1.439,
+          "max_drawdown_pct": -14.15,
+          "source_csv": "experiments/donchian-grid-search/results/1H/SGZH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "AFKS",
+          "net_return_pct": 37.78,
+          "median_60d_turnover_rub": 561938517.25,
+          "closed_trades": 266,
+          "late_trades": 187,
+          "late_return_pct": 26.44,
+          "profit_factor": 1.345,
+          "max_drawdown_pct": -8.32,
+          "source_csv": "experiments/donchian-grid-search/results/1H/AFKS.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "NLMK",
+          "net_return_pct": 33.99,
+          "median_60d_turnover_rub": 651398977.1,
+          "closed_trades": 281,
+          "late_trades": 210,
+          "late_return_pct": 9.84,
+          "profit_factor": 1.384,
+          "max_drawdown_pct": -10.14,
+          "source_csv": "experiments/donchian-grid-search/results/1H/NLMK.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MTLR",
+          "net_return_pct": 33.99,
+          "median_60d_turnover_rub": 362986945.21,
+          "closed_trades": 265,
+          "late_trades": 194,
+          "late_return_pct": 3.55,
+          "profit_factor": 1.325,
+          "max_drawdown_pct": -9.6,
+          "source_csv": "experiments/donchian-grid-search/results/1H/MTLR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MAGN",
+          "net_return_pct": 30.79,
+          "median_60d_turnover_rub": 1064227069.55,
+          "closed_trades": 269,
+          "late_trades": 202,
+          "late_return_pct": 16.53,
+          "profit_factor": 1.364,
+          "max_drawdown_pct": -6.43,
+          "source_csv": "experiments/donchian-grid-search/results/1H/MAGN.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "AFKS",
+        "MAGN",
+        "MTLR",
+        "NLMK",
+        "PLZL",
+        "SFIN",
+        "SGZH",
+        "SMLT",
+        "VSEH",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "ema-cross-12-33-long-short-1h",
+      "experiment": "ema-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "fast": "12",
+        "slow": "33",
+        "mode": "long_short"
+      },
+      "label": "EMA 12/33 · пересечение · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -12.1,
+      "profitable_tickers": 92,
+      "liquid_screened_tickers": 27,
+      "top10": [
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 107.2467,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 350,
+          "late_trades": 266,
+          "late_return_pct": 61.9004,
+          "profit_factor": 1.8944,
+          "max_drawdown_pct": -9.8354,
+          "source_csv": "experiments/ema-grid-search/results/1H/WUSH.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 97.4848,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 337,
+          "late_trades": 227,
+          "late_return_pct": 69.3012,
+          "profit_factor": 1.7556,
+          "max_drawdown_pct": -10.9895,
+          "source_csv": "experiments/ema-grid-search/results/1H/SMLT.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "SFIN",
+          "net_return_pct": 96.3669,
+          "median_60d_turnover_rub": 81495708.7,
+          "closed_trades": 340,
+          "late_trades": 264,
+          "late_return_pct": 51.9578,
+          "profit_factor": 1.7542,
+          "max_drawdown_pct": -15.7359,
+          "source_csv": "experiments/ema-grid-search/results/1H/SFIN.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "SGZH",
+          "net_return_pct": 67.7924,
+          "median_60d_turnover_rub": 144048692.4,
+          "closed_trades": 381,
+          "late_trades": 273,
+          "late_return_pct": 38.6814,
+          "profit_factor": 1.5671,
+          "max_drawdown_pct": -11.7235,
+          "source_csv": "experiments/ema-grid-search/results/1H/SGZH.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "AFKS",
+          "net_return_pct": 55.8969,
+          "median_60d_turnover_rub": 561938517.25,
+          "closed_trades": 325,
+          "late_trades": 233,
+          "late_return_pct": 31.5393,
+          "profit_factor": 1.5201,
+          "max_drawdown_pct": -7.491,
+          "source_csv": "experiments/ema-grid-search/results/1H/AFKS.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "VSEH",
+          "net_return_pct": 48.183,
+          "median_60d_turnover_rub": 74900161.26,
+          "closed_trades": 254,
+          "late_trades": 231,
+          "late_return_pct": 19.0232,
+          "profit_factor": 1.749,
+          "max_drawdown_pct": -8.6367,
+          "source_csv": "experiments/ema-grid-search/results/1H/VSEH.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "GAZP",
+          "net_return_pct": 47.3587,
+          "median_60d_turnover_rub": 7817572087.2,
+          "closed_trades": 337,
+          "late_trades": 251,
+          "late_return_pct": 20.9992,
+          "profit_factor": 1.6037,
+          "max_drawdown_pct": -5.7223,
+          "source_csv": "experiments/ema-grid-search/results/1H/GAZP.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "PLZL",
+          "net_return_pct": 46.3481,
+          "median_60d_turnover_rub": 2069493565.6,
+          "closed_trades": 352,
+          "late_trades": 239,
+          "late_return_pct": 37.7342,
+          "profit_factor": 1.5652,
+          "max_drawdown_pct": -6.5536,
+          "source_csv": "experiments/ema-grid-search/results/1H/PLZL.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "MAGN",
+          "net_return_pct": 39.4722,
+          "median_60d_turnover_rub": 1064227069.55,
+          "closed_trades": 342,
+          "late_trades": 248,
+          "late_return_pct": 24.6595,
+          "profit_factor": 1.4709,
+          "max_drawdown_pct": -5.8513,
+          "source_csv": "experiments/ema-grid-search/results/1H/MAGN.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "RUAL",
+          "net_return_pct": 38.8062,
+          "median_60d_turnover_rub": 617176391.4,
+          "closed_trades": 348,
+          "late_trades": 248,
+          "late_return_pct": 31.9203,
+          "profit_factor": 1.4357,
+          "max_drawdown_pct": -6.2855,
+          "source_csv": "experiments/ema-grid-search/results/1H/RUAL.csv.gz",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "AFKS",
+        "GAZP",
+        "MAGN",
+        "PLZL",
+        "RUAL",
+        "SFIN",
+        "SGZH",
+        "SMLT",
+        "VSEH",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "ema-cross-13-48-long-short-1h",
+      "experiment": "ema-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "fast": "13",
+        "slow": "48",
+        "mode": "long_short"
+      },
+      "label": "EMA 13/48 · пересечение · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -6.56,
+      "profitable_tickers": 109,
+      "liquid_screened_tickers": 34,
+      "top10": [
+        {
+          "symbol": "SFIN",
+          "net_return_pct": 155.7715,
+          "median_60d_turnover_rub": 81495708.7,
+          "closed_trades": 254,
+          "late_trades": 192,
+          "late_return_pct": 96.3414,
+          "profit_factor": 2.6,
+          "max_drawdown_pct": -9.169,
+          "source_csv": "experiments/ema-grid-search/results/1H/SFIN.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 105.1264,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 260,
+          "late_trades": 188,
+          "late_return_pct": 60.9936,
+          "profit_factor": 2.1391,
+          "max_drawdown_pct": -8.9383,
+          "source_csv": "experiments/ema-grid-search/results/1H/WUSH.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 94.5422,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 253,
+          "late_trades": 177,
+          "late_return_pct": 72.1833,
+          "profit_factor": 2.0113,
+          "max_drawdown_pct": -8.0802,
+          "source_csv": "experiments/ema-grid-search/results/1H/SMLT.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "UNAC",
+          "net_return_pct": 64.8327,
+          "median_60d_turnover_rub": 49389439.5,
+          "closed_trades": 262,
+          "late_trades": 204,
+          "late_return_pct": 24.7968,
+          "profit_factor": 1.6694,
+          "max_drawdown_pct": -12.2188,
+          "source_csv": "experiments/ema-grid-search/results/1H/UNAC.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "UGLD",
+          "net_return_pct": 64.3863,
+          "median_60d_turnover_rub": 114096216.0,
+          "closed_trades": 232,
+          "late_trades": 180,
+          "late_return_pct": 35.8884,
+          "profit_factor": 1.836,
+          "max_drawdown_pct": -8.8803,
+          "source_csv": "experiments/ema-grid-search/results/1H/UGLD.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "MTLR",
+          "net_return_pct": 58.9989,
+          "median_60d_turnover_rub": 362986945.21,
+          "closed_trades": 268,
+          "late_trades": 200,
+          "late_return_pct": 18.7969,
+          "profit_factor": 1.6233,
+          "max_drawdown_pct": -7.6046,
+          "source_csv": "experiments/ema-grid-search/results/1H/MTLR.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "AFKS",
+          "net_return_pct": 58.4125,
+          "median_60d_turnover_rub": 561938517.25,
+          "closed_trades": 247,
+          "late_trades": 181,
+          "late_return_pct": 27.5315,
+          "profit_factor": 1.6142,
+          "max_drawdown_pct": -7.596,
+          "source_csv": "experiments/ema-grid-search/results/1H/AFKS.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "PLZL",
+          "net_return_pct": 51.7995,
+          "median_60d_turnover_rub": 2069493565.6,
+          "closed_trades": 256,
+          "late_trades": 185,
+          "late_return_pct": 38.6628,
+          "profit_factor": 1.7543,
+          "max_drawdown_pct": -6.0031,
+          "source_csv": "experiments/ema-grid-search/results/1H/PLZL.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "VTBR",
+          "net_return_pct": 51.6874,
+          "median_60d_turnover_rub": 2461122346.65,
+          "closed_trades": 266,
+          "late_trades": 184,
+          "late_return_pct": 42.1538,
+          "profit_factor": 1.8904,
+          "max_drawdown_pct": -6.224,
+          "source_csv": "experiments/ema-grid-search/results/1H/VTBR.csv.gz",
+          "paper_active": true
+        },
+        {
+          "symbol": "SGZH",
+          "net_return_pct": 47.3847,
+          "median_60d_turnover_rub": 144048692.4,
+          "closed_trades": 297,
+          "late_trades": 217,
+          "late_return_pct": 30.0055,
+          "profit_factor": 1.495,
+          "max_drawdown_pct": -11.0783,
+          "source_csv": "experiments/ema-grid-search/results/1H/SGZH.csv.gz",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "AFKS",
+        "GAZP",
+        "MTLR",
+        "PLZL",
+        "SFIN",
+        "SGZH",
+        "SMLT",
+        "UGLD",
+        "UNAC",
+        "VTBR",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "ema-level-25-atr05-long-short-1d",
+      "experiment": "ema-levels-grid-search",
+      "timeframe": "1D",
+      "selector": {
+        "variant": "ema_level_25_0.5",
+        "mode": "long_short"
+      },
+      "label": "EMA 25 · зона 0,5 ATR · 1D",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 251,
+      "median_return_pct": 18.32,
+      "profitable_tickers": 204,
+      "liquid_screened_tickers": 1,
+      "top10": [
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 34.89,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 105,
+          "late_trades": 38,
+          "late_return_pct": 21.56,
+          "profit_factor": 1.597,
+          "max_drawdown_pct": -17.35,
+          "source_csv": "experiments/ema-levels-grid-search/results/1D/SMLT.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "SMLT"
+      ]
+    },
+    {
+      "id": "ema-level-45-atr025-long-short-1h",
+      "experiment": "ema-levels-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "ema_level_45_0.25",
+        "mode": "long_short"
+      },
+      "label": "EMA 45 · зона 0,25 ATR · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -21.86,
+      "profitable_tickers": 42,
+      "liquid_screened_tickers": 7,
+      "top10": [
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 97.11,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 480,
+          "late_trades": 334,
+          "late_return_pct": 71.14,
+          "profit_factor": 1.741,
+          "max_drawdown_pct": -9.45,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/SMLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 81.18,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 506,
+          "late_trades": 369,
+          "late_return_pct": 51.06,
+          "profit_factor": 1.601,
+          "max_drawdown_pct": -9.65,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/WUSH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "RAGR",
+          "net_return_pct": 43.14,
+          "median_60d_turnover_rub": 348623592.27,
+          "closed_trades": 337,
+          "late_trades": 337,
+          "late_return_pct": 43.14,
+          "profit_factor": 1.641,
+          "max_drawdown_pct": -10.84,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/RAGR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SELG",
+          "net_return_pct": 30.36,
+          "median_60d_turnover_rub": 150798504.9,
+          "closed_trades": 508,
+          "late_trades": 380,
+          "late_return_pct": 13.02,
+          "profit_factor": 1.271,
+          "max_drawdown_pct": -16.47,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/SELG.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "VTBR",
+          "net_return_pct": 22.6,
+          "median_60d_turnover_rub": 2461122346.65,
+          "closed_trades": 478,
+          "late_trades": 344,
+          "late_return_pct": 9.03,
+          "profit_factor": 1.296,
+          "max_drawdown_pct": -7.09,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/VTBR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "NVTK",
+          "net_return_pct": 18.53,
+          "median_60d_turnover_rub": 2891487027.35,
+          "closed_trades": 460,
+          "late_trades": 323,
+          "late_return_pct": 4.38,
+          "profit_factor": 1.21,
+          "max_drawdown_pct": -9.19,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/NVTK.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "GAZP",
+          "net_return_pct": 17.84,
+          "median_60d_turnover_rub": 7817572087.2,
+          "closed_trades": 489,
+          "late_trades": 362,
+          "late_return_pct": 0.03,
+          "profit_factor": 1.206,
+          "max_drawdown_pct": -18.25,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/GAZP.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "GAZP",
+        "NVTK",
+        "RAGR",
+        "SELG",
+        "SMLT",
+        "VTBR",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "ema-level-79-atr025-long-short-1h",
+      "experiment": "ema-levels-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "ema_level_79_0.25",
+        "mode": "long_short"
+      },
+      "label": "EMA 79 · зона 0,25 ATR · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -14.19,
+      "profitable_tickers": 62,
+      "liquid_screened_tickers": 14,
+      "top10": [
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 104.11,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 338,
+          "late_trades": 252,
+          "late_return_pct": 60.66,
+          "profit_factor": 2.12,
+          "max_drawdown_pct": -6.88,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/WUSH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "NLMK",
+          "net_return_pct": 45.72,
+          "median_60d_turnover_rub": 651398977.1,
+          "closed_trades": 328,
+          "late_trades": 252,
+          "late_return_pct": 21.96,
+          "profit_factor": 1.644,
+          "max_drawdown_pct": -7.97,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/NLMK.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "ENPG",
+          "net_return_pct": 43.32,
+          "median_60d_turnover_rub": 113901943.47,
+          "closed_trades": 337,
+          "late_trades": 253,
+          "late_return_pct": 23.39,
+          "profit_factor": 1.541,
+          "max_drawdown_pct": -7.99,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/ENPG.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "UGLD",
+          "net_return_pct": 33.85,
+          "median_60d_turnover_rub": 114096216.0,
+          "closed_trades": 308,
+          "late_trades": 242,
+          "late_return_pct": 5.69,
+          "profit_factor": 1.475,
+          "max_drawdown_pct": -14.77,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/UGLD.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "VTBR",
+          "net_return_pct": 33.13,
+          "median_60d_turnover_rub": 2461122346.65,
+          "closed_trades": 357,
+          "late_trades": 245,
+          "late_return_pct": 17.67,
+          "profit_factor": 1.505,
+          "max_drawdown_pct": -8.12,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/VTBR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "UPRO",
+          "net_return_pct": 31.12,
+          "median_60d_turnover_rub": 192363747.75,
+          "closed_trades": 368,
+          "late_trades": 268,
+          "late_return_pct": 20.67,
+          "profit_factor": 1.405,
+          "max_drawdown_pct": -9.48,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/UPRO.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 30.53,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 356,
+          "late_trades": 265,
+          "late_return_pct": 19.95,
+          "profit_factor": 1.267,
+          "max_drawdown_pct": -15.75,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/SMLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "ASTR",
+          "net_return_pct": 26.88,
+          "median_60d_turnover_rub": 109091594.1,
+          "closed_trades": 370,
+          "late_trades": 253,
+          "late_return_pct": 19.92,
+          "profit_factor": 1.412,
+          "max_drawdown_pct": -9.38,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/ASTR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "AFLT",
+          "net_return_pct": 22.07,
+          "median_60d_turnover_rub": 621200901.1,
+          "closed_trades": 332,
+          "late_trades": 240,
+          "late_return_pct": 3.78,
+          "profit_factor": 1.257,
+          "max_drawdown_pct": -8.65,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/AFLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SELG",
+          "net_return_pct": 21.97,
+          "median_60d_turnover_rub": 150798504.9,
+          "closed_trades": 366,
+          "late_trades": 268,
+          "late_return_pct": 0.11,
+          "profit_factor": 1.23,
+          "max_drawdown_pct": -16.33,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/SELG.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "AFLT",
+        "ASTR",
+        "ENPG",
+        "NLMK",
+        "SELG",
+        "SMLT",
+        "UGLD",
+        "UPRO",
+        "VTBR",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "ema-level-94-atr05-long-short-1h",
+      "experiment": "ema-levels-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "ema_level_94_0.5",
+        "mode": "long_short"
+      },
+      "label": "EMA 94 · зона 0,5 ATR · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -21.14,
+      "profitable_tickers": 50,
+      "liquid_screened_tickers": 14,
+      "top10": [
+        {
+          "symbol": "SFIN",
+          "net_return_pct": 122.07,
+          "median_60d_turnover_rub": 81495708.7,
+          "closed_trades": 421,
+          "late_trades": 327,
+          "late_return_pct": 56.1,
+          "profit_factor": 2.05,
+          "max_drawdown_pct": -11.29,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/SFIN.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 61.82,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 418,
+          "late_trades": 299,
+          "late_return_pct": 41.24,
+          "profit_factor": 1.59,
+          "max_drawdown_pct": -8.78,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/WUSH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "RUAL",
+          "net_return_pct": 52.51,
+          "median_60d_turnover_rub": 617176391.4,
+          "closed_trades": 423,
+          "late_trades": 285,
+          "late_return_pct": 42.65,
+          "profit_factor": 1.75,
+          "max_drawdown_pct": -6.46,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/RUAL.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "AFLT",
+          "net_return_pct": 48.65,
+          "median_60d_turnover_rub": 621200901.1,
+          "closed_trades": 420,
+          "late_trades": 318,
+          "late_return_pct": 16.74,
+          "profit_factor": 1.652,
+          "max_drawdown_pct": -7.89,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/AFLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "AFKS",
+          "net_return_pct": 39.17,
+          "median_60d_turnover_rub": 561938517.25,
+          "closed_trades": 388,
+          "late_trades": 293,
+          "late_return_pct": 4.09,
+          "profit_factor": 1.368,
+          "max_drawdown_pct": -16.01,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/AFKS.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "ENPG",
+          "net_return_pct": 34.51,
+          "median_60d_turnover_rub": 113901943.47,
+          "closed_trades": 417,
+          "late_trades": 308,
+          "late_return_pct": 15.8,
+          "profit_factor": 1.43,
+          "max_drawdown_pct": -7.84,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/ENPG.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SELG",
+          "net_return_pct": 34.16,
+          "median_60d_turnover_rub": 150798504.9,
+          "closed_trades": 466,
+          "late_trades": 366,
+          "late_return_pct": 5.79,
+          "profit_factor": 1.335,
+          "max_drawdown_pct": -14.16,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/SELG.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "VTBR",
+          "net_return_pct": 30.99,
+          "median_60d_turnover_rub": 2461122346.65,
+          "closed_trades": 408,
+          "late_trades": 260,
+          "late_return_pct": 25.56,
+          "profit_factor": 1.513,
+          "max_drawdown_pct": -8.24,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/VTBR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "PLZL",
+          "net_return_pct": 28.76,
+          "median_60d_turnover_rub": 2069493565.6,
+          "closed_trades": 416,
+          "late_trades": 291,
+          "late_return_pct": 28.73,
+          "profit_factor": 1.378,
+          "max_drawdown_pct": -9.67,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/PLZL.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 25.87,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 467,
+          "late_trades": 340,
+          "late_return_pct": 21.0,
+          "profit_factor": 1.23,
+          "max_drawdown_pct": -14.67,
+          "source_csv": "experiments/ema-levels-grid-search/results/1H/SMLT.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "AFKS",
+        "AFLT",
+        "ENPG",
+        "PLZL",
+        "RUAL",
+        "SELG",
+        "SFIN",
+        "SMLT",
+        "VTBR",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "four-point-levels-5-1p5-long-short-1h",
+      "experiment": "four-point-levels-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "four_points_5_1.5",
+        "mode": "long_short"
+      },
+      "label": "Четырёхточечные уровни 5/1,5 · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -24.54,
+      "profitable_tickers": 23,
+      "liquid_screened_tickers": 1,
+      "top10": [
+        {
+          "symbol": "GMKN",
+          "net_return_pct": 20.29,
+          "median_60d_turnover_rub": 1823341367.2,
+          "closed_trades": 435,
+          "late_trades": 309,
+          "late_return_pct": 11.38,
+          "profit_factor": 1.207,
+          "max_drawdown_pct": -14.26,
+          "source_csv": "experiments/four-point-levels-grid-search/results/1H/GMKN.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "GMKN",
+        "KOGK"
+      ]
+    },
+    {
+      "id": "rsi-21-60-40-long-short-1h",
+      "experiment": "rsi-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "variant": "rsi_21_60_40",
+        "mode": "long_short"
+      },
+      "label": "RSI 21 · уровни 60/40 · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -0.57,
+      "profitable_tickers": 123,
+      "liquid_screened_tickers": 31,
+      "top10": [
+        {
+          "symbol": "SFIN",
+          "net_return_pct": 173.85,
+          "median_60d_turnover_rub": 81495708.7,
+          "closed_trades": 133,
+          "late_trades": 99,
+          "late_return_pct": 91.84,
+          "profit_factor": 3.284,
+          "max_drawdown_pct": -11.16,
+          "source_csv": "experiments/rsi-grid-search/results/1H/SFIN.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 83.37,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 138,
+          "late_trades": 97,
+          "late_return_pct": 67.24,
+          "profit_factor": 2.016,
+          "max_drawdown_pct": -10.02,
+          "source_csv": "experiments/rsi-grid-search/results/1H/SMLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "UNAC",
+          "net_return_pct": 69.73,
+          "median_60d_turnover_rub": 49389439.5,
+          "closed_trades": 121,
+          "late_trades": 91,
+          "late_return_pct": 28.43,
+          "profit_factor": 1.943,
+          "max_drawdown_pct": -11.94,
+          "source_csv": "experiments/rsi-grid-search/results/1H/UNAC.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SGZH",
+          "net_return_pct": 62.94,
+          "median_60d_turnover_rub": 144048692.4,
+          "closed_trades": 136,
+          "late_trades": 92,
+          "late_return_pct": 46.76,
+          "profit_factor": 1.871,
+          "max_drawdown_pct": -14.14,
+          "source_csv": "experiments/rsi-grid-search/results/1H/SGZH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "AFKS",
+          "net_return_pct": 51.83,
+          "median_60d_turnover_rub": 561938517.25,
+          "closed_trades": 142,
+          "late_trades": 107,
+          "late_return_pct": 21.28,
+          "profit_factor": 1.662,
+          "max_drawdown_pct": -7.35,
+          "source_csv": "experiments/rsi-grid-search/results/1H/AFKS.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 51.04,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 143,
+          "late_trades": 110,
+          "late_return_pct": 27.93,
+          "profit_factor": 1.615,
+          "max_drawdown_pct": -11.65,
+          "source_csv": "experiments/rsi-grid-search/results/1H/WUSH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "GAZP",
+          "net_return_pct": 50.96,
+          "median_60d_turnover_rub": 7817572087.2,
+          "closed_trades": 145,
+          "late_trades": 106,
+          "late_return_pct": 23.2,
+          "profit_factor": 2.118,
+          "max_drawdown_pct": -6.32,
+          "source_csv": "experiments/rsi-grid-search/results/1H/GAZP.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MTLR",
+          "net_return_pct": 50.47,
+          "median_60d_turnover_rub": 362986945.21,
+          "closed_trades": 149,
+          "late_trades": 115,
+          "late_return_pct": 12.62,
+          "profit_factor": 1.667,
+          "max_drawdown_pct": -7.22,
+          "source_csv": "experiments/rsi-grid-search/results/1H/MTLR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SELG",
+          "net_return_pct": 38.18,
+          "median_60d_turnover_rub": 150798504.9,
+          "closed_trades": 142,
+          "late_trades": 104,
+          "late_return_pct": 17.07,
+          "profit_factor": 1.537,
+          "max_drawdown_pct": -11.1,
+          "source_csv": "experiments/rsi-grid-search/results/1H/SELG.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "PLZL",
+          "net_return_pct": 36.27,
+          "median_60d_turnover_rub": 2069493565.6,
+          "closed_trades": 157,
+          "late_trades": 107,
+          "late_return_pct": 32.01,
+          "profit_factor": 1.62,
+          "max_drawdown_pct": -8.75,
+          "source_csv": "experiments/rsi-grid-search/results/1H/PLZL.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "AFKS",
+        "GAZP",
+        "MTLR",
+        "PLZL",
+        "SELG",
+        "SFIN",
+        "SGZH",
+        "SMLT",
+        "UNAC",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "sma-cross-12-60-long-short-1h",
+      "experiment": "sma-grid-search",
+      "timeframe": "1H",
+      "selector": {
+        "rule_id": "sma_cross-06"
+      },
+      "label": "SMA 12/60 · пересечение · 1H",
+      "status": "HISTORICAL_RANKING",
+      "tested_tickers": 254,
+      "median_return_pct": -0.55,
+      "profitable_tickers": 124,
+      "liquid_screened_tickers": 34,
+      "top10": [
+        {
+          "symbol": "SMLT",
+          "net_return_pct": 118.68,
+          "median_60d_turnover_rub": 1722642529.6,
+          "closed_trades": 267,
+          "late_trades": 181,
+          "late_return_pct": 93.85,
+          "profit_factor": 2.173,
+          "max_drawdown_pct": -6.33,
+          "source_csv": "experiments/sma-grid-search/results/1H/SMLT.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SFIN",
+          "net_return_pct": 103.53,
+          "median_60d_turnover_rub": 81495708.7,
+          "closed_trades": 242,
+          "late_trades": 182,
+          "late_return_pct": 68.72,
+          "profit_factor": 2.112,
+          "max_drawdown_pct": -10.88,
+          "source_csv": "experiments/sma-grid-search/results/1H/SFIN.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "WUSH",
+          "net_return_pct": 86.74,
+          "median_60d_turnover_rub": 100576312.52,
+          "closed_trades": 274,
+          "late_trades": 200,
+          "late_return_pct": 60.3,
+          "profit_factor": 1.872,
+          "max_drawdown_pct": -10.59,
+          "source_csv": "experiments/sma-grid-search/results/1H/WUSH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "SGZH",
+          "net_return_pct": 72.15,
+          "median_60d_turnover_rub": 144048692.4,
+          "closed_trades": 284,
+          "late_trades": 200,
+          "late_return_pct": 29.05,
+          "profit_factor": 1.687,
+          "max_drawdown_pct": -12.3,
+          "source_csv": "experiments/sma-grid-search/results/1H/SGZH.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MTLR",
+          "net_return_pct": 59.02,
+          "median_60d_turnover_rub": 362986945.21,
+          "closed_trades": 256,
+          "late_trades": 188,
+          "late_return_pct": 22.25,
+          "profit_factor": 1.632,
+          "max_drawdown_pct": -6.44,
+          "source_csv": "experiments/sma-grid-search/results/1H/MTLR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "UGLD",
+          "net_return_pct": 54.08,
+          "median_60d_turnover_rub": 114096216.0,
+          "closed_trades": 224,
+          "late_trades": 176,
+          "late_return_pct": 28.13,
+          "profit_factor": 1.672,
+          "max_drawdown_pct": -8.43,
+          "source_csv": "experiments/sma-grid-search/results/1H/UGLD.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "RUAL",
+          "net_return_pct": 52.8,
+          "median_60d_turnover_rub": 617176391.4,
+          "closed_trades": 246,
+          "late_trades": 164,
+          "late_return_pct": 41.73,
+          "profit_factor": 1.716,
+          "max_drawdown_pct": -8.5,
+          "source_csv": "experiments/sma-grid-search/results/1H/RUAL.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "UNAC",
+          "net_return_pct": 51.39,
+          "median_60d_turnover_rub": 49389439.5,
+          "closed_trades": 262,
+          "late_trades": 194,
+          "late_return_pct": 24.41,
+          "profit_factor": 1.489,
+          "max_drawdown_pct": -9.95,
+          "source_csv": "experiments/sma-grid-search/results/1H/UNAC.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "RAGR",
+          "net_return_pct": 49.42,
+          "median_60d_turnover_rub": 348623592.27,
+          "closed_trades": 170,
+          "late_trades": 170,
+          "late_return_pct": 49.42,
+          "profit_factor": 2.043,
+          "max_drawdown_pct": -6.86,
+          "source_csv": "experiments/sma-grid-search/results/1H/RAGR.csv",
+          "paper_active": true
+        },
+        {
+          "symbol": "MAGN",
+          "net_return_pct": 44.62,
+          "median_60d_turnover_rub": 1064227069.55,
+          "closed_trades": 258,
+          "late_trades": 186,
+          "late_return_pct": 25.35,
+          "profit_factor": 1.573,
+          "max_drawdown_pct": -7.15,
+          "source_csv": "experiments/sma-grid-search/results/1H/MAGN.csv",
+          "paper_active": true
+        }
+      ],
+      "active_paper_symbols": [
+        "MAGN",
+        "MTLR",
+        "RAGR",
+        "RUAL",
+        "SFIN",
+        "SGZH",
+        "SMLT",
+        "UGLD",
+        "UNAC",
+        "WUSH"
+      ]
+    },
+    {
+      "id": "sma-cross-10-59-atr025-long-short-1h",
+      "experiment": "double-indicator/sma-cross-sideways-filters-smlt-1h",
+      "timeframe": "1H",
+      "selector": null,
+      "limitation": "Перебор только на SMLT; сопоставимого расчёта той же пары по другим акциям нет.",
+      "label": "SMA 10/59 · зона 0,25 ATR · 1H",
+      "status": "NO_CROSS_TICKER_RESULTS",
+      "tested_tickers": 0,
+      "top10": [],
+      "active_paper_symbols": [
+        "SMLT"
+      ]
+    }
+  ]
+}

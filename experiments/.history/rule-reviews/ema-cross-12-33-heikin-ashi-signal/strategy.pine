@@ -1,0 +1,35 @@
+//@version=6
+strategy("MOEX · HA EMA12/33 signal · standard OHLC fills", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false,
+     fill_orders_on_standard_ohlc = true,
+     margin_long = 100, margin_short = 100)
+
+string standardTicker = ticker.standard(syminfo.tickerid)
+string haTicker = ticker.heikinashi(standardTicker)
+float realClose = request.security(standardTicker, timeframe.period, close,
+     lookahead = barmerge.lookahead_off)
+float haEma12 = request.security(haTicker, timeframe.period, ta.ema(close, 12),
+     lookahead = barmerge.lookahead_off)
+float haEma33 = request.security(haTicker, timeframe.period, ta.ema(close, 33),
+     lookahead = barmerge.lookahead_off)
+bool crossUp = barstate.isconfirmed and ta.crossover(haEma12, haEma33)
+bool crossDown = barstate.isconfirmed and ta.crossunder(haEma12, haEma33)
+float shares = math.floor(strategy.equity * 0.25 / realClose)
+
+if crossUp
+    if shares >= 1
+        strategy.entry("Long", strategy.long, qty = shares,
+             alert_message = "HA EMA12/33 LONG {{ticker}} {{interval}}")
+    else if strategy.position_size < 0
+        strategy.close("Short")
+if crossDown
+    if shares >= 1
+        strategy.entry("Short", strategy.short, qty = shares,
+             alert_message = "HA EMA12/33 SHORT {{ticker}} {{interval}}")
+    else if strategy.position_size > 0
+        strategy.close("Long")
+
+plot(haEma12, "HA EMA 12", color = color.aqua, linewidth = 2)
+plot(haEma33, "HA EMA 33", color = color.orange, linewidth = 2)

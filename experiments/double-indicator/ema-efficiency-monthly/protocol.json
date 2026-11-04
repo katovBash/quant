@@ -1,0 +1,22 @@
+{
+  "frozen_on": "2026-11-02",
+  "source_snapshot": "2026-10-30",
+  "timeframe": "1H",
+  "symbols": ["SBER", "GAZP", "LKOH", "PLZL", "SMLT", "VTBR", "TATN", "ROSN", "GMKN", "NVTK"],
+  "base_signal": "EMA12/33 cross on completed candle",
+  "filter": "absolute 10/20-bar displacement divided by sum of absolute close-to-close changes through signal candle",
+  "lookbacks": [10, 20],
+  "thresholds": [0.2, 0.35],
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "entry": "next open, if efficiency ratio on signal candle meets threshold",
+  "exit": "opposite EMA crossing closes the prior position even when filter blocks the new entry",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "fee_bps_per_side": 5,
+  "slippage": "one tick per side",
+  "not_included": ["short borrow", "dividends", "exchange lots", "corporate actions"],
+  "primary_screen": "strictly positive return in every complete calendar month; no zero month",
+  "control": "EMA12/33 without efficiency filter on same candles and costs",
+  "candidate_policy": "no candidate if no fixed variant passes monthly screen; late sample is already seen"
+}

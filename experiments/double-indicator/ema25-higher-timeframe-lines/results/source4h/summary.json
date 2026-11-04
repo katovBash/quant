@@ -1,0 +1,205 @@
+{
+  "rows": 3900,
+  "monthly_rows": 128700,
+  "yearly_rows": 11700,
+  "rolling_100_trade_windows": 108951,
+  "nonoverlapping_100_trade_blocks": 1308,
+  "filtered_100_trade_pass": 142,
+  "filtered_preliminary_pass": 11,
+  "decision": "REVIEW_ONLY",
+  "by_group": {
+    "1H_baseline": {
+      "rows": 100,
+      "all_positive_months": 0,
+      "annual_strict_pass": 5,
+      "fewer_trades": 0,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 0,
+      "median_return_change_pp": 0.0,
+      "median_trade_change": 0.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 40,
+          "positive": 12,
+          "median_return_pct": -6.7
+        },
+        "decline": {
+          "observations": 109,
+          "positive": 27,
+          "median_return_pct": -9.38
+        },
+        "sideways": {
+          "observations": 7,
+          "positive": 0,
+          "median_return_pct": -19.09
+        },
+        "volatile_mixed": {
+          "observations": 44,
+          "positive": 14,
+          "median_return_pct": -6.89
+        }
+      }
+    },
+    "1H_4H": {
+      "rows": 1200,
+      "all_positive_months": 0,
+      "annual_strict_pass": 172,
+      "fewer_trades": 1200,
+      "fewer_nonpositive_months": 165,
+      "higher_full_return": 1037,
+      "median_return_change_pp": 24.83,
+      "median_trade_change": -963.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 480,
+          "positive": 175,
+          "median_return_pct": -0.4
+        },
+        "decline": {
+          "observations": 1308,
+          "positive": 478,
+          "median_return_pct": -0.49
+        },
+        "sideways": {
+          "observations": 84,
+          "positive": 25,
+          "median_return_pct": -0.69
+        },
+        "volatile_mixed": {
+          "observations": 528,
+          "positive": 202,
+          "median_return_pct": -0.48
+        }
+      }
+    },
+    "4H_baseline": {
+      "rows": 100,
+      "all_positive_months": 0,
+      "annual_strict_pass": 33,
+      "fewer_trades": 0,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 0,
+      "median_return_change_pp": 0.0,
+      "median_trade_change": 0.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 40,
+          "positive": 23,
+          "median_return_pct": 3.01
+        },
+        "decline": {
+          "observations": 109,
+          "positive": 68,
+          "median_return_pct": 2.51
+        },
+        "sideways": {
+          "observations": 7,
+          "positive": 0,
+          "median_return_pct": -5.25
+        },
+        "volatile_mixed": {
+          "observations": 44,
+          "positive": 24,
+          "median_return_pct": 1.55
+        }
+      }
+    },
+    "4H_4H": {
+      "rows": 1200,
+      "all_positive_months": 0,
+      "annual_strict_pass": 106,
+      "fewer_trades": 1200,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 468,
+      "median_return_change_pp": -4.5,
+      "median_trade_change": -250.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 480,
+          "positive": 125,
+          "median_return_pct": -0.22
+        },
+        "decline": {
+          "observations": 1308,
+          "positive": 407,
+          "median_return_pct": -0.15
+        },
+        "sideways": {
+          "observations": 84,
+          "positive": 9,
+          "median_return_pct": -0.56
+        },
+        "volatile_mixed": {
+          "observations": 528,
+          "positive": 163,
+          "median_return_pct": -0.15
+        }
+      }
+    },
+    "1D_baseline": {
+      "rows": 100,
+      "all_positive_months": 0,
+      "annual_strict_pass": 33,
+      "fewer_trades": 0,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 0,
+      "median_return_change_pp": 0.0,
+      "median_trade_change": 0.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 40,
+          "positive": 27,
+          "median_return_pct": 4.04
+        },
+        "decline": {
+          "observations": 109,
+          "positive": 55,
+          "median_return_pct": 0.06
+        },
+        "sideways": {
+          "observations": 7,
+          "positive": 1,
+          "median_return_pct": -3.92
+        },
+        "volatile_mixed": {
+          "observations": 44,
+          "positive": 31,
+          "median_return_pct": 2.97
+        }
+      }
+    },
+    "1D_4H": {
+      "rows": 1200,
+      "all_positive_months": 0,
+      "annual_strict_pass": 12,
+      "fewer_trades": 1200,
+      "fewer_nonpositive_months": 0,
+      "higher_full_return": 337,
+      "median_return_change_pp": -8.29,
+      "median_trade_change": -58.0,
+      "complete_year_regimes": {
+        "growth": {
+          "observations": 480,
+          "positive": 53,
+          "median_return_pct": 0.0
+        },
+        "decline": {
+          "observations": 1308,
+          "positive": 144,
+          "median_return_pct": 0.0
+        },
+        "sideways": {
+          "observations": 84,
+          "positive": 7,
+          "median_return_pct": 0.0
+        },
+        "volatile_mixed": {
+          "observations": 528,
+          "positive": 54,
+          "median_return_pct": 0.0
+        }
+      }
+    }
+  },
+  "errors": []
+}

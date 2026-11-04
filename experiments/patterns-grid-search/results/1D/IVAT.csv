@@ -1,0 +1,19 @@
+symbol,timeframe,indicator,variant,parameters,mode,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_buy_hold_pct,late_profit_factor,late_drawdown_pct
+IVAT,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",long,736,2024-06-04 00:00:00,2026-10-30 00:00:00,10,4,40.0,-3.73,-19.74,16.01,0.824,-13.34,8,4,-1.82,-17.11,0.951,-13.34
+IVAT,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,11,6,54.55,16.22,-19.74,35.96,2.702,-10.37,8,4,15.64,-17.11,2.73,-10.36
+IVAT,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",long_short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,21,10,47.62,11.89,-19.74,31.63,1.556,-16.43,16,8,13.52,-17.11,1.724,-16.43
+IVAT,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",long,736,2024-06-04 00:00:00,2026-10-30 00:00:00,6,2,33.33,-9.57,-19.74,10.17,0.304,-14.26,4,1,-5.05,-17.11,0.416,-14.26
+IVAT,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,7,3,42.86,14.74,-19.74,34.48,3.072,-6.7,4,2,17.89,-17.11,5.725,-6.22
+IVAT,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",long_short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,13,5,38.46,3.76,-19.74,23.5,1.263,-13.0,8,3,11.94,-17.11,2.208,-12.81
+IVAT,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",long,736,2024-06-04 00:00:00,2026-10-30 00:00:00,2,1,50.0,-5.87,-19.74,13.87,0.277,-10.8,2,1,-5.87,-17.11,0.277,-10.8
+IVAT,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,3,3,100.0,20.21,-19.74,39.95,inf,-6.73,2,2,19.53,-17.11,inf,-6.73
+IVAT,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",long_short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,5,4,80.0,13.14,-19.74,32.88,6.335,-10.39,4,3,12.51,-17.11,6.165,-10.39
+IVAT,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",long,736,2024-06-04 00:00:00,2026-10-30 00:00:00,25,5,20.0,-1.23,-19.74,18.51,0.933,-10.85,20,5,2.67,-17.11,1.177,-10.85
+IVAT,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,25,17,68.0,23.65,-19.74,43.39,2.322,-11.33,19,13,26.99,-17.11,3.138,-11.33
+IVAT,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",long_short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,50,22,44.0,22.09,-19.74,41.83,1.573,-11.1,39,18,30.34,-17.11,1.98,-11.1
+IVAT,1D,patterns,hammer,"{""pattern"": ""hammer""}",long,736,2024-06-04 00:00:00,2026-10-30 00:00:00,4,2,50.0,14.98,-19.74,34.72,13.821,-6.74,3,2,16.16,-17.11,106.527,-6.74
+IVAT,1D,patterns,hammer,"{""pattern"": ""hammer""}",short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,4,3,75.0,26.29,-19.74,46.03,574.312,-8.95,3,3,27.58,-17.11,inf,-8.96
+IVAT,1D,patterns,hammer,"{""pattern"": ""hammer""}",long_short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,8,5,62.5,45.21,-19.74,64.95,37.135,-8.95,6,5,48.2,-17.11,302.826,-8.96
+IVAT,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",long,736,2024-06-04 00:00:00,2026-10-30 00:00:00,0,0,,0.0,-19.74,19.74,0.0,0.0,0,0,0.0,-17.11,0.0,0.0
+IVAT,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,0,0,,15.84,-19.74,35.58,0.0,-9.82,0,0,15.84,-17.11,0.0,-9.82
+IVAT,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",long_short,736,2024-06-04 00:00:00,2026-10-30 00:00:00,0,0,,15.84,-19.74,35.58,0.0,-9.82,0,0,15.84,-17.11,0.0,-9.82

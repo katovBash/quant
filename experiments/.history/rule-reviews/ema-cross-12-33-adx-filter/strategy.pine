@@ -1,0 +1,41 @@
+//@version=6
+strategy("MOEX · EMA12/33 long + short · ADX14 filter", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+int adxThreshold = input.int(20, "ADX minimum", options = [20, 25])
+float ema12 = ta.ema(close, 12)
+float ema33 = ta.ema(close, 33)
+[plusDI, minusDI, adx] = ta.dmi(14, 14)
+
+bool crossUp = barstate.isconfirmed and ta.crossover(ema12, ema33)
+bool crossDown = barstate.isconfirmed and ta.crossunder(ema12, ema33)
+bool trendStrong = not na(adx) and adx >= adxThreshold
+float shares = math.floor(strategy.equity * 0.25 / close)
+
+// An opposite cross always exits. ADX controls only the new entry.
+// Market orders execute on the next bar under the strategy settings above.
+if crossUp
+    if trendStrong and shares >= 1
+        strategy.entry("Long", strategy.long, qty = shares,
+             alert_message = "EMA12/33 ADX LONG {{ticker}} {{interval}}")
+    else if strategy.position_size < 0
+        strategy.close("Short", alert_message = "EMA12/33 ADX CLOSE SHORT {{ticker}} {{interval}}")
+if crossDown
+    if trendStrong and shares >= 1
+        strategy.entry("Short", strategy.short, qty = shares,
+             alert_message = "EMA12/33 ADX SHORT {{ticker}} {{interval}}")
+    else if strategy.position_size > 0
+        strategy.close("Long", alert_message = "EMA12/33 ADX CLOSE LONG {{ticker}} {{interval}}")
+
+plot(ema12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(ema33, "EMA 33", color = color.orange, linewidth = 2)
+plot(adx, "ADX 14", display = display.data_window)
+plotshape(crossUp and trendStrong, "Long allowed", shape.triangleup,
+     location.belowbar, color.lime, size = size.small)
+plotshape(crossDown and trendStrong, "Short allowed", shape.triangledown,
+     location.abovebar, color.red, size = size.small)
+plotshape((crossUp or crossDown) and not trendStrong, "Entry skipped",
+     shape.circle, location.top, color.gray, size = size.tiny)

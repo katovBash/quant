@@ -1,0 +1,31 @@
+//@version=6
+strategy("MOEX · EMA12/33 · volume 1.5x", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+float ema12 = ta.ema(close, 12)
+float ema33 = ta.ema(close, 33)
+float previousVolumeMean = ta.sma(volume[1], 20)
+bool volumeSpike = not na(previousVolumeMean) and volume > 1.5 * previousVolumeMean
+int age = ta.barssince(volumeSpike)
+bool volumeRecent = not na(age) and age <= 3
+bool crossUp = barstate.isconfirmed and ta.crossover(ema12, ema33)
+bool crossDown = barstate.isconfirmed and ta.crossunder(ema12, ema33)
+float shares = math.floor(strategy.equity * 0.25 / close)
+
+if crossUp
+    if volumeRecent and shares >= 1
+        strategy.entry("Long", strategy.long, qty = shares)
+    else if strategy.position_size < 0
+        strategy.close("Short")
+if crossDown
+    if volumeRecent and shares >= 1
+        strategy.entry("Short", strategy.short, qty = shares)
+    else if strategy.position_size > 0
+        strategy.close("Long")
+
+plot(ema12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(ema33, "EMA 33", color = color.orange, linewidth = 2)
+plotshape(volumeSpike, "Volume 1.5x", shape.circle, location.bottom, color.new(color.yellow, 40), size = size.tiny)

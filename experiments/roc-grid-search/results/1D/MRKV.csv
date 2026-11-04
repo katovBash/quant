@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+MRKV,1D,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,242,70,28.93,-24.39,91.38,-115.77,0.785,-39.47,93,30,2.8,1.075,-11.45
+MRKV,1D,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,111,41,36.94,11.77,91.38,-79.61,1.094,-20.48,40,12,12.0,1.281,-10.78
+MRKV,1D,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,181,65,35.91,-7.8,91.38,-99.18,0.907,-22.78,62,23,3.79,1.047,-14.29
+MRKV,1D,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,83,32,38.55,28.47,91.38,-62.91,1.326,-16.31,30,12,20.91,1.682,-12.33
+MRKV,1D,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,110,35,31.82,11.82,91.38,-79.56,1.103,-15.17,43,14,10.95,1.206,-15.17
+MRKV,1D,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,69,24,34.78,29.86,91.38,-61.52,1.425,-13.64,26,10,18.35,1.612,-11.59
+MRKV,1D,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,78,35,44.87,66.18,91.38,-25.2,2.125,-13.89,25,10,28.37,2.322,-9.78
+MRKV,1D,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,36,20,55.56,100.77,91.38,9.39,4.321,-10.66,12,7,39.05,5.769,-7.75
+MRKV,1D,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,48,15,31.25,41.49,91.38,-49.89,1.809,-20.19,15,4,18.47,1.883,-11.12
+MRKV,1D,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",1322,2022-01-03 00:00:00,2026-10-30 00:00:00,24,9,37.5,54.2,91.38,-37.18,2.165,-19.5,11,3,10.72,1.381,-14.41

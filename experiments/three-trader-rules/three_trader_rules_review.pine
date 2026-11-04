@@ -1,0 +1,97 @@
+//@version=6
+strategy("Three trader rules · MOEX research · review", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0,
+     slippage = 0, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+// Select one frozen variant. The script uses chart bars, so use 1H, 4H or 1D.
+string rule = input.string("Turtle 20/10", "Rule", options = [
+     "Turtle 20/10", "Turtle 55/20", "Connors RSI2 <5", "Connors RSI2 <10",
+     "Raschke ADX30", "Raschke ADX35", "Buy and hold 25%"])
+bool supported = (timeframe.isdaily and timeframe.multiplier == 1) or
+     (timeframe.isintraday and (timeframe.multiplier == 60 or timeframe.multiplier == 240))
+bool active = time >= timestamp("Europe/Moscow", 2024, 1, 1, 0, 0)
+bool ready = supported and bar_index >= 33
+
+bool turtleRule = rule == "Turtle 20/10" or rule == "Turtle 55/20"
+bool connorsRule = rule == "Connors RSI2 <5" or rule == "Connors RSI2 <10"
+bool raschkeRule = rule == "Raschke ADX30" or rule == "Raschke ADX35"
+int entryLength = rule == "Turtle 55/20" ? 55 : 20
+int exitLength = rule == "Turtle 55/20" ? 20 : 10
+int rsiThreshold = rule == "Connors RSI2 <10" ? 10 : 5
+int adxThreshold = rule == "Raschke ADX35" ? 35 : 30
+
+// Turtle: prior channel excludes the signal bar. Signals use the close.
+float entryHigh = ta.highest(high[1], entryLength)
+float entryLow = ta.lowest(low[1], entryLength)
+float exitHigh = ta.highest(high[1], exitLength)
+float exitLow = ta.lowest(low[1], exitLength)
+
+// Connors: match the Python Wilder RSI(2), including its flat-price convention.
+float change = ta.change(close)
+float averageGain = ta.rma(math.max(change, 0.0), 2)
+float averageLoss = ta.rma(math.max(-change, 0.0), 2)
+float rsi2 = na(averageGain) or na(averageLoss) ? na :
+     averageLoss == 0 ? (averageGain > 0 ? 100.0 : 50.0) :
+     100.0 - 100.0 / (1.0 + averageGain / averageLoss)
+float sma200 = ta.sma(close, 200)
+
+// Raschke adaptation: ADX14 crossing 30/35 arms the first EMA20 touch.
+float ema20 = ta.ema(close, 20)
+float upMove = high - high[1]
+float downMove = low[1] - low
+float plusDM = bar_index == 0 ? 0.0 : upMove > downMove and upMove > 0 ? upMove : 0.0
+float minusDM = bar_index == 0 ? 0.0 : downMove > upMove and downMove > 0 ? downMove : 0.0
+float trSmooth = ta.rma(ta.tr(true), 14)
+float plusSmooth = ta.rma(plusDM, 14)
+float minusSmooth = ta.rma(minusDM, 14)
+float plusDI = trSmooth > 0 ? 100.0 * plusSmooth / trSmooth : na
+float minusDI = trSmooth > 0 ? 100.0 * minusSmooth / trSmooth : na
+float dx = na(plusDI) or na(minusDI) ? na :
+     plusDI + minusDI > 0 ? 100.0 * math.abs(plusDI - minusDI) / (plusDI + minusDI) : 0.0
+float adx14 = ta.rma(dx, 14)
+float smaAtr14 = ta.sma(ta.tr(true), 14)
+float prior20High = ta.highest(high[1], 20)
+var int armedUntil = -1
+
+int direction = 0
+int exitDirection = 0
+if ready
+    if turtleRule and bar_index >= entryLength
+        direction := close > entryHigh ? 1 : close < entryLow ? -1 : 0
+        exitDirection := close < exitLow ? -1 : close > exitHigh ? 1 : 0
+    else if connorsRule and bar_index >= 200
+        direction := close > sma200 and rsi2 < rsiThreshold ? 1 : 0
+        exitDirection := rsi2 > 70 ? -1 : 0
+    else if raschkeRule and bar_index >= 34
+        if not na(adx14[1]) and adx14[1] <= adxThreshold and adx14 > adxThreshold and close > ema20 and ema20 > ema20[1]
+            armedUntil := bar_index + 10
+        if bar_index <= armedUntil and low <= ema20 and high >= ema20 and close > ema20
+            direction := 1
+            armedUntil := -1
+        exitDirection := close > prior20High or close < ema20 - smaAtr14 ? -1 : 0
+    else if rule == "Buy and hold 25%" and active and (bar_index == 33 or time[1] < timestamp("Europe/Moscow", 2024, 1, 1, 0, 0))
+        direction := 1
+
+float shares = math.floor(strategy.equity * 0.25 / close)
+if barstate.isconfirmed and active and ready
+    if direction == 1 and shares >= 1 and strategy.position_size <= 0
+        strategy.entry("Long", strategy.long, qty = shares)
+    else if direction == -1 and shares >= 1 and strategy.position_size >= 0
+        strategy.entry("Short", strategy.short, qty = shares)
+    else if strategy.position_size > 0 and exitDirection == -1
+        strategy.close("Long")
+    else if strategy.position_size < 0 and exitDirection == 1
+        strategy.close("Short")
+
+plot(turtleRule ? entryHigh : na, "Turtle upper entry", color = color.new(color.teal, 35))
+plot(turtleRule ? entryLow : na, "Turtle lower entry", color = color.new(color.red, 35))
+plot(turtleRule ? exitHigh : na, "Turtle upper exit", color = color.new(color.teal, 75))
+plot(turtleRule ? exitLow : na, "Turtle lower exit", color = color.new(color.red, 75))
+plot(connorsRule ? sma200 : na, "Connors SMA200", color = color.orange, linewidth = 2)
+plot(raschkeRule ? ema20 : na, "Raschke EMA20", color = color.orange, linewidth = 2)
+
+if barstate.islast and not supported
+    label.new(bar_index, high, "Use 1H, 4H or 1D to match the experiment",
+         style = label.style_label_down, color = color.red, textcolor = color.white)

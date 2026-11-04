@@ -1,0 +1,30 @@
+//@version=6
+strategy("VTBR · EMA 12/33 pure cross", overlay = true, pyramiding = 0,
+     initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false)
+
+if not timeframe.isdaily
+    runtime.error("Выберите дневной график 1D.")
+if syminfo.ticker != "VTBR"
+    runtime.error("Откройте график российской акции VTBR.")
+
+float ema12 = ta.ema(close, 12)
+float ema33 = ta.ema(close, 33)
+bool crossUp = ta.crossover(ema12, ema33)
+bool crossDown = ta.crossunder(ema12, ema33)
+
+// Signals are confirmed at the daily close; market orders fill next bar.
+bool buySignal = barstate.isconfirmed and bar_index >= 32 and crossUp and strategy.position_size == 0
+bool sellSignal = barstate.isconfirmed and crossDown and strategy.position_size > 0
+if buySignal
+    float shares = math.floor(strategy.equity * 0.25 / close)
+    if shares >= 1
+        strategy.entry("Long", strategy.long, qty = shares, alert_message = "VTBR BUY EMA12>EMA33")
+if sellSignal
+    strategy.close("Long", alert_message = "VTBR SELL EMA12<EMA33")
+
+plot(ema12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(ema33, "EMA 33", color = color.orange, linewidth = 2)
+plotshape(buySignal, "Пересечение вверх", shape.triangleup, location.belowbar, color.lime, size = size.small)
+plotshape(sellSignal, "Пересечение вниз", shape.triangledown, location.abovebar, color.red, size = size.small)

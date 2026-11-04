@@ -1,0 +1,36 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "four-point-levels-5-1p5-long-short-1h",
+  "experiment": "four-point-levels-grid-search",
+  "timeframe": "1H",
+  "selector": {
+    "variant": "four_points_5_1.5",
+    "mode": "long_short"
+  },
+  "label": "Четырёхточечные уровни 5/1,5 · 1H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": -24.54,
+  "profitable_tickers": 23,
+  "liquid_screened_tickers": 1,
+  "top10": [
+    {
+      "symbol": "GMKN",
+      "net_return_pct": 20.29,
+      "median_60d_turnover_rub": 1823341367.2,
+      "closed_trades": 435,
+      "late_trades": 309,
+      "late_return_pct": 11.38,
+      "profit_factor": 1.207,
+      "max_drawdown_pct": -14.26,
+      "source_csv": "experiments/four-point-levels-grid-search/results/1H/GMKN.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "GMKN",
+    "KOGK"
+  ]
+}

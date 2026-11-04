@@ -1,0 +1,45 @@
+//@version=6
+strategy("MOEX · EMA12/33 · automatic regression channel", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+int lookback = timeframe.ismonthly ? 12 : timeframe.isweekly ? 52 : timeframe.isintraday ? (timeframe.multiplier <= 60 ? 500 : 252) : 252
+float ema12 = ta.ema(close, 12)
+float ema33 = ta.ema(close, 33)
+
+// The channel uses only completed bars preceding the EMA signal bar.
+float priorFit = ta.linreg(close[1], lookback, 0)
+float priorSlope = priorFit - ta.linreg(close[1], lookback, 1)
+float center = priorFit + priorSlope
+float r = ta.correlation(close[1], bar_index, lookback)
+float residualSigma = ta.stdev(close[1], lookback) * math.sqrt(math.max(0, 1 - r * r))
+float resistance = center + 2 * residualSigma
+float support = center - 2 * residualSigma
+float width = resistance - support
+bool validChannel = not na(width) and close > 0 and width / close >= 0.03
+float channelPosition = validChannel ? (close - support) / width : na
+bool crossUp = barstate.isconfirmed and ta.crossover(ema12, ema33)
+bool crossDown = barstate.isconfirmed and ta.crossunder(ema12, ema33)
+bool allowLong = validChannel and channelPosition >= 0 and channelPosition <= 0.65
+bool allowShort = validChannel and channelPosition >= 0.35 and channelPosition <= 1
+float shares = math.floor(strategy.equity * 0.25 / close)
+
+if crossUp
+    if allowLong and shares >= 1
+        strategy.entry("Long", strategy.long, qty = shares)
+    else if strategy.position_size < 0
+        strategy.close("Short")
+if crossDown
+    if allowShort and shares >= 1
+        strategy.entry("Short", strategy.short, qty = shares)
+    else if strategy.position_size > 0
+        strategy.close("Long")
+
+plot(ema12, "EMA 12", color = color.aqua, linewidth = 2)
+plot(ema33, "EMA 33", color = color.orange, linewidth = 2)
+plot(resistance, "Automatic resistance", color = color.red, linewidth = 2)
+plot(support, "Automatic support", color = color.lime, linewidth = 2)
+plot(validChannel ? support + width * 0.65 : na, "Long room limit", color = color.new(color.lime, 65))
+plot(validChannel ? support + width * 0.35 : na, "Short room limit", color = color.new(color.red, 65))

@@ -1,0 +1,19 @@
+symbol,timeframe,indicator,variant,parameters,mode,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_buy_hold_pct,late_profit_factor,late_drawdown_pct
+UKUZ,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",long,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,14,3,21.43,9.6,2.26,7.34,0.521,-19.5,7,1,12.47,9.52,0.035,-9.52
+UKUZ,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,15,7,46.67,-25.57,2.26,-27.83,0.348,-29.11,8,3,-3.81,9.52,0.737,-11.2
+UKUZ,1D,patterns,breakout_10,"{""pattern"": ""breakout"", ""window"": 10}",long_short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,29,10,34.48,-18.39,2.26,-20.65,0.385,-34.87,15,4,8.72,9.52,0.467,-14.91
+UKUZ,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",long,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,5,2,40.0,23.02,2.26,20.76,1.043,-13.4,2,0,18.43,9.52,0.0,-4.6
+UKUZ,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,6,3,50.0,-9.54,2.26,-11.8,0.515,-22.86,3,2,3.6,9.52,11.0,-7.18
+UKUZ,1D,patterns,breakout_20,"{""pattern"": ""breakout"", ""window"": 20}",long_short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,11,5,45.45,11.52,2.26,9.26,0.623,-22.86,5,2,23.06,9.52,1.006,-7.19
+UKUZ,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",long,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,4,1,25.0,19.29,2.26,17.03,0.342,-15.89,2,0,18.78,9.52,0.0,-3.55
+UKUZ,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,4,2,50.0,7.18,2.26,4.92,3.199,-7.29,3,2,3.76,9.52,11.44,-7.05
+UKUZ,1D,patterns,breakout_40,"{""pattern"": ""breakout"", ""window"": 40}",long_short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,8,3,37.5,28.21,2.26,25.95,1.55,-16.75,5,2,23.6,9.52,1.139,-7.07
+UKUZ,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",long,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,41,17,41.46,1.1,2.26,-1.16,1.044,-18.57,18,4,-3.29,9.52,0.755,-13.68
+UKUZ,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,40,17,42.5,-15.39,2.26,-17.65,1.336,-23.19,18,8,-17.78,9.52,1.765,-23.21
+UKUZ,1D,patterns,engulfing,"{""pattern"": ""engulfing""}",long_short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,81,34,41.98,-14.38,2.26,-16.64,1.169,-24.95,36,12,-20.42,9.52,1.013,-23.13
+UKUZ,1D,patterns,hammer,"{""pattern"": ""hammer""}",long,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,16,2,12.5,-14.82,2.26,-17.08,0.056,-17.86,7,2,-4.23,9.52,0.15,-7.94
+UKUZ,1D,patterns,hammer,"{""pattern"": ""hammer""}",short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,17,7,41.18,-38.31,2.26,-40.57,0.334,-41.37,7,3,-27.42,9.52,0.298,-35.15
+UKUZ,1D,patterns,hammer,"{""pattern"": ""hammer""}",long_short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,33,9,27.27,-47.42,2.26,-49.68,0.274,-50.7,14,5,-30.49,9.52,0.275,-34.84
+UKUZ,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",long,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,1,1,100.0,21.85,2.26,19.59,inf,-20.43,0,0,13.09,9.52,0.0,-13.0
+UKUZ,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,2,1,50.0,5.07,2.26,2.81,1.891,-14.94,1,1,2.12,9.52,inf,-1.63
+UKUZ,1D,patterns,double_confirmed,"{""pattern"": ""double_confirmed""}",long_short,1291,2022-01-03 00:00:00,2026-10-30 00:00:00,3,2,66.67,28.1,2.26,25.84,3.325,-14.94,1,1,15.61,9.52,inf,-13.5

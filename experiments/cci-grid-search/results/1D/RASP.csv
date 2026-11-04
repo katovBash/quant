@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+RASP,1D,cci_reversal-01,cci_reversal,"{""period"": 10, ""threshold"": 100}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,81,45,55.56,1.83,-17.84,19.67,1.031,-24.45,41,24,12.1,1.577,-5.53
+RASP,1D,cci_reversal-02,cci_reversal,"{""period"": 10, ""threshold"": 150}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,48,25,52.08,-16.85,-17.84,0.99,0.723,-32.01,24,14,-2.47,0.957,-8.01
+RASP,1D,cci_reversal-03,cci_reversal,"{""period"": 14, ""threshold"": 100}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,58,29,50.0,-25.77,-17.84,-7.93,0.528,-38.12,32,19,0.92,1.086,-10.01
+RASP,1D,cci_reversal-04,cci_reversal,"{""period"": 14, ""threshold"": 150}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,34,18,52.94,-12.82,-17.84,5.02,0.721,-30.53,16,10,-1.99,0.889,-11.31
+RASP,1D,cci_reversal-05,cci_reversal,"{""period"": 20, ""threshold"": 100}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,50,26,52.0,-16.36,-17.84,1.48,0.652,-28.53,24,14,2.75,1.226,-10.76
+RASP,1D,cci_reversal-06,cci_reversal,"{""period"": 20, ""threshold"": 150}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,28,14,50.0,-14.62,-17.84,3.22,0.683,-28.82,12,4,-11.15,0.39,-16.91
+RASP,1D,cci_reversal-07,cci_reversal,"{""period"": 30, ""threshold"": 100}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,32,21,65.62,-3.07,-17.84,14.77,0.939,-21.61,16,10,3.4,1.383,-9.57
+RASP,1D,cci_reversal-08,cci_reversal,"{""period"": 30, ""threshold"": 150}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,23,15,65.22,-7.77,-17.84,10.07,0.81,-19.08,12,8,4.46,1.42,-10.26
+RASP,1D,cci_reversal-09,cci_reversal,"{""period"": 40, ""threshold"": 100}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,19,11,57.89,-15.77,-17.84,2.07,0.594,-27.84,8,4,-14.22,0.209,-17.75
+RASP,1D,cci_reversal-10,cci_reversal,"{""period"": 40, ""threshold"": 150}",1334,2022-01-03 00:00:00,2026-10-30 00:00:00,15,6,40.0,-21.38,-17.84,-3.54,0.438,-22.84,6,2,-11.04,0.395,-17.55

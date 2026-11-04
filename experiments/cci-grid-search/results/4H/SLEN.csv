@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+SLEN,4H,cci_reversal-01,cci_reversal,"{""period"": 10, ""threshold"": 100}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,170,79,46.47,-20.42,-8.14,-12.28,0.668,-30.26,128,55,-12.76,0.724,-23.23
+SLEN,4H,cci_reversal-02,cci_reversal,"{""period"": 10, ""threshold"": 150}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,108,55,50.93,-11.54,-8.14,-3.4,0.756,-23.44,78,33,-11.97,0.633,-19.24
+SLEN,4H,cci_reversal-03,cci_reversal,"{""period"": 14, ""threshold"": 100}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,122,63,51.64,-14.99,-8.14,-6.85,0.724,-28.91,92,42,-15.0,0.626,-28.74
+SLEN,4H,cci_reversal-04,cci_reversal,"{""period"": 14, ""threshold"": 150}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,78,44,56.41,-1.19,-8.14,6.95,0.986,-19.05,58,31,0.19,1.032,-16.41
+SLEN,4H,cci_reversal-05,cci_reversal,"{""period"": 20, ""threshold"": 100}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,94,47,50.0,-17.0,-8.14,-8.86,0.648,-28.07,72,33,-13.89,0.626,-24.82
+SLEN,4H,cci_reversal-06,cci_reversal,"{""period"": 20, ""threshold"": 150}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,62,33,53.23,-9.44,-8.14,-1.3,0.761,-20.76,42,21,-13.79,0.518,-18.77
+SLEN,4H,cci_reversal-07,cci_reversal,"{""period"": 30, ""threshold"": 100}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,78,41,52.56,-16.71,-8.14,-8.57,0.581,-26.21,58,28,-13.69,0.537,-22.92
+SLEN,4H,cci_reversal-08,cci_reversal,"{""period"": 30, ""threshold"": 150}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,57,33,57.89,-11.23,-8.14,-3.09,0.686,-21.9,40,21,-13.4,0.504,-20.86
+SLEN,4H,cci_reversal-09,cci_reversal,"{""period"": 40, ""threshold"": 100}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,60,36,60.0,-8.27,-8.14,-0.13,0.76,-22.04,44,25,-10.2,0.605,-19.76
+SLEN,4H,cci_reversal-10,cci_reversal,"{""period"": 40, ""threshold"": 150}",2627,2024-01-03 09:00:00,2026-10-30 19:00:00,36,18,50.0,-9.74,-8.14,-1.6,0.65,-20.33,25,10,-12.17,0.433,-18.51

@@ -1,0 +1,21 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+YDEX,1D,bollinger_reversal-01,bollinger_reversal,"{""period"": 10, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,50,38,76.0,18.37,-5.9,24.27,2.316,-5.31,44,34,18.1,2.798,-4.35
+YDEX,1D,bollinger_reversal-02,bollinger_reversal,"{""period"": 10, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,29,22,75.86,21.87,-5.9,27.77,3.79,-6.92,26,20,19.81,3.981,-5.68
+YDEX,1D,bollinger_reversal-03,bollinger_reversal,"{""period"": 20, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,23,11,47.83,-9.15,-5.9,-3.25,0.496,-11.35,21,10,-8.77,0.495,-10.26
+YDEX,1D,bollinger_reversal-04,bollinger_reversal,"{""period"": 20, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,17,10,58.82,-7.59,-5.9,-1.69,0.544,-14.91,15,8,-5.99,0.534,-10.64
+YDEX,1D,bollinger_reversal-05,bollinger_reversal,"{""period"": 30, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,13,8,61.54,-5.02,-5.9,0.88,0.575,-12.93,11,6,-6.13,0.47,-12.06
+YDEX,1D,bollinger_reversal-06,bollinger_reversal,"{""period"": 30, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,9,4,44.44,-5.99,-5.9,-0.09,0.448,-13.27,7,3,-6.68,0.262,-11.12
+YDEX,1D,bollinger_reversal-07,bollinger_reversal,"{""period"": 40, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,9,5,55.56,-3.91,-5.9,1.99,0.678,-12.3,7,3,-5.08,0.57,-11.53
+YDEX,1D,bollinger_reversal-08,bollinger_reversal,"{""period"": 40, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,7,5,71.43,3.77,-5.9,9.67,4.324,-9.28,5,3,-5.46,1.211,-9.35
+YDEX,1D,bollinger_reversal-09,bollinger_reversal,"{""period"": 50, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,8,5,62.5,0.33,-5.9,6.23,0.946,-10.99,7,4,-0.73,0.83,-11.06
+YDEX,1D,bollinger_reversal-10,bollinger_reversal,"{""period"": 50, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,6,6,100.0,12.18,-5.9,18.08,inf,-6.59,5,5,1.98,inf,-6.52
+YDEX,1D,bollinger_breakout-01,bollinger_breakout,"{""period"": 10, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,50,14,28.0,-14.78,-5.9,-8.88,0.463,-18.2,44,13,-11.3,0.514,-13.95
+YDEX,1D,bollinger_breakout-02,bollinger_breakout,"{""period"": 10, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,29,8,27.59,-17.45,-5.9,-11.55,0.29,-18.27,26,7,-14.87,0.326,-16.21
+YDEX,1D,bollinger_breakout-03,bollinger_breakout,"{""period"": 20, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,23,8,34.78,-2.9,-5.9,3.0,0.786,-10.49,21,7,-5.58,0.588,-10.52
+YDEX,1D,bollinger_breakout-04,bollinger_breakout,"{""period"": 20, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,17,6,35.29,-1.38,-5.9,4.52,0.839,-9.16,15,5,-3.09,0.662,-9.13
+YDEX,1D,bollinger_breakout-05,bollinger_breakout,"{""period"": 30, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,13,6,46.15,-0.0,-5.9,5.9,0.919,-7.98,11,6,0.68,0.991,-7.94
+YDEX,1D,bollinger_breakout-06,bollinger_breakout,"{""period"": 30, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,9,3,33.33,-0.26,-5.9,5.64,0.949,-8.74,7,2,-1.32,0.657,-8.74
+YDEX,1D,bollinger_breakout-07,bollinger_breakout,"{""period"": 40, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,9,5,55.56,2.29,-5.9,8.19,1.381,-7.6,7,5,4.45,2.239,-7.61
+YDEX,1D,bollinger_breakout-08,bollinger_breakout,"{""period"": 40, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,7,1,14.29,-5.75,-5.9,0.15,0.109,-12.83,5,1,3.07,0.352,-4.98
+YDEX,1D,bollinger_breakout-09,bollinger_breakout,"{""period"": 50, ""sigma"": 1.5}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,8,3,37.5,-1.59,-5.9,4.31,0.794,-8.32,7,3,0.14,1.046,-8.31
+YDEX,1D,bollinger_breakout-10,bollinger_breakout,"{""period"": 50, ""sigma"": 2.0}",707,2024-07-24 00:00:00,2026-10-30 00:00:00,6,0,0.0,-9.44,-5.9,-3.54,0.0,-15.93,5,0,-2.66,0.0,-8.13

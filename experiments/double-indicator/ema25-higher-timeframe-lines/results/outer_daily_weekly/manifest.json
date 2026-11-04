@@ -1,0 +1,12 @@
+{
+  "protocol": "experiments/double-indicator/ema25-higher-timeframe-lines/protocol_outer_daily_weekly.json",
+  "protocol_sha256": "9ac00f66eca1af9fec173986faae0908d9750fe5947aa4763ab8bfaef0307718",
+  "source_snapshot": "2026-10-30",
+  "frozen_on": "2026-11-02",
+  "cost_model": "gross_before_costs",
+  "expected_rows": 3400,
+  "actual_rows": 3400,
+  "monthly_rows": 112200,
+  "errors": 0,
+  "command": "python3 experiments/double-indicator/ema25-higher-timeframe-lines/run.py --protocol experiments/double-indicator/ema25-higher-timeframe-lines/protocol_outer_daily_weekly.json --out experiments/double-indicator/ema25-higher-timeframe-lines/results/outer_daily_weekly"
+}

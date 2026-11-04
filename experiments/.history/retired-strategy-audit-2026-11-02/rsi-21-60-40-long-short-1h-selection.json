@@ -1,0 +1,152 @@
+{
+  "snapshot": "2026-10-30",
+  "liquidity_minimum_rub": 49389439.5,
+  "liquidity_method": "median of close*volume on last 60 daily candles",
+  "id": "rsi-21-60-40-long-short-1h",
+  "experiment": "rsi-grid-search",
+  "timeframe": "1H",
+  "selector": {
+    "variant": "rsi_21_60_40",
+    "mode": "long_short"
+  },
+  "label": "RSI 21 · уровни 60/40 · 1H",
+  "status": "HISTORICAL_RANKING",
+  "tested_tickers": 254,
+  "median_return_pct": -0.57,
+  "profitable_tickers": 123,
+  "liquid_screened_tickers": 31,
+  "top10": [
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 173.85,
+      "median_60d_turnover_rub": 81495708.7,
+      "closed_trades": 133,
+      "late_trades": 99,
+      "late_return_pct": 91.84,
+      "profit_factor": 3.284,
+      "max_drawdown_pct": -11.16,
+      "source_csv": "experiments/rsi-grid-search/results/1H/SFIN.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 83.37,
+      "median_60d_turnover_rub": 1722642529.6,
+      "closed_trades": 138,
+      "late_trades": 97,
+      "late_return_pct": 67.24,
+      "profit_factor": 2.016,
+      "max_drawdown_pct": -10.02,
+      "source_csv": "experiments/rsi-grid-search/results/1H/SMLT.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "UNAC",
+      "net_return_pct": 69.73,
+      "median_60d_turnover_rub": 49389439.5,
+      "closed_trades": 121,
+      "late_trades": 91,
+      "late_return_pct": 28.43,
+      "profit_factor": 1.943,
+      "max_drawdown_pct": -11.94,
+      "source_csv": "experiments/rsi-grid-search/results/1H/UNAC.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SGZH",
+      "net_return_pct": 62.94,
+      "median_60d_turnover_rub": 144048692.4,
+      "closed_trades": 136,
+      "late_trades": 92,
+      "late_return_pct": 46.76,
+      "profit_factor": 1.871,
+      "max_drawdown_pct": -14.14,
+      "source_csv": "experiments/rsi-grid-search/results/1H/SGZH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "AFKS",
+      "net_return_pct": 51.83,
+      "median_60d_turnover_rub": 561938517.25,
+      "closed_trades": 142,
+      "late_trades": 107,
+      "late_return_pct": 21.28,
+      "profit_factor": 1.662,
+      "max_drawdown_pct": -7.35,
+      "source_csv": "experiments/rsi-grid-search/results/1H/AFKS.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 51.04,
+      "median_60d_turnover_rub": 100576312.52,
+      "closed_trades": 143,
+      "late_trades": 110,
+      "late_return_pct": 27.93,
+      "profit_factor": 1.615,
+      "max_drawdown_pct": -11.65,
+      "source_csv": "experiments/rsi-grid-search/results/1H/WUSH.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "GAZP",
+      "net_return_pct": 50.96,
+      "median_60d_turnover_rub": 7817572087.2,
+      "closed_trades": 145,
+      "late_trades": 106,
+      "late_return_pct": 23.2,
+      "profit_factor": 2.118,
+      "max_drawdown_pct": -6.32,
+      "source_csv": "experiments/rsi-grid-search/results/1H/GAZP.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "MTLR",
+      "net_return_pct": 50.47,
+      "median_60d_turnover_rub": 362986945.21,
+      "closed_trades": 149,
+      "late_trades": 115,
+      "late_return_pct": 12.62,
+      "profit_factor": 1.667,
+      "max_drawdown_pct": -7.22,
+      "source_csv": "experiments/rsi-grid-search/results/1H/MTLR.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "SELG",
+      "net_return_pct": 38.18,
+      "median_60d_turnover_rub": 150798504.9,
+      "closed_trades": 142,
+      "late_trades": 104,
+      "late_return_pct": 17.07,
+      "profit_factor": 1.537,
+      "max_drawdown_pct": -11.1,
+      "source_csv": "experiments/rsi-grid-search/results/1H/SELG.csv",
+      "paper_active": true
+    },
+    {
+      "symbol": "PLZL",
+      "net_return_pct": 36.27,
+      "median_60d_turnover_rub": 2069493565.6,
+      "closed_trades": 157,
+      "late_trades": 107,
+      "late_return_pct": 32.01,
+      "profit_factor": 1.62,
+      "max_drawdown_pct": -8.75,
+      "source_csv": "experiments/rsi-grid-search/results/1H/PLZL.csv",
+      "paper_active": true
+    }
+  ],
+  "active_paper_symbols": [
+    "AFKS",
+    "GAZP",
+    "MTLR",
+    "PLZL",
+    "SELG",
+    "SFIN",
+    "SGZH",
+    "SMLT",
+    "UNAC",
+    "WUSH"
+  ]
+}

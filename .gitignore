@@ -1,0 +1,26 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+data/
+papertrading/equity.csv
+papertrading/closed_trades.csv
+papertrading/execute/trade_log.csv
+papertrading/live/
+papertrading/migrations/
+experiments/ema-grid-search/results/
+experiments/ema-grid-search/run.log
+experiments/ema-grid-search/fetch_hourly.log
+*.log
+
+# Generated per-symbol grids and bulky validation dumps stay local.
+experiments/ema-grid-search/results/1D/
+experiments/ema-grid-search/results/4H/
+experiments/ema-grid-search/results/1H/
+experiments/ema-grid-search/results/ema_grid_kernel
+experiments/ema-levels-grid-search/results/1D/
+experiments/ema-levels-grid-search/results/4H/
+experiments/ema-levels-grid-search/results/1H/
+experiments/**/monthly_validation.json
+experiments/.history/legacy-ema/

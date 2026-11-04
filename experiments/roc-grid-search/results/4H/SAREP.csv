@@ -1,0 +1,11 @@
+symbol,timeframe,rule_id,family,parameters,bars,first_bar,last_bar,closed_trades,winning_trades,win_rate_pct,net_return_pct,buy_hold_return_pct,excess_vs_hold_pp,profit_factor,max_drawdown_pct,late_trades,late_wins,late_return_pct,late_profit_factor,late_drawdown_pct
+SAREP,4H,roc_momentum-01,roc_momentum,"{""period"": 3, ""threshold_pct"": 1}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,360,105,29.17,-55.97,12.58,-68.55,0.558,-58.16,257,68,-50.55,0.477,-52.83
+SAREP,4H,roc_momentum-02,roc_momentum,"{""period"": 3, ""threshold_pct"": 3}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,140,42,30.0,-29.68,12.58,-42.26,0.653,-31.53,96,27,-23.88,0.626,-30.33
+SAREP,4H,roc_momentum-03,roc_momentum,"{""period"": 5, ""threshold_pct"": 1}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,276,85,30.8,-42.68,12.58,-55.26,0.607,-45.07,185,57,-30.9,0.611,-35.21
+SAREP,4H,roc_momentum-04,roc_momentum,"{""period"": 5, ""threshold_pct"": 3}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,133,39,29.32,-24.48,12.58,-37.06,0.707,-28.11,89,25,-22.56,0.623,-27.19
+SAREP,4H,roc_momentum-05,roc_momentum,"{""period"": 10, ""threshold_pct"": 1}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,197,59,29.95,-32.3,12.58,-44.88,0.648,-37.12,144,43,-29.99,0.553,-36.23
+SAREP,4H,roc_momentum-06,roc_momentum,"{""period"": 10, ""threshold_pct"": 3}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,104,27,25.96,-30.49,12.58,-43.07,0.615,-33.1,70,19,-23.96,0.571,-30.02
+SAREP,4H,roc_momentum-07,roc_momentum,"{""period"": 20, ""threshold_pct"": 1}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,158,43,27.22,-29.72,12.58,-42.3,0.639,-34.68,110,30,-27.15,0.523,-32.66
+SAREP,4H,roc_momentum-08,roc_momentum,"{""period"": 20, ""threshold_pct"": 3}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,81,22,27.16,-24.76,12.58,-37.34,0.67,-27.97,54,14,-20.85,0.591,-27.7
+SAREP,4H,roc_momentum-09,roc_momentum,"{""period"": 40, ""threshold_pct"": 1}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,98,25,25.51,-14.3,12.58,-26.88,0.793,-25.91,61,14,-18.7,0.559,-25.91
+SAREP,4H,roc_momentum-10,roc_momentum,"{""period"": 40, ""threshold_pct"": 3}",1972,2024-01-03 10:00:00,2026-10-30 07:00:00,52,16,30.77,-2.5,12.58,-15.08,0.946,-24.0,35,8,-16.76,0.48,-24.0

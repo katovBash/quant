@@ -1,0 +1,30 @@
+{
+  "frozen_on": "2026-11-04",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "universe": "Every TQBR SECID in data/moex_scan/universe_2026-10-30.json; only instruments with evaluable candles",
+  "signal_timeframes": ["1D", "1H", "4H"],
+  "unavailable_timeframes": ["15M", "30M"],
+  "variants": ["baseline", "dennis_turtle_20_10", "dennis_turtle_55_20", "connors_rsi2_5_70", "connors_rsi2_10_70", "raschke_grail_adx30", "raschke_grail_adx35"],
+  "sources": {
+    "dennis": "https://www.turtletrader.com/rules/",
+    "connors": "https://tradingmarkets.com/recent/how_to_enter_and_exit_a_position_on_the_close-677551",
+    "raschke": "https://lindaraschke.net/wp-content/uploads/2013/12/raschke_pt2_0304.pdf"
+  },
+  "baseline": "buy 25% of account once at first evaluable next open and hold",
+  "dennis_rule": "long after close exceeds prior 20 or 55 bar high, short after close below prior 20 or 55 bar low; exit long below prior 10 or 20 bar low, short above prior 10 or 20 bar high; entry fills next open; simplified close-confirmed adaptation without original intrabar stops, skip-after-win, pyramiding or N sizing",
+  "connors_rule": "long only when close > SMA200 and Wilder RSI2 <5 or <10; exit when Wilder RSI2 >70; signal on close and fill next open; 200 bars on intraday variants rather than original 200 days",
+  "raschke_rule": "long only; arm when ADX14 rises through 30 or 35 while close > EMA20 and EMA20 slopes up; first pullback within 10 bars that touches EMA20 and closes above it enters next open; exit on close above prior 20-bar high or below EMA20 minus one SMA ATR14; mechanical approximation of discretionary Holy Grail",
+  "position_policy": "one position per ticker, 25% of each independent 1m RUB account, whole shares; no shared-portfolio inference",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "fee_bps_per_side": 0,
+  "slippage": 0,
+  "cost_status": "gross_before_costs",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "monthly_regime": "ex post: monthly market return >5% growth, <-5% decline, else sideways if high-low range <=10% of first open, otherwise volatile_mixed; diagnostic only",
+  "selection": "all outcomes retained; no numeric approval threshold; REVIEW_ONLY",
+  "limitations": ["intraday bar-count analogues are not original daily strategies", "no exchange lot adjustment", "no dividends or corporate-action adjustment", "short borrow and availability not modeled", "historical data already seen"]
+}
