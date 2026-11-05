@@ -1,0 +1,44 @@
+{
+  "indicator_id": "ema-turtle",
+  "run_id": "cross-timeframe-confluence",
+  "method_id": "ema25-atr05-turtle30-20",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-04",
+  "hypothesis": "A previously known EMA25 support/resistance state can filter Turtle 30/20 breakouts, and a previously known Turtle breakout state can filter EMA25 reactions; testing same and higher EMA source timeframes may improve monthly consistency on the full universe.",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "source_selection": {
+    "ema": "Archived broad-universe selection experiments/.history/retired-strategy-audit-2026-11-02/ema-level-25-atr05-long-short-1d-selection.json: EMA25, 0.5 ATR, 1D, 251 tickers, median net return +18.32%. This is historical seen-data evidence, not a new blind holdout.",
+    "turtle": "experiments/turtle/period-grid/results/all_variants.csv: dennis_turtle_30_20 on 1D, 263 tickers, median net return +4.14%; best median among tested timeframe-variant cells. Chosen before this combined run.",
+    "scope_note": "EMA source winner and Turtle source winner were both measured on 1D. Applying these fixed parameters on 1H/4H is a new transfer test; neither was separately optimal there."
+  },
+  "eligible_universe": {"snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json", "cache_dir": "data/candles/moex_scan", "board": "TQBR", "requires_source_timeframes": ["1D", "1H"]},
+  "corporate_actions": {"status": "unchecked", "applied_in_main_results": false, "splits_status": "unchecked", "dividend_source_status_file": "data/dividends/moex_coverage.json"},
+  "signal_timeframes": ["1H", "4H"],
+  "source_timeframe_map": {"1H": {"same": "1H", "higher": "4H"}, "4H": {"same": "4H", "higher": "1D"}},
+  "parameter_grid": {"axes": {"variant": {"values": ["ema_only_same", "ema_only_higher", "turtle_only", "turtle_entry_ema_same", "turtle_entry_ema_higher", "ema_entry_turtle_same", "ema_entry_turtle_higher", "dual_event_3_same", "dual_event_3_higher"]}}, "variant_template": "{variant}", "include_baseline": true, "max_combinations": 10},
+  "expected_variants": ["baseline", "ema_only_same", "ema_only_higher", "turtle_only", "turtle_entry_ema_same", "turtle_entry_ema_higher", "ema_entry_turtle_same", "ema_entry_turtle_higher", "dual_event_3_same", "dual_event_3_higher"],
+  "parameter_rationale": "Fixed winner parameters EMA25/0.5 ATR and Turtle entry30/exit20. Test both feasible EMA source relationships on the two lower execution intervals: same and one available higher interval, with three preregistered confirmation operators. Three bars is a short confluence window chosen before results. No per-ticker tuning.",
+  "combination_design": {
+    "scope": "fixed_parameter_transfer",
+    "components": [
+      {"name": "EMA support/resistance", "parameters": {"ema_period": [25], "atr_period": [14], "atr_zone_multiplier": [0.5]}, "controls": ["ema_only_same", "ema_only_higher"]},
+      {"name": "Turtle breakout", "parameters": {"entry_lookback": [30], "exit_lookback": [20]}, "controls": ["turtle_only"]}
+    ],
+    "combined_variants": ["turtle_entry_ema_same", "turtle_entry_ema_higher", "ema_entry_turtle_same", "ema_entry_turtle_higher", "dual_event_3_same", "dual_event_3_higher"],
+    "untested_dependencies": ["EMA period × Turtle entry/exit lookbacks", "ATR zone width × Turtle lookbacks", "confirmation window other than 3 execution bars", "EMA source timeframe beyond same/one higher", "position sizing and exit-rule combinations"]
+  },
+  "min_bars": 100,
+  "baseline": "Buy and hold 25% long on the same execution candles, next open, same transaction costs; EMA-only and Turtle-only are additional controls.",
+  "signal_rule": "EMA signal is a FIRST TOUCH of the 0.5 ATR band around EMA25 with close above (long) or below (short), matching the source research. It is NOT a cross of two EMA lines. Turtle uses close beyond prior 30 completed highs/lows; exit uses prior 20 completed lows/highs. Higher-timeframe EMA signal becomes known only at the timestamp of the NEXT higher candle, never at the source candle open. 'turtle_entry_ema' admits Turtle entry only if latest known EMA signal has same direction; 'ema_entry_turtle' admits new EMA signal only if latest Turtle breakout state agrees; 'dual_event_3' admits Turtle entry only if matching EMA signal occurred on current or preceding 3 execution bars. Turtle exits always close regardless of filter. All orders execute next execution-bar open.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank broad-universe median monthly outcomes and downside against both single-rule controls; research only, no automatic paper promotion without fixed-rule parity and corporate-action review.",
+  "run_command": "python3 -m pipeline.run experiments/ema-turtle/cross-timeframe-confluence",
+  "limitations": ["EMA25/0.5 ATR and Turtle30/20 were selected on previously seen history; this is not out-of-sample", "The earlier EMA source applies to daily bars and may not transfer to 1H/4H", "Daily candle is deliberately unavailable until the following daily candle starts", "Dividend, split, short borrow and lot effects are not fully modelled"]
+}

@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/three-trader-rules",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "История посчитана до расходов"
+  ],
+  "review": "experiments/three-trader-rules/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "dennis_turtle_20_10",
+    "symbols": 249,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": 0.17,
+    "median_train_worst_month_pnl_rub": -38740.46,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.31
+  },
+  "stocks": [
+    "X5",
+    "RTKM",
+    "VSEH",
+    "MGNT",
+    "MAGN",
+    "SVCB",
+    "BANEP",
+    "LKOH",
+    "SPBE",
+    "AFKS"
+  ]
+}

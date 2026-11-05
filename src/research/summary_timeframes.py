@@ -48,7 +48,7 @@ def coverage_block(folder: Path) -> str:
             status = "не запускался"
         lines.append(f"| {timeframe} | {completed} | {status} |")
     lines += ["", "15M и 30M строятся из минутных свечей. "
-              "[Проверка наличия минутных данных](../../data/moex_scan/minute_coverage.json).", END]
+              "[Проверка наличия минутных данных](../../data/candles/moex_scan/minute_coverage.json).", END]
     return "\n".join(lines)
 
 

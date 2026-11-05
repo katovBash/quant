@@ -21,7 +21,7 @@ from src.research.timeframes import TIMEFRAMES, load_research_bars, sample_perio
 from src.research.manifest import update_manifest
 
 ROOT = Path(__file__).resolve().parents[2]
-CACHE = ROOT / "data/moex_scan"
+CACHE = ROOT / "data/candles/moex_scan"
 UNIVERSE = CACHE / "universe_2026-10-30.json"
 FAMILIES = ("rsi", "adx", "four_point_levels", "patterns", "ema_levels")
 MODES = ("long", "short", "long_short")

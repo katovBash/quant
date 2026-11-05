@@ -1,0 +1,23 @@
+//@version=6
+// Chart review only. Scheduled CBR key-rate dates, from https://www.cbr.ru/eng/DKP/cal_mp/ .
+// The 13:00-14:00 candle contains the planned 13:30 release and is never a signal.
+// Python fills next open with modeled costs. Pine/Python parity is not measured.
+indicator("CBR key rate · post-release hour · review", overlay = true)
+int holdBars = input.int(3, "Holding bars", options = [1, 3, 6])
+bool reverse = input.bool(false, "Reverse first full-hour move")
+bool scheduled =
+     (year == 2024 and ((month == 2 and dayofmonth == 16) or (month == 3 and dayofmonth == 22) or (month == 4 and dayofmonth == 26) or (month == 6 and dayofmonth == 7) or (month == 7 and dayofmonth == 26) or (month == 9 and dayofmonth == 13) or (month == 10 and dayofmonth == 25) or (month == 12 and dayofmonth == 20))) or
+     (year == 2025 and ((month == 2 and dayofmonth == 14) or (month == 3 and dayofmonth == 21) or (month == 4 and dayofmonth == 25) or (month == 6 and dayofmonth == 6) or (month == 7 and dayofmonth == 25) or (month == 9 and dayofmonth == 12) or (month == 10 and dayofmonth == 24) or (month == 12 and dayofmonth == 19))) or
+     (year == 2026 and ((month == 2 and dayofmonth == 13) or (month == 3 and dayofmonth == 20) or (month == 4 and dayofmonth == 24) or (month == 6 and dayofmonth == 19) or (month == 7 and dayofmonth == 24) or (month == 9 and dayofmonth == 11) or (month == 10 and dayofmonth == 23)))
+bool completedPostHour = timeframe.isintraday and timeframe.multiplier == 60 and hour(time, "Europe/Moscow") == 14 and minute(time, "Europe/Moscow") == 0 and scheduled and barstate.isconfirmed
+bool up = completedPostHour and close > open
+bool down = completedPostHour and close < open
+bool longSignal = reverse ? down : up
+bool shortSignal = reverse ? up : down
+var int lastEntryBar = na
+if longSignal or shortSignal
+    lastEntryBar := bar_index + 1
+bool reviewExit = not na(lastEntryBar) and bar_index == lastEntryBar + holdBars
+plotshape(longSignal, "Review long", shape.triangleup, location.belowbar, color.lime, size = size.tiny)
+plotshape(shortSignal, "Review short", shape.triangledown, location.abovebar, color.red, size = size.tiny)
+plotshape(reviewExit, "Review exit", shape.xcross, location.abovebar, color.gray, size = size.tiny)

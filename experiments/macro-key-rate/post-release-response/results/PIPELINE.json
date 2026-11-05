@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/macro-key-rate/post-release-response",
+  "stage": "CLOSED_RESEARCH",
+  "run_mode": "full_run",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_CLOSED",
+  "warnings": [
+    "Все шесть заранее зафиксированных торговых вариантов имеют отрицательную медианную среднемесячную доходность по доступным акциям после расходов: от -0.03% до -0.05%. Автоматически выбранный continuation_6 показывает медиану прибыльных месяцев 25.00% на раннем и 11.11% на позднем отрезке. По принятому правилу очевидно слабую торговую гипотезу закрываем без перехода в paper."
+  ],
+  "review": "experiments/macro-key-rate/post-release-response/results/paper_review.json",
+  "rule": {
+    "timeframe": "1H",
+    "variant": "continuation_6",
+    "symbols": 249,
+    "median_train_positive_share_pct": 25.0,
+    "median_train_mean_month_return_pct": -0.01,
+    "median_train_worst_month_pnl_rub": -8482.29,
+    "median_late_positive_share_pct": 11.11,
+    "median_late_mean_month_return_pct": -0.1
+  },
+  "stocks": [
+    "CNRU",
+    "MTLR",
+    "SFIN",
+    "LENT",
+    "LKOH",
+    "HYDR",
+    "TATN",
+    "YDEX",
+    "MGNT",
+    "SIBN"
+  ]
+}

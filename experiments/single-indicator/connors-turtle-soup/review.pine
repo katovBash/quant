@@ -1,0 +1,42 @@
+//@version=6
+strategy("Turtle Soup · close-confirmed adaptation · review", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.15,
+     slippage = 0, process_orders_on_close = false,
+     margin_long = 100, margin_short = 100)
+
+// Review aid for the experiment's close-confirmed rule. TradingView fills,
+// session boundaries and cost-equivalent may differ from the Python simulator.
+// Compare entry and exit bars before treating results as equivalent.
+int lookback = input.int(20, "Prior channel bars", minval = 2)
+int separation = input.int(5, "Minimum age of prior extreme", minval = 1)
+int hold = input.int(6, "Holding bars", minval = 1)
+float levelLow = ta.lowest(low[1], lookback)
+float levelHigh = ta.highest(high[1], lookback)
+int lowAge = na
+int highAge = na
+for offset = 1 to lookback
+    if na(lowAge) and low[offset] == levelLow
+        lowAge := offset
+    if na(highAge) and high[offset] == levelHigh
+        highAge := offset
+
+bool longRaw = not na(lowAge) and lowAge >= separation and low < levelLow and close > levelLow
+bool shortRaw = not na(highAge) and highAge >= separation and high > levelHigh and close < levelHigh
+var int lockedUntil = na
+bool canEnter = na(lockedUntil) or bar_index > lockedUntil
+float shares = math.floor(strategy.equity * 0.25 / close)
+if barstate.isconfirmed
+    if not na(lockedUntil) and bar_index == lockedUntil
+        strategy.close("Long")
+        strategy.close("Short")
+    else if canEnter and shares >= 1
+        if longRaw and not shortRaw
+            strategy.entry("Long", strategy.long, qty = shares)
+            lockedUntil := bar_index + hold
+        else if shortRaw and not longRaw
+            strategy.entry("Short", strategy.short, qty = shares)
+            lockedUntil := bar_index + hold
+
+plot(levelLow, "Prior support", color = color.new(color.teal, 40), style = plot.style_linebr)
+plot(levelHigh, "Prior resistance", color = color.new(color.red, 40), style = plot.style_linebr)

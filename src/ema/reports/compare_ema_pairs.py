@@ -15,7 +15,7 @@ def main():
     liquid = set()
     for item in universe:
         s = item["SECID"]
-        file = Path(f"data/moex_scan/{s}_24_2022-01-01_2026-10-30.json")
+        file = Path(f"data/candles/moex_scan/{s}_24_2022-01-01_2026-10-30.json")
         if not file.exists():
             continue
         bars = json.loads(file.read_text())

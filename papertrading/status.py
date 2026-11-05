@@ -9,7 +9,7 @@ import math
 from datetime import date, datetime
 from pathlib import Path
 
-from criteria.evaluate import classify_paper
+from eval.evaluate import classify_paper
 
 
 def review_account(folder: Path) -> dict:

@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/macd-grid-search",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "История посчитана до расходов"
+  ],
+  "review": "experiments/macd-grid-search/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "macd_cross-08",
+    "symbols": 240,
+    "median_train_positive_share_pct": 58.33,
+    "median_train_mean_month_return_pct": 0.42,
+    "median_train_worst_month_pnl_rub": -35533.51,
+    "median_late_positive_share_pct": 47.62,
+    "median_late_mean_month_return_pct": 0.0
+  },
+  "stocks": [
+    "MTLR",
+    "FEES",
+    "UGLD",
+    "MOEX",
+    "TATNP",
+    "RNFT",
+    "WUSH",
+    "HEAD",
+    "ENPG",
+    "SIBN"
+  ]
+}

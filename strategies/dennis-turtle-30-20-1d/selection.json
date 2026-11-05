@@ -1,0 +1,90 @@
+{
+  "id": "dennis-turtle-30-20-1d",
+  "timeframe": "1D",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, corporate actions, short borrow and exchange lots",
+  "source_review": "experiments/turtle/period-grid/results/paper_review.json",
+  "variant": "dennis_turtle_30_20",
+  "selection_rule": "one global variant ranked on train months; ten liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/turtle/period-grid/results/all_variants.csv",
+      "monthly_csv": "experiments/turtle/period-grid/results/monthly_returns.csv",
+      "variant": "dennis_turtle_30_20",
+      "timeframe": "1D"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "VSEH",
+      "net_return_pct": 25.35,
+      "closed_trades": 7,
+      "train_positive_share_pct": 72.22,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 20.66,
+      "closed_trades": 12,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "POSI",
+      "net_return_pct": 41.59,
+      "closed_trades": 7,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "LENT",
+      "net_return_pct": 15.25,
+      "closed_trades": 10,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 33.33
+    },
+    {
+      "symbol": "VKCO",
+      "net_return_pct": 44.68,
+      "closed_trades": 11,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "NLMK",
+      "net_return_pct": 19.35,
+      "closed_trades": 12,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "BELU",
+      "net_return_pct": 27.73,
+      "closed_trades": 12,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 33.33
+    },
+    {
+      "symbol": "ENPG",
+      "net_return_pct": 17.98,
+      "closed_trades": 13,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "MSNG",
+      "net_return_pct": 9.79,
+      "closed_trades": 11,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "GMKN",
+      "net_return_pct": 3.26,
+      "closed_trades": 13,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 66.67
+    }
+  ]
+}

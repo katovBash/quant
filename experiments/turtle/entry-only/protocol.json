@@ -1,0 +1,100 @@
+{
+  "frozen_on": "2026-11-04",
+  "hypothesis": "Turtle upper/lower entry channels without separate upper/lower exit channels may reduce premature exits; reversal occurs only on an opposite entry-channel breakout.",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "corporate_actions": {
+    "status": "partial",
+    "cash_dividend_snapshot": "data/dividends/sfin_2026-11-04.json",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "sensitivity_report": "experiments/turtle/period-grid/results/corporate_sensitivity/REPORT.md",
+    "note": "Only SFIN cash dividends were verified for a separate sensitivity run. Other symbols and event types remain unverified."
+  },
+  "universe": "Every TQBR SECID in data/candles/moex_scan/universe_2026-10-30.json with evaluable 1D and 1H candles; the same non-return-selected symbols on all three frames",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D",
+      "1H"
+    ]
+  },
+  "signal_timeframes": [
+    "1D",
+    "1H",
+    "4H"
+  ],
+  "unavailable_timeframes": [
+    "15M",
+    "30M"
+  ],
+  "grid_constraint": "One entry length axis, six fixed values plus 55/20 exit-channel control; no retuning after results",
+  "expected_variants": [
+    "baseline",
+    "entry_only_15",
+    "entry_only_20",
+    "entry_only_30",
+    "entry_only_40",
+    "entry_only_55",
+    "entry_only_70"
+  ],
+  "reference_variants": [
+    "baseline",
+    "entry_only_55"
+  ],
+  "baseline": "Turtle 55/20: entry channel 55 bars, exit channel 20 bars, same simulator and costs",
+  "signal_rule": "Close-confirmed breakout above prior entry_length highs or below prior entry_length lows; no separate exit signal; reverse only after opposite entry breakout; all windows exclude current bar and fill at next open",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "commission_bps_per_side": 5,
+  "slippage_equivalent_bps_per_side": 10,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, corporate actions, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "validation_periods": [
+    "2024",
+    "2025",
+    "2026_ytd",
+    "last_1m",
+    "last_3m",
+    "last_6m",
+    "last_12m"
+  ],
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "monthly_regime": "ex post only: monthly market return >5% growth, <-5% decline, else sideways if high-low range <=10% of first open, otherwise volatile_mixed",
+  "selection": "Compare every entry-only variant with 55/20 control on same symbols, candles and costs; retain all outcomes; no automatic paper switch",
+  "limitations": [
+    "intraday windows count bars, not trading days",
+    "25% position size differs from current 10% paper setup",
+    "historical fills use next open while paper runner fills at the next observed completed close",
+    "transaction slippage modeled as cash-cost equivalent, not fill-price shift",
+    "no exchange lots or short borrow",
+    "dividends and corporate actions not modeled",
+    "historical sample already inspected",
+    "entry-only positions may remain open for a long time; terminal open position marked to close but not charged hypothetical closing cost",
+    "no adaptive stops or volatility sizing"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "entry_length": {
+        "values": [
+          15,
+          20,
+          30,
+          40,
+          55,
+          70
+        ]
+      }
+    },
+    "variant_template": "entry_only_{entry_length}",
+    "include_baseline": true,
+    "max_combinations": 6
+  },
+  "run_command": "python3 experiments/turtle/entry-only/run.py",
+  "indicator_id": "turtle",
+  "run_id": "entry-only"
+}

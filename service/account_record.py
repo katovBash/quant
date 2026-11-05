@@ -34,6 +34,7 @@ def account_record(status: dict, state: dict) -> dict:
         "side": "LONG" if position > 0 else "SHORT" if position < 0 else "FLAT",
         "pending": status.get("pending") or state.get("pending"),
         "closed_trades": state.get("closed_trades", 0),
+        "paper_gap_count": state.get("gap_count", 0),
         "started_at": state.get("started_at"),
         "equity": equity, "initial_capital": capital,
         "return_pct": round((equity / capital - 1) * 100, 3)

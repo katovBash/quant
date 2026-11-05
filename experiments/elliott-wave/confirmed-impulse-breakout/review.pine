@@ -1,0 +1,113 @@
+//@version=6
+// Review-only visual translation of the Python causal impulse proxy.
+// Signals and next-open fills have not been checked against Python trade by trade.
+indicator("Elliott impulse proxy · confirmed pivots · review", overlay = true)
+
+string pattern = input.string("wave3", "Setup", options = ["wave3", "wave5"])
+int wing = input.int(3, "Pivot wing", options = [2, 3, 5])
+float deviation = input.float(4.0, "Minimum reversal %", options = [2.0, 4.0, 6.0])
+
+var array<int> pivotSide = array.new_int()
+var array<float> pivotPrice = array.new_float()
+var array<int> confirmedAt = array.new_int()
+var int usedLong = -1
+var int usedShort = -1
+
+int pivotCount = array.size(pivotSide)
+float longLevel = na
+float shortLevel = na
+int longKey = na
+int shortKey = na
+
+if pattern == "wave3" and pivotCount >= 3
+    int a = pivotCount - 3
+    float p0 = array.get(pivotPrice, a)
+    float p1 = array.get(pivotPrice, a + 1)
+    float p2 = array.get(pivotPrice, a + 2)
+    if array.get(pivotSide, a) == -1 and array.get(pivotSide, a + 1) == 1 and array.get(pivotSide, a + 2) == -1 and p0 < p2 and p2 < p1
+        longLevel := p1
+        longKey := array.get(confirmedAt, a + 2)
+    if array.get(pivotSide, a) == 1 and array.get(pivotSide, a + 1) == -1 and array.get(pivotSide, a + 2) == 1 and p1 < p2 and p2 < p0
+        shortLevel := p1
+        shortKey := array.get(confirmedAt, a + 2)
+
+if pattern == "wave5" and pivotCount >= 5
+    int a = pivotCount - 5
+    float p0 = array.get(pivotPrice, a)
+    float p1 = array.get(pivotPrice, a + 1)
+    float p2 = array.get(pivotPrice, a + 2)
+    float p3 = array.get(pivotPrice, a + 3)
+    float p4 = array.get(pivotPrice, a + 4)
+    if array.get(pivotSide, a) == -1 and array.get(pivotSide, a + 1) == 1 and array.get(pivotSide, a + 2) == -1 and array.get(pivotSide, a + 3) == 1 and array.get(pivotSide, a + 4) == -1 and p0 < p2 and p2 < p1 and p1 < p4 and p4 < p3
+        longLevel := p3
+        longKey := array.get(confirmedAt, a + 4)
+    if array.get(pivotSide, a) == 1 and array.get(pivotSide, a + 1) == -1 and array.get(pivotSide, a + 2) == 1 and array.get(pivotSide, a + 3) == -1 and array.get(pivotSide, a + 4) == 1 and p3 < p4 and p4 < p1 and p1 < p2 and p2 < p0
+        shortLevel := p3
+        shortKey := array.get(confirmedAt, a + 4)
+
+bool longSignal = barstate.isconfirmed and not na(longLevel) and close[1] <= longLevel and close > longLevel and longKey != usedLong
+bool shortSignal = barstate.isconfirmed and not longSignal and not na(shortLevel) and close[1] >= shortLevel and close < shortLevel and shortKey != usedShort
+if longSignal
+    usedLong := longKey
+if shortSignal
+    usedShort := shortKey
+
+float latestLow = na
+float latestHigh = na
+for offset = 0 to 7
+    int index = pivotCount - 1 - offset
+    if index >= 0
+        if na(latestLow) and array.get(pivotSide, index) == -1
+            latestLow := array.get(pivotPrice, index)
+        if na(latestHigh) and array.get(pivotSide, index) == 1
+            latestHigh := array.get(pivotPrice, index)
+bool exitLong = barstate.isconfirmed and not na(latestLow) and close < latestLow
+bool exitShort = barstate.isconfirmed and not exitLong and not na(latestHigh) and close > latestHigh
+
+// Incorporate pivots after testing the current completed candle. A pivot at p
+// becomes available at close of p + wing and can first affect the next candle.
+float highPivot = ta.pivothigh(high, wing, wing)
+float lowPivot = ta.pivotlow(low, wing, wing)
+if barstate.isconfirmed and not na(highPivot)
+    int n = array.size(pivotSide)
+    if n == 0
+        array.push(pivotSide, 1)
+        array.push(pivotPrice, highPivot)
+        array.push(confirmedAt, bar_index)
+    else
+        int previousSide = array.get(pivotSide, n - 1)
+        float previousPrice = array.get(pivotPrice, n - 1)
+        if previousSide == 1 and highPivot > previousPrice
+            array.set(pivotPrice, n - 1, highPivot)
+            array.set(confirmedAt, n - 1, bar_index)
+        else if previousSide == -1 and 100.0 * math.abs(highPivot / previousPrice - 1.0) >= deviation
+            array.push(pivotSide, 1)
+            array.push(pivotPrice, highPivot)
+            array.push(confirmedAt, bar_index)
+if barstate.isconfirmed and not na(lowPivot)
+    int n = array.size(pivotSide)
+    if n == 0
+        array.push(pivotSide, -1)
+        array.push(pivotPrice, lowPivot)
+        array.push(confirmedAt, bar_index)
+    else
+        int previousSide = array.get(pivotSide, n - 1)
+        float previousPrice = array.get(pivotPrice, n - 1)
+        if previousSide == -1 and lowPivot < previousPrice
+            array.set(pivotPrice, n - 1, lowPivot)
+            array.set(confirmedAt, n - 1, bar_index)
+        else if previousSide == 1 and 100.0 * math.abs(lowPivot / previousPrice - 1.0) >= deviation
+            array.push(pivotSide, -1)
+            array.push(pivotPrice, lowPivot)
+            array.push(confirmedAt, bar_index)
+while array.size(pivotSide) > 8
+    array.shift(pivotSide)
+    array.shift(pivotPrice)
+    array.shift(confirmedAt)
+
+plot(longLevel, "Long breakout level", color = color.new(color.green, 45), style = plot.style_linebr)
+plot(shortLevel, "Short breakout level", color = color.new(color.red, 45), style = plot.style_linebr)
+plotshape(longSignal, title = "Long setup", style = shape.triangleup, location = location.belowbar, color = color.lime, size = size.tiny)
+plotshape(shortSignal, title = "Short setup", style = shape.triangledown, location = location.abovebar, color = color.red, size = size.tiny)
+plotshape(exitLong, title = "Long exit level", style = shape.xcross, location = location.belowbar, color = color.orange, size = size.tiny)
+plotshape(exitShort, title = "Short exit level", style = shape.xcross, location = location.abovebar, color = color.orange, size = size.tiny)

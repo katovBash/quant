@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/fibonacci/confirmed-swing-retracement",
+  "stage": "CLOSED_RESEARCH",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_CLOSED",
+  "warnings": [
+    "Уровень 0.618 не показал устойчивого преимущества перед контрольным 0.5: на 1D медианная разница по одинаковым акциям и настройкам составила -1.31 п.п. в 2024, -0.45 п.п. в 2025 и -0.28 п.п. за январь–сентябрь 2026. На 4H разница также отрицательна во всех трёх срезах; на 1H положительный срез 2025 (+0.28 п.п.) сопровождался отрицательной медианной доходностью обоих вариантов около -9% за год. До paper эту проверенную гипотезу не переносим."
+  ],
+  "review": "experiments/fibonacci/confirmed-swing-retracement/results/paper_review.json",
+  "rule": {
+    "timeframe": "1D",
+    "variant": "fib_5_0.382_0.5",
+    "symbols": 250,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": 0.21,
+    "median_train_worst_month_pnl_rub": -42523.67,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.23
+  },
+  "stocks": [
+    "SPBE",
+    "FLOT",
+    "AFLT",
+    "VKCO",
+    "MGNT",
+    "ENPG",
+    "NVTK",
+    "SFIN",
+    "VSEH",
+    "RTKM"
+  ]
+}

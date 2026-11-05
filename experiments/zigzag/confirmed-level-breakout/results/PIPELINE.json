@@ -1,0 +1,36 @@
+{
+  "experiment": "experiments/zigzag/confirmed-level-breakout",
+  "stage": "PAPER_REGISTERED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/zigzag/confirmed-level-breakout/results/paper_review.json",
+  "rule": {
+    "timeframe": "1D",
+    "variant": "zigzag_5_6",
+    "symbols": 250,
+    "median_train_positive_share_pct": 54.17,
+    "median_train_mean_month_return_pct": 0.17,
+    "median_train_worst_month_pnl_rub": -49368.78,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.38
+  },
+  "stocks": [
+    "MTSS",
+    "VSEH",
+    "WUSH",
+    "VKCO",
+    "RTKM",
+    "SNGSP",
+    "NVTK",
+    "POSI",
+    "MAGN",
+    "LENT"
+  ],
+  "strategy_id": "zigzag-confirmed-breakout-5-6-1d",
+  "accounts": 10
+}

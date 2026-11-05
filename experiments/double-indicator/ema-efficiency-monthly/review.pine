@@ -1,0 +1,15 @@
+//@version=6
+indicator("EMA cross + efficiency · manual review", overlay = true)
+// Visual review only. Match inputs to protocol.json; Python signal parity is pending.
+erLength = input.int(10, "Efficiency lookback", minval = 2)
+minimum = input.float(0.2, "Minimum efficiency", minval = 0, maxval = 1)
+fast = ta.ema(close, 12)
+slow = ta.ema(close, 33)
+movement = ta.sma(math.abs(ta.change(close)), erLength) * erLength
+efficiency = movement > 0 ? math.abs(close - close[erLength]) / movement : 0
+longSignal = barstate.isconfirmed and ta.crossover(fast, slow) and efficiency >= minimum
+shortSignal = barstate.isconfirmed and ta.crossunder(fast, slow) and efficiency >= minimum
+plot(fast, "EMA 12", color = color.aqua)
+plot(slow, "EMA 33", color = color.orange)
+plotshape(longSignal, "Long", shape.triangleup, location.belowbar, color.green, size = size.tiny)
+plotshape(shortSignal, "Short", shape.triangledown, location.abovebar, color.red, size = size.tiny)

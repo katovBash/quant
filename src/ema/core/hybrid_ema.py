@@ -13,7 +13,7 @@ from src.ema.core.scan_ema import aggregate, ema, four_hour
 
 ROOT = Path("experiments/.history/legacy-ema/6-12-long-12-33-short")
 SOURCE = Path("experiments/.history/legacy-ema/12-33-cross/execute/research")
-CACHE = Path("data/moex_scan")
+CACHE = Path("data/candles/moex_scan")
 
 
 def target_position(e6: list[float], e12: list[float], e33: list[float],

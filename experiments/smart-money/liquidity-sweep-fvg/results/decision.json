@@ -1,0 +1,22 @@
+{
+  "status": "CLOSED",
+  "decided_on": "2026-11-04",
+  "decided_by": "user_standing_instruction",
+  "scope": "no_paper_promotion_of_tested_sweep_fvg_variants",
+  "reason": "Заявленные 16 сочетаний sweep + FVG не дали убедительного результата на полном наборе после модельных расходов. Лучшая медиана среднемесячной доходности сочетания: 1H -0.10%, 4H около 0%, 1D +0.08% на 263/263/252 акциях соответственно; годовые медианы в отчёте низкие, многие 1D сочетания дают нулевой результат из-за редких сигналов. Автоматический кандидат fvg_0.2 4H — отдельный контроль с ранней медианой -0.01% за месяц, не подтверждение комбинированной гипотезы.",
+  "evidence": {
+    "tested_variants": 23,
+    "combined_variants": 16,
+    "evaluated_symbols": 264,
+    "result_rows": 17894,
+    "calculation_errors": 0,
+    "best_combination_median_mean_month_return_pct": {
+      "1H": -0.1,
+      "4H": 0.0,
+      "1D": 0.08
+    },
+    "automatic_candidate": "fvg_0.2 4H",
+    "automatic_candidate_train_median_mean_month_return_pct": -0.01
+  },
+  "note": "Закрыта только указанная механическая трактовка Smart Money. Это не проверка всех order blocks, структуры рынка или входа на возврате в FVG. Исторические дивиденды, сплиты и стоимость займа short не полностью учтены."
+}

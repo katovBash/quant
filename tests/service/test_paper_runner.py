@@ -3,6 +3,7 @@
 import unittest
 import io
 import json
+from types import SimpleNamespace
 from datetime import datetime, timedelta
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -10,10 +11,18 @@ from unittest.mock import patch
 from zoneinfo import ZoneInfo
 
 from service.data_sources.moex import MarketDataUnavailable, fetch_candles
-from service.paper_runner import advance, normalize_bars, poll_error, write_evaluation_files
+from service.paper_runner import advance, normalize_bars, poll_error, side_from_strategy, write_evaluation_files
 
 
 class PaperRunnerTests(unittest.TestCase):
+    def test_position_aware_rule_can_request_exit(self):
+        seen = []
+        module = SimpleNamespace(USES_POSITION=True,
+                                 signal=lambda bars, position: seen.append(position) or "flat")
+        result = side_from_strategy(module, [{"close": 100}], "long_short", 10)
+        self.assertEqual(result, "flat")
+        self.assertEqual(seen, [10])
+
     def setUp(self):
         start = datetime(2027, 1, 1, tzinfo=ZoneInfo("Europe/Moscow"))
         prices = [100] * 40 + [110, 111, 50, 49]
@@ -23,7 +32,10 @@ class PaperRunnerTests(unittest.TestCase):
         self.now = start + timedelta(days=3)
         self.opts = dict(symbol="TEST", capital=1_000_000, mode="long_short",
                          fee_bps=5, slip_bps=10, borrow_bps=0,
-                         lot_size=1, history_from="2027-01-01", position_weight=0.10)
+                         lot_size=1, history_from="2027-01-01", position_weight=0.10,
+                         strategy_id="test-rule", timeframe="1H",
+                         strategy_module=SimpleNamespace(target_side=lambda closes, mode, position:
+                             "long" if closes[-1] >= 110 else "short" if closes[-1] <= 50 else None))
 
     def step(self, state, n):
         bars = normalize_bars(self.raw[:n], self.now)
@@ -34,7 +46,7 @@ class PaperRunnerTests(unittest.TestCase):
         self.assertEqual(events, [])
         self.assertIsNone(point)
         self.assertEqual(state["position"], 0)
-        self.assertEqual(state["strategy"], "ema-cross-12-33-long-short-1h")
+        self.assertEqual(state["strategy"], "test-rule")
         self.assertEqual(state["initial_capital"], 1_000_000)
         self.assertEqual(state["position_weight"], 0.10)
         self.assertEqual(state["lot_size"], 1)

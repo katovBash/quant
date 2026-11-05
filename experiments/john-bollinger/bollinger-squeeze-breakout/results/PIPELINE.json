@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/john-bollinger/bollinger-squeeze-breakout",
+  "stage": "CLOSED_RESEARCH",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_CLOSED",
+  "warnings": [
+    "Помесячная устойчивость выбранного общего правила недостаточна для дальнейшей разработки: медиана прибыльных ранних месяцев 29.17%, средняя месячная доходность -0.03%. Пользователь решил закрыть эксперимент без проверки возможных пропусков свечей для допуска к paper."
+  ],
+  "review": "experiments/john-bollinger/bollinger-squeeze-breakout/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "bollinger-squeeze-breakout_30",
+    "symbols": 249,
+    "median_train_positive_share_pct": 29.17,
+    "median_train_mean_month_return_pct": -0.03,
+    "median_train_worst_month_pnl_rub": -20859.5,
+    "median_late_positive_share_pct": 33.33,
+    "median_late_mean_month_return_pct": -0.06
+  },
+  "stocks": [
+    "MTLR",
+    "RTKM",
+    "RNFT",
+    "MSNG",
+    "BANEP",
+    "NLMK",
+    "T",
+    "CHMF",
+    "WUSH",
+    "SPBE"
+  ]
+}

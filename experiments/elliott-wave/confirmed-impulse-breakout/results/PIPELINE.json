@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/elliott-wave/confirmed-impulse-breakout",
+  "stage": "CLOSED_RESEARCH",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_CLOSED",
+  "warnings": [
+    "Механическая версия волн Эллиотта не показывает регулярную месячную прибыль на широкой выборке: выбранный по ранней части wave3_5_2 на 4H имеет медиану 37.5% прибыльных месяцев рано и 33.33% поздно, медианный годовой результат -0.63% в 2024 и -0.38% в 2025 (2026 январь-сентябрь +0.20%). Варианты wave5 в основном не торгуют: медиана закрытых сделок 2 на 4H и 1 на 1D, медиана нулевых месяцев 29. Исходная гипотеза не подтверждена; дальнейшее paper trading по этому эксперименту не запускается."
+  ],
+  "review": "experiments/elliott-wave/confirmed-impulse-breakout/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "wave3_5_2",
+    "symbols": 249,
+    "median_train_positive_share_pct": 37.5,
+    "median_train_mean_month_return_pct": 0.0,
+    "median_train_worst_month_pnl_rub": -30903.86,
+    "median_late_positive_share_pct": 33.33,
+    "median_late_mean_month_return_pct": 0.03
+  },
+  "stocks": [
+    "WUSH",
+    "ASTR",
+    "SVCB",
+    "AFKS",
+    "ALRS",
+    "LENT",
+    "MAGN",
+    "POSI",
+    "SELG",
+    "VKCO"
+  ]
+}

@@ -1,0 +1,15 @@
+//@version=6
+indicator("RSI grid · manual review", overlay = false)
+// Visual review only. Match inputs to protocol.json; Python signal parity is pending.
+length = input.int(14, "RSI length", minval = 2)
+longAbove = input.float(55, "Long above")
+shortBelow = input.float(45, "Short below")
+value = ta.rsi(close, length)
+longSignal = barstate.isconfirmed and ta.crossover(value, longAbove)
+shortSignal = barstate.isconfirmed and ta.crossunder(value, shortBelow)
+plot(value, "RSI", color = color.aqua)
+hline(50, "Middle", color = color.gray)
+hline(longAbove, "Long threshold", color = color.new(color.green, 40))
+hline(shortBelow, "Short threshold", color = color.new(color.red, 40))
+plotshape(longSignal, "Long", shape.triangleup, location.bottom, color.green, size = size.tiny)
+plotshape(shortSignal, "Short", shape.triangledown, location.top, color.red, size = size.tiny)

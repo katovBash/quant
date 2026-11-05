@@ -1,0 +1,21 @@
+{
+  "experiment": "experiments/fibonacci/confirmed-swing-retracement",
+  "monthly_coverage": "FULL_GRID",
+  "status": "CLOSED",
+  "paper_gate": "EXPERIMENT_CLOSED",
+  "paper_gate_warnings": [
+    "Уровень 0.618 не показал устойчивого преимущества перед контрольным 0.5: на 1D медианная разница по одинаковым акциям и настройкам составила -1.31 п.п. в 2024, -0.45 п.п. в 2025 и -0.28 п.п. за январь–сентябрь 2026. На 4H разница также отрицательна во всех трёх срезах; на 1H положительный срез 2025 (+0.28 п.п.) сопровождался отрицательной медианной доходностью обоих вариантов около -9% за год. До paper эту проверенную гипотезу не переносим."
+  ],
+  "missing_required_evidence": [],
+  "validation_status": "REVIEW_ONLY",
+  "paper_review_status": "CLOSED",
+  "pine": "AVAILABLE_FOR_REVIEW",
+  "files": {
+    "manifest.json": "experiments/fibonacci/confirmed-swing-retracement/results/manifest.json",
+    "validation.json": "experiments/fibonacci/confirmed-swing-retracement/results/validation.json",
+    "REPORT.md": "experiments/fibonacci/confirmed-swing-retracement/results/REPORT.md",
+    "PAPER_REVIEW.md": "experiments/fibonacci/confirmed-swing-retracement/results/PAPER_REVIEW.md",
+    "PINE_STATUS.json": "experiments/fibonacci/confirmed-swing-retracement/results/PINE_STATUS.json",
+    "trade_side_summary.csv": "experiments/fibonacci/confirmed-swing-retracement/results/trade_side_summary.csv"
+  }
+}

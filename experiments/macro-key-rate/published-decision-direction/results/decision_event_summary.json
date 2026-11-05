@@ -1,0 +1,73 @@
+{
+  "scheduled_decision_dates": 23,
+  "rate_decision_counts": {
+    "hike": 3,
+    "cut": 10,
+    "hold": 10
+  },
+  "stock_event_variant_rows": 46080,
+  "variant_dates": {
+    "conventional_1": {
+      "dates": 13,
+      "positive_date_medians": 3,
+      "median_of_date_medians_pct": -0.095961
+    },
+    "conventional_3": {
+      "dates": 13,
+      "positive_date_medians": 2,
+      "median_of_date_medians_pct": -0.153384
+    },
+    "conventional_6": {
+      "dates": 13,
+      "positive_date_medians": 3,
+      "median_of_date_medians_pct": -0.124751
+    },
+    "hold_long_1": {
+      "dates": 23,
+      "positive_date_medians": 5,
+      "median_of_date_medians_pct": -0.080291
+    },
+    "hold_long_3": {
+      "dates": 23,
+      "positive_date_medians": 4,
+      "median_of_date_medians_pct": -0.127009
+    },
+    "hold_long_6": {
+      "dates": 23,
+      "positive_date_medians": 7,
+      "median_of_date_medians_pct": -0.075
+    },
+    "hold_short_1": {
+      "dates": 23,
+      "positive_date_medians": 4,
+      "median_of_date_medians_pct": -0.075
+    },
+    "hold_short_3": {
+      "dates": 23,
+      "positive_date_medians": 6,
+      "median_of_date_medians_pct": -0.100641
+    },
+    "hold_short_6": {
+      "dates": 23,
+      "positive_date_medians": 6,
+      "median_of_date_medians_pct": -0.124751
+    },
+    "inverse_1": {
+      "dates": 13,
+      "positive_date_medians": 4,
+      "median_of_date_medians_pct": -0.054039
+    },
+    "inverse_3": {
+      "dates": 13,
+      "positive_date_medians": 7,
+      "median_of_date_medians_pct": 0.003384
+    },
+    "inverse_6": {
+      "dates": 13,
+      "positive_date_medians": 5,
+      "median_of_date_medians_pct": -0.025249
+    }
+  },
+  "timestamp_caveat": "13:30 appears in the official decision archive and many press release metadata; delivery to trader terminal is not measured; entry is delayed until 15:00",
+  "outcome_caveat": "per-date diagnostic uses approximate 25% account exposure and 30bp round-trip costs; precise cash PnL is in monthly_returns.csv"
+}

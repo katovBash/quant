@@ -10,10 +10,10 @@ from papertrading.setup import load_setup
 
 class PaperSetupTests(unittest.TestCase):
     def setUp(self):
-        self.path = Path("papertrading/setups/plzl-ema12-33-1h-10pct.json")
+        self.path = Path("papertrading/setups/fleet/auto-sfin-dennis-turtle-55-20-1h.json")
 
-    def test_new_plzl_setup(self):
-        setup = load_setup(self.path, "ema-cross-12-33-long-short-1h")
+    def test_current_turtle_setup(self):
+        setup = load_setup(self.path, "dennis-turtle-55-20-1h")
         self.assertEqual(setup["initial_capital_rub"], 1_000_000)
         self.assertEqual(setup["position_weight_pct"], 10)
         self.assertIsNone(setup["stop_loss_pct"])
@@ -25,7 +25,7 @@ class PaperSetupTests(unittest.TestCase):
             path = Path(tmp) / "setup.json"
             path.write_text(json.dumps(setup), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "not implemented"):
-                load_setup(path, "ema-cross-12-33-long-short-1h")
+                load_setup(path, "dennis-turtle-55-20-1h")
 
 
 if __name__ == "__main__":

@@ -12,76 +12,58 @@ from unittest.mock import MagicMock, patch
 
 from papertrading.setup import load_setup
 from service.data_sources.moex import HTTP_BASE, MOSCOW, normalize_bars
-from service.paper_fleet import accounts, discover_new_setups, poll
+from service.paper_fleet import accounts, poll
 from service.paper_runner import completed_four_hour, load_strategy
 from src.research.timeframes import source_path
 
 
 class PaperFleetTests(unittest.TestCase):
-    def test_complete_new_strategy_gets_frozen_account_once(self):
+    def test_strategy_files_alone_do_not_create_a_paper_account(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             setups = root / "setups"
             setups.mkdir()
             strategy = root / "strategies" / "example-1h"
             strategy.mkdir(parents=True)
-            (strategy / "README.md").write_text("# Example\n")
             (strategy / "strategy.pine").write_text("//@version=6\n")
             (strategy / "strategy.py").write_text(
                 "STRATEGY_ID = 'example-1h'\nSYMBOL = 'TEST'\nTIMEFRAME = '1H'\n"
                 "def signal(bars): return 0\n")
-            universe = root / "universe.json"
-            universe.write_text(json.dumps([{"SECID": "TEST", "LOTSIZE": 10}]))
-            created = discover_new_setups(setups, root / "strategies", universe)
-            self.assertEqual(len(created), 1)
-            self.assertEqual(load_setup(created[0])["lot_size_shares"], 10)
-            self.assertEqual(load_setup(created[0])["position_weight_pct"], 10)
-            self.assertEqual(discover_new_setups(setups, root / "strategies", universe), [])
+            self.assertEqual(list(setups.iterdir()), [])
+            with self.assertRaisesRegex(ValueError, "no paper setups"):
+                accounts(setups, root / "live")
 
-    def test_ranked_rule_uses_fixed_top_stocks_without_symbol_in_name(self):
+    def test_fleet_reads_new_registered_setup_on_next_scan(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             setups = root / "setups"
             setups.mkdir()
-            strategy = root / "strategies" / "ema-example-1h"
-            strategy.mkdir(parents=True)
-            (strategy / "README.md").write_text("# EMA rule\n")
-            (strategy / "strategy.pine").write_text("//@version=6\n")
-            (strategy / "strategy.py").write_text(
-                "STRATEGY_ID = 'ema-example-1h'\nTIMEFRAME = '1H'\n"
-                "def signal(bars): return 0\n")
-            (strategy / "selection.json").write_text(json.dumps({
-                "id": "ema-example-1h", "timeframe": "1H",
-                "status": "HISTORICAL_RANKING",
-                "top10": [{"symbol": "AAA"}, {"symbol": "BBB"}]}))
-            universe = root / "universe.json"
-            universe.write_text(json.dumps([{"SECID": "AAA", "LOTSIZE": 10},
-                                            {"SECID": "BBB", "LOTSIZE": 1}]))
-            created = discover_new_setups(setups, root / "strategies", universe)
-            self.assertEqual(len(created), 2)
-            self.assertEqual({load_setup(path)["symbol"] for path in created}, {"AAA", "BBB"})
-            self.assertEqual(discover_new_setups(setups, root / "strategies", universe), [])
+            setup = {"account_id": "AAA-EXAMPLE-1H", "symbol": "AAA",
+                     "strategy": "example-1h", "timeframe": "1H",
+                     "initial_capital_rub": 1_000_000, "position_weight_pct": 10,
+                     "mode": "long_short", "lot_size_shares": 10,
+                     "fee_bps": 5, "slip_bps": 10,
+                     "borrow_bps_annual": 0, "stop_loss_pct": None}
+            with patch("service.paper_fleet.load_strategy",
+                       return_value=SimpleNamespace(TIMEFRAME="1H")):
+                with self.assertRaisesRegex(ValueError, "no paper setups"):
+                    accounts(setups, root / "live")
+                (setups / "approved.json").write_text(json.dumps(setup))
+                self.assertEqual(accounts(setups, root / "live")[0].account_id,
+                                 "AAA-EXAMPLE-1H")
 
-    def test_daily_ranked_rule_gets_a_setup(self):
+    def test_daily_registered_rule_gets_daily_history(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             setups = root / "setups"
             setups.mkdir()
-            strategy = root / "strategies" / "ema-daily"
-            strategy.mkdir(parents=True)
-            (strategy / "README.md").write_text("# EMA daily\n")
-            (strategy / "strategy.pine").write_text("//@version=6\n")
-            (strategy / "strategy.py").write_text(
-                "STRATEGY_ID = 'ema-daily'\nTIMEFRAME = '1D'\n"
-                "def signal(bars): return 0\n")
-            (strategy / "selection.json").write_text(json.dumps({
-                "id": "ema-daily", "timeframe": "1D", "status": "HISTORICAL_RANKING",
-                "top10": [{"symbol": "TEST"}]}))
-            universe = root / "universe.json"
-            universe.write_text(json.dumps([{"SECID": "TEST", "LOTSIZE": 10}]))
-            created = discover_new_setups(setups, root / "strategies", universe)
-            self.assertEqual(len(created), 1)
-            self.assertEqual(load_setup(created[0])["timeframe"], "1D")
+            setup = {"account_id": "TEST-EMA-DAILY", "symbol": "TEST",
+                     "strategy": "ema-daily", "timeframe": "1D",
+                     "initial_capital_rub": 1_000_000, "position_weight_pct": 10,
+                     "mode": "long_short", "lot_size_shares": 10,
+                     "fee_bps": 5, "slip_bps": 10,
+                     "borrow_bps_annual": 0, "stop_loss_pct": None}
+            (setups / "approved.json").write_text(json.dumps(setup))
             with patch("service.paper_fleet.load_strategy", return_value=SimpleNamespace(TIMEFRAME="1D")):
                 self.assertEqual(accounts(setups, root / "live")[0].history_from, "2022-01-01")
 
@@ -114,7 +96,7 @@ class PaperFleetTests(unittest.TestCase):
 
             def saved_candles(symbol, history_from, now, cache_path, require_ohlc, interval):
                 self.assertTrue(require_ohlc)
-                path = source_path(Path("data/moex_scan"), symbol, "1D" if interval == 24 else "1H")
+                path = source_path(Path("data/candles/moex_scan"), symbol, "1D" if interval == 24 else "1H")
                 return normalize_bars(json.loads(path.read_text()), now, interval=interval)
 
             with patch("service.paper_fleet.fetch_candles", side_effect=saved_candles) as fetch:

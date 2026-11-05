@@ -1,0 +1,44 @@
+//@version=6
+// Chart review only. Python/Pine parity is unverified; Python fills next open with modeled costs.
+indicator("ZigZag · confirmed level retest · review", overlay = true)
+int wing = input.int(3, "Pivot wing", options = [3, 5])
+float reversal = input.float(4.0, "Minimum reversal %", options = [2.0, 4.0, 6.0])
+float zone = input.float(0.5, "Retest zone %", options = [0.5, 1.0])
+float ph = ta.pivothigh(high, wing, wing)
+float pl = ta.pivotlow(low, wing, wing)
+var int lastSide = 0
+var float lastPrice = na
+var float knownHigh = na
+var float knownLow = na
+var float armedHigh = na
+var float armedLow = na
+var int armedAt = na
+bool longSignal = barstate.isconfirmed and not na(armedHigh) and bar_index > armedAt and low >= armedHigh * (1 - zone / 100) and low <= armedHigh * (1 + zone / 100) and close > armedHigh
+bool shortSignal = barstate.isconfirmed and not na(armedLow) and bar_index > armedAt and high >= armedLow * (1 - zone / 100) and high <= armedLow * (1 + zone / 100) and close < armedLow
+if barstate.isconfirmed
+    if longSignal
+        armedHigh := na
+    if shortSignal
+        armedLow := na
+    if not na(knownHigh) and close[1] <= knownHigh and close > knownHigh
+        armedHigh := knownHigh
+        armedLow := na
+        armedAt := bar_index
+    if not na(knownLow) and close[1] >= knownLow and close < knownLow
+        armedLow := knownLow
+        armedHigh := na
+        armedAt := bar_index
+    if not na(ph) and (lastSide == 0 or (lastSide == 1 and ph > lastPrice) or (lastSide == -1 and 100 * math.abs(ph / lastPrice - 1) >= reversal))
+        lastSide := 1
+        lastPrice := ph
+        knownHigh := ph
+        armedHigh := na
+    if not na(pl) and (lastSide == 0 or (lastSide == -1 and pl < lastPrice) or (lastSide == 1 and 100 * math.abs(pl / lastPrice - 1) >= reversal))
+        lastSide := -1
+        lastPrice := pl
+        knownLow := pl
+        armedLow := na
+plot(knownHigh, "Confirmed resistance", color = color.red, style = plot.style_stepline)
+plot(knownLow, "Confirmed support", color = color.teal, style = plot.style_stepline)
+plotshape(longSignal, "Long retest", shape.triangleup, location.belowbar, color.lime, size = size.tiny)
+plotshape(shortSignal, "Short retest", shape.triangledown, location.abovebar, color.red, size = size.tiny)

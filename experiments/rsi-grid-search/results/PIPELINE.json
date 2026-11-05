@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/rsi-grid-search",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "История посчитана до расходов"
+  ],
+  "review": "experiments/rsi-grid-search/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "rsi_14_55_45__long_short",
+    "symbols": 240,
+    "median_train_positive_share_pct": 55.05,
+    "median_train_mean_month_return_pct": 0.17,
+    "median_train_worst_month_pnl_rub": -38579.85,
+    "median_late_positive_share_pct": 47.62,
+    "median_late_mean_month_return_pct": 0.09
+  },
+  "stocks": [
+    "VSEH",
+    "MGNT",
+    "UNAC",
+    "UGLD",
+    "SELG",
+    "OZON",
+    "RNFT",
+    "MTLR",
+    "AFKS",
+    "NLMK"
+  ]
+}

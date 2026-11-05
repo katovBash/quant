@@ -34,7 +34,7 @@ def summarize(folder: Path) -> Path:
              "Стоимость займа short, дивиденды, реальные лоты и корпоративные события не учтены.", "",
              "[Условия запуска](results/manifest.json) · [покрытие и ошибки](results/progress.csv) · "
              "[полные CSV по каждому тикеру](results/)", ""]
-    if folder.name in ("rsi-grid-search", "patterns-grid-search"):
+    if folder.name == "rsi-grid-search":
         lines += ["**SFIN:** крупный дивидендный разрыв 25.12.2025 существенно искажает "
                   "результаты long+short, если стратегия держала short до отсечки: "
                   "дивидендная выплата по короткой позиции отсутствует в расчёте. "

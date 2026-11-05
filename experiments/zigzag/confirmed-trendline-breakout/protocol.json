@@ -1,0 +1,91 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "confirmed-trendline-breakout",
+  "method_id": "zigzag-confirmed-trendline-breakout",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-04",
+  "hypothesis": "A breakout across a projected line through two causally confirmed same-side ZigZag pivots may improve monthly outcomes versus buy-and-hold.",
+  "source_url": "https://www.tradingview.com/support/solutions/43000591664-zigzag-indicator/",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1D",
+    "1H",
+    "4H"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "wing": {
+        "values": [
+          3,
+          5
+        ]
+      },
+      "deviation_pct": {
+        "values": [
+          2,
+          4,
+          6
+        ]
+      },
+      "max_age": {
+        "values": [
+          50,
+          100
+        ]
+      }
+    },
+    "variant_template": "zzt_{wing}_{deviation_pct}_{max_age}",
+    "include_baseline": true,
+    "max_combinations": 12
+  },
+  "expected_variants": [
+    "baseline",
+    "zzt_3_2_50",
+    "zzt_3_2_100",
+    "zzt_3_4_50",
+    "zzt_3_4_100",
+    "zzt_3_6_50",
+    "zzt_3_6_100",
+    "zzt_5_2_50",
+    "zzt_5_2_100",
+    "zzt_5_4_50",
+    "zzt_5_4_100",
+    "zzt_5_6_50",
+    "zzt_5_6_100"
+  ],
+  "parameter_rationale": "Wing 3/5 bars and reversal 2/4/6% span medium swings; max_age uses two preregistered practical settings. All 12 combinations are evaluated. This is a new use case, not a post-hoc filter of breakout results.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on the same stock and timeframe, filled next open; compare also with separately completed immediate ZigZag breakout run",
+  "signal_rule": "Construct a resistance line from the last two confirmed pivot highs and a support line from the last two confirmed pivot lows, using their original bar indices but only after both confirmations. Enter when a completed close crosses a line; discard if the newer pivot is older than max_age bars. Reverse on crossing the opposite line. Fill next open.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Research ranking only; compare the same-stock immediate-breakout experiment and buy-and-hold; no automatic trading approval",
+  "run_command": "python3 -m pipeline.run experiments/zigzag/confirmed-trendline-breakout",
+  "limitations": [
+    "A confirmed pivot is drawn at its historical bar but cannot be traded until wing later bars have closed",
+    "Latest ZigZag leg is unstable and is never used as an entry level",
+    "Corporate-action coverage is incomplete; results are for research only",
+    "Pine chart is for visual review only; Python/Pine parity is unverified",
+    "Research parameters and cases are assessed on previously inspected historical data"
+  ]
+}

@@ -16,7 +16,7 @@ DAILY = ROOT / "execute/research/daily_weekly_monthly"
 INTRADAY = ROOT / "execute/research/intraday"
 SUCCESS = ROOT / "success"
 TICKERS = ROOT / "execute/research/tickers"
-CACHE = Path("data/moex_scan")
+CACHE = Path("data/candles/moex_scan")
 
 
 def read_csv(path):

@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/double-indicator/weekly-trendlines-volume-profile",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "История посчитана до расходов"
+  ],
+  "review": "experiments/double-indicator/weekly-trendlines-volume-profile/results/paper_review.json",
+  "rule": {
+    "timeframe": "1D",
+    "variant": "volume_26w",
+    "symbols": 250,
+    "median_train_positive_share_pct": 33.33,
+    "median_train_mean_month_return_pct": 0.03,
+    "median_train_worst_month_pnl_rub": -29675.0,
+    "median_late_positive_share_pct": 33.33,
+    "median_late_mean_month_return_pct": -0.11
+  },
+  "stocks": [
+    "SGZH",
+    "CHMF",
+    "AFLT",
+    "NMTP",
+    "BSPB",
+    "T",
+    "MTLR",
+    "MSNG",
+    "GAZP",
+    "FEES"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "structural_ok": true,
+  "policy_version": 1,
+  "status": "REVIEW_ONLY",
+  "coverage": {
+    "ok": true,
+    "rows": 50,
+    "duplicates": [],
+    "timeframes": {
+      "1H": {
+        "symbols": 10,
+        "min_required": 0,
+        "variants": 5,
+        "incomplete_symbols": {},
+        "ok": true
+      }
+    },
+    "pairs_with_at_least_100_closed_trades": 40,
+    "pairs_below_100_closed_trades": 10,
+    "monthly": {
+      "rows": 1650,
+      "pairs": 50,
+      "missing_or_short": {},
+      "duplicates": [],
+      "min_periods_available": 33,
+      "ok": true
+    }
+  },
+  "parameter_grid": {
+    "expected": 5,
+    "actual": 5,
+    "missing": [],
+    "unexpected": [],
+    "ok": true
+  },
+  "universe": {
+    "eligible_symbols": 10,
+    "covered_pairs": 10,
+    "missing_pairs": [],
+    "ok": true
+  },
+  "periods": {
+    "pairs": 50,
+    "with_2_full_months": 50,
+    "with_2_calendar_years": 50,
+    "with_train_and_late": 50,
+    "with_last_1m": 50,
+    "with_last_3m": 50,
+    "with_last_6m": 50,
+    "with_last_9m": 50,
+    "with_last_12m": 50
+  },
+  "monthly_validation": {
+    "rows": 1650,
+    "pairs": 50,
+    "duplicate_month_rows": 0,
+    "invalid_calendar_rows": 0,
+    "invalid_equity_rows": 0,
+    "return_mismatch_rows": 0,
+    "pnl_mismatch_rows": 0,
+    "invalid_trade_rows": 0,
+    "gap_pairs": 0,
+    "missing_months_inside_history": 0,
+    "affected_symbol_timeframes": 0,
+    "unique_missing_symbol_months": 0,
+    "invalid_examples": [],
+    "gap_examples": [],
+    "ok": true,
+    "continuous": true
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "covered_symbols": 0,
+    "verified_snapshot_sha256": null,
+    "moex_source_status": "SUBSCRIPTION_REQUIRED",
+    "moex_source_checked_at_utc": "2026-11-04T11:34:15.003496+00:00",
+    "all_symbols_covered": false
+  },
+  "note": "DATA_READY confirms data and report gates only; it does not approve a trading strategy."
+}

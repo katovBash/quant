@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "experiment": {
+    "min_eligible_symbols_for_broad_test": 100,
+    "recent_month_windows": [1, 3, 6, 9, 12],
+    "min_train_months_per_pair_for_ranking": 3,
+    "min_late_months_per_pair_for_diagnostics": 1,
+    "paper_stock_count": 10,
+    "liquidity_top_fraction": 0.25
+  },
+  "paper": {
+    "first_review_after_calendar_days": 30,
+    "continue_requires_net_return_above_pct": 0,
+    "negative_30d_result": "PAPER_STOP_REVIEW",
+    "real_orders_enabled": false
+  },
+  "forward_evidence": {
+    "min_distinct_trading_dates": 252,
+    "min_new_closed_trades": 100,
+    "max_drawdown_pct": 30,
+    "adjusted_one_sided_p_below": 0.05,
+    "note": "Separate optional evidence label, not a prerequisite for the 30-day paper review or a real-order switch."
+  }
+}

@@ -1,0 +1,51 @@
+//@version=6
+strategy("1H session VWAP ATR reversion · research", overlay=true, pyramiding=0,
+     initial_capital=1000000, currency=currency.RUB,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false, margin_long=100, margin_short=100)
+
+// Review only: Python uses MOEX hourly snapshot, next-open fills, and a 15 bp
+// per-side transaction-cost equivalent. Pine fills and available sessions can differ.
+float deviation = input.float(1.0, "Deviation in ATR", options=[0.5, 1.0, 1.5])
+int holdBars = input.int(2, "Hold completed 1H bars", options=[1, 2, 4])
+bool chartOk = timeframe.isintraday and timeframe.multiplier == 60
+bool newDay = ta.change(time("D")) != 0
+var float weighted = 0.0
+var float totalVolume = 0.0
+var int sessionBars = 0
+if newDay
+    weighted := 0.0
+    totalVolume := 0.0
+    sessionBars := 0
+weighted += hlc3 * volume
+totalVolume += volume
+sessionBars += 1
+float level = totalVolume > 0 ? weighted / totalVolume : na
+float tr = math.max(high - low, math.max(math.abs(high - nz(close[1], close)), math.abs(low - nz(close[1], close))))
+float volatility = ta.sma(tr, 14)
+bool valid = chartOk and barstate.isconfirmed and sessionBars >= 3 and not na(level) and not na(volatility)
+bool rawLong = valid and close < level - deviation * volatility
+bool rawShort = valid and close > level + deviation * volatility
+var bool previousLong = false
+var bool previousShort = false
+if newDay
+    previousLong := false
+    previousShort := false
+var int exitAt = -1
+if chartOk and barstate.isconfirmed
+    if bar_index == exitAt
+        strategy.close("Long")
+        strategy.close("Short")
+    if bar_index > exitAt
+        float shares = math.floor(strategy.equity * 0.25 / close)
+        if shares >= 1 and rawLong and not previousLong and not rawShort
+            strategy.entry("Long", strategy.long, qty=shares)
+            exitAt := bar_index + holdBars
+        else if shares >= 1 and rawShort and not previousShort and not rawLong
+            strategy.entry("Short", strategy.short, qty=shares)
+            exitAt := bar_index + holdBars
+    previousLong := rawLong
+    previousShort := rawShort
+plot(level, "Session VWAP", color=color.orange, force_overlay=true)
+plot(level + deviation * volatility, "Upper ATR band", color=color.new(color.red, 55), force_overlay=true)
+plot(level - deviation * volatility, "Lower ATR band", color=color.new(color.teal, 55), force_overlay=true)

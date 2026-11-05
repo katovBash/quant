@@ -1,0 +1,15 @@
+//@version=6
+indicator("MACD grid · manual review", overlay = false)
+// Visual review only. Match inputs to protocol.json; Python signal parity is pending.
+fastLength = input.int(5, "Fast EMA", minval = 2)
+slowLength = input.int(13, "Slow EMA", minval = 3)
+signalLength = input.int(5, "Signal EMA", minval = 2)
+macd = ta.ema(close, fastLength) - ta.ema(close, slowLength)
+signalLine = ta.ema(macd, signalLength)
+longSignal = barstate.isconfirmed and ta.crossover(macd, signalLine)
+shortSignal = barstate.isconfirmed and ta.crossunder(macd, signalLine)
+plot(macd, "MACD", color = color.aqua)
+plot(signalLine, "Signal", color = color.orange)
+hline(0, "Zero", color = color.gray)
+plotshape(longSignal, "Long", shape.triangleup, location.bottom, color.green, size = size.tiny)
+plotshape(shortSignal, "Short", shape.triangledown, location.top, color.red, size = size.tiny)

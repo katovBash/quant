@@ -1,0 +1,47 @@
+//@version=6
+// Chart review only. Python/Pine parity is unverified; Python fills next open with modeled costs.
+indicator("ZigZag · confirmed triangle breakout · review", overlay = true)
+int wing = input.int(3, "Pivot wing", options = [3, 5])
+float reversal = input.float(4.0, "Minimum reversal %", options = [2.0, 4.0, 6.0])
+float narrowing = input.float(25.0, "Minimum narrowing %", options = [25.0, 50.0])
+float ph = ta.pivothigh(high, wing, wing)
+float pl = ta.pivotlow(low, wing, wing)
+var int lastSide = 0
+var float lastPrice = na
+var int h0i = na
+var int h1i = na
+var float h0 = na
+var float h1 = na
+var int l0i = na
+var int l1i = na
+var float l0 = na
+var float l1 = na
+float upper = not na(h0i) and not na(h1i) and h1i > h0i ? h1 + (h1 - h0) * (bar_index - h1i) / (h1i - h0i) : na
+float lower = not na(l0i) and not na(l1i) and l1i > l0i ? l1 + (l1 - l0) * (bar_index - l1i) / (l1i - l0i) : na
+int startIndex = math.max(nz(h0i, bar_index), nz(l0i, bar_index))
+float upperStart = not na(upper) ? h1 + (h1 - h0) * (startIndex - h1i) / (h1i - h0i) : na
+float lowerStart = not na(lower) ? l1 + (l1 - l0) * (startIndex - l1i) / (l1i - l0i) : na
+float initialWidth = upperStart - lowerStart
+float width = upper - lower
+bool triangle = not na(upper) and not na(lower) and h1 < h0 and l1 > l0 and initialWidth > 0 and width > 0 and upper > 0 and bar_index - math.max(h1i, l1i) <= 100 and 100 * (1 - width / initialWidth) >= narrowing
+bool longSignal = barstate.isconfirmed and triangle and not na(upper[1]) and close[1] <= upper[1] and close > upper
+bool shortSignal = barstate.isconfirmed and triangle and not longSignal and not na(lower[1]) and close[1] >= lower[1] and close < lower
+if barstate.isconfirmed
+    if not na(ph) and (lastSide == 0 or (lastSide == 1 and ph > lastPrice) or (lastSide == -1 and 100 * math.abs(ph / lastPrice - 1) >= reversal))
+        lastSide := 1
+        lastPrice := ph
+        h0i := h1i
+        h0 := h1
+        h1i := bar_index - wing
+        h1 := ph
+    if not na(pl) and (lastSide == 0 or (lastSide == -1 and pl < lastPrice) or (lastSide == 1 and 100 * math.abs(pl / lastPrice - 1) >= reversal))
+        lastSide := -1
+        lastPrice := pl
+        l0i := l1i
+        l0 := l1
+        l1i := bar_index - wing
+        l1 := pl
+plot(triangle ? upper : na, "Triangle resistance", color = color.red)
+plot(triangle ? lower : na, "Triangle support", color = color.teal)
+plotshape(longSignal, "Long breakout", shape.triangleup, location.belowbar, color.lime, size = size.tiny)
+plotshape(shortSignal, "Short breakout", shape.triangledown, location.abovebar, color.red, size = size.tiny)

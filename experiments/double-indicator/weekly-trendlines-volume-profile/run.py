@@ -24,7 +24,7 @@ from src.research.standalone_grid import atr, ema_level_signals
 from src.research.timeframes import load_research_bars, source_path
 
 HERE = Path(__file__).resolve().parent
-CACHE = ROOT / "data/moex_scan"
+CACHE = ROOT / "data/candles/moex_scan"
 PROTOCOL = json.loads((HERE / "protocol.json").read_text())
 VARIANTS = PROTOCOL["variants"]
 ROW_FIELDS = ("symbol", "timeframe", "variant", "bars", "pnl_rub", "net_return_pct",

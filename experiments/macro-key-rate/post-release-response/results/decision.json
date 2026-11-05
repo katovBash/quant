@@ -1,0 +1,18 @@
+{
+  "status": "CLOSED",
+  "decided_on": "2026-11-04",
+  "decided_by": "user_standing_instruction",
+  "scope": "no_further_paper_promotion_of_current_trading_variants",
+  "reason": "Все шесть заранее зафиксированных торговых вариантов имеют отрицательную медианную среднемесячную доходность по доступным акциям после расходов: от -0.03% до -0.05%. Автоматически выбранный continuation_6 показывает медиану прибыльных месяцев 25.00% на раннем и 11.11% на позднем отрезке. По принятому правилу очевидно слабую торговую гипотезу закрываем без перехода в paper.",
+  "evidence": {
+    "universe_symbols": 263,
+    "tested_trading_variants": 6,
+    "median_mean_month_return_pct_range": [-0.05, -0.03],
+    "selected_variant": "continuation_6",
+    "selected_median_train_profitable_month_share_pct": 25.0,
+    "selected_median_late_profitable_month_share_pct": 11.11,
+    "event_study_dates_with_larger_median_abs_move": "20/23",
+    "event_study_median_abs_move_difference_pp": 0.068107
+  },
+  "note": "Закрыта только эта торговая формулировка. Событийное наблюдение о повышенной активности сохранено как исследовательский результат, не доказательство причинного эффекта ставки."
+}

@@ -1,0 +1,14 @@
+//@version=6
+indicator("ROC grid · manual review", overlay = false)
+// Visual review only. Match inputs to protocol.json; Python signal parity is pending.
+period = input.int(3, "ROC period", minval = 1)
+threshold = input.float(1, "Threshold %", minval = 0)
+value = ta.roc(close, period)
+longSignal = barstate.isconfirmed and ta.crossover(value, threshold)
+shortSignal = barstate.isconfirmed and ta.crossunder(value, -threshold)
+plot(value, "ROC %", color = color.aqua)
+hline(0, "Zero", color = color.gray)
+hline(threshold, "Long threshold", color = color.new(color.green, 40))
+hline(-threshold, "Short threshold", color = color.new(color.red, 40))
+plotshape(longSignal, "Long", shape.triangleup, location.bottom, color.green, size = size.tiny)
+plotshape(shortSignal, "Short", shape.triangledown, location.top, color.red, size = size.tiny)

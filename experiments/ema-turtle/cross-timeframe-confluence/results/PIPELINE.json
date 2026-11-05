@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/ema-turtle/cross-timeframe-confluence",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "full_run",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "Качество свечей выбранных акций не подтверждено"
+  ],
+  "review": "experiments/ema-turtle/cross-timeframe-confluence/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "ema_only_higher",
+    "symbols": 249,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": 0.11,
+    "median_train_worst_month_pnl_rub": -51066.31,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.24
+  },
+  "stocks": [
+    "BSPB",
+    "WUSH",
+    "VSEH",
+    "SNGSP",
+    "SMLT",
+    "AFLT",
+    "POSI",
+    "RUAL",
+    "PLZL",
+    "MGNT"
+  ]
+}

@@ -14,11 +14,13 @@ OUT = ROOT / "experiments/STRATEGY_COVERAGE.md"
 
 
 def report() -> str:
-    strategies = sorted((ROOT / "strategies").glob("*/README.md"))
+    strategies = sorted((ROOT / "strategies").glob("*/strategy.py"))
+    catalog = json.loads((ROOT / "strategies/catalog.json").read_text(encoding="utf-8"))
+    source_experiment = {item["id"]: item.get("experiment", "") for item in catalog["rules"]}
     report_lines = [
         "# Покрытие экспериментов и перенос в стратегии",
         "",
-        "Снимок строится из `results/progress.csv` и ссылок в README стратегий командой "
+        "Снимок строится из `results/progress.csv` и каталога стратегий командой "
         "`python3 scripts/audit_experiment_strategy_coverage.py`. "
         "`complete_previous` считается завершённым; повторы одного тикера и интервала учитываются один раз.",
         "",
@@ -49,22 +51,17 @@ def report() -> str:
         for frame in FRAMES:
             frame_cells.append(f"{len(completed[frame])}/{planned}" if frame in manifest.get("timeframes", []) else "—")
         links = []
-        needle = f"experiments/{experiment.name}/"
-        for readme in strategies:
-            if needle in readme.read_text(encoding="utf-8"):
-                slug = readme.parent.name
-                links.append(f"[{slug}](../strategies/{slug}/README.md)")
-        report_lines.append(f"| [{experiment.name}]({experiment.name}/README.md) | " +
+        for strategy in strategies:
+            slug = strategy.parent.name
+            if source_experiment.get(slug) == experiment.name:
+                links.append(f"[{slug}](../strategies/{slug}/selection.json)")
+        report_lines.append(f"| [{experiment.name}]({experiment.name}/results/REPORT.md) | " +
                             " | ".join(frame_cells) + " | " +
                             (", ".join(links) if links else "нет") + " |")
     report_lines += [
         "",
         "Числитель — реально завершённые тикеры; знаменатель — заявленная вселенная. "
         "Пропуски из-за недостатка свечей остаются пропусками. Знак «—» означает, что интервал не был включён в manifest.",
-        "",
-        "Исследование [двух индикаторов](double-indicator/sma-cross-sideways-filters-smlt-1h/README.md) "
-        "проводилось отдельно на SMLT 1H; прежняя стратегия удалена после проверки месячного риска. "
-        "Исследование режимов рынка описывает прогноз события, а не торговые сделки, поэтому прямой перенос в стратегию не требуется.",
         "",
         "Для оценки достаточности одного кандидата нужно отдельно проверять число его сделок, "
         "соседние параметры, результаты на других бумагах без перенастройки, издержки и новые данные. "
@@ -81,20 +78,20 @@ def report() -> str:
         "| Стратегия | Python | Pine | Настроенных виртуальных счетов |",
         "| --- | --- | --- | ---: |",
     ]
-    for readme in strategies:
-        if readme.parent.name == "template":
+    for strategy in strategies:
+        if strategy.parent.name == "template":
             continue
-        slug = readme.parent.name
-        python_path = readme.parent / "strategy.py"
+        slug = strategy.parent.name
+        python_path = strategy
         python = "да" if python_path.exists() else "**нет**"
-        pine = "да" if (readme.parent / "strategy.pine").exists() else "**нет**"
+        pine = "да" if (strategy.parent / "strategy.pine").exists() else "**нет**"
         strategy_id = slug
         if python_path.exists():
             for node in ast.parse(python_path.read_text(encoding="utf-8")).body:
                 if isinstance(node, ast.Assign) and any(isinstance(target, ast.Name) and target.id == "STRATEGY_ID" for target in node.targets):
                     strategy_id = ast.literal_eval(node.value)
                     break
-        report_lines.append(f"| [{slug}](../strategies/{slug}/README.md) | {python} | {pine} | {len(setups[strategy_id])} |")
+        report_lines.append(f"| [{slug}](../strategies/{slug}/selection.json) | {python} | {pine} | {len(setups[strategy_id])} |")
     report_lines += [
         "",
         "Здесь проверено наличие файлов и setup. Равенство сигналов Python и Pine, фактическое "

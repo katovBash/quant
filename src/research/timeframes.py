@@ -10,14 +10,14 @@ from src.ema.core.scan_ema import four_hour
 
 SNAPSHOT_END = "2026-10-30"
 MINUTE_START = "2026-01-01"
-TIMEFRAMES = ("15M", "30M", "1H", "4H", "1D")
+TIMEFRAMES = ("15M", "30M", "1H", "4H", "1D", "1W")
 
 
 def source_path(cache: Path, symbol: str, timeframe: str) -> Path:
     if timeframe not in TIMEFRAMES:
         raise ValueError(f"unknown timeframe: {timeframe}")
-    interval = 24 if timeframe == "1D" else 1 if timeframe in ("15M", "30M") else 60
-    start = "2022-01-01" if timeframe == "1D" else MINUTE_START if interval == 1 else "2024-01-01"
+    interval = 24 if timeframe in ("1D", "1W") else 1 if timeframe in ("15M", "30M") else 60
+    start = "2022-01-01" if timeframe in ("1D", "1W") else MINUTE_START if interval == 1 else "2024-01-01"
     return cache / f"{symbol}_{interval}_{start}_{SNAPSHOT_END}.json"
 
 
@@ -46,15 +46,37 @@ def aggregate_minutes(bars: list[dict], minutes: int) -> list[dict]:
     return result
 
 
+def aggregate_weeks(bars: list[dict]) -> list[dict]:
+    """Completed trading weeks, stamped at their last available daily close."""
+    result: list[dict] = []
+    previous_key = None
+    for bar in bars:
+        day = datetime.fromisoformat(bar["ts"][:10]).date()
+        key = day.isocalendar()[:2]
+        if key != previous_key:
+            result.append(dict(bar))
+            previous_key = key
+        else:
+            item = result[-1]
+            item["high"] = max(item["high"], bar["high"])
+            item["low"] = min(item["low"], bar["low"])
+            item["close"] = bar["close"]
+            item["volume"] += bar.get("volume", 0)
+            item["ts"] = bar["ts"]
+    return result
+
+
 def load_research_bars(cache: Path, symbol: str, timeframe: str) -> list[dict]:
     path = source_path(cache, symbol, timeframe)
     bars = json.loads(path.read_text(encoding="utf-8"))
     if timeframe in ("15M", "30M"):
         return aggregate_minutes(bars, 15 if timeframe == "15M" else 30)
+    if timeframe == "1W":
+        return aggregate_weeks(bars)
     return four_hour(bars) if timeframe == "4H" else bars
 
 
 def sample_period(timeframe: str) -> tuple[str, str]:
     if timeframe in ("15M", "30M"):
         return MINUTE_START, "2026-07-01"
-    return ("2022-01-01" if timeframe == "1D" else "2024-01-01", "2025-01-01")
+    return ("2022-01-01" if timeframe in ("1D", "1W") else "2024-01-01", "2025-01-01")

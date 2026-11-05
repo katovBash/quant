@@ -1,0 +1,52 @@
+//@version=6
+strategy("Smart Money · sweep then FVG · research", overlay = true,
+     initial_capital = 1000000, currency = currency.RUB, pyramiding = 0,
+     commission_type = strategy.commission.percent, commission_value = 0.15,
+     process_orders_on_close = false, margin_long = 100, margin_short = 100)
+
+// Review visualization only. Python uses 15 bps per side, 25% equity,
+// next-open fills and a fixed 10-bar exit. Pine lot size, broker margin,
+// slippage, dividends and short borrow may differ. Signals are not parity-checked.
+string mode = input.string("Combined", "Rule", options = ["Combined", "Sweep only", "FVG only"])
+int lookback = input.int(10, "Prior range bars", options = [10, 20])
+float sweepDepth = input.float(0.0, "Sweep beyond range × ATR", options = [0.0, 0.25])
+float minGap = input.float(0.0, "Minimum FVG × ATR", options = [0.0, 0.2])
+int confirmBars = input.int(1, "Completed bars after sweep", options = [1, 3])
+
+float volatility = ta.atr(14)
+float priorHigh = ta.highest(high[1], lookback)
+float priorLow = ta.lowest(low[1], lookback)
+bool valid = barstate.isconfirmed and not na(volatility) and not na(priorLow)
+bool sweepUp = valid and low < priorLow - sweepDepth * volatility and close > priorLow
+bool sweepDown = valid and high > priorHigh + sweepDepth * volatility and close < priorHigh
+bool fvgUp = valid and low > high[2] + minGap * volatility
+bool fvgDown = valid and high < low[2] - minGap * volatility
+var int lastUp = na
+var int lastDown = na
+bool combinedUp = fvgUp and not na(lastUp) and bar_index - lastUp >= 1 and bar_index - lastUp <= confirmBars
+bool combinedDown = fvgDown and not na(lastDown) and bar_index - lastDown >= 1 and bar_index - lastDown <= confirmBars
+bool longSignal = mode == "Sweep only" ? sweepUp : mode == "FVG only" ? fvgUp : combinedUp
+bool shortSignal = mode == "Sweep only" ? sweepDown : mode == "FVG only" ? fvgDown : combinedDown
+if sweepUp and not sweepDown
+    lastUp := bar_index
+if sweepDown and not sweepUp
+    lastDown := bar_index
+
+float exitHigh = ta.highest(high[1], 10)
+float exitLow = ta.lowest(low[1], 10)
+if strategy.position_size > 0 and close < exitLow
+    strategy.close("Long")
+if strategy.position_size < 0 and close > exitHigh
+    strategy.close("Short")
+float shares = math.floor(strategy.equity * 0.25 / close)
+if longSignal and not shortSignal and shares >= 1
+    strategy.entry("Long", strategy.long, qty = shares)
+if shortSignal and not longSignal and shares >= 1
+    strategy.entry("Short", strategy.short, qty = shares)
+
+plot(priorHigh, "Prior range high", color = color.new(color.red, 65))
+plot(priorLow, "Prior range low", color = color.new(color.teal, 65))
+plotshape(sweepUp, "Sell-side sweep", shape.circle, location.belowbar, color.teal, size = size.tiny)
+plotshape(sweepDown, "Buy-side sweep", shape.circle, location.abovebar, color.red, size = size.tiny)
+plotshape(fvgUp, "Bullish FVG", shape.triangleup, location.belowbar, color.lime, size = size.tiny)
+plotshape(fvgDown, "Bearish FVG", shape.triangledown, location.abovebar, color.orange, size = size.tiny)

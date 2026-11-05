@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/smart-money/liquidity-sweep-fvg",
+  "stage": "CLOSED_RESEARCH",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_CLOSED",
+  "warnings": [
+    "Заявленные 16 сочетаний sweep + FVG не дали убедительного результата на полном наборе после модельных расходов. Лучшая медиана среднемесячной доходности сочетания: 1H -0.10%, 4H около 0%, 1D +0.08% на 263/263/252 акциях соответственно; годовые медианы в отчёте низкие, многие 1D сочетания дают нулевой результат из-за редких сигналов. Автоматический кандидат fvg_0.2 4H — отдельный контроль с ранней медианой -0.01% за месяц, не подтверждение комбинированной гипотезы."
+  ],
+  "review": "experiments/smart-money/liquidity-sweep-fvg/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "fvg_0.2",
+    "symbols": 249,
+    "median_train_positive_share_pct": 46.67,
+    "median_train_mean_month_return_pct": -0.01,
+    "median_train_worst_month_pnl_rub": -49434.0,
+    "median_late_positive_share_pct": 44.44,
+    "median_late_mean_month_return_pct": 0.14
+  },
+  "stocks": [
+    "VSEH",
+    "MTLR",
+    "RAGR",
+    "RTKM",
+    "SFIN",
+    "NLMK",
+    "GAZP",
+    "MTSS",
+    "BANEP",
+    "ALRS"
+  ]
+}

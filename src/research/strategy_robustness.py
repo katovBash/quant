@@ -217,8 +217,9 @@ def run(argv: list[str] | None = None) -> None:
                          for key in ("symbols", "calculated", "errors", "negative_7d",
                                      "negative_14d", "negative_1m", "negative_24m",
                                      "underwater_365d")}
-    (STRATEGIES / "robustness.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if summary["strategies"]:
+        (STRATEGIES / "robustness.json").write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

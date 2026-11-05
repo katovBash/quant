@@ -11,6 +11,8 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from service.account_record import account_record
+from src.research.corporate_actions import load_dividend_snapshot
+from src.research.data_quality import candle_quality
 
 ROOT = Path(__file__).resolve().parents[1]
 LIVE = ROOT / "papertrading/live"
@@ -18,6 +20,9 @@ INDEX = Path(__file__).with_name("index.html")
 CATALOG = ROOT / "strategies/catalog.json"
 STRATEGIES = ROOT / "strategies"
 SETUPS = ROOT / "papertrading/setups/fleet"
+DIVIDEND_FILES = (ROOT / "data/dividends/latest.json",
+                  ROOT / "data/dividends/sfin_2026-11-04.json")
+CACHE = ROOT / "data/candles/moex_scan"
 POLL_SECONDS = 900
 
 
@@ -96,17 +101,47 @@ def snapshot(live: Path = LIVE, now: datetime | None = None) -> dict:
         if setup.get("strategy") and setup.get("symbol"):
             configured.setdefault(setup["strategy"], set()).add(setup["symbol"])
     rules = []
+    action_snapshot = {"covered_symbols": [], "events": []}
+    for event_file in DIVIDEND_FILES:
+        if not event_file.is_file():
+            continue
+        try:
+            action_snapshot, _ = load_dividend_snapshot(event_file)
+            break
+        except (OSError, ValueError, KeyError, TypeError):
+            continue
     for rule in catalog.get("rules", []):
         selected = _read_json(STRATEGIES / rule["id"] / "selection.json") or {}
+        research_update = (_read_json(ROOT / selected["research_update_file"]) or {}
+                           if selected.get("research_update_file") else {})
+        updated_symbols = research_update.get("symbols", {})
+        history = _read_json(STRATEGIES / rule["id"] / "history_snapshot.json") or {}
+        history_symbols = history.get("symbols", {})
+        top10 = [dict(row, **updated_symbols.get(row.get("symbol"), {}),
+                      history=history_symbols.get(row.get("symbol"), {}))
+                 for row in selected.get("top10", [])]
+        symbols = sorted(set(configured.get(rule["id"], set()))
+                         | {row.get("symbol") for row in top10 if row.get("symbol")})
+        data_quality = {}
+        for symbol in symbols:
+            dividends = [event for event in action_snapshot["events"] if event["symbol"] == symbol]
+            data_quality[symbol] = {
+                "dividends": "verified_unapplied" if symbol in action_snapshot["covered_symbols"]
+                             else "unverified",
+                "dividend_events": len(dividends),
+                "splits": "unverified",
+                "candles": candle_quality(CACHE, symbol, rule["timeframe"])}
         rules.append({"id": rule["id"], "label": rule.get("label", rule["id"]),
                       "experiment": rule["experiment"],
                       "timeframe": rule["timeframe"],
                       "history_snapshot": selected.get("snapshot"),
+                      "history_cost_status": selected.get("cost_status"),
                       "status": selected.get("status"),
                       "median_return_pct": selected.get("median_return_pct"),
                       "profitable_tickers": selected.get("profitable_tickers"),
                       "tested_tickers": selected.get("tested_tickers"),
-                      "top10": selected.get("top10", []),
+                      "top10": top10,
+                      "data_quality": data_quality,
                       "configured_symbols": sorted(configured.get(rule["id"], set())),
                       "limitation": selected.get("limitation")})
     return {

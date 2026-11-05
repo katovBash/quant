@@ -1,0 +1,67 @@
+{
+  "indicator_id": "elliott-wave",
+  "run_id": "confirmed-impulse-breakout",
+  "method_id": "elliott-confirmed-impulse-proxy",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-04",
+  "hypothesis": "A causally confirmed pivot sequence approximating impulse waves 1-2 or 1-2-3-4, followed by breakout of the preceding wave high or low, may improve monthly consistency over the same-instrument buy-and-hold control.",
+  "source_urls": [
+    "https://www.elliottwave.com/articles/elevate-your-elliott-wave-analysis/",
+    "https://www.tradingview.com/support/solutions/43000653212-elliott-wave-theory-and-tools/",
+    "https://www.tradingview.com/support/solutions/43000591664-zigzag-indicator/"
+  ],
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": ["1D"]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": ["1D", "1H", "4H"],
+  "parameter_grid": {
+    "axes": {
+      "pattern": {"values": ["wave3", "wave5"]},
+      "wing": {"values": [2, 3, 5]},
+      "deviation_pct": {"values": [2, 4, 6]}
+    },
+    "variant_template": "{pattern}_{wing}_{deviation_pct}",
+    "include_baseline": true,
+    "max_combinations": 19
+  },
+  "expected_variants": [
+    "baseline",
+    "wave3_2_2", "wave3_2_4", "wave3_2_6",
+    "wave3_3_2", "wave3_3_4", "wave3_3_6",
+    "wave3_5_2", "wave3_5_4", "wave3_5_6",
+    "wave5_2_2", "wave5_2_4", "wave5_2_6",
+    "wave5_3_2", "wave5_3_4", "wave5_3_6",
+    "wave5_5_2", "wave5_5_4", "wave5_5_6"
+  ],
+  "parameter_rationale": "Three short-to-medium pivot confirmation wings (2,3,5 bars), three reversal thresholds (2%,4%,6%), and two causal setup stages (wave-3 breakout after waves 1-2; wave-5 breakout after waves 1-4) form the complete preregistered 2x3x3 grid. No per-stock tuning. Elliott labels are only an OHLC proxy, not a verified discretionary count.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on the same instrument and timeframe, next-open execution, identical costs",
+  "signal_rule": "A pivot at p is unavailable until close of p+wing. Significant alternating pivots require deviation_pct; a more extreme same-side pivot replaces only future setup state. Long wave3 proxy requires confirmed L0-H1-L2 with L2>L0 and L2<H1; buy only on the later close crossing H1. Short is mirrored. Long wave5 proxy requires confirmed L0-H1-L2-H3-L4 with L2>L0, H3>H1, L4>H1 and L4<H3; buy only on later close crossing H3. Short is mirrored. These are necessary geometric checks, not a complete Elliott taxonomy; no retroactive trades. A close through latest confirmed opposite pivot produces an exit. Order fills next bar open with 15 bps per side; 25% of account equity. Same bar pivot confirmations are incorporated only after evaluating that bar's trade signal.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Research comparison only; no automatic paper promotion. Compare matched annual and monthly PnL against buy-and-hold, breadth across stocks, and neighboring parameter settings.",
+  "run_command": "python3 -m pipeline.run experiments/elliott-wave/confirmed-impulse-breakout",
+  "limitations": [
+    "Wave counts have multiple valid interpretations; this experiment tests one narrow causal proxy, not the entire Elliott Wave Principle",
+    "Confirmed pivots lag by wing bars and are never traded at their historical pivot timestamp",
+    "Wave 3 cannot be proven non-shortest before wave 5 ends; the setup deliberately avoids claiming that rule is satisfied at entry",
+    "Unequal stock histories and missing candle periods must be shown in validation",
+    "Corporate actions, borrow cost and lots are not fully modeled; no real-trading inference"
+  ]
+}

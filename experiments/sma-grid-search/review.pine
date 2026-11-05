@@ -1,0 +1,13 @@
+//@version=6
+indicator("SMA cross grid · manual review", overlay = true)
+// Visual review only. Match inputs to protocol.json; Python signal parity is pending.
+fastLength = input.int(10, "Fast SMA", minval = 2)
+slowLength = input.int(30, "Slow SMA", minval = 3)
+fast = ta.sma(close, fastLength)
+slow = ta.sma(close, slowLength)
+longSignal = barstate.isconfirmed and ta.crossover(fast, slow)
+shortSignal = barstate.isconfirmed and ta.crossunder(fast, slow)
+plot(fast, "Fast SMA", color = color.aqua)
+plot(slow, "Slow SMA", color = color.orange)
+plotshape(longSignal, "Long", shape.triangleup, location.belowbar, color.green, size = size.tiny)
+plotshape(shortSignal, "Short", shape.triangledown, location.abovebar, color.red, size = size.tiny)

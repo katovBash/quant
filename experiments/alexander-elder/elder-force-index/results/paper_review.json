@@ -1,0 +1,2533 @@
+{
+  "status": "REVIEW_ONLY",
+  "protocol": {
+    "indicator_id": "alexander-elder",
+    "run_id": "elder-force-index",
+    "method_id": "elder-force-index",
+    "status": "PREREGISTERED",
+    "frozen_on": "2026-11-04",
+    "hypothesis": "Test whether the mechanical elder-force-index interpretation improves month-level outcomes over the same-stock buy-and-hold control.",
+    "trader_attribution": {
+      "name": "Alexander Elder",
+      "source_url": "https://www.elder.com/product-page/elder-disk-for-metastock-v2-0",
+      "source_type": "mechanical_interpretation",
+      "actual_trades_verified": false,
+      "personal_return_status": "not_available",
+      "rule_interpretation": "Smoothed Force Index crosses zero in direction of EMA50 trend; exit on opposite Force Index sign."
+    },
+    "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+    "eligible_universe": {
+      "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+      "cache_dir": "data/candles/moex_scan",
+      "board": "TQBR",
+      "requires_source_timeframes": [
+        "1D"
+      ]
+    },
+    "corporate_actions": {
+      "status": "unchecked",
+      "applied_in_main_results": false,
+      "splits_status": "unchecked",
+      "dividend_source_status_file": "data/dividends/moex_coverage.json"
+    },
+    "signal_timeframes": [
+      "1D",
+      "4H"
+    ],
+    "parameter_grid": {
+      "axes": {
+        "lookback": {
+          "values": [
+            2,
+            13
+          ]
+        }
+      },
+      "variant_template": "elder-force-index_{lookback}",
+      "include_baseline": true,
+      "max_combinations": 3
+    },
+    "expected_variants": [
+      "baseline",
+      "elder-force-index_2",
+      "elder-force-index_13"
+    ],
+    "parameter_rationale": "Two preregistered lookbacks bracket the published/default horizon; this is a bounded first grid, not a claim that all possible settings were searched.",
+    "min_bars": 65,
+    "baseline": "One 25% long buy-and-hold position on the same stock and timeframe, filled next open",
+    "signal_rule": "Smoothed Force Index crosses zero in direction of EMA50 trend; exit on opposite Force Index sign. All signals use completed bars and next-open fills; no current incomplete higher-timeframe bar.",
+    "initial_capital_rub": 1000000,
+    "position_weight_pct": 25,
+    "simulator_cost_bps_per_side": 15,
+    "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+    "start": "2024-01-01",
+    "split": "2026-01-01",
+    "late_sample_status": "seen_history",
+    "primary_evaluation": "monthly",
+    "selection": "Research ranking only; no automatic trading approval",
+    "run_command": "python3 -m pipeline.run experiments/alexander-elder/elder-force-index",
+    "limitations": [
+      "No verified personal trade journal",
+      "Author's discretionary choices are not reproduced",
+      "MOEX corporate-action coverage is incomplete",
+      "Pattern proxies require chart review"
+    ]
+  },
+  "validation": {
+    "structural_ok": true,
+    "policy_version": 1,
+    "status": "REVIEW_ONLY",
+    "coverage": {
+      "ok": true,
+      "rows": 2088,
+      "duplicates": [],
+      "timeframes": {
+        "1D": {
+          "symbols": 433,
+          "min_required": 0,
+          "variants": 3,
+          "incomplete_symbols": {},
+          "ok": true
+        },
+        "4H": {
+          "symbols": 263,
+          "min_required": 0,
+          "variants": 3,
+          "incomplete_symbols": {},
+          "ok": true
+        }
+      },
+      "pairs_with_at_least_100_closed_trades": 688,
+      "pairs_below_100_closed_trades": 1400,
+      "monthly": {
+        "rows": 50205,
+        "pairs": 2088,
+        "missing_or_short": {},
+        "duplicates": [],
+        "min_periods_available": 3,
+        "ok": true
+      }
+    },
+    "parameter_grid": {
+      "expected": 3,
+      "actual": 3,
+      "missing": [],
+      "unexpected": [],
+      "ok": true
+    },
+    "universe": {
+      "eligible_symbols": 505,
+      "covered_pairs": 1010,
+      "missing_pairs": [],
+      "ok": true
+    },
+    "periods": {
+      "pairs": 2088,
+      "with_2_full_months": 2088,
+      "with_2_calendar_years": 1509,
+      "with_train_and_late": 1509,
+      "with_last_1m": 2088,
+      "with_last_3m": 2088,
+      "with_last_6m": 1503,
+      "with_last_9m": 1497,
+      "with_last_12m": 1479
+    },
+    "monthly_validation": {
+      "rows": 50205,
+      "pairs": 2088,
+      "duplicate_month_rows": 0,
+      "invalid_calendar_rows": 0,
+      "invalid_equity_rows": 0,
+      "return_mismatch_rows": 0,
+      "pnl_mismatch_rows": 0,
+      "invalid_trade_rows": 0,
+      "gap_pairs": 66,
+      "missing_months_inside_history": 414,
+      "affected_symbol_timeframes": 22,
+      "unique_missing_symbol_months": 138,
+      "invalid_examples": [],
+      "gap_examples": [
+        {
+          "symbol": "BLNG",
+          "timeframe": "1D",
+          "example_variant": "baseline",
+          "missing_months": 4,
+          "first_missing": [
+            "2024-08",
+            "2024-09",
+            "2024-10",
+            "2024-11"
+          ]
+        },
+        {
+          "symbol": "BLNG",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 4,
+          "first_missing": [
+            "2024-08",
+            "2024-09",
+            "2024-10",
+            "2024-11"
+          ]
+        },
+        {
+          "symbol": "ETLN",
+          "timeframe": "1D",
+          "example_variant": "baseline",
+          "missing_months": 2,
+          "first_missing": [
+            "2025-07",
+            "2025-08"
+          ]
+        },
+        {
+          "symbol": "ETLN",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 2,
+          "first_missing": [
+            "2025-07",
+            "2025-08"
+          ]
+        },
+        {
+          "symbol": "GAZA",
+          "timeframe": "1D",
+          "example_variant": "baseline",
+          "missing_months": 9,
+          "first_missing": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-06",
+            "2024-07",
+            "2024-08"
+          ]
+        },
+        {
+          "symbol": "GAZA",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 9,
+          "first_missing": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-06",
+            "2024-07",
+            "2024-08"
+          ]
+        },
+        {
+          "symbol": "GAZAP",
+          "timeframe": "1D",
+          "example_variant": "baseline",
+          "missing_months": 9,
+          "first_missing": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-06",
+            "2024-07",
+            "2024-08"
+          ]
+        },
+        {
+          "symbol": "GAZAP",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 9,
+          "first_missing": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-06",
+            "2024-07",
+            "2024-08"
+          ]
+        },
+        {
+          "symbol": "GTRK",
+          "timeframe": "1D",
+          "example_variant": "baseline",
+          "missing_months": 3,
+          "first_missing": [
+            "2024-08",
+            "2024-09",
+            "2024-10"
+          ]
+        },
+        {
+          "symbol": "GTRK",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 3,
+          "first_missing": [
+            "2024-08",
+            "2024-09",
+            "2024-10"
+          ]
+        }
+      ],
+      "ok": true,
+      "continuous": false
+    },
+    "corporate_actions": {
+      "status": "unchecked",
+      "applied_in_main_results": false,
+      "splits_status": "unchecked",
+      "covered_symbols": 0,
+      "verified_snapshot_sha256": null,
+      "moex_source_status": "SOURCE_ERROR",
+      "moex_source_checked_at_utc": "2026-11-04T11:43:36.214535+00:00",
+      "all_symbols_covered": false
+    },
+    "note": "DATA_READY confirms data and report gates only; it does not approve a trading strategy."
+  },
+  "rule": {
+    "timeframe": "1D",
+    "variant": "elder-force-index_2",
+    "symbols": 250,
+    "median_train_positive_share_pct": 41.67,
+    "median_train_mean_month_return_pct": -0.06,
+    "median_train_worst_month_pnl_rub": -36488.19,
+    "median_late_positive_share_pct": 44.44,
+    "median_late_mean_month_return_pct": 0.1
+  },
+  "candidate_rules": [
+    {
+      "timeframe": "1D",
+      "variant": "elder-force-index_2",
+      "symbols": 250,
+      "median_train_positive_share_pct": 41.67,
+      "median_train_mean_month_return_pct": -0.06,
+      "median_train_worst_month_pnl_rub": -36488.19,
+      "median_late_positive_share_pct": 44.44,
+      "median_late_mean_month_return_pct": 0.1
+    },
+    {
+      "timeframe": "4H",
+      "variant": "elder-force-index_13",
+      "symbols": 249,
+      "median_train_positive_share_pct": 41.67,
+      "median_train_mean_month_return_pct": -0.11,
+      "median_train_worst_month_pnl_rub": -37340.5,
+      "median_late_positive_share_pct": 44.44,
+      "median_late_mean_month_return_pct": 0.02
+    },
+    {
+      "timeframe": "1D",
+      "variant": "elder-force-index_13",
+      "symbols": 250,
+      "median_train_positive_share_pct": 37.5,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": -34677.75,
+      "median_late_positive_share_pct": 44.44,
+      "median_late_mean_month_return_pct": 0.29
+    },
+    {
+      "timeframe": "4H",
+      "variant": "elder-force-index_2",
+      "symbols": 249,
+      "median_train_positive_share_pct": 33.33,
+      "median_train_mean_month_return_pct": -0.68,
+      "median_train_worst_month_pnl_rub": -44955.93,
+      "median_late_positive_share_pct": 33.33,
+      "median_late_mean_month_return_pct": -0.92
+    }
+  ],
+  "stocks": [
+    {
+      "symbol": "WUSH",
+      "train_months": 24,
+      "train_positive_share_pct": 70.83,
+      "train_mean_month_return_pct": 1.13,
+      "train_worst_month_pnl_rub": -38328.82,
+      "late_months": 9,
+      "late_positive_share_pct": 77.78,
+      "late_mean_month_return_pct": 1.5,
+      "late_worst_month_pnl_rub": -54323.14,
+      "turnover_60d_rub": 100576312.52,
+      "full_return_pct": 46.3,
+      "closed_trades": 123,
+      "max_drawdown_pct": -9.2,
+      "recent_periods": {
+        "1": {
+          "return_pct": 0.73,
+          "pnl_rub": 10709.03,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": 7.52,
+          "pnl_rub": 103813.14,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": 18.53,
+          "pnl_rub": 231880.33,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": 13.86,
+          "pnl_rub": 180597.29,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": 13.68,
+          "pnl_rub": 178477.49,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": 1.61,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-02",
+          "return_pct": 0.54,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-03",
+          "return_pct": 4.96,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-04",
+          "return_pct": -1.68,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-05",
+          "return_pct": -1.22,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-06",
+          "return_pct": 0.0,
+          "closed_trades": 0
+        },
+        {
+          "month": "2024-07",
+          "return_pct": 2.23,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 3.87,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-09",
+          "return_pct": -0.23,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 3.19,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 3.47,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-12",
+          "return_pct": 0.31,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-01",
+          "return_pct": 0.41,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-02",
+          "return_pct": 0.95,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-03",
+          "return_pct": -0.42,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-04",
+          "return_pct": 2.15,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-05",
+          "return_pct": 1.34,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-06",
+          "return_pct": -1.9,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-07",
+          "return_pct": 3.91,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-08",
+          "return_pct": 0.37,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 3.3,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-10",
+          "return_pct": 2.02,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-11",
+          "return_pct": 0.74,
+          "closed_trades": 1
+        },
+        {
+          "month": "2025-12",
+          "return_pct": -2.86,
+          "closed_trades": 9
+        },
+        {
+          "month": "2026-01",
+          "return_pct": -4.17,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-02",
+          "return_pct": 1.91,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-03",
+          "return_pct": -1.63,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-04",
+          "return_pct": 1.9,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-05",
+          "return_pct": 2.34,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 5.7,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-07",
+          "return_pct": 5.92,
+          "closed_trades": 2
+        },
+        {
+          "month": "2026-08",
+          "return_pct": 0.78,
+          "closed_trades": 1
+        },
+        {
+          "month": "2026-09",
+          "return_pct": 0.73,
+          "closed_trades": 6
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 1115,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "POSI",
+      "train_months": 24,
+      "train_positive_share_pct": 66.67,
+      "train_mean_month_return_pct": 0.59,
+      "train_worst_month_pnl_rub": -38899.52,
+      "late_months": 9,
+      "late_positive_share_pct": 44.44,
+      "late_mean_month_return_pct": 0.24,
+      "late_worst_month_pnl_rub": -13950.43,
+      "turnover_60d_rub": 374383904.0,
+      "full_return_pct": 19.84,
+      "closed_trades": 124,
+      "max_drawdown_pct": -6.22,
+      "recent_periods": {
+        "1": {
+          "return_pct": -1.03,
+          "pnl_rub": -12135.46,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": -1.2,
+          "pnl_rub": -14172.81,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": 2.42,
+          "pnl_rub": 27703.89,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": 2.07,
+          "pnl_rub": 23727.0,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": 4.79,
+          "pnl_rub": 53495.48,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": 0.02,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-02",
+          "return_pct": -0.59,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-03",
+          "return_pct": 1.44,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-04",
+          "return_pct": 1.75,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-05",
+          "return_pct": -0.76,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-06",
+          "return_pct": -0.73,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-07",
+          "return_pct": -3.85,
+          "closed_trades": 7
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 2.11,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-09",
+          "return_pct": 0.12,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 0.73,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 0.87,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-12",
+          "return_pct": -1.82,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-01",
+          "return_pct": 1.62,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-02",
+          "return_pct": 4.41,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-03",
+          "return_pct": 2.93,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-04",
+          "return_pct": -0.63,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-05",
+          "return_pct": 2.13,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-06",
+          "return_pct": -0.91,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-07",
+          "return_pct": 0.24,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-08",
+          "return_pct": 0.48,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 1.94,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-10",
+          "return_pct": -0.03,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-11",
+          "return_pct": 1.41,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-12",
+          "return_pct": 1.26,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-01",
+          "return_pct": -1.22,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-02",
+          "return_pct": 1.79,
+          "closed_trades": 1
+        },
+        {
+          "month": "2026-03",
+          "return_pct": -0.9,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-04",
+          "return_pct": 1.72,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-05",
+          "return_pct": 2.64,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-06",
+          "return_pct": -0.72,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-07",
+          "return_pct": 0.58,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-08",
+          "return_pct": -0.75,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-09",
+          "return_pct": -1.03,
+          "closed_trades": 4
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 1338,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "BELU",
+      "train_months": 24,
+      "train_positive_share_pct": 62.5,
+      "train_mean_month_return_pct": 0.88,
+      "train_worst_month_pnl_rub": -23015.68,
+      "late_months": 9,
+      "late_positive_share_pct": 55.56,
+      "late_mean_month_return_pct": 0.32,
+      "late_worst_month_pnl_rub": -50131.46,
+      "turnover_60d_rub": 53450526.4,
+      "full_return_pct": 24.95,
+      "closed_trades": 135,
+      "max_drawdown_pct": -7.14,
+      "recent_periods": {
+        "1": {
+          "return_pct": -2.26,
+          "pnl_rub": -28705.89,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": -4.54,
+          "pnl_rub": -59002.75,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": 3.01,
+          "pnl_rub": 36201.62,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": 2.65,
+          "pnl_rub": 32054.91,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": 2.94,
+          "pnl_rub": 35492.45,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": 0.46,
+          "closed_trades": 1
+        },
+        {
+          "month": "2024-02",
+          "return_pct": -1.18,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-03",
+          "return_pct": 0.09,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-04",
+          "return_pct": 0.15,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-05",
+          "return_pct": -0.77,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-06",
+          "return_pct": -1.72,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-07",
+          "return_pct": 1.1,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 21.14,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-09",
+          "return_pct": 0.14,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 1.1,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 1.14,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-12",
+          "return_pct": 1.86,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-01",
+          "return_pct": -1.86,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-02",
+          "return_pct": -0.83,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-03",
+          "return_pct": -0.5,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-04",
+          "return_pct": 1.15,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-05",
+          "return_pct": 0.01,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-06",
+          "return_pct": 0.42,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-07",
+          "return_pct": -1.83,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-08",
+          "return_pct": -0.24,
+          "closed_trades": 1
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 0.95,
+          "closed_trades": 1
+        },
+        {
+          "month": "2025-10",
+          "return_pct": 0.25,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-11",
+          "return_pct": 0.73,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-12",
+          "return_pct": -0.69,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-01",
+          "return_pct": 1.06,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-02",
+          "return_pct": -0.44,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-03",
+          "return_pct": -0.96,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-04",
+          "return_pct": 0.74,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-05",
+          "return_pct": 2.16,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 4.85,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-07",
+          "return_pct": -3.86,
+          "closed_trades": 7
+        },
+        {
+          "month": "2026-08",
+          "return_pct": 1.59,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-09",
+          "return_pct": -2.26,
+          "closed_trades": 6
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 1328,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "FEES",
+      "train_months": 24,
+      "train_positive_share_pct": 62.5,
+      "train_mean_month_return_pct": 0.14,
+      "train_worst_month_pnl_rub": -18034.25,
+      "late_months": 9,
+      "late_positive_share_pct": 44.44,
+      "late_mean_month_return_pct": -0.27,
+      "late_worst_month_pnl_rub": -48945.08,
+      "turnover_60d_rub": 114012833.2,
+      "full_return_pct": 4.74,
+      "closed_trades": 138,
+      "max_drawdown_pct": -6.34,
+      "recent_periods": {
+        "1": {
+          "return_pct": -4.65,
+          "pnl_rub": -48945.08,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": -6.05,
+          "pnl_rub": -64740.16,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": -1.1,
+          "pnl_rub": -11164.52,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": -2.69,
+          "pnl_rub": -27815.31,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": -2.79,
+          "pnl_rub": -28815.19,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": 1.96,
+          "closed_trades": 0
+        },
+        {
+          "month": "2024-02",
+          "return_pct": -0.87,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-03",
+          "return_pct": 0.3,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-04",
+          "return_pct": 0.46,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-05",
+          "return_pct": -1.16,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-06",
+          "return_pct": -1.15,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-07",
+          "return_pct": 0.67,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 0.8,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-09",
+          "return_pct": -0.73,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 1.75,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 1.8,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-12",
+          "return_pct": 0.12,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-01",
+          "return_pct": -1.74,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-02",
+          "return_pct": -0.16,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-03",
+          "return_pct": 0.29,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-04",
+          "return_pct": -1.06,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-05",
+          "return_pct": 0.23,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-06",
+          "return_pct": 0.29,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-07",
+          "return_pct": 0.1,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-08",
+          "return_pct": 0.93,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 0.57,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-10",
+          "return_pct": -0.05,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-11",
+          "return_pct": -0.62,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-12",
+          "return_pct": 0.58,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-01",
+          "return_pct": 1.3,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-02",
+          "return_pct": -1.13,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-03",
+          "return_pct": -1.77,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-04",
+          "return_pct": -1.65,
+          "closed_trades": 8
+        },
+        {
+          "month": "2026-05",
+          "return_pct": 2.72,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 4.2,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-07",
+          "return_pct": -1.97,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-08",
+          "return_pct": 0.5,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-09",
+          "return_pct": -4.65,
+          "closed_trades": 7
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 1326,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "VSEH",
+      "train_months": 18,
+      "train_positive_share_pct": 61.11,
+      "train_mean_month_return_pct": 0.74,
+      "train_worst_month_pnl_rub": -14085.69,
+      "late_months": 9,
+      "late_positive_share_pct": 55.56,
+      "late_mean_month_return_pct": 0.53,
+      "late_worst_month_pnl_rub": -16629.0,
+      "turnover_60d_rub": 74900161.26,
+      "full_return_pct": 23.08,
+      "closed_trades": 83,
+      "max_drawdown_pct": -4.03,
+      "recent_periods": {
+        "1": {
+          "return_pct": -0.68,
+          "pnl_rub": -8223.33,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": 4.25,
+          "pnl_rub": 48632.8,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": 5.47,
+          "pnl_rub": 61887.81,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": 4.69,
+          "pnl_rub": 53460.85,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": 6.08,
+          "pnl_rub": 68482.71,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-07",
+          "return_pct": 0.0,
+          "closed_trades": 0
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 0.0,
+          "closed_trades": 0
+        },
+        {
+          "month": "2024-09",
+          "return_pct": 0.25,
+          "closed_trades": 0
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 3.62,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 1.27,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-12",
+          "return_pct": 4.44,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-01",
+          "return_pct": -0.35,
+          "closed_trades": 1
+        },
+        {
+          "month": "2025-02",
+          "return_pct": -1.03,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-03",
+          "return_pct": 0.28,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-04",
+          "return_pct": 0.68,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-05",
+          "return_pct": 1.99,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-06",
+          "return_pct": 0.67,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-07",
+          "return_pct": 0.19,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-08",
+          "return_pct": -1.25,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 1.29,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-10",
+          "return_pct": 2.27,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-11",
+          "return_pct": -0.76,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-12",
+          "return_pct": -0.15,
+          "closed_trades": 7
+        },
+        {
+          "month": "2026-01",
+          "return_pct": -1.46,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-02",
+          "return_pct": 1.7,
+          "closed_trades": 2
+        },
+        {
+          "month": "2026-03",
+          "return_pct": -0.96,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-04",
+          "return_pct": 0.73,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-05",
+          "return_pct": -0.56,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 1.01,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-07",
+          "return_pct": 4.94,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-08",
+          "return_pct": 0.02,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-09",
+          "return_pct": -0.68,
+          "closed_trades": 3
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 716,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "MTLR",
+      "train_months": 24,
+      "train_positive_share_pct": 58.33,
+      "train_mean_month_return_pct": 0.77,
+      "train_worst_month_pnl_rub": -86696.18,
+      "late_months": 9,
+      "late_positive_share_pct": 44.44,
+      "late_mean_month_return_pct": 0.48,
+      "late_worst_month_pnl_rub": -56526.38,
+      "turnover_60d_rub": 362986945.21,
+      "full_return_pct": 25.34,
+      "closed_trades": 135,
+      "max_drawdown_pct": -8.91,
+      "recent_periods": {
+        "1": {
+          "return_pct": -1.8,
+          "pnl_rub": -22684.32,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": -2.45,
+          "pnl_rub": -31163.77,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": 4.53,
+          "pnl_rub": 53657.36,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": 4.06,
+          "pnl_rub": 48301.43,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": 1.64,
+          "pnl_rub": 19978.8,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": -0.77,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-02",
+          "return_pct": 1.73,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-03",
+          "return_pct": -1.17,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-04",
+          "return_pct": -0.14,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-05",
+          "return_pct": 1.9,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-06",
+          "return_pct": -0.82,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-07",
+          "return_pct": 2.41,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 9.39,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-09",
+          "return_pct": 0.33,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 2.79,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 5.24,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-12",
+          "return_pct": -7.08,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-01",
+          "return_pct": 0.9,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-02",
+          "return_pct": 1.14,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-03",
+          "return_pct": 1.75,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-04",
+          "return_pct": 2.9,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-05",
+          "return_pct": 1.35,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-06",
+          "return_pct": -0.99,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-07",
+          "return_pct": -1.87,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-08",
+          "return_pct": 0.49,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 1.36,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-10",
+          "return_pct": -0.75,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-11",
+          "return_pct": -1.12,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-12",
+          "return_pct": -0.47,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-01",
+          "return_pct": -0.62,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-02",
+          "return_pct": -0.42,
+          "closed_trades": 2
+        },
+        {
+          "month": "2026-03",
+          "return_pct": 0.6,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-04",
+          "return_pct": -0.25,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-05",
+          "return_pct": 2.37,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 4.94,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-07",
+          "return_pct": 3.78,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-08",
+          "return_pct": -4.29,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-09",
+          "return_pct": -1.8,
+          "closed_trades": 5
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 1338,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "ASTR",
+      "train_months": 24,
+      "train_positive_share_pct": 58.33,
+      "train_mean_month_return_pct": 0.48,
+      "train_worst_month_pnl_rub": -22056.31,
+      "late_months": 9,
+      "late_positive_share_pct": 55.56,
+      "late_mean_month_return_pct": 0.19,
+      "late_worst_month_pnl_rub": -10594.95,
+      "turnover_60d_rub": 109091594.1,
+      "full_return_pct": 12.81,
+      "closed_trades": 117,
+      "max_drawdown_pct": -5.41,
+      "recent_periods": {
+        "1": {
+          "return_pct": 0.55,
+          "pnl_rub": 6171.77,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": 2.15,
+          "pnl_rub": 23905.22,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": 2.35,
+          "pnl_rub": 26047.47,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": 1.69,
+          "pnl_rub": 18891.35,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": 5.78,
+          "pnl_rub": 62126.91,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": 1.1,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-02",
+          "return_pct": -2.18,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-03",
+          "return_pct": 4.43,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-04",
+          "return_pct": -0.44,
+          "closed_trades": 1
+        },
+        {
+          "month": "2024-05",
+          "return_pct": -0.43,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-06",
+          "return_pct": 1.23,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-07",
+          "return_pct": -0.09,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 0.22,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-09",
+          "return_pct": -0.88,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 1.21,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 2.65,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-12",
+          "return_pct": -0.45,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-01",
+          "return_pct": 0.13,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-02",
+          "return_pct": 0.78,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-03",
+          "return_pct": -0.05,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-04",
+          "return_pct": -1.13,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-05",
+          "return_pct": 0.24,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-06",
+          "return_pct": -1.9,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-07",
+          "return_pct": -1.17,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-08",
+          "return_pct": 0.09,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 4.1,
+          "closed_trades": 1
+        },
+        {
+          "month": "2025-10",
+          "return_pct": 1.69,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-11",
+          "return_pct": 1.68,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-12",
+          "return_pct": 0.6,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-01",
+          "return_pct": 0.68,
+          "closed_trades": 2
+        },
+        {
+          "month": "2026-02",
+          "return_pct": -0.65,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-03",
+          "return_pct": -0.67,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-04",
+          "return_pct": 0.61,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-05",
+          "return_pct": -0.64,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 0.23,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-07",
+          "return_pct": 2.55,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-08",
+          "return_pct": -0.93,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-09",
+          "return_pct": 0.55,
+          "closed_trades": 3
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 908,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "BSPB",
+      "train_months": 24,
+      "train_positive_share_pct": 58.33,
+      "train_mean_month_return_pct": 0.11,
+      "train_worst_month_pnl_rub": -20602.59,
+      "late_months": 9,
+      "late_positive_share_pct": 11.11,
+      "late_mean_month_return_pct": -0.5,
+      "late_worst_month_pnl_rub": -25312.88,
+      "turnover_60d_rub": 180134907.45,
+      "full_return_pct": -3.76,
+      "closed_trades": 137,
+      "max_drawdown_pct": -10.09,
+      "recent_periods": {
+        "1": {
+          "return_pct": -0.69,
+          "pnl_rub": -6769.19,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": -3.79,
+          "pnl_rub": -38605.75,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": -2.43,
+          "pnl_rub": -24337.54,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": -4.51,
+          "pnl_rub": -46218.05,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": -5.07,
+          "pnl_rub": -52244.29,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": 0.55,
+          "closed_trades": 0
+        },
+        {
+          "month": "2024-02",
+          "return_pct": 0.34,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-03",
+          "return_pct": 1.04,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-04",
+          "return_pct": 1.79,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-05",
+          "return_pct": 1.5,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-06",
+          "return_pct": -1.52,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-07",
+          "return_pct": -1.83,
+          "closed_trades": 6
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 0.68,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-09",
+          "return_pct": 0.72,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 0.59,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 0.33,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-12",
+          "return_pct": 2.22,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-01",
+          "return_pct": -1.16,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-02",
+          "return_pct": -0.32,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-03",
+          "return_pct": -0.85,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-04",
+          "return_pct": -1.98,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-05",
+          "return_pct": -1.4,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-06",
+          "return_pct": -0.29,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-07",
+          "return_pct": 0.74,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-08",
+          "return_pct": 0.39,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 1.65,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-10",
+          "return_pct": -1.54,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-11",
+          "return_pct": -0.44,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-12",
+          "return_pct": 1.42,
+          "closed_trades": 2
+        },
+        {
+          "month": "2026-01",
+          "return_pct": -0.47,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-02",
+          "return_pct": -0.95,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-03",
+          "return_pct": -0.73,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-04",
+          "return_pct": -0.92,
+          "closed_trades": 8
+        },
+        {
+          "month": "2026-05",
+          "return_pct": -0.66,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 3.05,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-07",
+          "return_pct": -2.49,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-08",
+          "return_pct": -0.66,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-09",
+          "return_pct": -0.69,
+          "closed_trades": 6
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 1334,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "BANEP",
+      "train_months": 24,
+      "train_positive_share_pct": 54.17,
+      "train_mean_month_return_pct": 0.47,
+      "train_worst_month_pnl_rub": -29375.01,
+      "late_months": 9,
+      "late_positive_share_pct": 33.33,
+      "late_mean_month_return_pct": -0.39,
+      "late_worst_month_pnl_rub": -44222.49,
+      "turnover_60d_rub": 70380089.5,
+      "full_return_pct": 4.83,
+      "closed_trades": 129,
+      "max_drawdown_pct": -8.56,
+      "recent_periods": {
+        "1": {
+          "return_pct": -1.89,
+          "pnl_rub": -20747.63,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": -4.64,
+          "pnl_rub": -52272.69,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": -3.14,
+          "pnl_rub": -34818.33,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": -3.66,
+          "pnl_rub": -40821.12,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": -4.41,
+          "pnl_rub": -49572.93,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": 3.32,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-02",
+          "return_pct": -0.17,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-03",
+          "return_pct": -0.27,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-04",
+          "return_pct": 0.68,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-05",
+          "return_pct": -0.93,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-06",
+          "return_pct": -1.31,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-07",
+          "return_pct": 4.02,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 2.01,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-09",
+          "return_pct": 0.07,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-10",
+          "return_pct": 1.8,
+          "closed_trades": 4
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 1.31,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-12",
+          "return_pct": 1.56,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-01",
+          "return_pct": -2.61,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-02",
+          "return_pct": 0.85,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-03",
+          "return_pct": 1.53,
+          "closed_trades": 1
+        },
+        {
+          "month": "2025-04",
+          "return_pct": -0.26,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-05",
+          "return_pct": -1.5,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-06",
+          "return_pct": -0.42,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-07",
+          "return_pct": -0.32,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-08",
+          "return_pct": 0.89,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-09",
+          "return_pct": 1.71,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-10",
+          "return_pct": 0.72,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-11",
+          "return_pct": -1.38,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-12",
+          "return_pct": -0.11,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-01",
+          "return_pct": -0.31,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-02",
+          "return_pct": -1.19,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-03",
+          "return_pct": 0.97,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-04",
+          "return_pct": -1.43,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-05",
+          "return_pct": -0.62,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 3.68,
+          "closed_trades": 1
+        },
+        {
+          "month": "2026-07",
+          "return_pct": -3.93,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-08",
+          "return_pct": 1.17,
+          "closed_trades": 3
+        },
+        {
+          "month": "2026-09",
+          "return_pct": -1.89,
+          "closed_trades": 4
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 1332,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    },
+    {
+      "symbol": "UNAC",
+      "train_months": 24,
+      "train_positive_share_pct": 54.17,
+      "train_mean_month_return_pct": 0.44,
+      "train_worst_month_pnl_rub": -44276.48,
+      "late_months": 9,
+      "late_positive_share_pct": 55.56,
+      "late_mean_month_return_pct": 1.27,
+      "late_worst_month_pnl_rub": -55110.84,
+      "turnover_60d_rub": 49389439.5,
+      "full_return_pct": 23.89,
+      "closed_trades": 112,
+      "max_drawdown_pct": -10.21,
+      "recent_periods": {
+        "1": {
+          "return_pct": -0.44,
+          "pnl_rub": -5455.91,
+          "from_month": "2026-09",
+          "through_month": "2026-09"
+        },
+        "3": {
+          "return_pct": -1.36,
+          "pnl_rub": -17023.3,
+          "from_month": "2026-07",
+          "through_month": "2026-09"
+        },
+        "6": {
+          "return_pct": 8.36,
+          "pnl_rub": 95124.32,
+          "from_month": "2026-04",
+          "through_month": "2026-09"
+        },
+        "9": {
+          "return_pct": 11.67,
+          "pnl_rub": 128773.32,
+          "from_month": "2026-01",
+          "through_month": "2026-09"
+        },
+        "12": {
+          "return_pct": 7.16,
+          "pnl_rub": 82330.63,
+          "from_month": "2025-10",
+          "through_month": "2026-09"
+        }
+      },
+      "months": [
+        {
+          "month": "2024-01",
+          "return_pct": -1.17,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-02",
+          "return_pct": -2.32,
+          "closed_trades": 5
+        },
+        {
+          "month": "2024-03",
+          "return_pct": 0.4,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-04",
+          "return_pct": 2.44,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-05",
+          "return_pct": 8.32,
+          "closed_trades": 1
+        },
+        {
+          "month": "2024-06",
+          "return_pct": 5.11,
+          "closed_trades": 1
+        },
+        {
+          "month": "2024-07",
+          "return_pct": -0.09,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-08",
+          "return_pct": 3.98,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-09",
+          "return_pct": -1.62,
+          "closed_trades": 2
+        },
+        {
+          "month": "2024-10",
+          "return_pct": -2.41,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-11",
+          "return_pct": 1.64,
+          "closed_trades": 3
+        },
+        {
+          "month": "2024-12",
+          "return_pct": 0.99,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-01",
+          "return_pct": 0.15,
+          "closed_trades": 1
+        },
+        {
+          "month": "2025-02",
+          "return_pct": -1.59,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-03",
+          "return_pct": 1.13,
+          "closed_trades": 1
+        },
+        {
+          "month": "2025-04",
+          "return_pct": 1.68,
+          "closed_trades": 2
+        },
+        {
+          "month": "2025-05",
+          "return_pct": 0.32,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-06",
+          "return_pct": -1.39,
+          "closed_trades": 6
+        },
+        {
+          "month": "2025-07",
+          "return_pct": 1.5,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-08",
+          "return_pct": -0.85,
+          "closed_trades": 3
+        },
+        {
+          "month": "2025-09",
+          "return_pct": -1.49,
+          "closed_trades": 5
+        },
+        {
+          "month": "2025-10",
+          "return_pct": 0.47,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-11",
+          "return_pct": -3.83,
+          "closed_trades": 4
+        },
+        {
+          "month": "2025-12",
+          "return_pct": -0.68,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-01",
+          "return_pct": -0.32,
+          "closed_trades": 4
+        },
+        {
+          "month": "2026-02",
+          "return_pct": 1.66,
+          "closed_trades": 1
+        },
+        {
+          "month": "2026-03",
+          "return_pct": 1.69,
+          "closed_trades": 2
+        },
+        {
+          "month": "2026-04",
+          "return_pct": -0.21,
+          "closed_trades": 6
+        },
+        {
+          "month": "2026-05",
+          "return_pct": 3.47,
+          "closed_trades": 1
+        },
+        {
+          "month": "2026-06",
+          "return_pct": 6.39,
+          "closed_trades": 2
+        },
+        {
+          "month": "2026-07",
+          "return_pct": 3.48,
+          "closed_trades": 2
+        },
+        {
+          "month": "2026-08",
+          "return_pct": -4.26,
+          "closed_trades": 5
+        },
+        {
+          "month": "2026-09",
+          "return_pct": -0.44,
+          "closed_trades": 6
+        }
+      ],
+      "candle_quality": {
+        "status": "basic_check_ok",
+        "bars": 1330,
+        "invalid_bars": 0,
+        "possible_intraday_gaps": 0,
+        "note": "Intraday gaps are heuristic; a quiet instrument or session break can be legitimate."
+      }
+    }
+  ],
+  "blockers": [
+    "в исходной выборке есть календарные пропуски; проверь затронутые пары",
+    "дивиденды и сплиты покрыты не полностью",
+    "Python/Pine реализация и совпадение сигналов для выбранного правила не проверены",
+    "фактические лоты, заём short и конфигурация 10 paper-счетов не проверены"
+  ],
+  "liquidity": {
+    "measured_liquidity": 250,
+    "turnover_threshold_rub": 49389439.5,
+    "liquid_candidates": 64
+  }
+}

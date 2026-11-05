@@ -1,11 +1,26 @@
 {
   "frozen_on": "2026-11-02",
   "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
-  "universe": "All 505 TQBR stocks in data/moex_scan/universe_2026-10-30.json; 1H/4H only where hourly candles exist",
-  "signal_timeframes": ["1D", "1H", "4H"],
-  "unavailable_timeframes": ["15M", "30M"],
+  "universe": "All 505 TQBR stocks in data/candles/moex_scan/universe_2026-10-30.json; 1H/4H only where hourly candles exist",
+  "signal_timeframes": [
+    "1D",
+    "1H",
+    "4H"
+  ],
+  "unavailable_timeframes": [
+    "15M",
+    "30M"
+  ],
   "reference_timeframe": "1W, prior completed week only",
-  "variants": ["baseline", "trend_small_2", "trend_large_2", "volume_26w", "volume_52w", "trend_small_volume_26w", "trend_large_volume_26w"],
+  "variants": [
+    "baseline",
+    "trend_small_2",
+    "trend_large_2",
+    "volume_26w",
+    "volume_52w",
+    "trend_small_volume_26w",
+    "trend_large_volume_26w"
+  ],
   "trend_small": "confirmed weekly 5/5 pivot, alternating ZigZag swings at least 2 weekly ATR14 apart, line through two same-type pivots, at least 2 touches within 0.5 weekly ATR, no closing break >0.5 ATR, extension <=2x base length",
   "trend_large": "same, weekly 25/25 pivot and 5 weekly ATR14 swing",
   "volume_profile_proxy": "rolling 26 or 52 completed weeks; allocate each daily candle's share volume uniformly to 48 bins spanning its high-low; POC is largest bin, VAH/VAL expand to 70% volume from POC",
@@ -23,5 +38,57 @@
   "late_sample_status": "seen_history",
   "primary_evaluation": "monthly",
   "selection": "research ranking only; no numeric approval threshold and no automatic strategy or paper deployment",
-  "limitations": ["Not the proprietary TradingView Auto Trendlines implementation", "Daily OHLCV volume allocation is not traded volume at price", "Exchange lots, dividends, short borrow and corporate actions are omitted"]
+  "limitations": [
+    "Not the proprietary TradingView Auto Trendlines implementation",
+    "Daily OHLCV volume allocation is not traded volume at price",
+    "Exchange lots, dividends, short borrow and corporate actions are omitted"
+  ],
+  "baseline": "EMA25 0.5 ATR first-touch both sides on same bars, capital, execution, and costs",
+  "expected_variants": [
+    "baseline",
+    "trend_large_2",
+    "trend_large_volume_26w",
+    "trend_small_2",
+    "trend_small_volume_26w",
+    "volume_26w",
+    "volume_52w"
+  ],
+  "signal_rule": {
+    "entry": "first rejection of weekly support/resistance within 0.5 signal ATR14 on completed signal bar, fill next bar open; long at support, short at resistance",
+    "exit": "opposite EMA25 0.5 ATR first-touch closes any position; a new level signal may reverse it"
+  },
+  "run_command": "python3 experiments/double-indicator/weekly-trendlines-volume-profile/run.py",
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked"
+  },
+  "parameter_grid": {
+    "axes": {
+      "variant": {
+        "values": [
+          "trend_large_2",
+          "trend_large_volume_26w",
+          "trend_small_2",
+          "trend_small_volume_26w",
+          "volume_26w",
+          "volume_52w"
+        ]
+      }
+    },
+    "variant_template": "{variant}",
+    "include_baseline": true,
+    "max_combinations": 7
+  },
+  "parameter_grid_provenance": "ex_post_inventory_of_observed_variants_not_preregistered",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D",
+      "1H"
+    ]
+  },
+  "eligible_universe_provenance": "frozen_snapshot_board_and_candle_availability"
 }

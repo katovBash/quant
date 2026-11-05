@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/roc-grid-search",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "История посчитана до расходов"
+  ],
+  "review": "experiments/roc-grid-search/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "roc_momentum-07",
+    "symbols": 240,
+    "median_train_positive_share_pct": 58.33,
+    "median_train_mean_month_return_pct": 0.24,
+    "median_train_worst_month_pnl_rub": -36834.09,
+    "median_late_positive_share_pct": 47.62,
+    "median_late_mean_month_return_pct": 0.02
+  },
+  "stocks": [
+    "MTLR",
+    "VSEH",
+    "VKCO",
+    "SVCB",
+    "MOEX",
+    "AFLT",
+    "MGNT",
+    "MSNG",
+    "NVTK",
+    "SIBN"
+  ]
+}

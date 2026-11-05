@@ -12,7 +12,7 @@ from src.research.timeframes import MINUTE_START, SNAPSHOT_END, source_path
 
 
 def main() -> None:
-    cache = ROOT / "data/moex_scan"
+    cache = ROOT / "data/candles/moex_scan"
     universe = json.loads((cache / f"universe_{SNAPSHOT_END}.json").read_text())
     symbols = [item["SECID"] for item in universe if item.get("SECTYPE") in ("1", "2")]
     present = [symbol for symbol in symbols if source_path(cache, symbol, "15M").exists()]

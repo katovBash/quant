@@ -1,0 +1,13 @@
+//@version=6
+indicator("Turtle entries only · manual review", overlay = true)
+// Visual review only. No Turtle exit channel is used in this experiment.
+// Match period and timeframe to protocol.json; Python signal parity is pending.
+entryLength = input.int(55, "Entry channel", minval = 2)
+upper = ta.highest(high[1], entryLength)
+lower = ta.lowest(low[1], entryLength)
+longSignal = barstate.isconfirmed and close > upper and close[1] <= upper[1]
+shortSignal = barstate.isconfirmed and close < lower and close[1] >= lower[1]
+plot(upper, "Upper entry", color = color.teal)
+plot(lower, "Lower entry", color = color.red)
+plotshape(longSignal, "Long", shape.triangleup, location.belowbar, color.green, size = size.tiny)
+plotshape(shortSignal, "Short", shape.triangledown, location.abovebar, color.red, size = size.tiny)

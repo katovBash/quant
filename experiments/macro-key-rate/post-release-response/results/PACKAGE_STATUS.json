@@ -1,0 +1,20 @@
+{
+  "experiment": "experiments/macro-key-rate/post-release-response",
+  "monthly_coverage": "FULL_GRID",
+  "status": "CLOSED",
+  "paper_gate": "EXPERIMENT_CLOSED",
+  "paper_gate_warnings": [
+    "Все шесть заранее зафиксированных торговых вариантов имеют отрицательную медианную среднемесячную доходность по доступным акциям после расходов: от -0.03% до -0.05%. Автоматически выбранный continuation_6 показывает медиану прибыльных месяцев 25.00% на раннем и 11.11% на позднем отрезке. По принятому правилу очевидно слабую торговую гипотезу закрываем без перехода в paper."
+  ],
+  "missing_required_evidence": [],
+  "validation_status": "REVIEW_ONLY",
+  "paper_review_status": "CLOSED",
+  "pine": "AVAILABLE_FOR_REVIEW",
+  "files": {
+    "manifest.json": "experiments/macro-key-rate/post-release-response/results/manifest.json",
+    "validation.json": "experiments/macro-key-rate/post-release-response/results/validation.json",
+    "REPORT.md": "experiments/macro-key-rate/post-release-response/results/REPORT.md",
+    "PAPER_REVIEW.md": "experiments/macro-key-rate/post-release-response/results/PAPER_REVIEW.md",
+    "PINE_STATUS.json": "experiments/macro-key-rate/post-release-response/results/PINE_STATUS.json"
+  }
+}

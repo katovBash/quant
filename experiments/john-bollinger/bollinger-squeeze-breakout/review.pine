@@ -1,0 +1,85 @@
+//@version=6
+// Mechanical OHLCV interpretation for chart review. Not the author's personal script.
+// Signals use completed chart bars; Python fills on the next open with 15 bps per side.
+// Pine signal parity has not been measured; do not use this file for paper activation.
+indicator("bollinger-squeeze-breakout · research review", overlay = true)
+int length = input.int(20, "Lookback", options = [20, 30])
+string method = "bollinger-squeeze-breakout"
+float middle = ta.sma(close, length)
+float deviation = ta.stdev(close, length)
+float upper = middle + 2 * deviation
+float lower = middle - 2 * deviation
+float bandwidth = middle != 0 ? 4 * deviation / middle : na
+int anchorOffset = ta.lowestbars(low[1], length) + 1
+float weighted = 0.0
+float totalVolume = 0.0
+if not na(anchorOffset) and anchorOffset >= 1
+    for j = 0 to anchorOffset
+        float v = nz(volume[j], 0)
+        weighted += hlc3[j] * v
+        totalVolume += v
+float avwap = totalVolume > 0 ? weighted / totalVolume : na
+float rangeTop = ta.highest(high[1], length)
+float rangeBottom = ta.lowest(low[1], length)
+float formerTop = ta.highest(high[2], length)
+float formerBottom = ta.lowest(low[2], length)
+float force = ta.ema((close - close[1]) * volume, length)
+float trend50 = ta.ema(close, 50)
+float trend20 = ta.sma(close, 20)
+float baseHigh = rangeTop
+float baseLow = rangeBottom
+float depth = baseHigh > 0 ? (baseHigh - baseLow) / baseHigh : na
+float averageVolume = ta.sma(volume, 50)[1]
+int half = math.floor(length / 2)
+float firstLow = ta.lowest(low[half + 1], half)
+float secondLow = ta.lowest(low[1], half)
+float middleHigh = ta.highest(high[math.floor(half / 2) + 1], half)
+int handleLength = math.max(5, math.floor(length / 5))
+float handleHigh = ta.highest(high[1], handleLength)
+float handleLow = ta.lowest(low[1], handleLength)
+bool longSignal = false
+bool shortSignal = false
+float level = na
+if method == "bollinger-squeeze-breakout"
+    bool compressed = bandwidth[1] <= ta.lowest(bandwidth, 21)
+    longSignal := compressed and close > upper and close[1] <= upper[1]
+    shortSignal := compressed and close < lower and close[1] >= lower[1]
+    level := middle
+else if method == "bollinger-confirmed-breakout"
+    longSignal := close > upper and close[1] > upper[1]
+    shortSignal := close < lower and close[1] < lower[1]
+    level := middle
+else if method == "shannon-avwap-reclaim"
+    longSignal := close[1] <= avwap[1] and close > avwap
+    level := avwap
+else if method == "shannon-avwap-bounce"
+    longSignal := low <= avwap and close > avwap and avwap > avwap[1]
+    level := avwap
+else if method == "gerchik-false-breakout"
+    longSignal := low < rangeBottom and close > rangeBottom
+    shortSignal := high > rangeTop and close < rangeTop
+    level := (rangeTop + rangeBottom) / 2
+else if method == "gerchik-level-retest"
+    longSignal := close[1] > formerTop and low <= formerTop and close > formerTop
+    shortSignal := close[1] < formerBottom and high >= formerBottom and close < formerBottom
+    level := (rangeTop + rangeBottom) / 2
+else if method == "elder-force-index"
+    longSignal := force[1] <= 0 and force > 0 and close > trend50
+    shortSignal := force[1] >= 0 and force < 0 and close < trend50
+    level := trend50
+else if method == "oneil-flat-base"
+    longSignal := depth <= 0.15 and volume >= 1.4 * averageVolume and close > baseHigh
+    level := trend20
+else if method == "oneil-double-bottom"
+    bool form = depth <= 0.40 and math.abs(firstLow - secondLow) / math.max(firstLow, secondLow) <= 0.08 and middleHigh >= 1.08 * math.max(firstLow, secondLow)
+    longSignal := form and volume >= 1.4 * averageVolume and close > baseHigh
+    level := trend20
+else if method == "oneil-cup-handle"
+    bool form = depth >= 0.15 and depth <= 0.35 and (handleHigh - handleLow) / handleHigh <= 0.15
+    longSignal := form and volume >= 1.4 * averageVolume and close > handleHigh
+    level := trend20
+plot(level, "Reference level", color = color.orange)
+plot(method == "bollinger-squeeze-breakout" or method == "bollinger-confirmed-breakout" ? upper : na, "Upper band", color = color.new(color.teal, 50))
+plot(method == "bollinger-squeeze-breakout" or method == "bollinger-confirmed-breakout" ? lower : na, "Lower band", color = color.new(color.red, 50))
+plotshape(barstate.isconfirmed and longSignal, title = "Research long", style = shape.triangleup, location = location.belowbar, color = color.lime, size = size.tiny)
+plotshape(barstate.isconfirmed and shortSignal, title = "Research short", style = shape.triangledown, location = location.abovebar, color = color.red, size = size.tiny)

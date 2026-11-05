@@ -1,0 +1,20 @@
+{
+  "experiment": "experiments/hourly-scalping/session-vwap-atr-reversion",
+  "monthly_coverage": "FULL_GRID",
+  "status": "CLOSED",
+  "paper_gate": "EXPERIMENT_CLOSED",
+  "paper_gate_warnings": [
+    "Все 9 заранее объявленных настроек 1H session-VWAP mean reversion имеют отрицательную медианную месячную доходность по 263 акциям после 15 б.п. расходов на сторону. Лучший по автоматическому ранжированию vwap_1.5_4 показывает лишь 28,1% прибыльных месяцев по медиане акций. В полных календарных 2024 и 2025 годах медиана годовой доходности -5,83% и -5,49%; за январь–сентябрь 2026 -8,33%. При 30 б.п. на сторону убытки больше. Для paper trading этот вариант не рекомендован."
+  ],
+  "missing_required_evidence": [],
+  "validation_status": "REVIEW_ONLY",
+  "paper_review_status": "CLOSED",
+  "pine": "AVAILABLE_FOR_REVIEW",
+  "files": {
+    "manifest.json": "experiments/hourly-scalping/session-vwap-atr-reversion/results/manifest.json",
+    "validation.json": "experiments/hourly-scalping/session-vwap-atr-reversion/results/validation.json",
+    "REPORT.md": "experiments/hourly-scalping/session-vwap-atr-reversion/results/REPORT.md",
+    "PAPER_REVIEW.md": "experiments/hourly-scalping/session-vwap-atr-reversion/results/PAPER_REVIEW.md",
+    "PINE_STATUS.json": "experiments/hourly-scalping/session-vwap-atr-reversion/results/PINE_STATUS.json"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "frozen_on": "2026-11-04",
+  "hypothesis": "A false breakout through a prior channel extreme followed by a close back inside may produce short reversals with a higher share of profitable months than buy-and-hold on the same instruments.",
+  "research_subject": "Larry Connors / Turtle Soup, with Linda Bradford Raschke as Street Smarts coauthor",
+  "evidence_class": "published_rule",
+  "personal_trade_ledger_status": "not_available",
+  "source_audit": [
+    {
+      "url": "https://tradingmarkets.com/recent/How_To_Use_TMs_Indicators_The_Turtle_Soup_Plus_One_Lists-665446",
+      "published": "2003-07-17",
+      "publisher": "TradingMarkets (Connors co-founded the publisher)",
+      "kind": "author_publisher_rule_description",
+      "supports": "new 20-day extreme, earlier extreme separation, reversal entry and protective stop; Plus One next-day alternative",
+      "does_not_support": "complete dated personal fills or monthly personal PnL"
+    },
+    {
+      "url": "https://tradingmarkets.com/recent/how_to_catch_an_explosive_reversal-672426",
+      "kind": "dated_illustrative_market_examples",
+      "supports": "contemporaneous Coffee and Cotton examples of Turtle Soup Plus One signals",
+      "does_not_support": "that Connors personally executed those trades"
+    },
+    {
+      "url": "https://www.sec.gov/rules-regulations/staff-guidance/division-investment-management/frequently-asked-questions/frequently-asked-questions-about-form-13f",
+      "kind": "regulator_method_limit",
+      "supports": "13F reports quarterly holdings and excludes short positions",
+      "does_not_support": "trade-level or monthly returns reconstruction"
+    },
+    {
+      "url": "https://stockbee.biz/working-people/",
+      "kind": "self_published_trade_examples_not_selected",
+      "supports": "dated entry and exit examples exist on the page",
+      "does_not_support": "independent audit, a complete personal ledger, or identification as a top-ranked US trader"
+    }
+  ],
+  "novelty_check": "Existing three-trader-rules and turtle-period-grid test trend-following channel breakouts; Connors RSI2 tests momentum reversal; no existing experiment tests failed channel breakouts with a prior-extreme age filter and timed exit.",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D",
+      "1H"
+    ]
+  },
+  "corporate_actions": {
+    "status": "partial",
+    "cash_dividend_snapshot": "data/dividends/sfin_2026-11-04.json",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "note": "Only SFIN cash events are confirmed in this repository; other events and short dividend debits remain unverified."
+  },
+  "signal_timeframes": [
+    "1D",
+    "1H",
+    "4H"
+  ],
+  "unavailable_timeframes": [
+    "15M",
+    "30M"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "lookback": {
+        "values": [
+          20,
+          40
+        ]
+      },
+      "separation": {
+        "values": [
+          3,
+          5
+        ]
+      },
+      "hold": {
+        "values": [
+          3,
+          6
+        ]
+      }
+    },
+    "variant_template": "soup_{lookback}_{separation}_{hold}",
+    "include_baseline": true,
+    "max_combinations": 8
+  },
+  "expected_variants": [
+    "baseline",
+    "soup_20_3_3",
+    "soup_20_3_6",
+    "soup_20_5_3",
+    "soup_20_5_6",
+    "soup_40_3_3",
+    "soup_40_3_6",
+    "soup_40_5_3",
+    "soup_40_5_6"
+  ],
+  "grid_rationale": "20 bars follows the published channel length; 40 bars probes a slower level. Separation 3/5 brackets the published 3–4-session condition. Holds 3/6 bars bracket the stated short 2–6-day reversal horizon. These were fixed before reading the MOEX results.",
+  "baseline": "Buy and hold 25% equity from first evaluable bar on the same candles and cost model",
+  "signal_rule": "For each completed bar, take the previous lookback-bar low/high, excluding current bar. If current low falls below prior low but current close returns above it, and the prior low was last touched at least separation bars earlier, signal long; mirror for shorts. Enter next open. Exit after hold bars. Only one position at a time; ignore new signals while held.",
+  "original_rule_difference": "The published futures rule uses intraday stop orders 5–10 ticks beyond the old extreme and a one-tick protective stop. This OHLCV adaptation requires close confirmation, enters next open and uses a fixed holding period; it is an independent hypothesis, not a replication of personal trades or fills.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "commission_bps_per_side": 5,
+  "slippage_equivalent_bps_per_side": 10,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "primary_evaluation": "monthly",
+  "late_sample_status": "seen_history",
+  "selection": "Rank one common timeframe and parameter set by train-month positive share and mean monthly return across all eligible stocks; report late months separately; then select ten liquid equities only if data gates pass.",
+  "run_command": "python3 experiments/single-indicator/connors-turtle-soup/run.py",
+  "indicator_id": "turtle-soup",
+  "run_id": "connors-false-breakout"
+}

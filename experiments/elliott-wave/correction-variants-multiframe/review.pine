@@ -1,0 +1,118 @@
+//@version=6
+// Review-only chart translation. Python next-open fills, costs, and trade-by-trade
+// parity have NOT been checked. Do not treat TradingView PnL as experiment PnL.
+indicator("Elliott corrections · wave 2 / wave 4 / ABC · review", overlay=true)
+
+string pattern = input.string("wave2", "Structure", options=["wave2", "wave4", "abc"])
+int wing = input.int(2, "Pivot confirmation bars", options=[2, 5])
+float deviation = input.float(2.0, "Minimum swing %", options=[2.0, 5.0])
+int trigger = input.int(25, "Recovery trigger %", options=[25, 50])
+
+var array<int> kinds = array.new_int()
+var array<float> prices = array.new_float()
+var array<int> confirmed = array.new_int()
+var int usedLong = -1
+var int usedShort = -1
+
+f_setup(string mode, int side, float recovery, array<int> k, array<float> p, array<int> at) =>
+    int count = mode == "wave4" ? 5 : mode == "abc" ? 4 : 3
+    float threshold = na
+    int key = na
+    if array.size(k) >= count
+        int a = array.size(k) - count
+        float p0 = side * array.get(p, a)
+        float p1 = side * array.get(p, a + 1)
+        float p2 = side * array.get(p, a + 2)
+        float p3 = count >= 4 ? side * array.get(p, a + 3) : na
+        float p4 = count == 5 ? side * array.get(p, a + 4) : na
+        bool alternating = true
+        for j = 0 to count - 1
+            int expected = mode == "abc" ? (j % 2 == 0 ? side : -side) : (j % 2 == 0 ? -side : side)
+            alternating := alternating and array.get(k, a + j) == expected
+        float ratio = na
+        bool valid = false
+        if mode == "wave2"
+            valid := p0 < p2 and p2 < p1
+            ratio := p1 > p0 ? (p1 - p2) / (p1 - p0) : na
+            threshold := side * (p2 + recovery * (p1 - p2))
+        else if mode == "wave4"
+            valid := p0 < p2 and p2 < p1 and p1 < p4 and p4 < p3
+            ratio := p3 > p2 ? (p3 - p4) / (p3 - p2) : na
+            threshold := side * (p4 + recovery * (p3 - p4))
+        else
+            valid := p1 < p2 and p2 < p0 and p3 < p1
+            ratio := p0 > p1 ? (p2 - p1) / (p0 - p1) : na
+            threshold := side * (p3 + recovery * (p2 - p3))
+        if alternating and valid and not na(ratio) and ratio >= 0.30 and ratio <= 0.80
+            key := array.get(at, a + count - 1)
+        else
+            threshold := na
+    [threshold, key]
+
+[longLevel, longKey] = f_setup(pattern, 1, trigger / 100.0, kinds, prices, confirmed)
+[shortLevel, shortKey] = f_setup(pattern, -1, trigger / 100.0, kinds, prices, confirmed)
+bool longSignal = barstate.isconfirmed and not na(longKey) and bar_index - longKey <= 20 and longKey != usedLong and ((close[1] <= longLevel and close > longLevel) or (bar_index == longKey + 1 and close > longLevel))
+bool shortSignal = barstate.isconfirmed and not longSignal and not na(shortKey) and bar_index - shortKey <= 20 and shortKey != usedShort and ((close[1] >= shortLevel and close < shortLevel) or (bar_index == shortKey + 1 and close < shortLevel))
+if longSignal
+    usedLong := longKey
+if shortSignal
+    usedShort := shortKey
+
+float lastLow = na
+float lastHigh = na
+for offset = 0 to 7
+    int idx = array.size(kinds) - 1 - offset
+    if idx >= 0
+        if na(lastLow) and array.get(kinds, idx) == -1
+            lastLow := array.get(prices, idx)
+        if na(lastHigh) and array.get(kinds, idx) == 1
+            lastHigh := array.get(prices, idx)
+bool exitLong = barstate.isconfirmed and not na(lastLow) and close < lastLow
+bool exitShort = barstate.isconfirmed and not exitLong and not na(lastHigh) and close > lastHigh
+
+// Pivots confirmed at this close become usable only on a later bar.
+float highPivot = ta.pivothigh(high, wing, wing)
+float lowPivot = ta.pivotlow(low, wing, wing)
+if barstate.isconfirmed and not na(highPivot)
+    int n = array.size(kinds)
+    if n == 0
+        array.push(kinds, 1)
+        array.push(prices, highPivot)
+        array.push(confirmed, bar_index)
+    else
+        int previousSide = array.get(kinds, n - 1)
+        float previousPrice = array.get(prices, n - 1)
+        if previousSide == 1 and highPivot > previousPrice
+            array.set(prices, n - 1, highPivot)
+            array.set(confirmed, n - 1, bar_index)
+        else if previousSide == -1 and 100.0 * math.abs(highPivot / previousPrice - 1.0) >= deviation
+            array.push(kinds, 1)
+            array.push(prices, highPivot)
+            array.push(confirmed, bar_index)
+if barstate.isconfirmed and not na(lowPivot)
+    int n = array.size(kinds)
+    if n == 0
+        array.push(kinds, -1)
+        array.push(prices, lowPivot)
+        array.push(confirmed, bar_index)
+    else
+        int previousSide = array.get(kinds, n - 1)
+        float previousPrice = array.get(prices, n - 1)
+        if previousSide == -1 and lowPivot < previousPrice
+            array.set(prices, n - 1, lowPivot)
+            array.set(confirmed, n - 1, bar_index)
+        else if previousSide == 1 and 100.0 * math.abs(lowPivot / previousPrice - 1.0) >= deviation
+            array.push(kinds, -1)
+            array.push(prices, lowPivot)
+            array.push(confirmed, bar_index)
+while array.size(kinds) > 8
+    array.shift(kinds)
+    array.shift(prices)
+    array.shift(confirmed)
+
+plot(longLevel, "Long recovery level", color=color.new(color.green, 50), style=plot.style_linebr)
+plot(shortLevel, "Short recovery level", color=color.new(color.red, 50), style=plot.style_linebr)
+plotshape(longSignal, "Long setup", shape.triangleup, location.belowbar, color=color.lime, size=size.tiny)
+plotshape(shortSignal, "Short setup", shape.triangledown, location.abovebar, color=color.red, size=size.tiny)
+plotshape(exitLong, "Long exit", shape.xcross, location.belowbar, color=color.orange, size=size.tiny)
+plotshape(exitShort, "Short exit", shape.xcross, location.abovebar, color=color.orange, size=size.tiny)

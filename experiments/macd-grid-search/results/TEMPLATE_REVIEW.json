@@ -1,0 +1,29 @@
+{
+  "experiment": "experiments/macd-grid-search",
+  "status": "REVIEW_ONLY",
+  "protocol_origin": "reconstructed",
+  "missing_protocol_fields": [
+    "hypothesis",
+    "frozen_on",
+    "parameter_grid",
+    "split",
+    "baseline",
+    "signal_rule",
+    "initial_capital_rub",
+    "selection",
+    "run_command"
+  ],
+  "missing_result_files": [
+    "all_variants.csv",
+    "monthly_returns.csv",
+    "monthly_case_summary.csv",
+    "summary.json",
+    "skipped.csv",
+    "validation.json"
+  ],
+  "missing_run_py": true,
+  "progress_rows": 774,
+  "completed_progress_rows": 759,
+  "report": "experiments/macd-grid-search/results/REPORT.md",
+  "reason": "Historical metadata upgrade only; no backtest was rerun."
+}

@@ -19,7 +19,7 @@ from service.data_sources.moex import (MOSCOW, MarketDataUnavailable, fetch_cand
 from src.ema.core.scan_ema import four_hour
 
 STRATEGY_PATH = Path(__file__).resolve().parents[1] / "strategies/line-retest-4h-wing1-zone05-slope/strategy.py"
-LIVE_CANDLE_CACHE = Path(__file__).resolve().parents[1] / "data/moex_live"
+LIVE_CANDLE_CACHE = Path(__file__).resolve().parents[1] / "data/candles/moex_live"
 _spec = importlib.util.spec_from_file_location("active_paper_strategy", STRATEGY_PATH)
 if _spec is None or _spec.loader is None:
     raise ImportError(f"cannot load strategy: {STRATEGY_PATH}")
@@ -82,6 +82,8 @@ def side_from_strategy(module, bars: list[dict], mode: str, position: int,
         if hourly_bars is None:
             raise ValueError("4H line strategy requires completed 1H source candles")
         event = module.signal(bars, hourly_bars=hourly_bars, position=position)
+    elif getattr(module, "USES_POSITION", False):
+        event = module.signal(bars, position=position)
     else:
         event = module.signal(bars)
     if event == "flat":

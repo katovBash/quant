@@ -1,0 +1,65 @@
+//@version=6
+// Visual review of the preregistered Python rule. Signal/trade parity is unverified.
+indicator("Confirmed swing Fibonacci retracement · review", overlay=true)
+
+wing = input.int(3, "Pivot wing", options=[3, 5])
+ratio = input.float(0.618, "Retracement", options=[0.382, 0.5, 0.618, 0.786])
+tolerance = input.float(0.25, "Zone in ATR", options=[0.25, 0.5])
+
+volatility = ta.sma(ta.tr(true), 14)
+var float swingLow = na
+var float swingHigh = na
+var int lowIndex = na
+var int highIndex = na
+var int usedLongLow = na
+var int usedLongHigh = na
+var int usedShortLow = na
+var int usedShortHigh = na
+
+float level = na
+bool longSignal = false
+bool shortSignal = false
+bool longExit = false
+bool shortExit = false
+
+// Use only pivots already confirmed on a previous completed bar.
+if barstate.isconfirmed and not na(swingLow) and not na(swingHigh) and not na(volatility) and volatility > 0
+    amplitude = swingHigh - swingLow
+    if amplitude >= 2 * volatility
+        width = tolerance * volatility
+        if highIndex > lowIndex
+            level := swingHigh - ratio * amplitude
+            longExit := close < swingLow
+            unused = na(usedLongLow) or usedLongLow != lowIndex or usedLongHigh != highIndex
+            longSignal := unused and low >= level - width and low <= level + width and close > level
+            if longSignal
+                usedLongLow := lowIndex
+                usedLongHigh := highIndex
+        else if lowIndex > highIndex
+            level := swingLow + ratio * amplitude
+            shortExit := close > swingHigh
+            unused = na(usedShortLow) or usedShortLow != lowIndex or usedShortHigh != highIndex
+            shortSignal := unused and high >= level - width and high <= level + width and close < level
+            if shortSignal
+                usedShortLow := lowIndex
+                usedShortHigh := highIndex
+
+// Confirm the candidate pivot only after evaluating this bar's signal.
+if barstate.isconfirmed and bar_index >= 2 * wing
+    isLow = true
+    isHigh = true
+    for k = 1 to wing
+        isLow := isLow and low[wing] < low[wing + k] and low[wing] <= low[wing - k]
+        isHigh := isHigh and high[wing] > high[wing + k] and high[wing] >= high[wing - k]
+    if isLow
+        swingLow := low[wing]
+        lowIndex := bar_index - wing
+    if isHigh
+        swingHigh := high[wing]
+        highIndex := bar_index - wing
+
+plot(level, "Confirmed swing retracement", color=color.orange, linewidth=2)
+plotshape(longSignal, "Long signal", shape.triangleup, location.belowbar, color=color.lime, size=size.tiny)
+plotshape(shortSignal, "Short signal", shape.triangledown, location.abovebar, color=color.red, size=size.tiny)
+plotshape(longExit, "Long exit condition", shape.xcross, location.belowbar, color=color.gray, size=size.tiny)
+plotshape(shortExit, "Short exit condition", shape.xcross, location.abovebar, color=color.gray, size=size.tiny)

@@ -22,7 +22,7 @@ research = module_at("research_turtle_55_20", ROOT / "experiments/three-trader-r
 class FrozenTurtleSignalTest(unittest.TestCase):
     def test_paper_matches_research_entries_and_exits(self):
         for symbol in ("SFIN", "WUSH"):
-            path = ROOT / f"data/moex_scan/{symbol}_60_2024-01-01_2026-10-30.json"
+            path = ROOT / f"data/candles/moex_scan/{symbol}_60_2024-01-01_2026-10-30.json"
             bars = json.loads(path.read_text(encoding="utf-8"))
             entries, exits = research.turtle(bars, 55, 20)
             for index in range(200, len(bars), 47):

@@ -3,6 +3,20 @@
   "timeframe": "4H",
   "snapshot": "2026-10-30",
   "status": "EXPLORATORY_GROSS",
+  "history_sources": {
+    "before": {
+      "all_variants_csv": "experiments/double-indicator/ema25-higher-timeframe-lines/results/source4h_retest/all_variants.csv",
+      "monthly_csv": "experiments/double-indicator/ema25-higher-timeframe-lines/results/source4h_retest/monthly_returns.csv",
+      "variant": "4H_wing_1_zone_1_retest_slope",
+      "timeframe": "4H"
+    },
+    "after": {
+      "all_variants_csv": "experiments/double-indicator/ema25-higher-timeframe-lines/results/source4h_retest_after/all_variants.csv",
+      "monthly_csv": "experiments/double-indicator/ema25-higher-timeframe-lines/results/source4h_retest_after/monthly_returns.csv",
+      "variant": "4H_wing_1_zone_1_retest_slope",
+      "timeframe": "4H"
+    }
+  },
   "top10": [
     {
       "symbol": "IRKT",
@@ -15,5 +29,6 @@
   ],
   "tested_tickers": 100,
   "profitable_tickers": null,
-  "limitation": "До расходов; выбор после просмотра 3800 вариантов; Pine не сверен."
+  "limitation": "До расходов; выбор после просмотра 3800 вариантов; Pine не сверен.",
+  "cost_status": "commission_5bps_and_one_tick_per_side"
 }

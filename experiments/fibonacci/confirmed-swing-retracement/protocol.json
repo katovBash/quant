@@ -1,0 +1,95 @@
+{
+  "indicator_id": "fibonacci",
+  "run_id": "confirmed-swing-retracement",
+  "method_id": "confirmed_swing_fibonacci",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-04",
+  "hypothesis": "After a confirmed swing, the first rejection of a Fibonacci retracement level may outperform the 0.5 midpoint and a buy-and-hold control across stocks and timeframes.",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "source_method": "https://www.tradingview.com/support/solutions/43000518158-fibonacci-retracement-drawing-tool/",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H",
+    "1D"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "wing": {
+        "values": [
+          3,
+          5
+        ]
+      },
+      "ratio": {
+        "values": [
+          0.382,
+          0.5,
+          0.618,
+          0.786
+        ]
+      },
+      "tolerance": {
+        "values": [
+          0.25,
+          0.5
+        ]
+      }
+    },
+    "variant_template": "fib_{wing}_{ratio}_{tolerance}",
+    "include_baseline": true,
+    "max_combinations": 16
+  },
+  "expected_variants": [
+    "baseline",
+    "fib_3_0.382_0.25",
+    "fib_3_0.382_0.5",
+    "fib_3_0.5_0.25",
+    "fib_3_0.5_0.5",
+    "fib_3_0.618_0.25",
+    "fib_3_0.618_0.5",
+    "fib_3_0.786_0.25",
+    "fib_3_0.786_0.5",
+    "fib_5_0.382_0.25",
+    "fib_5_0.382_0.5",
+    "fib_5_0.5_0.25",
+    "fib_5_0.5_0.5",
+    "fib_5_0.618_0.25",
+    "fib_5_0.618_0.5",
+    "fib_5_0.786_0.25",
+    "fib_5_0.786_0.5"
+  ],
+  "parameter_rationale": "Confirmed pivot wings 3 and 5 bars; retracements 0.382, 0.5, 0.618, 0.786; rejection zone 0.25 or 0.5 ATR. All 16 combinations fixed before results. 0.5 is a non-Fibonacci midpoint control at equal wing/tolerance.",
+  "min_bars": 100,
+  "baseline": "25% long buy-and-hold on the same candles, next-open execution and identical transaction costs; 0.5 retracement is a location control.",
+  "signal_rule": "At close i, use only pivots confirmed at least wing+1 bars earlier: low pivot before high pivot defines bullish impulse, high before low defines bearish. Impulse amplitude >=2 times current ATR14. Long: first bar whose low is within tolerance*ATR14 of high - ratio*(high-low) and closes above level. Short: mirrored high touch of low + ratio*(high-low) and close below. Once per anchor pair. Exit long on close below confirmed low, short on close above confirmed high; opposite entry also reverses. Orders next bar open. No current/future pivot is used.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Compare yearly PnL, monthly profitable share and downside against buy-and-hold and the 0.5 midpoint on matched symbols/timeframes; research only, no automatic paper promotion without parity and corporate-action review.",
+  "run_command": "python3 -m pipeline.run experiments/fibonacci/confirmed-swing-retracement",
+  "limitations": [
+    "TradingView levels are manually anchored; this is a mechanical confirmed-pivot interpretation.",
+    "Pivot confirmation lags by wing+1 bars and is not painted on the original pivot at decision time.",
+    "Only selected ratio and tolerance grid tested; no claim of unique golden-ratio advantage.",
+    "Dividends, splits, short borrow and lots not fully modelled."
+  ]
+}

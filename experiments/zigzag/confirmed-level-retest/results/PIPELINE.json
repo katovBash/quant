@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/zigzag/confirmed-level-retest",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "full_run",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "Качество свечей выбранных акций не подтверждено"
+  ],
+  "review": "experiments/zigzag/confirmed-level-retest/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "zzr_3_2_1",
+    "symbols": 249,
+    "median_train_positive_share_pct": 45.83,
+    "median_train_mean_month_return_pct": 0.07,
+    "median_train_worst_month_pnl_rub": -32229.48,
+    "median_late_positive_share_pct": 44.44,
+    "median_late_mean_month_return_pct": 0.16
+  },
+  "stocks": [
+    "VSEH",
+    "RTKM",
+    "WUSH",
+    "MTLR",
+    "SPBE",
+    "VTBR",
+    "NVTK",
+    "PHOR",
+    "T",
+    "SMLT"
+  ]
+}

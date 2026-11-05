@@ -1,0 +1,90 @@
+{
+  "id": "zigzag-confirmed-breakout-5-6-1d",
+  "timeframe": "1D",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/zigzag/confirmed-level-breakout/results/paper_review.json",
+  "variant": "zigzag_5_6",
+  "selection_rule": "one global variant ranked on train months; ten liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/zigzag/confirmed-level-breakout/results/all_variants.csv",
+      "monthly_csv": "experiments/zigzag/confirmed-level-breakout/results/monthly_returns.csv",
+      "variant": "zigzag_5_6",
+      "timeframe": "1D"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "MTSS",
+      "net_return_pct": 6.02,
+      "closed_trades": 11,
+      "train_positive_share_pct": 70.83,
+      "late_positive_share_pct": 44.44
+    },
+    {
+      "symbol": "VSEH",
+      "net_return_pct": 19.42,
+      "closed_trades": 11,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 27.04,
+      "closed_trades": 17,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "VKCO",
+      "net_return_pct": 37.16,
+      "closed_trades": 14,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "RTKM",
+      "net_return_pct": 19.56,
+      "closed_trades": 12,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "SNGSP",
+      "net_return_pct": 7.13,
+      "closed_trades": 10,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "NVTK",
+      "net_return_pct": 10.5,
+      "closed_trades": 15,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "POSI",
+      "net_return_pct": 47.36,
+      "closed_trades": 8,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "MAGN",
+      "net_return_pct": 19.19,
+      "closed_trades": 12,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "LENT",
+      "net_return_pct": 15.27,
+      "closed_trades": 12,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 22.22
+    }
+  ]
+}

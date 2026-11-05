@@ -9,7 +9,7 @@ from src.ema.core.scan_ema import aggregate, backtest, four_hour
 ROOT = Path("experiments/.history/legacy-ema/12-33-cross")
 SUCCESS = ROOT / "success"
 DAILY = ROOT / "execute/research/daily_weekly_monthly"
-CACHE = Path("data/moex_scan")
+CACHE = Path("data/candles/moex_scan")
 
 
 def main():

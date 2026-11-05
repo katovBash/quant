@@ -1,10 +1,25 @@
 {
   "frozen_on": "2026-11-04",
   "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
-  "universe": "Every TQBR SECID in data/moex_scan/universe_2026-10-30.json; only instruments with evaluable candles",
-  "signal_timeframes": ["1D", "1H", "4H"],
-  "unavailable_timeframes": ["15M", "30M"],
-  "variants": ["baseline", "dennis_turtle_20_10", "dennis_turtle_55_20", "connors_rsi2_5_70", "connors_rsi2_10_70", "raschke_grail_adx30", "raschke_grail_adx35"],
+  "universe": "Every TQBR SECID in data/candles/moex_scan/universe_2026-10-30.json; only instruments with evaluable candles",
+  "signal_timeframes": [
+    "1D",
+    "1H",
+    "4H"
+  ],
+  "unavailable_timeframes": [
+    "15M",
+    "30M"
+  ],
+  "variants": [
+    "baseline",
+    "dennis_turtle_20_10",
+    "dennis_turtle_55_20",
+    "connors_rsi2_5_70",
+    "connors_rsi2_10_70",
+    "raschke_grail_adx30",
+    "raschke_grail_adx35"
+  ],
   "sources": {
     "dennis": "https://www.turtletrader.com/rules/",
     "connors": "https://tradingmarkets.com/recent/how_to_enter_and_exit_a_position_on_the_close-677551",
@@ -26,5 +41,54 @@
   "primary_evaluation": "monthly",
   "monthly_regime": "ex post: monthly market return >5% growth, <-5% decline, else sideways if high-low range <=10% of first open, otherwise volatile_mixed; diagnostic only",
   "selection": "all outcomes retained; no numeric approval threshold; REVIEW_ONLY",
-  "limitations": ["intraday bar-count analogues are not original daily strategies", "no exchange lot adjustment", "no dividends or corporate-action adjustment", "short borrow and availability not modeled", "historical data already seen"]
+  "limitations": [
+    "intraday bar-count analogues are not original daily strategies",
+    "no exchange lot adjustment",
+    "no dividends or corporate-action adjustment",
+    "short borrow and availability not modeled",
+    "historical data already seen"
+  ],
+  "expected_variants": [
+    "baseline",
+    "connors_rsi2_10_70",
+    "connors_rsi2_5_70",
+    "dennis_turtle_20_10",
+    "dennis_turtle_55_20",
+    "raschke_grail_adx30",
+    "raschke_grail_adx35"
+  ],
+  "run_command": "python3 experiments/three-trader-rules/run.py",
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked"
+  },
+  "parameter_grid": {
+    "axes": {
+      "variant": {
+        "values": [
+          "connors_rsi2_10_70",
+          "connors_rsi2_5_70",
+          "dennis_turtle_20_10",
+          "dennis_turtle_55_20",
+          "raschke_grail_adx30",
+          "raschke_grail_adx35"
+        ]
+      }
+    },
+    "variant_template": "{variant}",
+    "include_baseline": true,
+    "max_combinations": 7
+  },
+  "parameter_grid_provenance": "ex_post_inventory_of_observed_variants_not_preregistered",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D",
+      "1H"
+    ]
+  },
+  "eligible_universe_provenance": "frozen_snapshot_board_and_candle_availability"
 }

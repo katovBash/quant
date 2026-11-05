@@ -1,0 +1,73 @@
+{
+  "indicator_id": "william-oneil",
+  "run_id": "oneil-flat-base",
+  "method_id": "oneil-flat-base",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-04",
+  "hypothesis": "Test whether the mechanical oneil-flat-base interpretation improves month-level outcomes over the same-stock buy-and-hold control.",
+  "trader_attribution": {
+    "name": "William Oneil",
+    "source_url": "https://shop.investors.com/images/promotional/flat-b-b_112408.pdf",
+    "source_type": "mechanical_interpretation",
+    "actual_trades_verified": false,
+    "personal_return_status": "not_available",
+    "rule_interpretation": "Flat base no deeper than 15% over 5-7 trading weeks; close above prior high on at least 1.4x volume; exit below SMA20.",
+    "source_checked_on": "2026-11-04"
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1D"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "lookback": {
+        "values": [
+          25,
+          35
+        ]
+      }
+    },
+    "variant_template": "oneil-flat-base_{lookback}",
+    "include_baseline": true,
+    "max_combinations": 3
+  },
+  "expected_variants": [
+    "baseline",
+    "oneil-flat-base_25",
+    "oneil-flat-base_35"
+  ],
+  "parameter_rationale": "Two preregistered lookbacks bracket the published/default horizon; this is a bounded first grid, not a claim that all possible settings were searched.",
+  "min_bars": 87,
+  "baseline": "One 25% long buy-and-hold position on the same stock and timeframe, filled next open",
+  "signal_rule": "Flat base no deeper than 15% over 5-7 trading weeks; close above prior high on at least 1.4x volume; exit below SMA20. All signals use completed bars and next-open fills; no current incomplete higher-timeframe bar.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Research ranking only; no automatic trading approval",
+  "run_command": "python3 -m pipeline.run experiments/william-oneil/oneil-flat-base",
+  "limitations": [
+    "No verified personal trade journal",
+    "Author's discretionary choices are not reproduced",
+    "MOEX corporate-action coverage is incomplete",
+    "Pattern proxies require chart review"
+  ]
+}

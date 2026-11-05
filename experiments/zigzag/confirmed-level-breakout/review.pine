@@ -1,0 +1,32 @@
+//@version=6
+// Research chart only. Python fills on next open with modeled costs.
+// The pivot is usable only after the right wing closes; plots do not backdate signals.
+// Pine/Python signal parity has not been measured, so this does not activate paper trading.
+indicator("ZigZag · confirmed level breakout · review", overlay = true)
+int wing = input.int(3, "Pivot wing", options = [2, 3, 5])
+float deviation = input.float(4, "Minimum reversal %", options = [2, 4, 6])
+float highPivot = ta.pivothigh(high, wing, wing)
+float lowPivot = ta.pivotlow(low, wing, wing)
+var int lastSide = 0
+var float lastPrice = na
+var float knownHigh = na
+var float knownLow = na
+bool longSignal = barstate.isconfirmed and not na(knownHigh) and close[1] <= knownHigh and close > knownHigh
+bool shortSignal = barstate.isconfirmed and not na(knownLow) and close[1] >= knownLow and close < knownLow
+if barstate.isconfirmed
+    if not na(highPivot)
+        bool acceptHigh = lastSide == 0 or (lastSide == 1 and highPivot > lastPrice) or (lastSide == -1 and 100 * math.abs(highPivot / lastPrice - 1) >= deviation)
+        if acceptHigh
+            lastSide := 1
+            lastPrice := highPivot
+            knownHigh := highPivot
+    if not na(lowPivot)
+        bool acceptLow = lastSide == 0 or (lastSide == -1 and lowPivot < lastPrice) or (lastSide == 1 and 100 * math.abs(lowPivot / lastPrice - 1) >= deviation)
+        if acceptLow
+            lastSide := -1
+            lastPrice := lowPivot
+            knownLow := lowPivot
+plot(knownHigh, "Last confirmed high", color = color.new(color.red, 30), style = plot.style_stepline)
+plot(knownLow, "Last confirmed low", color = color.new(color.teal, 30), style = plot.style_stepline)
+plotshape(longSignal, "Long crossing", shape.triangleup, location.belowbar, color.lime, size = size.tiny)
+plotshape(shortSignal, "Short crossing", shape.triangledown, location.abovebar, color.red, size = size.tiny)

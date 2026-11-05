@@ -23,7 +23,15 @@ class DashboardTests(unittest.TestCase):
         self.assertNotIn("__INITIAL_SNAPSHOT__", html)
         self.assertIn('id="strategy-grid"', html)
         self.assertIn('id="detail"', html)
-        self.assertIn("История: доходность", html)
+        self.assertIn('id="history-after"', html)
+        self.assertIn('id="history-before"', html)
+        self.assertIn("1 месяц", html)
+        self.assertIn("3 месяца", html)
+        self.assertIn("6 месяцев", html)
+        self.assertIn("9 месяцев", html)
+        self.assertIn("доходность по месяцам", html)
+        self.assertIn("12 месяцев", html)
+        self.assertNotIn("Качество данных", html)
         self.assertIn("PnL", html)
         self.assertNotIn("Медиана истории", html)
 
@@ -77,6 +85,19 @@ class DashboardTests(unittest.TestCase):
             self.assertIn("SFIN", turtle["configured_symbols"])
             self.assertIn("WUSH", turtle["configured_symbols"])
             self.assertTrue(turtle["top10"])
+            self.assertIn("after_costs_return_pct", turtle["top10"][0])
+            self.assertEqual(turtle["top10"][0]["history"]["after"]["periods"]["1"]["return_pct"], -1.64)
+            self.assertIsNotNone(turtle["top10"][0]["history"]["after"]["periods"]["9"])
+            months = turtle["top10"][0]["history"]["after"]["months"]
+            self.assertEqual(len(months), 33)
+            self.assertEqual(months[-1]["month"], "2026-09")
+            self.assertEqual(months[-1]["return_pct"], -1.64)
+            self.assertEqual(turtle["top10"][0]["history"]["before"]["periods"]["12"]["return_pct"], 62.17)
+            annual = turtle["top10"][0]["history"]["after"]["calendar_years"]
+            self.assertEqual([item["year"] for item in annual], ["2024", "2025", "2026"])
+            self.assertFalse(annual[-1]["complete"])
+            self.assertEqual(turtle["data_quality"]["SFIN"]["dividends"], "verified_unapplied")
+            self.assertEqual(turtle["data_quality"]["WUSH"]["splits"], "unverified")
 
     def test_open_pnl_is_zero_when_flat_and_marks_long_or_short_positions(self):
         with TemporaryDirectory() as tmp:

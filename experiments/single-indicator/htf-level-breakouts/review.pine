@@ -1,0 +1,12 @@
+//@version=6
+indicator("Higher timeframe levels · manual review", overlay = true)
+// Visual review only. This displays prior completed higher-timeframe ranges;
+// entry variants in protocol.json require separate Python/Pine parity checks.
+levelTf = input.timeframe("D", "Level timeframe")
+lookback = input.int(20, "Prior bars", minval = 2)
+upper = request.security(syminfo.tickerid, levelTf, ta.highest(high[1], lookback), lookahead = barmerge.lookahead_off)
+lower = request.security(syminfo.tickerid, levelTf, ta.lowest(low[1], lookback), lookahead = barmerge.lookahead_off)
+plot(upper, "Upper level", color = color.red)
+plot(lower, "Lower level", color = color.green)
+plotshape(barstate.isconfirmed and ta.crossover(close, upper), "Upper break", shape.triangleup, location.belowbar, color.green, size = size.tiny)
+plotshape(barstate.isconfirmed and ta.crossunder(close, lower), "Lower break", shape.triangledown, location.abovebar, color.red, size = size.tiny)

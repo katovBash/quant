@@ -1,0 +1,20 @@
+{
+  "experiment": "experiments/elliott-wave/confirmed-impulse-breakout",
+  "monthly_coverage": "FULL_GRID",
+  "status": "CLOSED",
+  "paper_gate": "EXPERIMENT_CLOSED",
+  "paper_gate_warnings": [
+    "Механическая версия волн Эллиотта не показывает регулярную месячную прибыль на широкой выборке: выбранный по ранней части wave3_5_2 на 4H имеет медиану 37.5% прибыльных месяцев рано и 33.33% поздно, медианный годовой результат -0.63% в 2024 и -0.38% в 2025 (2026 январь-сентябрь +0.20%). Варианты wave5 в основном не торгуют: медиана закрытых сделок 2 на 4H и 1 на 1D, медиана нулевых месяцев 29. Исходная гипотеза не подтверждена; дальнейшее paper trading по этому эксперименту не запускается."
+  ],
+  "missing_required_evidence": [],
+  "validation_status": "REVIEW_ONLY",
+  "paper_review_status": "CLOSED",
+  "pine": "AVAILABLE_FOR_REVIEW",
+  "files": {
+    "manifest.json": "experiments/elliott-wave/confirmed-impulse-breakout/results/manifest.json",
+    "validation.json": "experiments/elliott-wave/confirmed-impulse-breakout/results/validation.json",
+    "REPORT.md": "experiments/elliott-wave/confirmed-impulse-breakout/results/REPORT.md",
+    "PAPER_REVIEW.md": "experiments/elliott-wave/confirmed-impulse-breakout/results/PAPER_REVIEW.md",
+    "PINE_STATUS.json": "experiments/elliott-wave/confirmed-impulse-breakout/results/PINE_STATUS.json"
+  }
+}

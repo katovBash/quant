@@ -1,0 +1,194 @@
+{
+  "status": "REVIEW_ONLY",
+  "protocol": {
+    "frozen_on": "2026-11-02",
+    "source_snapshot": "2026-10-30",
+    "timeframe": "1H",
+    "symbols": [
+      "SBER",
+      "GAZP",
+      "LKOH",
+      "PLZL",
+      "SMLT",
+      "VTBR",
+      "TATN",
+      "ROSN",
+      "GMKN",
+      "NVTK"
+    ],
+    "base_signal": "EMA12/33 cross on completed candle",
+    "filter": "absolute 10/20-bar displacement divided by sum of absolute close-to-close changes through signal candle",
+    "lookbacks": [
+      10,
+      20
+    ],
+    "thresholds": [
+      0.2,
+      0.35
+    ],
+    "split": "2026-01-01",
+    "late_sample_status": "seen_history",
+    "entry": "next open, if efficiency ratio on signal candle meets threshold",
+    "exit": "opposite EMA crossing closes the prior position even when filter blocks the new entry",
+    "initial_capital_rub": 1000000,
+    "position_weight_pct": 25,
+    "fee_bps_per_side": 5,
+    "slippage": "one tick per side",
+    "not_included": [
+      "short borrow",
+      "dividends",
+      "exchange lots",
+      "corporate actions"
+    ],
+    "primary_screen": "strictly positive return in every complete calendar month; no zero month",
+    "control": "EMA12/33 without efficiency filter on same candles and costs",
+    "candidate_policy": "no candidate if no fixed variant passes monthly screen; late sample is already seen",
+    "baseline": "EMA12/33 without efficiency filter on same candles and costs",
+    "selection": "no candidate if no fixed variant passes monthly screen; late sample is already seen",
+    "signal_timeframes": [
+      "1H"
+    ],
+    "signal_rule": {
+      "entry": "next open, if efficiency ratio on signal candle meets threshold",
+      "exit": "opposite EMA crossing closes the prior position even when filter blocks the new entry"
+    },
+    "run_command": "python3 experiments/double-indicator/ema-efficiency-monthly/run.py",
+    "corporate_actions": {
+      "status": "unchecked",
+      "applied_in_main_results": false,
+      "splits_status": "unchecked"
+    },
+    "expected_variants": [
+      "baseline",
+      "er_10_0.2",
+      "er_10_0.35",
+      "er_20_0.2",
+      "er_20_0.35"
+    ],
+    "parameter_grid": {
+      "axes": {
+        "variant": {
+          "values": [
+            "er_10_0.2",
+            "er_10_0.35",
+            "er_20_0.2",
+            "er_20_0.35"
+          ]
+        }
+      },
+      "variant_template": "{variant}",
+      "include_baseline": true,
+      "max_combinations": 5
+    },
+    "parameter_grid_provenance": "ex_post_inventory_of_observed_variants_not_preregistered",
+    "eligible_universe": {
+      "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+      "cache_dir": "data/candles/moex_scan",
+      "board": "TQBR",
+      "requires_source_timeframes": [
+        "1D",
+        "1H"
+      ],
+      "symbols": [
+        "SBER",
+        "GAZP",
+        "LKOH",
+        "PLZL",
+        "SMLT",
+        "VTBR",
+        "TATN",
+        "ROSN",
+        "GMKN",
+        "NVTK"
+      ]
+    },
+    "eligible_universe_provenance": "original_explicit_symbols",
+    "primary_evaluation": "monthly"
+  },
+  "validation": {
+    "structural_ok": true,
+    "policy_version": 1,
+    "status": "REVIEW_ONLY",
+    "coverage": {
+      "ok": true,
+      "rows": 50,
+      "duplicates": [],
+      "timeframes": {
+        "1H": {
+          "symbols": 10,
+          "min_required": 0,
+          "variants": 5,
+          "incomplete_symbols": {},
+          "ok": true
+        }
+      },
+      "pairs_with_at_least_100_closed_trades": 40,
+      "pairs_below_100_closed_trades": 10,
+      "monthly": {
+        "rows": 1650,
+        "pairs": 50,
+        "missing_or_short": {},
+        "duplicates": [],
+        "min_periods_available": 33,
+        "ok": true
+      }
+    },
+    "parameter_grid": {
+      "expected": 5,
+      "actual": 5,
+      "missing": [],
+      "unexpected": [],
+      "ok": true
+    },
+    "universe": {
+      "eligible_symbols": 10,
+      "covered_pairs": 10,
+      "missing_pairs": [],
+      "ok": true
+    },
+    "periods": {
+      "pairs": 50,
+      "with_2_full_months": 50,
+      "with_2_calendar_years": 50,
+      "with_train_and_late": 50,
+      "with_last_1m": 50,
+      "with_last_3m": 50,
+      "with_last_6m": 50,
+      "with_last_9m": 50,
+      "with_last_12m": 50
+    },
+    "monthly_validation": {
+      "rows": 1650,
+      "pairs": 50,
+      "duplicate_month_rows": 0,
+      "invalid_calendar_rows": 0,
+      "invalid_equity_rows": 0,
+      "return_mismatch_rows": 0,
+      "pnl_mismatch_rows": 0,
+      "invalid_trade_rows": 0,
+      "gap_pairs": 0,
+      "missing_months_inside_history": 0,
+      "affected_symbol_timeframes": 0,
+      "unique_missing_symbol_months": 0,
+      "invalid_examples": [],
+      "gap_examples": [],
+      "ok": true,
+      "continuous": true
+    },
+    "corporate_actions": {
+      "status": "unchecked",
+      "applied_in_main_results": false,
+      "splits_status": "unchecked",
+      "covered_symbols": 0,
+      "verified_snapshot_sha256": null,
+      "all_symbols_covered": false
+    },
+    "note": "DATA_READY confirms data and report gates only; it does not approve a trading strategy."
+  },
+  "rule": null,
+  "candidate_rules": [],
+  "stocks": [],
+  "blockers": [
+    "нет варианта с минимум 100 акциями, тремя ранними и одним поздним месяцем"
+  ]
+}

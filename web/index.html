@@ -24,6 +24,8 @@
 
     .strategy-tools{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:23px 0 14px}.strategy-tools input{width:min(390px,100%);border:1px solid #34445a;border-radius:11px;background:#111c2b;color:#e9eef7;padding:12px 14px;font:inherit}.strategy-tools input:focus{outline:2px solid #3b9ccc;outline-offset:2px}.strategy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.strategy-tile{width:100%;text-align:left;cursor:pointer;background:#141e2d;border:1px solid #263347;border-radius:17px;padding:20px;color:inherit;font:inherit;min-width:0}.strategy-tile:hover,.strategy-tile:focus-visible{border-color:#55c9ad;outline:none}.strategy-name{font-size:17px;font-weight:750;line-height:1.35}.strategy-meta{font-size:12px;color:#8da2b9;margin-top:8px}.strategy-numbers{display:flex;gap:20px;flex-wrap:wrap;margin-top:18px}.strategy-numbers span{font-size:12px;color:#9bb0c6}.strategy-numbers b{display:block;font-size:20px;color:#eaf4fa}.strategy-numbers small{display:block;font-size:11px;margin-top:2px;color:#8da2b9}.strategy-symbols{margin-top:15px;font-size:11px;color:#87a3b6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.back-button{border:1px solid #345065;border-radius:9px;background:#16293a;color:#a8e8da;padding:9px 12px;cursor:pointer;font:inherit;font-size:12px;font-weight:700}.back-button:hover{background:#1f3c4b}.detail-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:25px 0 12px}.detail-head h2{margin:0;font-size:24px}.detail-summary{color:#9eafc4;font-size:13px;line-height:1.5;margin:0 0 18px}.ranking-table{width:100%;border-collapse:collapse;font-size:12px;background:#141e2d;border-radius:14px;overflow:hidden}.ranking-table th,.ranking-table td{text-align:left;border-bottom:1px solid #263347;padding:11px 14px}.ranking-table th{color:#8297ad;font-weight:700;background:#182437}.ranking-table tr:last-child td{border-bottom:0}.ranking-table .yes{color:#59dfb4}.ranking-wrap{overflow:auto;border:1px solid #263347;border-radius:14px;margin:15px 0 25px}.detail-count{font-size:12px;color:#91a7bc}.detail-section[hidden],.overview-section[hidden]{display:none}
     .strategy-numbers .pnl-positive b,.strategy-numbers .pnl-positive small{color:#51dfb2}.strategy-numbers .pnl-negative b,.strategy-numbers .pnl-negative small{color:#ff9a9a}
+    .history-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 15px}.history-switch{display:flex;gap:4px;padding:4px;border:1px solid #34445a;border-radius:10px;background:#111c2b}.history-switch button{border:0;border-radius:7px;background:transparent;color:#9eafc4;padding:7px 11px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.history-switch button.active{background:#2a3b50;color:#f6fbff}.history-switch button:disabled{opacity:.4;cursor:not-allowed}.history-note{color:#8fa2b8;font-size:12px}.history-cell{white-space:nowrap;font-variant-numeric:tabular-nums}
+    .history-symbol{border:0;background:none;color:#a8e8da;padding:0;font:inherit;font-weight:750;cursor:pointer;white-space:nowrap}.history-symbol:hover{text-decoration:underline}.history-symbol:focus-visible{outline:2px solid #55c9ad;outline-offset:3px;border-radius:2px}.history-symbol span{color:#7893aa;margin-left:5px}.monthly-detail-row td{background:#101a28;padding:15px 18px 19px}.month-detail h4{color:#b7c9db;font-size:12px;margin:14px 0 8px}.month-detail h4:first-child{margin-top:0}.month-grid{display:grid;grid-template-columns:repeat(12,minmax(68px,1fr));gap:7px}.month-chip{border:1px solid #2c3e52;background:#172436;border-radius:8px;padding:8px 7px;min-width:0;text-align:center;font-variant-numeric:tabular-nums}.month-chip.gain{border-color:#286958;background:#12382f}.month-chip.loss{border-color:#754247;background:#3b242b}.month-chip.flat{border-color:#34465a;background:#1b2939}.month-chip span{display:block;color:#a5b8c9;font-size:10px;margin-bottom:3px}.month-chip b{font-size:12px}.month-detail-empty{color:#8ca3b9;font-size:12px}@media(max-width:1100px){.month-grid{grid-template-columns:repeat(6,minmax(68px,1fr))}}@media(max-width:620px){.month-grid{grid-template-columns:repeat(3,minmax(68px,1fr))}}
     @media(max-width:1000px){.strategy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.strategy-grid{grid-template-columns:1fr}.strategy-tools{align-items:start;flex-direction:column}}
   </style>
 </head>
@@ -34,7 +36,7 @@
   <div class="warning" id="warning"></div>
   <div class="stats"><div class="stat"><span>Счетов</span><b id="total">—</b><small>в общем процессе</small></div><div class="stat"><span>Открыто long</span><b id="longs">—</b><small>виртуальные позиции</small></div><div class="stat"><span>Открыто short</span><b id="shorts">—</b><small>виртуальные позиции</small></div><div class="stat"><span>Ошибки источника</span><b id="errors">—</b><small>последний опрос</small></div></div>
   <section class="overview-section" id="overview"><div class="strategy-tools"><h2 style="margin:0;font-size:18px">Стратегии <span class="detail-count" id="rule-count"></span></h2><input id="strategy-search" type="search" placeholder="Найти EMA, RSI, интервал…" aria-label="Поиск стратегии"></div><div class="strategy-grid" id="strategy-grid"><div class="empty">Загружаю стратегии…</div></div></section>
-  <section class="detail-section" id="detail" hidden><div class="detail-head"><button class="back-button" id="back-to-rules" type="button">← Все стратегии</button><h2 id="detail-title"></h2></div><p class="detail-summary" id="detail-summary"></p><h3 style="font-size:15px;margin:24px 0 10px">Акции стратегии <span class="detail-count" id="ranking-count"></span></h3><div class="ranking-wrap" id="ranking-wrap"></div><div class="section-heading"><h2>Виртуальные счета <small id="filter-count" style="font-size:12px;color:#8296ac;font-weight:500"></small></h2><div class="filters" aria-label="Фильтр счетов"><button data-filter="all" class="active">Все</button><button data-filter="open">Открыты</button><button data-filter="pending">Ожидают</button><button data-filter="error">Ошибки</button></div></div><div class="cards" id="cards"><div class="empty">Загружаю счета…</div></div></section>
+  <section class="detail-section" id="detail" hidden><div class="detail-head"><button class="back-button" id="back-to-rules" type="button">← Все стратегии</button><h2 id="detail-title"></h2></div><p class="detail-summary" id="detail-summary"></p><h3 style="font-size:15px;margin:24px 0 10px">Акции стратегии <span class="detail-count" id="ranking-count"></span></h3><div class="history-toolbar" id="history-toolbar"><div class="history-switch" role="group" aria-label="Расходы в истории"><button id="history-after" type="button">После расходов</button><button id="history-before" type="button">До расходов</button></div><span class="history-note" id="history-note"></span></div><div class="ranking-wrap" id="ranking-wrap"></div><div class="section-heading"><h2>Виртуальные счета <small id="filter-count" style="font-size:12px;color:#8296ac;font-weight:500"></small></h2><div class="filters" aria-label="Фильтр счетов"><button data-filter="all" class="active">Все</button><button data-filter="open">Открыты</button><button data-filter="pending">Ожидают</button><button data-filter="error">Ошибки</button></div></div><div class="cards" id="cards"><div class="empty">Загружаю счета…</div></div></section>
   <section class="activity"><div class="section-heading"><h2>Последние события</h2><span style="font-size:12px;color:#8296ac">Открытия, закрытия и пропуски свечей</span></div><div class="activity-list" id="events"><div class="empty">Загружаю журнал…</div></div></section>
   <section class="activity"><div class="section-heading"><h2>Запросы процессов</h2><span style="font-size:12px;color:#8296ac">Fleet: 15 минут после завершения цикла · Web: обновление страницы каждые 10 секунд</span></div><div class="log-grid"><div class="log-panel"><h3>MOEX · quant-paper-fleet</h3><div id="fleet-requests"></div></div><div class="log-panel"><h3>Страница · quant-paper-web</h3><div id="web-requests"></div></div></div></section>
 </main>
@@ -49,6 +51,8 @@
   const openPnl = accounts => {let pnl=0,capital=0,open=0,valued=0;for(const account of accounts){if(account.position){open++;if(Number.isFinite(account.open_pnl_rub)&&Number.isFinite(account.initial_capital)&&account.initial_capital>0){pnl+=account.open_pnl_rub;capital+=account.initial_capital;valued++}}}return open!==valued?{rub:null,pct:null}:{rub:pnl,pct:capital?100*pnl/capital:0}};
   let data = JSON.parse(document.getElementById('snapshot').textContent);
   let filter = 'all';
+  let historyMode = 'after';
+  const expandedMonths = new Set();
   function el(tag, className, text){const node=document.createElement(tag);if(className)node.className=className;if(text!=null)node.textContent=text;return node}
   function card(a){
     const c=el('article','card'); const top=el('div','cardtop');
@@ -85,17 +89,78 @@
     for(const symbol of rule.configured_symbols||[])if(!listed.has(symbol))rows.push({symbol});
     $('ranking-count').textContent=rows.length?'· '+rows.length:'';
     if(!rows.length){wrap.replaceChildren(el('div','empty','Для этой стратегии акции пока не настроены.'));return}
+    const hasAfter=rows.some(row=>row.history?.after);
+    const hasBefore=rows.some(row=>row.history?.before);
+    const mode=historyMode==='after'&&hasAfter?'after':hasBefore?'before':'after';
+    $('history-after').disabled=!hasAfter;
+    $('history-before').disabled=!hasBefore;
+    $('history-after').title=hasAfter?'': 'Расчёт после расходов для этой стратегии ещё не выполнен';
+    $('history-before').title=hasBefore?'': 'Расчёт до расходов для этой стратегии не сохранён';
+    $('history-after').classList.toggle('active',mode==='after');
+    $('history-before').classList.toggle('active',mode==='before');
+    const latest=rows.map(row=>row.history?.[mode]?.last_complete_month).filter(Boolean).sort().at(-1);
+    const costNote=mode==='after'?(rule.history_cost_status==='commission_5bps_and_one_tick_per_side'?' · комиссия 5 б.п. и 1 тик за сторону':' · модель расходов в отчёте эксперимента'):' · без торговых расходов';
+    $('history-note').textContent='Нажми на акцию для процентов за каждый месяц'+costNote+(latest?' · данные по '+latest:'');
     const table=el('table','ranking-table');const head=el('thead','');const headings=el('tr','');
-    for(const label of ['Акция','История: доходность','Сделки в истории','Виртуальный счёт'])headings.append(el('th','',label));
+    for(const label of ['Акция','Год / YTD','1 месяц','3 месяца','6 месяцев','9 месяцев','12 месяцев','Сделки','Виртуальный счёт'])headings.append(el('th','',label));
     head.append(headings);table.append(head);
     const body=el('tbody','');const bySymbol=new Map(accounts.map(a=>[a.symbol,a]));const configured=new Set(rule.configured_symbols||[]);
+    function percentCell(value, details){
+      const cell=el('td','history-cell '+(value>0?'positive':value<0?'negative':''),
+        value==null?'—':(value>0?'+':'')+num(value)+'%');
+      if(details)cell.title=details;
+      return cell;
+    }
+    function monthPanel(history){
+      const panel=el('div','month-detail');const months=history.months||[];
+      if(!months.length){panel.append(el('div','month-detail-empty','Помесячной истории нет.'));return panel}
+      const groups=new Map();
+      for(const item of months){const year=item.month.slice(0,4);if(!groups.has(year))groups.set(year,[]);groups.get(year).push(item)}
+      const names=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+      for(const year of [...groups.keys()].sort().reverse()){
+        const annual=(history.calendar_years||[]).find(item=>item.year===year);
+        const annualLabel=annual?year+(annual.complete?'':' YTD')+' · '+(annual.return_pct>0?'+':'')+num(annual.return_pct)+'% · '+signedRub(annual.pnl_rub):year;
+        panel.append(el('h4','',annualLabel));const grid=el('div','month-grid');
+        for(const item of groups.get(year).sort((a,b)=>b.month.localeCompare(a.month))){
+          const chip=el('div','month-chip '+(item.return_pct>0?'gain':item.return_pct<0?'loss':'flat'));
+          chip.append(el('span','',names[Number(item.month.slice(5))-1]||item.month),
+                      el('b',item.return_pct>0?'positive':item.return_pct<0?'negative':'muted',
+                         (item.return_pct>0?'+':'')+num(item.return_pct)+'%'));
+          chip.title=item.month+' · '+signedRub(item.pnl_rub)+' · закрытых сделок: '+item.closed_trades;
+          grid.append(chip)
+        }
+        panel.append(grid)
+      }
+      return panel;
+    }
     for(const row of rows){
       const tr=el('tr','');const account=bySymbol.get(row.symbol);
-      tr.append(el('td','',row.symbol),
-                el('td',row.net_return_pct>0?'positive':row.net_return_pct<0?'negative':'',row.net_return_pct==null?'—':(row.net_return_pct>0?'+':'')+num(row.net_return_pct)+'%'),
-                el('td','',row.closed_trades==null?'—':String(row.closed_trades)),
+      const history=row.history?.[mode]||row.history?.before||{};
+      const periods=history.periods||{};
+      const symbolCell=el('td','');const expandedKey=rule.id+':'+row.symbol;
+      if(history.months?.length){
+        const expanded=expandedMonths.has(expandedKey);const button=el('button','history-symbol',row.symbol);
+        button.type='button';button.setAttribute('aria-expanded',String(expanded));
+        button.setAttribute('aria-label',row.symbol+': '+(expanded?'скрыть':'показать')+' доходность по месяцам');
+        button.append(el('span','',expanded?'▾':'▸'));
+        button.addEventListener('click',()=>{expanded?expandedMonths.delete(expandedKey):expandedMonths.add(expandedKey);render()});
+        symbolCell.append(button)
+      }else symbolCell.textContent=row.symbol;
+      const annual=(history.calendar_years||[]).at(-1);
+      const annualCell=percentCell(annual?.return_pct,annual?annual.year+(annual.complete?'':' YTD')+' · '+signedRub(annual.pnl_rub):'');
+      if(annual)annualCell.append(el('br',''),el('small','',annual.year+(annual.complete?'':' YTD')+' · '+signedRub(annual.pnl_rub)));
+      tr.append(symbolCell,annualCell);
+      for(const length of ['1','3','6','9','12']){
+        const period=periods[length];
+        tr.append(percentCell(period?.return_pct,period?period.from_month+' — '+period.through_month+' · '+signedRub(period.pnl_rub):''));
+      }
+      tr.append(el('td','',history.closed_trades==null?'—':String(history.closed_trades)),
                 el('td',account?'yes':'',account?account.side+' · '+(account.status||'—'):configured.has(row.symbol)?'настроен · ждёт опроса':'не настроен'));
-      body.append(tr)
+      body.append(tr);
+      if(expandedMonths.has(expandedKey)&&history.months?.length){
+        const detail=el('tr','monthly-detail-row');const cell=el('td','');cell.colSpan=headings.children.length;
+        cell.append(monthPanel(history));detail.append(cell);body.append(detail)
+      }
     }
     table.append(body);wrap.replaceChildren(table);
   }
@@ -107,7 +172,7 @@
       const own=accounts.filter(a=>a.strategy===selected.id);
       $('detail-title').textContent=selected.label||selected.id;
       const historyDate=selected.history_snapshot?selected.history_snapshot.split('-').reverse().join('.'):'даты снимка';
-      $('detail-summary').textContent=selected.timeframe+' · Бэктест'+(['EXPLORATORY_GROSS','HISTORICAL_RANKING'].includes(selected.status)?' до расходов':'')+': сохранённые свечи до '+historyDate+'. Ниже — отдельные текущие paper-счета: '+own.length+' из '+(selected.configured_symbols||[]).length+' настроенных.';
+      $('detail-summary').textContent=selected.timeframe+' · История по сохранённым свечам до '+historyDate+'. Ниже — отдельные текущие paper-счета: '+own.length+' из '+(selected.configured_symbols||[]).length+' настроенных.';
       rankingTable(selected,own);
     }else{
       const query=$('strategy-search').value.trim().toLowerCase();
@@ -133,6 +198,8 @@
     $('fleet-requests').replaceChildren(...logRows(data.fleet_requests||[],true));$('web-requests').replaceChildren(...logRows(data.web_requests||[],false));
   }
   document.querySelectorAll('[data-filter]').forEach(button=>{button.classList.toggle('active',button.dataset.filter===filter);button.addEventListener('click',()=>{filter=button.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===button));render()})});
+  $('history-after').addEventListener('click',()=>{historyMode='after';render()});
+  $('history-before').addEventListener('click',()=>{historyMode='before';render()});
   $('back-to-rules').addEventListener('click',()=>{location.hash=''});
   $('strategy-search').addEventListener('input',render);
   window.addEventListener('hashchange',render);

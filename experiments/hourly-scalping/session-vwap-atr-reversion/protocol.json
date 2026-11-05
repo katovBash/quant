@@ -1,0 +1,78 @@
+{
+  "indicator_id": "hourly-scalping",
+  "run_id": "session-vwap-atr-reversion",
+  "method_id": "session-vwap-atr-reversion",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-04",
+  "hypothesis": "A first 1H close at least 0.5–1.5 ATR away from the completed-session VWAP mean-reverts over the next 1–4 hourly bars enough to overcome modeled transaction costs.",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1H"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "deviation_atr": {
+        "values": [
+          0.5,
+          1.0,
+          1.5
+        ]
+      },
+      "hold_bars": {
+        "values": [
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    "variant_template": "vwap_{deviation_atr}_{hold_bars}",
+    "include_baseline": true,
+    "max_combinations": 9
+  },
+  "expected_variants": [
+    "baseline",
+    "vwap_0.5_1",
+    "vwap_0.5_2",
+    "vwap_0.5_4",
+    "vwap_1_1",
+    "vwap_1_2",
+    "vwap_1_4",
+    "vwap_1.5_1",
+    "vwap_1.5_2",
+    "vwap_1.5_4"
+  ],
+  "parameter_rationale": "Three ATR distance thresholds and three short holding horizons form a preregistered 3×3 grid. Session VWAP and ATR14 are fixed to isolate the deviation and holding-horizon effects.",
+  "min_bars": 250,
+  "baseline": "25% long buy-and-hold on same 1H candles, next-open execution, same cost model.",
+  "signal_rule": "Session VWAP is cumulative sum(typical_price × volume)/sum(volume) over completed 1H bars with the same Moscow market date, using typical_price=(high+low+close)/3. ATR14 is a causal SMA of true range. After at least three bars of the session, enter long on first completed close below VWAP−k×ATR, short on first completed close above VWAP+k×ATR. No repeated signal while outside band. At signal close schedule an opposite exit after h further completed 1H bars. Entries and exits execute at following bar open; no same-bar fill. A new entry is suppressed until the scheduled exit signal. Position may cross a session or weekend and is marked to market each complete month.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Compare median complete-calendar-month and calendar-year outcomes across all eligible stocks to buy-and-hold; inspect trade frequency and cost sensitivity. Research only; no paper promotion without signal parity and corporate-action review.",
+  "run_command": "python3 -m pipeline.run experiments/hourly-scalping/session-vwap-atr-reversion",
+  "limitations": [
+    "This is a 1H short-horizon strategy, not guaranteed flat at the end of each session; exits can execute next day.",
+    "Hourly OHLC bars cannot reconstruct intrabar execution or order-book spread.",
+    "Model uses 15 bps per side but does not separately model actual spread, borrow, dividends, lots or tax."
+  ]
+}

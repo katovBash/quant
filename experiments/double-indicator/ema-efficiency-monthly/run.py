@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.ema.core.scan_ema import ema
 from src.research.indicator_library import crosses
-from src.research.monthly_efficiency import calendar_year_windows, efficiency_ratio, monthly_windows
+from src.research.monthly_efficiency import calendar_year_windows, efficiency_ratio, continuous_monthly_windows
 from src.research.standalone_grid import UNIVERSE, load_bars
 from src.ema.core.research_ema_combinations import simulate
 
@@ -46,9 +46,11 @@ def main() -> None:
                     gate = [math.isfinite(value) and value >= threshold for value in values]
                     settings.append((f"er_{length}_{threshold:g}", length, threshold, gate))
             for name, length, threshold, gate in settings:
-                full = simulate(bars, signals, gate, gate, ticks[symbol], "2024-01-01")
-                windows = monthly_windows(bars, signals, gate, ticks[symbol],
-                                          2024, protocol["split"])
+                curve, trades = [], []
+                full = simulate(bars, signals, gate, gate, ticks[symbol], "2024-01-01",
+                                equity_curve=curve, trade_log=trades)
+                windows = continuous_monthly_windows(bars, curve, trades,
+                                                     2024, protocol["split"])
                 years = calendar_year_windows(bars, signals, gate, ticks[symbol], 2024)
                 month_rows.extend({"symbol": symbol, "timeframe": "1H", "variant": name,
                                    **item} for item in windows["all"])
@@ -58,7 +60,9 @@ def main() -> None:
                 late = [item for item in windows["all"] if item["sample"] != "train"]
                 row = {"symbol": symbol, "timeframe": "1H", "variant": name,
                        "lookback": length or "", "threshold": threshold if threshold is not None else "",
-                       "net_return_pct": full["return_pct"], "closed_trades": full["closed_trades"],
+                       "net_return_pct": full["return_pct"], "pnl_rub": full["pnl_rub"],
+                       "closed_trades": full["closed_trades"],
+                       "winning_trades": full["winning_trades"],
                        "profit_factor": full["profit_factor"],
                        "max_drawdown_pct": full["max_drawdown_pct"],
                        "months": windows["count"],

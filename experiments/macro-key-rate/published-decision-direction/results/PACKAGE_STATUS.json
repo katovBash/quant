@@ -1,0 +1,20 @@
+{
+  "experiment": "experiments/macro-key-rate/published-decision-direction",
+  "monthly_coverage": "FULL_GRID",
+  "status": "CLOSED",
+  "paper_gate": "EXPERIMENT_CLOSED",
+  "paper_gate_warnings": [
+    "Все 12 заранее фиксированных правил торговли после решения ЦБ имеют отрицательную медианную среднемесячную доходность по 263 акциям после расходов: от -0.02% до -0.06%. Даже лучший по отдельным датам inverse_3 даёт лишь +0.0034% медианы счёта на 13 датах изменений ставки, при -0.02% медианы среднемесячной доходности. Очевидно слабую торговую гипотезу закрываем до paper."
+  ],
+  "missing_required_evidence": [],
+  "validation_status": "REVIEW_ONLY",
+  "paper_review_status": "CLOSED",
+  "pine": "AVAILABLE_FOR_REVIEW",
+  "files": {
+    "manifest.json": "experiments/macro-key-rate/published-decision-direction/results/manifest.json",
+    "validation.json": "experiments/macro-key-rate/published-decision-direction/results/validation.json",
+    "REPORT.md": "experiments/macro-key-rate/published-decision-direction/results/REPORT.md",
+    "PAPER_REVIEW.md": "experiments/macro-key-rate/published-decision-direction/results/PAPER_REVIEW.md",
+    "PINE_STATUS.json": "experiments/macro-key-rate/published-decision-direction/results/PINE_STATUS.json"
+  }
+}

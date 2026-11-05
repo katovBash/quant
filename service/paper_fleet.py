@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 import fcntl
-import importlib.util
 import json
 import os
 import time
@@ -14,72 +13,13 @@ from datetime import datetime
 from pathlib import Path
 
 from papertrading.setup import load_setup
+from guardrails.lifecycle import publish as publish_lifecycle
 from service.data_sources.moex import BASE, HTTP_BASE, MOSCOW, MarketDataUnavailable, fetch_candles
 from service.paper_runner import LIVE_CANDLE_CACHE, load_strategy, run_once, save_state
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SETUPS = ROOT / "papertrading/setups/fleet"
 DEFAULT_OUTPUT = ROOT / "papertrading/live"
-DEFAULT_UNIVERSE = ROOT / "data/moex_scan/universe_2026-10-30.json"
-
-
-def discover_new_setups(setup_dir: Path, strategies_dir: Path,
-                        universe_path: Path = DEFAULT_UNIVERSE) -> list[Path]:
-    """Create frozen accounts for the top ranked stocks of each fixed rule."""
-    existing = set()
-    for path in setup_dir.glob("*.json"):
-        setup = load_setup(path)
-        existing.add((setup["strategy"], setup["symbol"], setup["timeframe"]))
-    universe = json.loads(universe_path.read_text(encoding="utf-8"))
-    lots = {row["SECID"]: row["LOTSIZE"] for row in universe
-            if isinstance(row.get("LOTSIZE"), int) and row["LOTSIZE"] > 0}
-    created = []
-    for path in sorted(strategies_dir.glob("*/strategy.py")):
-        if not (path.parent / "README.md").exists() or not (path.parent / "strategy.pine").exists():
-            continue
-        spec = importlib.util.spec_from_file_location("paper_auto_" + path.parent.name.replace("-", "_"), path)
-        if spec is None or spec.loader is None:
-            continue
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        strategy_id = getattr(module, "STRATEGY_ID", None)
-        timeframe = getattr(module, "TIMEFRAME", None)
-        selection_path = path.parent / "selection.json"
-        ranked = json.loads(selection_path.read_text(encoding="utf-8")) if selection_path.exists() else None
-        if ranked and (ranked.get("id") != strategy_id or ranked.get("timeframe") != timeframe):
-            raise ValueError(f"selection does not match frozen rule: {selection_path}")
-        symbols = ([row["symbol"] for row in ranked["top10"]]
-                   if ranked and ranked["status"] == "HISTORICAL_RANKING" else
-                   getattr(module, "PAPER_SYMBOLS", None))
-        if symbols is None:
-            symbol = getattr(module, "SYMBOL", None)
-            symbols = [symbol] if symbol else []
-        if not strategy_id or timeframe not in ("1H", "4H", "1D") or not symbols or not callable(getattr(module, "signal", None)) and not callable(getattr(module, "target_side", None)):
-            continue
-        if not isinstance(symbols, (list, tuple)) or any(not isinstance(s, str) or not s.isalnum() or not s.isupper() for s in symbols):
-            continue
-        for symbol in symbols:
-            key = (strategy_id, symbol, timeframe)
-            if key in existing:
-                continue
-            lot = lots.get(symbol)
-            if not lot:
-                print(json.dumps({"status": "SETUP_SKIPPED", "strategy": strategy_id,
-                                  "symbol": symbol, "reason": "lot size absent from universe snapshot"},
-                                 ensure_ascii=False), flush=True)
-                continue
-            slug = f"auto-{symbol.lower()}-{path.parent.name}.json"
-            target = setup_dir / slug
-            setup = {"account_id": f"{symbol}-{path.parent.name}".upper(),
-                     "symbol": symbol, "strategy": strategy_id, "timeframe": timeframe,
-                     "initial_capital_rub": 1_000_000, "position_weight_pct": 10,
-                     "mode": "long_short", "lot_size_shares": lot, "fee_bps": 5,
-                     "slip_bps": 10, "borrow_bps_annual": 0, "stop_loss_pct": None}
-            target.write_text(json.dumps(setup, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-            load_setup(target)
-            existing.add(key)
-            created.append(target)
-    return created
 
 
 def accounts(setup_dir: Path, output: Path) -> list[argparse.Namespace]:
@@ -203,9 +143,6 @@ def main() -> None:
     args = parser.parse_args()
     if args.poll_seconds < 1:
         parser.error("poll seconds must be positive")
-    strategies_dir = ROOT / "strategies"
-    for path in discover_new_setups(args.setups, strategies_dir):
-        print(json.dumps({"status": "SETUP_ADDED", "path": str(path)}, ensure_ascii=False), flush=True)
     configs = accounts(args.setups, args.output)
     args.output.mkdir(parents=True, exist_ok=True)
     with (args.output / "fleet.lock").open("a+") as lock:
@@ -217,14 +154,17 @@ def main() -> None:
         try:
             while True:
                 try:
-                    for path in discover_new_setups(args.setups, strategies_dir):
-                        print(json.dumps({"status": "SETUP_ADDED", "path": str(path)}, ensure_ascii=False), flush=True)
                     configs = accounts(args.setups, args.output)
                 except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as exc:
                     print(json.dumps({"status": "SETUP_ERROR", "error": str(exc)}, ensure_ascii=False), flush=True)
                 now = datetime.now(MOSCOW)
                 rows = poll(configs, now, request_log=args.output / "fleet_requests.ndjson")
                 save_state(args.output / "fleet_status.json", {"observed_at": now.isoformat(), "accounts": rows})
+                try:
+                    publish_lifecycle(args.output, args.setups, ROOT / "strategies")
+                except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as exc:
+                    print(json.dumps({"status": "LIFECYCLE_ERROR", "error": str(exc)},
+                                     ensure_ascii=False), flush=True)
                 for row in rows:
                     print(json.dumps(row, ensure_ascii=False), flush=True)
                 if args.once:

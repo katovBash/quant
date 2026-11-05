@@ -1,0 +1,171 @@
+{
+  "frozen_on": "2026-11-04",
+  "hypothesis": "Nearby breakout and exit windows may reduce whipsaw while retaining monthly returns; test the full grid, not only the best historical ticker.",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "corporate_actions": {
+    "status": "partial",
+    "cash_dividend_snapshot": "data/dividends/sfin_2026-11-04.json",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "sensitivity_report": "experiments/turtle/period-grid/results/corporate_sensitivity/REPORT.md",
+    "note": "Only SFIN cash dividends were verified for a separate sensitivity run. Other symbols and event types remain unverified."
+  },
+  "universe": "Every TQBR SECID in data/candles/moex_scan/universe_2026-10-30.json with evaluable 1D and 1H candles; the same non-return-selected symbols on all three frames",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D",
+      "1H"
+    ]
+  },
+  "signal_timeframes": [
+    "1D",
+    "1H",
+    "4H"
+  ],
+  "unavailable_timeframes": [
+    "15M",
+    "30M"
+  ],
+  "entry_lengths": [
+    15,
+    20,
+    30,
+    40,
+    55,
+    70
+  ],
+  "exit_lengths": [
+    5,
+    10,
+    20,
+    30
+  ],
+  "grid_constraint": "exit_length < entry_length; 19 Turtle pairs plus baseline",
+  "expected_variants": [
+    "baseline",
+    "dennis_turtle_15_10",
+    "dennis_turtle_15_5",
+    "dennis_turtle_20_10",
+    "dennis_turtle_20_5",
+    "dennis_turtle_30_10",
+    "dennis_turtle_30_20",
+    "dennis_turtle_30_5",
+    "dennis_turtle_40_10",
+    "dennis_turtle_40_20",
+    "dennis_turtle_40_30",
+    "dennis_turtle_40_5",
+    "dennis_turtle_55_10",
+    "dennis_turtle_55_20",
+    "dennis_turtle_55_30",
+    "dennis_turtle_55_5",
+    "dennis_turtle_70_10",
+    "dennis_turtle_70_20",
+    "dennis_turtle_70_30",
+    "dennis_turtle_70_5"
+  ],
+  "reference_variants": [
+    "dennis_turtle_20_10",
+    "dennis_turtle_55_20"
+  ],
+  "baseline": "buy and hold 25% of each independent 1m RUB account from first evaluable open",
+  "signal_rule": "Close-confirmed breakout above prior entry_length highs / below prior entry_length lows; exit long below prior exit_length lows / short above prior exit_length highs; all windows exclude current bar and fill at next open",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "commission_bps_per_side": 5,
+  "slippage_equivalent_bps_per_side": 10,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, corporate actions, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "validation_periods": [
+    "2024",
+    "2025",
+    "2026_ytd",
+    "last_1m",
+    "last_3m",
+    "last_6m",
+    "last_12m"
+  ],
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "monthly_regime": "ex post only: monthly market return >5% growth, <-5% decline, else sideways if high-low range <=10% of first open, otherwise volatile_mixed",
+  "selection": "retain all outcomes and compare neighboring windows, monthly PnL and control; no automatic approval or paper-trading switch",
+  "walk_forward": {
+    "folds": [
+      {
+        "name": "2025",
+        "train_start": "2024-01-01",
+        "train_end": "2025-01-01",
+        "test_start": "2025-01-01",
+        "test_end": "2026-01-01",
+        "train_months": 12,
+        "test_months": 12
+      },
+      {
+        "name": "2026_ytd",
+        "train_start": "2024-01-01",
+        "train_end": "2026-01-01",
+        "test_start": "2026-01-01",
+        "test_end": "2026-10-01",
+        "train_months": 24,
+        "test_months": 9
+      }
+    ],
+    "selector": "For each timeframe choose one global parameter pair on every symbol with complete training months; rank by median per-symbol profitable-month share, then median per-symbol mean monthly return, then median per-symbol worst month PnL. Test on available complete test months without retuning.",
+    "neighbor_rule": "Entry or exit length adjacent in the ordered grid while other length stays fixed and exit < entry; report train and test differences for every neighbor.",
+    "cost_stress_bps_per_side": [
+      5,
+      15,
+      25
+    ],
+    "stress_scope": "same complete-history symbols; all unique fold-selected pairs per timeframe plus 20/10 and 55/20",
+    "future_blind_holdout": "new completed bars after 2026-11-04 only; pending, not represented by 2026_ytd"
+  },
+  "limitations": [
+    "intraday windows count bars, not trading days",
+    "25% position size differs from current 10% paper setup",
+    "historical fills use next open while paper runner fills at the next observed completed close",
+    "transaction slippage modeled as cash-cost equivalent, not fill-price shift",
+    "no exchange lots or short borrow",
+    "dividends and corporate actions not modeled",
+    "historical sample already inspected"
+  ],
+  "run_command": "python3 experiments/turtle/period-grid/run.py",
+  "indicator_id": "turtle",
+  "run_id": "period-grid",
+  "parameter_grid": {
+    "axes": {
+      "entry": {
+        "values": [
+          15,
+          20,
+          30,
+          40,
+          55,
+          70
+        ]
+      },
+      "exit": {
+        "values": [
+          5,
+          10,
+          20,
+          30
+        ]
+      }
+    },
+    "less_than": [
+      [
+        "exit",
+        "entry"
+      ]
+    ],
+    "variant_template": "dennis_turtle_{entry}_{exit}",
+    "include_baseline": true,
+    "max_combinations": 24
+  },
+  "parameter_grid_provenance": "reconstructed_from_original_protocol_axes"
+}

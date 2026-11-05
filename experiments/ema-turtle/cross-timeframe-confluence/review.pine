@@ -1,0 +1,72 @@
+//@version=6
+// Visual review only. Python uses MOEX 4H buckets built from cached 1H bars;
+// TradingView session aggregation and exact next-open fills have not been reconciled.
+strategy("EMA25/0.5 ATR + Turtle30/20 · cross TF · REVIEW", overlay = true,
+     initial_capital = 1000000, currency = currency.RUB, pyramiding = 0,
+     commission_type = strategy.commission.percent, commission_value = 0.15)
+
+mode = input.string("Turtle entry / EMA state", "Combination", options =
+     ["EMA only", "Turtle only", "Turtle entry / EMA state",
+      "EMA entry / Turtle state", "Both events within 3 bars"])
+sourceMode = input.string("Higher", "EMA source", options = ["Same", "Higher"])
+emaTf = timeframe.isintraday and timeframe.multiplier == 60 ? "240" : "D"
+emaSignal() =>
+    level = ta.ema(close, 25)
+    volatility = ta.sma(ta.tr(true), 14)
+    width = 0.5 * volatility
+    up = low >= level - width and low <= level + width and close > level
+    down = high >= level - width and high <= level + width and close < level
+    up and not up[1] and not down ? 1 : down and not down[1] and not up ? -1 : 0
+
+sameEMA = emaSignal()
+// Previous source candle only: historical higher-TF signal never sees an unfinished candle.
+confirmedEMA = request.security(syminfo.tickerid, emaTf, emaSignal()[1],
+     gaps = barmerge.gaps_off, lookahead = barmerge.lookahead_on)
+newHigher = ta.change(time(emaTf)) != 0
+emaEvent = sourceMode == "Same" ? sameEMA : newHigher ? confirmedEMA : 0
+emaLevel = sourceMode == "Same" ? ta.ema(close, 25) :
+     request.security(syminfo.tickerid, emaTf, ta.ema(close, 25)[1],
+       gaps = barmerge.gaps_off, lookahead = barmerge.lookahead_on)
+
+entryHigh = ta.highest(high[1], 30)
+entryLow = ta.lowest(low[1], 30)
+exitHigh = ta.highest(high[1], 20)
+exitLow = ta.lowest(low[1], 20)
+turtleEvent = close > entryHigh ? 1 : close < entryLow ? -1 : 0
+turtleExit = close < exitLow ? -1 : close > exitHigh ? 1 : 0
+
+var int emaState = 0
+var int turtleState = 0
+var int lastEmaUp = -100000
+var int lastEmaDown = -100000
+if emaEvent != 0
+    emaState := emaEvent
+    if emaEvent > 0
+        lastEmaUp := bar_index
+    else
+        lastEmaDown := bar_index
+if turtleEvent != 0
+    turtleState := turtleEvent
+
+int candidate = mode == "EMA only" or mode == "EMA entry / Turtle state" ? emaEvent : turtleEvent
+bool allowLong = mode == "EMA only" or mode == "Turtle only" or
+     (mode == "Turtle entry / EMA state" and emaState > 0) or
+     (mode == "EMA entry / Turtle state" and turtleState > 0) or
+     (mode == "Both events within 3 bars" and bar_index - lastEmaUp <= 3)
+bool allowShort = mode == "EMA only" or mode == "Turtle only" or
+     (mode == "Turtle entry / EMA state" and emaState < 0) or
+     (mode == "EMA entry / Turtle state" and turtleState < 0) or
+     (mode == "Both events within 3 bars" and bar_index - lastEmaDown <= 3)
+if strategy.position_size > 0 and (candidate < 0 or (mode != "EMA only" and mode != "EMA entry / Turtle state" and turtleExit < 0))
+    strategy.close("Long")
+if strategy.position_size < 0 and (candidate > 0 or (mode != "EMA only" and mode != "EMA entry / Turtle state" and turtleExit > 0))
+    strategy.close("Short")
+shares = math.floor(strategy.equity * 0.25 / close)
+if candidate > 0 and allowLong and shares >= 1
+    strategy.entry("Long", strategy.long, qty = shares)
+if candidate < 0 and allowShort and shares >= 1
+    strategy.entry("Short", strategy.short, qty = shares)
+
+plot(emaLevel, "Confirmed EMA 25", color = color.orange)
+plot(entryHigh, "Turtle upper entry", color = color.new(color.teal, 40))
+plot(entryLow, "Turtle lower entry", color = color.new(color.red, 40))

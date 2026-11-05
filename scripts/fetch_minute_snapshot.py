@@ -27,15 +27,15 @@ def main() -> None:
     args = parser.parse_args()
     if args.workers < 1 or args.workers > 8:
         parser.error("workers must be between 1 and 8")
-    universe = json.loads((ROOT / f"data/moex_scan/universe_{SNAPSHOT_END}.json").read_text())
+    universe = json.loads((ROOT / f"data/candles/moex_scan/universe_{SNAPSHOT_END}.json").read_text())
     symbols = [item["SECID"] for item in universe if item.get("SECTYPE") in ("1", "2")]
     if args.symbols:
         unknown = sorted(set(args.symbols) - set(symbols))
         if unknown:
             parser.error(f"unknown TQBR tickers: {', '.join(unknown)}")
         symbols = [symbol for symbol in symbols if symbol in args.symbols]
-    cache = ROOT / "data/moex_scan"
-    output = ROOT / "data/moex_scan/minute_fetch_progress.csv"
+    cache = ROOT / "data/candles/moex_scan"
+    output = ROOT / "data/candles/moex_scan/minute_fetch_progress.csv"
     if not output.exists():
         output.write_text("symbol,status,bars,seconds,detail\n", encoding="utf-8")
 

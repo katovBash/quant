@@ -1,0 +1,21 @@
+{
+  "status": "CLOSED",
+  "decided_on": "2026-11-04",
+  "decided_by": "user_standing_instruction",
+  "scope": "no_further_paper_promotion_of_current_trading_variants",
+  "reason": "Все 12 заранее фиксированных правил торговли после решения ЦБ имеют отрицательную медианную среднемесячную доходность по 263 акциям после расходов: от -0.02% до -0.06%. Даже лучший по отдельным датам inverse_3 даёт лишь +0.0034% медианы счёта на 13 датах изменений ставки, при -0.02% медианы среднемесячной доходности. Очевидно слабую торговую гипотезу закрываем до paper.",
+  "evidence": {
+    "stocks": 263,
+    "scheduled_decision_dates": 23,
+    "hike_dates": 3,
+    "cut_dates": 10,
+    "hold_dates": 10,
+    "tested_trading_variants": 12,
+    "median_mean_month_return_pct_range": [-0.06, -0.02],
+    "inverse_3_dates": 13,
+    "inverse_3_positive_date_medians": 7,
+    "inverse_3_median_of_date_medians_account_pct": 0.003384,
+    "inverse_3_median_mean_month_return_pct": -0.02
+  },
+  "note": "Это закрытие протестированных отображений решения в long/short, а не доказательство отсутствия реакции на решение или непригодности всех возможных новостных стратегий. У нас нет исторического ряда ожиданий рынка до публикации."
+}

@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/zigzag/confirmed-triangle-breakout",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "full_run",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "Качество свечей выбранных акций не подтверждено"
+  ],
+  "review": "experiments/zigzag/confirmed-triangle-breakout/results/paper_review.json",
+  "rule": {
+    "timeframe": "1H",
+    "variant": "zzc_5_2_25",
+    "symbols": 249,
+    "median_train_positive_share_pct": 46.67,
+    "median_train_mean_month_return_pct": -0.02,
+    "median_train_worst_month_pnl_rub": -46795.58,
+    "median_late_positive_share_pct": 44.44,
+    "median_late_mean_month_return_pct": -0.04
+  },
+  "stocks": [
+    "AFLT",
+    "AFKS",
+    "TATN",
+    "UGLD",
+    "SVCB",
+    "ASTR",
+    "MSNG",
+    "MTLR",
+    "SNGSP",
+    "VSEH"
+  ]
+}

@@ -266,7 +266,7 @@ def main():
     p.add_argument("--fee-bps", type=float, default=5)
     p.add_argument("--slip-bps", type=float, default=0,
                    help="extra slippage beyond the one-tick Pine setting")
-    p.add_argument("--cache", type=Path, default=Path("data/moex_scan"))
+    p.add_argument("--cache", type=Path, default=Path("data/candles/moex_scan"))
     p.add_argument("--out", type=Path, default=Path("experiments/.history/legacy-ema/12-33-cross/execute/research/daily_weekly_monthly"))
     args = p.parse_args()
     all_securities = universe()

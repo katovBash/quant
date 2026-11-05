@@ -26,7 +26,7 @@ SOURCE = "https://mkb-broker.ru/lists/depository-news/dividendy_v_denezhnoy_form
 
 def main() -> None:
     bars = load_bars("SFIN", "1H")
-    universe = json.loads((ROOT / "data/moex_scan/universe_2026-10-30.json").read_text())
+    universe = json.loads((ROOT / "data/candles/moex_scan/universe_2026-10-30.json").read_text())
     entry = next(item for item in universe if item["SECID"] == "SFIN")
     tick = float(entry.get("MINSTEP") or 0)
     original = {(row["variant"], row["mode"]): row for row in csv.DictReader(

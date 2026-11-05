@@ -4,6 +4,11 @@
   "snapshot": "2026-10-30",
   "status": "HISTORICAL_RANKING",
   "cost_status": "gross_before_costs",
+  "research_update_file": "experiments/turtle/period-grid/results/current_turtle_55_20.json",
+  "history_sources": {
+    "before": {"all_variants_csv": "experiments/three-trader-rules/results/all_variants.csv", "monthly_csv": "experiments/three-trader-rules/results/monthly_returns.csv", "variant": "dennis_turtle_55_20", "timeframe": "1H"},
+    "after": {"all_variants_csv": "experiments/turtle/period-grid/results/all_variants.csv", "monthly_csv": "experiments/turtle/period-grid/results/monthly_returns.csv", "variant": "dennis_turtle_55_20", "timeframe": "1H"}
+  },
   "selection_rule": "33 full months, >=100 closed trades, positive full-period PnL; rank by positive months, then full-period PnL",
   "top10": [
     {

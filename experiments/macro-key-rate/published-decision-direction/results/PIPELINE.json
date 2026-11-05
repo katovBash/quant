@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/macro-key-rate/published-decision-direction",
+  "stage": "CLOSED_RESEARCH",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_CLOSED",
+  "warnings": [
+    "Все 12 заранее фиксированных правил торговли после решения ЦБ имеют отрицательную медианную среднемесячную доходность по 263 акциям после расходов: от -0.02% до -0.06%. Даже лучший по отдельным датам inverse_3 даёт лишь +0.0034% медианы счёта на 13 датах изменений ставки, при -0.02% медианы среднемесячной доходности. Очевидно слабую торговую гипотезу закрываем до paper."
+  ],
+  "review": "experiments/macro-key-rate/published-decision-direction/results/paper_review.json",
+  "rule": {
+    "timeframe": "1H",
+    "variant": "hold_long_6",
+    "symbols": 249,
+    "median_train_positive_share_pct": 20.83,
+    "median_train_mean_month_return_pct": -0.04,
+    "median_train_worst_month_pnl_rub": -8634.35,
+    "median_late_positive_share_pct": 22.22,
+    "median_late_mean_month_return_pct": 0.01
+  },
+  "stocks": [
+    "MDMG",
+    "VSEH",
+    "LENT",
+    "SFIN",
+    "RNFT",
+    "SVCB",
+    "YDEX",
+    "SBER",
+    "ROSN",
+    "UGLD"
+  ]
+}

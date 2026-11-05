@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/hourly-scalping/session-vwap-atr-reversion",
+  "stage": "CLOSED_RESEARCH",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_CLOSED",
+  "warnings": [
+    "Все 9 заранее объявленных настроек 1H session-VWAP mean reversion имеют отрицательную медианную месячную доходность по 263 акциям после 15 б.п. расходов на сторону. Лучший по автоматическому ранжированию vwap_1.5_4 показывает лишь 28,1% прибыльных месяцев по медиане акций. В полных календарных 2024 и 2025 годах медиана годовой доходности -5,83% и -5,49%; за январь–сентябрь 2026 -8,33%. При 30 б.п. на сторону убытки больше. Для paper trading этот вариант не рекомендован."
+  ],
+  "review": "experiments/hourly-scalping/session-vwap-atr-reversion/results/paper_review.json",
+  "rule": {
+    "timeframe": "1H",
+    "variant": "vwap_1.5_4",
+    "symbols": 249,
+    "median_train_positive_share_pct": 33.33,
+    "median_train_mean_month_return_pct": -0.45,
+    "median_train_worst_month_pnl_rub": -28829.26,
+    "median_late_positive_share_pct": 22.22,
+    "median_late_mean_month_return_pct": -0.95
+  },
+  "stocks": [
+    "CNRU",
+    "UGLD",
+    "LENT",
+    "SPBE",
+    "BSPB",
+    "IRAO",
+    "SVCB",
+    "SGZH",
+    "VSEH",
+    "BELU"
+  ]
+}

@@ -11,7 +11,7 @@ from pathlib import Path
 from src.ema.core.scan_ema import MODES, backtest
 
 ROOT = Path("experiments/.history/legacy-ema/12-33-cross/execute/research")
-CACHE = Path("data/moex_scan")
+CACHE = Path("data/candles/moex_scan")
 YEARS = (2023, 2024, 2025, 2026)
 
 

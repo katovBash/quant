@@ -18,8 +18,8 @@ def load(name, path):
 class TurtlePeriodGridTests(unittest.TestCase):
     def test_matches_original_and_excludes_future_bar(self):
         original = load("three_trader_signals_ref", ROOT / "experiments/three-trader-rules/signals.py")
-        grid = load("turtle_grid_signals", ROOT / "experiments/turtle-period-grid/signals.py")
-        bars = json.loads((ROOT / "data/moex_scan/SBER_60_2024-01-01_2026-10-30.json").read_text())[:400]
+        grid = load("turtle_grid_signals", ROOT / "experiments/turtle/period-grid/signals.py")
+        bars = json.loads((ROOT / "data/candles/moex_scan/SBER_60_2024-01-01_2026-10-30.json").read_text())[:400]
         extrema = grid.prior_extrema(bars, {5, 10, 20, 55, 70})
         for entry, exit_length in ((20, 10), (55, 20), (70, 5)):
             self.assertEqual(grid.turtle_from_extrema(bars, entry, exit_length, extrema),

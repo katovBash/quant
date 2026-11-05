@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/single-indicator/htf-level-breakouts",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "История посчитана до расходов"
+  ],
+  "review": "experiments/single-indicator/htf-level-breakouts/results/paper_review.json",
+  "rule": {
+    "timeframe": "1H",
+    "variant": "1D_n20_buffer0_immediate",
+    "symbols": 100,
+    "median_train_positive_share_pct": 54.17,
+    "median_train_mean_month_return_pct": 0.23,
+    "median_train_worst_month_pnl_rub": -46004.99,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.55
+  },
+  "stocks": [
+    "VKCO",
+    "NLMK",
+    "VTBR",
+    "SMLT",
+    "MGNT",
+    "AFLT",
+    "CHMF",
+    "ALRS",
+    "SNGSP",
+    "AFKS"
+  ]
+}

@@ -1,9 +1,41 @@
 {
   "source_snapshot": "2026-10-30",
   "rules": [
-    {"id": "line-retest-4h-wing1-zone05-slope", "label": "Касание линии 4H · wing 1 · зона 0,5 ATR · EMA25", "experiment": "ema25-higher-timeframe-lines", "timeframe": "4H"},
-    {"id": "line-retest-4h-wing1-zone1-slope", "label": "Касание линии 4H · wing 1 · зона 1 ATR · EMA25", "experiment": "ema25-higher-timeframe-lines", "timeframe": "4H"},
-    {"id": "line-retest-4h-wing2-zone1-slope", "label": "Касание линии 4H · wing 2 · зона 1 ATR · EMA25", "experiment": "ema25-higher-timeframe-lines", "timeframe": "4H"},
-    {"id": "dennis-turtle-55-20-1h", "label": "Turtle 55/20 · 1H", "experiment": "three-trader-rules", "timeframe": "1H"}
+    {
+      "id": "line-retest-4h-wing1-zone05-slope",
+      "label": "Касание линии 4H · wing 1 · зона 0,5 ATR · EMA25",
+      "experiment": "ema25-higher-timeframe-lines",
+      "timeframe": "4H"
+    },
+    {
+      "id": "line-retest-4h-wing1-zone1-slope",
+      "label": "Касание линии 4H · wing 1 · зона 1 ATR · EMA25",
+      "experiment": "ema25-higher-timeframe-lines",
+      "timeframe": "4H"
+    },
+    {
+      "id": "line-retest-4h-wing2-zone1-slope",
+      "label": "Касание линии 4H · wing 2 · зона 1 ATR · EMA25",
+      "experiment": "ema25-higher-timeframe-lines",
+      "timeframe": "4H"
+    },
+    {
+      "id": "dennis-turtle-55-20-1h",
+      "label": "Turtle 55/20 · 1H",
+      "experiment": "three-trader-rules",
+      "timeframe": "1H"
+    },
+    {
+      "id": "dennis-turtle-30-20-1d",
+      "label": "Turtle 30/20 · 1D",
+      "experiment": "turtle/period-grid",
+      "timeframe": "1D"
+    },
+    {
+      "id": "zigzag-confirmed-breakout-5-6-1d",
+      "label": "ZigZag · пробой уровня 5/6 · 1D",
+      "experiment": "confirmed-level-breakout",
+      "timeframe": "1D"
+    }
   ]
 }

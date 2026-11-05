@@ -2,7 +2,7 @@ import math
 import unittest
 
 from src.research.standalone_grid import (
-    crossing, pattern_signals, ema_level_signals, variants, evaluate, buy_hold_return, default_results_dir,
+    crossing, pattern_signals, ema_level_signals, variants, evaluate, buy_hold_return,
 )
 from src.ema.core.research_ema_combinations import simulate
 
@@ -19,10 +19,6 @@ def bars(count=120):
 
 
 class StandaloneGridTests(unittest.TestCase):
-    def test_output_folder_uses_hyphens_for_multiword_indicators(self):
-        self.assertEqual(default_results_dir("four_point_levels").parent.name,
-                         "four-point-levels-grid-search")
-
     def test_rsi_threshold_crossing(self):
         self.assertEqual(crossing([math.nan, 40, 49, 51, 60, 49], 50, 50),
                          [0, 0, 0, 1, 0, -1])

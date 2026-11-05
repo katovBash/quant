@@ -1,0 +1,56 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "confirmed-level-breakout",
+  "method_id": "zigzag-confirmed-level-breakout",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-04",
+  "hypothesis": "Breakout of the latest causally confirmed ZigZag high or low may select fewer, more meaningful swings than raw local extrema and improve monthly outcomes over the same-stock buy-and-hold control.",
+  "source_url": "https://www.tradingview.com/support/solutions/43000591664-zigzag-indicator/",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": ["1D"]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": ["1D", "1H", "4H"],
+  "parameter_grid": {
+    "axes": {
+      "wing": {"values": [2, 3, 5]},
+      "deviation_pct": {"values": [2, 4, 6]}
+    },
+    "variant_template": "zigzag_{wing}_{deviation_pct}",
+    "include_baseline": true,
+    "max_combinations": 10
+  },
+  "expected_variants": [
+    "baseline", "zigzag_2_2", "zigzag_2_4", "zigzag_2_6",
+    "zigzag_3_2", "zigzag_3_4", "zigzag_3_6",
+    "zigzag_5_2", "zigzag_5_4", "zigzag_5_6"
+  ],
+  "parameter_rationale": "Pivot confirmation windows of 2, 3 and 5 bars and reversal thresholds of 2%, 4% and 6% span short to medium swings. The full 3x3 grid was fixed before results.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on the same stock and timeframe, filled next open",
+  "signal_rule": "A pivot at bar p becomes known only at close of p+wing. Alternating opposite pivots require absolute reversal >= deviation_pct. A more extreme same-side pivot may replace the latest level prospectively. On each completed bar, before accepting pivots confirmed on that bar, enter long when close crosses above the latest confirmed pivot high or short below the latest confirmed pivot low. Fill next open. Opposite level crossing closes/reverses. No projected pivots or retroactive signals.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Research ranking only; no automatic trading approval",
+  "run_command": "python3 -m pipeline.run experiments/zigzag/confirmed-level-breakout",
+  "limitations": [
+    "A confirmed pivot is drawn at its historical bar but cannot be traded until wing later bars have closed",
+    "Latest ZigZag leg is unstable and is never used as an entry level",
+    "Corporate-action coverage is incomplete; results are for research only"
+  ]
+}

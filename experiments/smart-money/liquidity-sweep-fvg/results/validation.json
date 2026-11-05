@@ -1,0 +1,257 @@
+{
+  "structural_ok": true,
+  "policy_version": 1,
+  "status": "REVIEW_ONLY",
+  "coverage": {
+    "ok": true,
+    "rows": 17894,
+    "duplicates": [],
+    "timeframes": {
+      "1H": {
+        "symbols": 263,
+        "min_required": 0,
+        "variants": 23,
+        "incomplete_symbols": {},
+        "ok": true
+      },
+      "4H": {
+        "symbols": 263,
+        "min_required": 0,
+        "variants": 23,
+        "incomplete_symbols": {},
+        "ok": true
+      },
+      "1D": {
+        "symbols": 252,
+        "min_required": 0,
+        "variants": 23,
+        "incomplete_symbols": {},
+        "ok": true
+      }
+    },
+    "pairs_with_at_least_100_closed_trades": 3782,
+    "pairs_below_100_closed_trades": 14112,
+    "monthly": {
+      "rows": 552690,
+      "pairs": 17894,
+      "missing_or_short": {},
+      "duplicates": [],
+      "min_periods_available": 4,
+      "ok": true
+    }
+  },
+  "parameter_grid": {
+    "expected": 23,
+    "actual": 23,
+    "missing": [],
+    "unexpected": [],
+    "ok": true
+  },
+  "combination": {
+    "applicable": true,
+    "scope": "full_factorial",
+    "components": 2,
+    "controls": [
+      "fvg_0",
+      "fvg_0.2",
+      "sweep_10_0",
+      "sweep_10_0.25",
+      "sweep_20_0",
+      "sweep_20_0.25"
+    ],
+    "combined_variants": [
+      "smc_10_0.25_0.2_1",
+      "smc_10_0.25_0.2_3",
+      "smc_10_0.25_0_1",
+      "smc_10_0.25_0_3",
+      "smc_10_0_0.2_1",
+      "smc_10_0_0.2_3",
+      "smc_10_0_0_1",
+      "smc_10_0_0_3",
+      "smc_20_0.25_0.2_1",
+      "smc_20_0.25_0.2_3",
+      "smc_20_0.25_0_1",
+      "smc_20_0.25_0_3",
+      "smc_20_0_0.2_1",
+      "smc_20_0_0.2_3",
+      "smc_20_0_0_1",
+      "smc_20_0_0_3"
+    ],
+    "observed_pairs": 778,
+    "missing_variant_pairs": 0,
+    "missing_examples": [],
+    "undeclared_variants": [],
+    "parameters_declared": true,
+    "factorial_axes_missing": [],
+    "ok": true
+  },
+  "universe": {
+    "eligible_symbols": 505,
+    "covered_pairs": 1515,
+    "missing_pairs": [],
+    "ok": true
+  },
+  "periods": {
+    "pairs": 17894,
+    "with_2_full_months": 17894,
+    "with_2_calendar_years": 17342,
+    "with_train_and_late": 17342,
+    "with_last_1m": 17894,
+    "with_last_3m": 17894,
+    "with_last_6m": 17250,
+    "with_last_9m": 17204,
+    "with_last_12m": 16997
+  },
+  "monthly_validation": {
+    "rows": 552690,
+    "pairs": 17894,
+    "duplicate_month_rows": 0,
+    "invalid_calendar_rows": 0,
+    "invalid_equity_rows": 0,
+    "return_mismatch_rows": 0,
+    "pnl_mismatch_rows": 0,
+    "invalid_trade_rows": 0,
+    "gap_pairs": 759,
+    "missing_months_inside_history": 4761,
+    "affected_symbol_timeframes": 33,
+    "unique_missing_symbol_months": 207,
+    "invalid_examples": [],
+    "gap_examples": [
+      {
+        "symbol": "BLNG",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 4,
+        "first_missing": [
+          "2024-08",
+          "2024-09",
+          "2024-10",
+          "2024-11"
+        ]
+      },
+      {
+        "symbol": "BLNG",
+        "timeframe": "4H",
+        "example_variant": "baseline",
+        "missing_months": 4,
+        "first_missing": [
+          "2024-08",
+          "2024-09",
+          "2024-10",
+          "2024-11"
+        ]
+      },
+      {
+        "symbol": "BLNG",
+        "timeframe": "1D",
+        "example_variant": "baseline",
+        "missing_months": 4,
+        "first_missing": [
+          "2024-08",
+          "2024-09",
+          "2024-10",
+          "2024-11"
+        ]
+      },
+      {
+        "symbol": "ETLN",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 2,
+        "first_missing": [
+          "2025-07",
+          "2025-08"
+        ]
+      },
+      {
+        "symbol": "ETLN",
+        "timeframe": "4H",
+        "example_variant": "baseline",
+        "missing_months": 2,
+        "first_missing": [
+          "2025-07",
+          "2025-08"
+        ]
+      },
+      {
+        "symbol": "ETLN",
+        "timeframe": "1D",
+        "example_variant": "baseline",
+        "missing_months": 2,
+        "first_missing": [
+          "2025-07",
+          "2025-08"
+        ]
+      },
+      {
+        "symbol": "GAZA",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 9,
+        "first_missing": [
+          "2024-03",
+          "2024-04",
+          "2024-05",
+          "2024-06",
+          "2024-07",
+          "2024-08"
+        ]
+      },
+      {
+        "symbol": "GAZA",
+        "timeframe": "4H",
+        "example_variant": "baseline",
+        "missing_months": 9,
+        "first_missing": [
+          "2024-03",
+          "2024-04",
+          "2024-05",
+          "2024-06",
+          "2024-07",
+          "2024-08"
+        ]
+      },
+      {
+        "symbol": "GAZA",
+        "timeframe": "1D",
+        "example_variant": "baseline",
+        "missing_months": 9,
+        "first_missing": [
+          "2024-03",
+          "2024-04",
+          "2024-05",
+          "2024-06",
+          "2024-07",
+          "2024-08"
+        ]
+      },
+      {
+        "symbol": "GAZAP",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 9,
+        "first_missing": [
+          "2024-03",
+          "2024-04",
+          "2024-05",
+          "2024-06",
+          "2024-07",
+          "2024-08"
+        ]
+      }
+    ],
+    "ok": true,
+    "continuous": false
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "covered_symbols": 0,
+    "verified_snapshot_sha256": null,
+    "moex_source_status": "SUBSCRIPTION_REQUIRED",
+    "moex_source_checked_at_utc": "2026-11-04T11:34:15.003496+00:00",
+    "all_symbols_covered": false
+  },
+  "note": "DATA_READY confirms data and report gates only; it does not approve a trading strategy."
+}

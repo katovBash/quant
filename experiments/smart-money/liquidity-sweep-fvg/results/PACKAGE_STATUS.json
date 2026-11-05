@@ -1,0 +1,20 @@
+{
+  "experiment": "experiments/smart-money/liquidity-sweep-fvg",
+  "monthly_coverage": "FULL_GRID",
+  "status": "CLOSED",
+  "paper_gate": "EXPERIMENT_CLOSED",
+  "paper_gate_warnings": [
+    "Заявленные 16 сочетаний sweep + FVG не дали убедительного результата на полном наборе после модельных расходов. Лучшая медиана среднемесячной доходности сочетания: 1H -0.10%, 4H около 0%, 1D +0.08% на 263/263/252 акциях соответственно; годовые медианы в отчёте низкие, многие 1D сочетания дают нулевой результат из-за редких сигналов. Автоматический кандидат fvg_0.2 4H — отдельный контроль с ранней медианой -0.01% за месяц, не подтверждение комбинированной гипотезы."
+  ],
+  "missing_required_evidence": [],
+  "validation_status": "REVIEW_ONLY",
+  "paper_review_status": "CLOSED",
+  "pine": "AVAILABLE_FOR_REVIEW",
+  "files": {
+    "manifest.json": "experiments/smart-money/liquidity-sweep-fvg/results/manifest.json",
+    "validation.json": "experiments/smart-money/liquidity-sweep-fvg/results/validation.json",
+    "REPORT.md": "experiments/smart-money/liquidity-sweep-fvg/results/REPORT.md",
+    "PAPER_REVIEW.md": "experiments/smart-money/liquidity-sweep-fvg/results/PAPER_REVIEW.md",
+    "PINE_STATUS.json": "experiments/smart-money/liquidity-sweep-fvg/results/PINE_STATUS.json"
+  }
+}
