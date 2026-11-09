@@ -1,0 +1,49 @@
+{
+  "strategy_id": "zigzag-third-touch-a-c-x-t5-4h",
+  "variant": "z3_a_c_x_t5",
+  "timeframe": "4H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on each historical prefix versus frozen experiment signal series",
+  "independent_signal_implementation": false,
+  "bars_checked": 900,
+  "signal_events_checked": 540,
+  "mismatches": 0,
+  "symbols": {
+    "AFKS": {
+      "bars_checked": 100,
+      "mismatches": 0
+    },
+    "SFIN": {
+      "bars_checked": 100,
+      "mismatches": 0
+    },
+    "HEAD": {
+      "bars_checked": 100,
+      "mismatches": 0
+    },
+    "TATNP": {
+      "bars_checked": 100,
+      "mismatches": 0
+    },
+    "RTKM": {
+      "bars_checked": 100,
+      "mismatches": 0
+    },
+    "ASTR": {
+      "bars_checked": 100,
+      "mismatches": 0
+    },
+    "TATN": {
+      "bars_checked": 100,
+      "mismatches": 0
+    },
+    "FESH": {
+      "bars_checked": 100,
+      "mismatches": 0
+    },
+    "X5": {
+      "bars_checked": 100,
+      "mismatches": 0
+    }
+  }
+}

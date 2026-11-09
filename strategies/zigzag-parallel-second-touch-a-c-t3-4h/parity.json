@@ -1,0 +1,18 @@
+{
+  "strategy_id": "zigzag-parallel-second-touch-a-c-t3-4h",
+  "variant": "pc_a_c_t3",
+  "timeframe": "4H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus experiment signal series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 100,
+  "signal_events_checked": 60,
+  "mismatches": 0,
+  "symbols": {
+    "SFIN": {
+      "bars_checked": 100,
+      "mismatches": 0
+    }
+  }
+}

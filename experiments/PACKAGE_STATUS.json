@@ -25,22 +25,22 @@
     {
       "experiment": "experiments/alexander-gerchik/gerchik-false-breakout",
       "monthly_coverage": "FULL_GRID",
-      "status": "READY_FOR_FIXED_STRATEGY",
-      "paper_gate": "PAPER_CANDIDATE",
+      "status": "CLOSED",
+      "paper_gate": "EXPERIMENT_CLOSED",
       "paper_gate_warnings": [
-        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
-        "В исходной вселенной есть календарные пропуски"
+        "Все 4 проверенные настройки дали 0 ликвидных акций с доходностью выше 10% за последние 12 полных месяцев после модельных расходов. Текущий эксперимент закрыт для paper trading."
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
-      "paper_review_status": "REVIEW_ONLY",
+      "paper_review_status": "CLOSED",
       "pine": "AVAILABLE_FOR_REVIEW",
       "files": {
         "manifest.json": "experiments/alexander-gerchik/gerchik-false-breakout/results/manifest.json",
         "validation.json": "experiments/alexander-gerchik/gerchik-false-breakout/results/validation.json",
         "REPORT.md": "experiments/alexander-gerchik/gerchik-false-breakout/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/alexander-gerchik/gerchik-false-breakout/results/PAPER_REVIEW.md",
-        "PINE_STATUS.json": "experiments/alexander-gerchik/gerchik-false-breakout/results/PINE_STATUS.json"
+        "PINE_STATUS.json": "experiments/alexander-gerchik/gerchik-false-breakout/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/alexander-gerchik/gerchik-false-breakout/results/trade_side_summary.csv"
       }
     },
     {
@@ -82,7 +82,8 @@
         "validation.json": "experiments/brian-shannon/shannon-avwap-bounce/results/validation.json",
         "REPORT.md": "experiments/brian-shannon/shannon-avwap-bounce/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/brian-shannon/shannon-avwap-bounce/results/PAPER_REVIEW.md",
-        "PINE_STATUS.json": "experiments/brian-shannon/shannon-avwap-bounce/results/PINE_STATUS.json"
+        "PINE_STATUS.json": "experiments/brian-shannon/shannon-avwap-bounce/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/brian-shannon/shannon-avwap-bounce/results/trade_side_summary.csv"
       }
     },
     {
@@ -103,7 +104,95 @@
         "validation.json": "experiments/brian-shannon/shannon-avwap-reclaim/results/validation.json",
         "REPORT.md": "experiments/brian-shannon/shannon-avwap-reclaim/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/brian-shannon/shannon-avwap-reclaim/results/PAPER_REVIEW.md",
-        "PINE_STATUS.json": "experiments/brian-shannon/shannon-avwap-reclaim/results/PINE_STATUS.json"
+        "PINE_STATUS.json": "experiments/brian-shannon/shannon-avwap-reclaim/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/brian-shannon/shannon-avwap-reclaim/results/trade_side_summary.csv"
+      }
+    },
+    {
+      "experiment": "experiments/double-indicator/dual-zigzag-atr-breakout",
+      "monthly_coverage": "FULL_GRID",
+      "status": "READY_FOR_FIXED_STRATEGY",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/double-indicator/dual-zigzag-atr-breakout/results/manifest.json",
+        "validation.json": "experiments/double-indicator/dual-zigzag-atr-breakout/results/validation.json",
+        "REPORT.md": "experiments/double-indicator/dual-zigzag-atr-breakout/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/double-indicator/dual-zigzag-atr-breakout/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/double-indicator/dual-zigzag-atr-breakout/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/double-indicator/dual-zigzag-atr-breakout/results/trade_side_summary.csv"
+      }
+    },
+    {
+      "experiment": "experiments/double-indicator/dual-zigzag-daily-trend",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/double-indicator/dual-zigzag-daily-trend/results/manifest.json",
+        "validation.json": "experiments/double-indicator/dual-zigzag-daily-trend/results/validation.json",
+        "REPORT.md": "experiments/double-indicator/dual-zigzag-daily-trend/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/double-indicator/dual-zigzag-daily-trend/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/double-indicator/dual-zigzag-daily-trend/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/double-indicator/dual-zigzag-ema-support-resistance",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/double-indicator/dual-zigzag-ema-support-resistance/results/manifest.json",
+        "validation.json": "experiments/double-indicator/dual-zigzag-ema-support-resistance/results/validation.json",
+        "REPORT.md": "experiments/double-indicator/dual-zigzag-ema-support-resistance/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/double-indicator/dual-zigzag-ema-support-resistance/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/double-indicator/dual-zigzag-ema-support-resistance/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/double-indicator/dual-zigzag-ema-support-resistance/results/trade_side_summary.csv"
+      }
+    },
+    {
+      "experiment": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/manifest.json",
+        "validation.json": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/validation.json",
+        "REPORT.md": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/trade_side_summary.csv"
       }
     },
     {
@@ -112,7 +201,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "Не выбраны одно правило и десять акций"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -132,7 +221,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "Не выбраны одно правило и десять акций"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -152,7 +241,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "История посчитана до расходов"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -164,6 +253,27 @@
         "REPORT.md": "experiments/double-indicator/weekly-trendlines-volume-profile/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/double-indicator/weekly-trendlines-volume-profile/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/double-indicator/weekly-trendlines-volume-profile/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/dual-zigzag/price-oscillator-swings",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/dual-zigzag/price-oscillator-swings/results/manifest.json",
+        "validation.json": "experiments/dual-zigzag/price-oscillator-swings/results/validation.json",
+        "REPORT.md": "experiments/dual-zigzag/price-oscillator-swings/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/dual-zigzag/price-oscillator-swings/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/dual-zigzag/price-oscillator-swings/results/PINE_STATUS.json"
       }
     },
     {
@@ -209,10 +319,11 @@
     {
       "experiment": "experiments/ema-turtle/cross-timeframe-confluence",
       "monthly_coverage": "FULL_GRID",
-      "status": "REVIEW_ONLY",
-      "paper_gate": "EXPERIMENT_REVIEW",
+      "status": "READY_FOR_FIXED_STRATEGY",
+      "paper_gate": "PAPER_CANDIDATE",
       "paper_gate_warnings": [
-        "Качество свечей выбранных акций не подтверждено"
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -246,6 +357,47 @@
         "PAPER_REVIEW.md": "experiments/fibonacci/confirmed-swing-retracement/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/fibonacci/confirmed-swing-retracement/results/PINE_STATUS.json",
         "trade_side_summary.csv": "experiments/fibonacci/confirmed-swing-retracement/results/trade_side_summary.csv"
+      }
+    },
+    {
+      "experiment": "experiments/harmonic/ultimatex-confirmed-pattern",
+      "monthly_coverage": "FULL_GRID",
+      "status": "REVIEW_ONLY",
+      "paper_gate": "EXPERIMENT_REVIEW",
+      "paper_gate_warnings": [
+        "Не выбраны одно правило и прошедшие акции"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "MISSING_FIXED_PINE",
+      "files": {
+        "manifest.json": "experiments/harmonic/ultimatex-confirmed-pattern/results/manifest.json",
+        "validation.json": "experiments/harmonic/ultimatex-confirmed-pattern/results/validation.json",
+        "REPORT.md": "experiments/harmonic/ultimatex-confirmed-pattern/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/harmonic/ultimatex-confirmed-pattern/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/harmonic/ultimatex-confirmed-pattern/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/harmonic/ultimatex-recursive-five-classics",
+      "monthly_coverage": "FULL_GRID",
+      "status": "REVIEW_ONLY",
+      "paper_gate": "EXPERIMENT_REVIEW",
+      "paper_gate_warnings": [
+        "Не выбраны одно правило и прошедшие акции"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "MISSING_FIXED_PINE",
+      "files": {
+        "manifest.json": "experiments/harmonic/ultimatex-recursive-five-classics/results/manifest.json",
+        "validation.json": "experiments/harmonic/ultimatex-recursive-five-classics/results/validation.json",
+        "REPORT.md": "experiments/harmonic/ultimatex-recursive-five-classics/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/harmonic/ultimatex-recursive-five-classics/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/harmonic/ultimatex-recursive-five-classics/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/harmonic/ultimatex-recursive-five-classics/results/trade_side_summary.csv"
       }
     },
     {
@@ -316,7 +468,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "История посчитана до расходов"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -377,7 +529,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "История посчитана до расходов"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -398,7 +550,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "История посчитана до расходов"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -416,14 +568,14 @@
     {
       "experiment": "experiments/single-indicator/connors-turtle-soup",
       "monthly_coverage": "FULL_GRID",
-      "status": "REVIEW_ONLY",
-      "paper_gate": "EXPERIMENT_REVIEW",
+      "status": "CLOSED",
+      "paper_gate": "EXPERIMENT_CLOSED",
       "paper_gate_warnings": [
-        "Качество свечей выбранных акций не подтверждено"
+        "Все 24 проверенные настройки дали 0 ликвидных акций с доходностью выше 10% за последние 12 полных месяцев после модельных расходов. Текущий эксперимент закрыт для paper trading."
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
-      "paper_review_status": "REVIEW_ONLY",
+      "paper_review_status": "CLOSED",
       "pine": "AVAILABLE_FOR_REVIEW",
       "files": {
         "manifest.json": "experiments/single-indicator/connors-turtle-soup/results/manifest.json",
@@ -439,7 +591,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "История посчитана до расходов"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -459,7 +611,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "История посчитана до расходов"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -500,7 +652,7 @@
       "status": "REVIEW_ONLY",
       "paper_gate": "EXPERIMENT_REVIEW",
       "paper_gate_warnings": [
-        "История посчитана до расходов"
+        "Не выбраны одно правило и прошедшие акции"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -538,11 +690,18 @@
     {
       "experiment": "experiments/turtle/period-grid",
       "monthly_coverage": "FULL_GRID",
-      "status": "PAPER_REGISTERED",
-      "paper_gate": "PAPER_CANDIDATE",
+      "status": "PAPER_REGISTERED_REVIEW",
+      "paper_gate": "RETURN_BELOW_PAPER_THRESHOLD",
       "paper_gate_warnings": [
-        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
-        "В исходной вселенной есть календарные пропуски"
+        "VSEH: +3.84% за последние 12 месяцев (требуется >10%)",
+        "WUSH: +2.74% за последние 12 месяцев (требуется >10%)",
+        "POSI: +5.89% за последние 12 месяцев (требуется >10%)",
+        "LENT: -3.72% за последние 12 месяцев (требуется >10%)",
+        "NLMK: +0.64% за последние 12 месяцев (требуется >10%)",
+        "BELU: +2.52% за последние 12 месяцев (требуется >10%)",
+        "ENPG: +0.49% за последние 12 месяцев (требуется >10%)",
+        "MSNG: +1.29% за последние 12 месяцев (требуется >10%)",
+        "GMKN: +0.45% за последние 12 месяцев (требуется >10%)"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -574,28 +733,29 @@
         "validation.json": "experiments/william-oneil/oneil-cup-handle/results/validation.json",
         "REPORT.md": "experiments/william-oneil/oneil-cup-handle/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/william-oneil/oneil-cup-handle/results/PAPER_REVIEW.md",
-        "PINE_STATUS.json": "experiments/william-oneil/oneil-cup-handle/results/PINE_STATUS.json"
+        "PINE_STATUS.json": "experiments/william-oneil/oneil-cup-handle/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/william-oneil/oneil-cup-handle/results/trade_side_summary.csv"
       }
     },
     {
       "experiment": "experiments/william-oneil/oneil-double-bottom",
       "monthly_coverage": "FULL_GRID",
-      "status": "READY_FOR_FIXED_STRATEGY",
-      "paper_gate": "PAPER_CANDIDATE",
+      "status": "CLOSED",
+      "paper_gate": "EXPERIMENT_CLOSED",
       "paper_gate_warnings": [
-        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
-        "В исходной вселенной есть календарные пропуски"
+        "Обе проверенные настройки дали 0 ликвидных акций с доходностью выше 10% за последние 12 полных месяцев после модельных расходов. Текущий эксперимент закрыт для paper trading."
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
-      "paper_review_status": "REVIEW_ONLY",
+      "paper_review_status": "CLOSED",
       "pine": "AVAILABLE_FOR_REVIEW",
       "files": {
         "manifest.json": "experiments/william-oneil/oneil-double-bottom/results/manifest.json",
         "validation.json": "experiments/william-oneil/oneil-double-bottom/results/validation.json",
         "REPORT.md": "experiments/william-oneil/oneil-double-bottom/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/william-oneil/oneil-double-bottom/results/PAPER_REVIEW.md",
-        "PINE_STATUS.json": "experiments/william-oneil/oneil-double-bottom/results/PINE_STATUS.json"
+        "PINE_STATUS.json": "experiments/william-oneil/oneil-double-bottom/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/william-oneil/oneil-double-bottom/results/trade_side_summary.csv"
       }
     },
     {
@@ -616,17 +776,67 @@
         "validation.json": "experiments/william-oneil/oneil-flat-base/results/validation.json",
         "REPORT.md": "experiments/william-oneil/oneil-flat-base/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/william-oneil/oneil-flat-base/results/PAPER_REVIEW.md",
-        "PINE_STATUS.json": "experiments/william-oneil/oneil-flat-base/results/PINE_STATUS.json"
+        "PINE_STATUS.json": "experiments/william-oneil/oneil-flat-base/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/william-oneil/oneil-flat-base/results/trade_side_summary.csv"
       }
     },
     {
-      "experiment": "experiments/zigzag/confirmed-level-breakout",
+      "experiment": "experiments/zigzag/band-stall-thresholds",
       "monthly_coverage": "FULL_GRID",
       "status": "READY_FOR_FIXED_STRATEGY",
       "paper_gate": "PAPER_CANDIDATE",
       "paper_gate_warnings": [
         "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
         "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/band-stall-thresholds/results/manifest.json",
+        "validation.json": "experiments/zigzag/band-stall-thresholds/results/validation.json",
+        "REPORT.md": "experiments/zigzag/band-stall-thresholds/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/band-stall-thresholds/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/band-stall-thresholds/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/bend-entry-multitimeframe",
+      "monthly_coverage": "FULL_GRID",
+      "status": "READY_FOR_FIXED_STRATEGY",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/bend-entry-multitimeframe/results/manifest.json",
+        "validation.json": "experiments/zigzag/bend-entry-multitimeframe/results/validation.json",
+        "REPORT.md": "experiments/zigzag/bend-entry-multitimeframe/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/bend-entry-multitimeframe/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/bend-entry-multitimeframe/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/confirmed-level-breakout",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED_REVIEW",
+      "paper_gate": "RETURN_BELOW_PAPER_THRESHOLD",
+      "paper_gate_warnings": [
+        "MTSS: +2.35% за последние 12 месяцев (требуется >10%)",
+        "VSEH: +1.61% за последние 12 месяцев (требуется >10%)",
+        "WUSH: +2.79% за последние 12 месяцев (требуется >10%)",
+        "VKCO: +6.51% за последние 12 месяцев (требуется >10%)",
+        "RTKM: +2.82% за последние 12 месяцев (требуется >10%)",
+        "SNGSP: -0.31% за последние 12 месяцев (требуется >10%)",
+        "NVTK: -1.2% за последние 12 месяцев (требуется >10%)",
+        "MAGN: +5.35% за последние 12 месяцев (требуется >10%)",
+        "LENT: -3.89% за последние 12 месяцев (требуется >10%)"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -643,10 +853,11 @@
     {
       "experiment": "experiments/zigzag/confirmed-level-retest",
       "monthly_coverage": "FULL_GRID",
-      "status": "REVIEW_ONLY",
-      "paper_gate": "EXPERIMENT_REVIEW",
+      "status": "READY_FOR_FIXED_STRATEGY",
+      "paper_gate": "PAPER_CANDIDATE",
       "paper_gate_warnings": [
-        "Качество свечей выбранных акций не подтверждено"
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -658,6 +869,28 @@
         "REPORT.md": "experiments/zigzag/confirmed-level-retest/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/zigzag/confirmed-level-retest/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/zigzag/confirmed-level-retest/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/confirmed-parallel-channel-bounce",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/confirmed-parallel-channel-bounce/results/manifest.json",
+        "validation.json": "experiments/zigzag/confirmed-parallel-channel-bounce/results/validation.json",
+        "REPORT.md": "experiments/zigzag/confirmed-parallel-channel-bounce/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/confirmed-parallel-channel-bounce/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/confirmed-parallel-channel-bounce/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/zigzag/confirmed-parallel-channel-bounce/results/trade_side_summary.csv"
       }
     },
     {
@@ -684,10 +917,11 @@
     {
       "experiment": "experiments/zigzag/confirmed-triangle-breakout",
       "monthly_coverage": "FULL_GRID",
-      "status": "REVIEW_ONLY",
-      "paper_gate": "EXPERIMENT_REVIEW",
+      "status": "READY_FOR_FIXED_STRATEGY",
+      "paper_gate": "PAPER_CANDIDATE",
       "paper_gate_warnings": [
-        "Качество свечей выбранных акций не подтверждено"
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
       ],
       "missing_required_evidence": [],
       "validation_status": "REVIEW_ONLY",
@@ -699,6 +933,134 @@
         "REPORT.md": "experiments/zigzag/confirmed-triangle-breakout/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/zigzag/confirmed-triangle-breakout/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/zigzag/confirmed-triangle-breakout/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/daily-line-bounce-targets",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/daily-line-bounce-targets/results/manifest.json",
+        "validation.json": "experiments/zigzag/daily-line-bounce-targets/results/validation.json",
+        "REPORT.md": "experiments/zigzag/daily-line-bounce-targets/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/daily-line-bounce-targets/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/daily-line-bounce-targets/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/zigzag/daily-line-bounce-targets/results/trade_side_summary.csv"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/parallel-channel-second-touch",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/parallel-channel-second-touch/results/manifest.json",
+        "validation.json": "experiments/zigzag/parallel-channel-second-touch/results/validation.json",
+        "REPORT.md": "experiments/zigzag/parallel-channel-second-touch/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/parallel-channel-second-touch/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/parallel-channel-second-touch/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/source-pivot-stall",
+      "monthly_coverage": "FULL_GRID",
+      "status": "READY_FOR_FIXED_STRATEGY",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/source-pivot-stall/results/manifest.json",
+        "validation.json": "experiments/zigzag/source-pivot-stall/results/validation.json",
+        "REPORT.md": "experiments/zigzag/source-pivot-stall/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/source-pivot-stall/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/source-pivot-stall/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/third-touch-exits",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_STOPPED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/third-touch-exits/results/manifest.json",
+        "validation.json": "experiments/zigzag/third-touch-exits/results/validation.json",
+        "REPORT.md": "experiments/zigzag/third-touch-exits/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/third-touch-exits/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/third-touch-exits/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/third-touch-line",
+      "monthly_coverage": "FULL_GRID",
+      "status": "READY_FOR_FIXED_STRATEGY",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/third-touch-line/results/manifest.json",
+        "validation.json": "experiments/zigzag/third-touch-line/results/validation.json",
+        "REPORT.md": "experiments/zigzag/third-touch-line/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/third-touch-line/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/third-touch-line/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/weekly-band-turn-interactions",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/weekly-band-turn-interactions/results/manifest.json",
+        "validation.json": "experiments/zigzag/weekly-band-turn-interactions/results/validation.json",
+        "REPORT.md": "experiments/zigzag/weekly-band-turn-interactions/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/weekly-band-turn-interactions/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/weekly-band-turn-interactions/results/PINE_STATUS.json",
+        "trade_side_summary.csv": "experiments/zigzag/weekly-band-turn-interactions/results/trade_side_summary.csv"
       }
     }
   ]

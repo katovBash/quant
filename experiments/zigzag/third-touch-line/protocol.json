@@ -1,0 +1,354 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "third-touch-line",
+  "method_id": "zigzag-third-touch-line",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-07",
+  "hypothesis": "After two causally confirmed same-side ZigZag pivots define a support or resistance line, the first later third contact may create a tradable bounce or breakout in either price-trend direction.",
+  "source_url": "https://www.tradingview.com/support/solutions/43000591664-zigzag-indicator/",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "deviation_pct": {
+            "values": [
+              2,
+              4
+            ]
+          },
+          "zone_pct": {
+            "values": [
+              0.5,
+              1
+            ]
+          },
+          "max_age": {
+            "values": [
+              50,
+              100
+            ]
+          }
+        },
+        "variant_template": "z3_{wing}_{deviation_pct}_{zone_pct}_{max_age}_c_b",
+        "max_combinations": 16
+      },
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "deviation_pct": {
+            "values": [
+              2,
+              4
+            ]
+          },
+          "zone_pct": {
+            "values": [
+              0.5,
+              1
+            ]
+          },
+          "max_age": {
+            "values": [
+              50,
+              100
+            ]
+          }
+        },
+        "variant_template": "z3_{wing}_{deviation_pct}_{zone_pct}_{max_age}_c_x",
+        "max_combinations": 16
+      },
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "deviation_pct": {
+            "values": [
+              2,
+              4
+            ]
+          },
+          "zone_pct": {
+            "values": [
+              0.5,
+              1
+            ]
+          },
+          "max_age": {
+            "values": [
+              50,
+              100
+            ]
+          }
+        },
+        "variant_template": "z3_{wing}_{deviation_pct}_{zone_pct}_{max_age}_d_b",
+        "max_combinations": 16
+      },
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "deviation_pct": {
+            "values": [
+              2,
+              4
+            ]
+          },
+          "zone_pct": {
+            "values": [
+              0.5,
+              1
+            ]
+          },
+          "max_age": {
+            "values": [
+              50,
+              100
+            ]
+          }
+        },
+        "variant_template": "z3_{wing}_{deviation_pct}_{zone_pct}_{max_age}_d_x",
+        "max_combinations": 16
+      },
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "deviation_pct": {
+            "values": [
+              2,
+              4
+            ]
+          },
+          "zone_pct": {
+            "values": [
+              0.5,
+              1
+            ]
+          },
+          "max_age": {
+            "values": [
+              50,
+              100
+            ]
+          }
+        },
+        "variant_template": "z3_{wing}_{deviation_pct}_{zone_pct}_{max_age}_w_b",
+        "max_combinations": 16
+      },
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "deviation_pct": {
+            "values": [
+              2,
+              4
+            ]
+          },
+          "zone_pct": {
+            "values": [
+              0.5,
+              1
+            ]
+          },
+          "max_age": {
+            "values": [
+              50,
+              100
+            ]
+          }
+        },
+        "variant_template": "z3_{wing}_{deviation_pct}_{zone_pct}_{max_age}_w_x",
+        "max_combinations": 16
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 96
+  },
+  "expected_variants": [
+    "baseline",
+    "z3_3_2_0.5_50_c_b",
+    "z3_3_2_0.5_100_c_b",
+    "z3_3_2_1_50_c_b",
+    "z3_3_2_1_100_c_b",
+    "z3_3_4_0.5_50_c_b",
+    "z3_3_4_0.5_100_c_b",
+    "z3_3_4_1_50_c_b",
+    "z3_3_4_1_100_c_b",
+    "z3_5_2_0.5_50_c_b",
+    "z3_5_2_0.5_100_c_b",
+    "z3_5_2_1_50_c_b",
+    "z3_5_2_1_100_c_b",
+    "z3_5_4_0.5_50_c_b",
+    "z3_5_4_0.5_100_c_b",
+    "z3_5_4_1_50_c_b",
+    "z3_5_4_1_100_c_b",
+    "z3_3_2_0.5_50_c_x",
+    "z3_3_2_0.5_100_c_x",
+    "z3_3_2_1_50_c_x",
+    "z3_3_2_1_100_c_x",
+    "z3_3_4_0.5_50_c_x",
+    "z3_3_4_0.5_100_c_x",
+    "z3_3_4_1_50_c_x",
+    "z3_3_4_1_100_c_x",
+    "z3_5_2_0.5_50_c_x",
+    "z3_5_2_0.5_100_c_x",
+    "z3_5_2_1_50_c_x",
+    "z3_5_2_1_100_c_x",
+    "z3_5_4_0.5_50_c_x",
+    "z3_5_4_0.5_100_c_x",
+    "z3_5_4_1_50_c_x",
+    "z3_5_4_1_100_c_x",
+    "z3_3_2_0.5_50_d_b",
+    "z3_3_2_0.5_100_d_b",
+    "z3_3_2_1_50_d_b",
+    "z3_3_2_1_100_d_b",
+    "z3_3_4_0.5_50_d_b",
+    "z3_3_4_0.5_100_d_b",
+    "z3_3_4_1_50_d_b",
+    "z3_3_4_1_100_d_b",
+    "z3_5_2_0.5_50_d_b",
+    "z3_5_2_0.5_100_d_b",
+    "z3_5_2_1_50_d_b",
+    "z3_5_2_1_100_d_b",
+    "z3_5_4_0.5_50_d_b",
+    "z3_5_4_0.5_100_d_b",
+    "z3_5_4_1_50_d_b",
+    "z3_5_4_1_100_d_b",
+    "z3_3_2_0.5_50_d_x",
+    "z3_3_2_0.5_100_d_x",
+    "z3_3_2_1_50_d_x",
+    "z3_3_2_1_100_d_x",
+    "z3_3_4_0.5_50_d_x",
+    "z3_3_4_0.5_100_d_x",
+    "z3_3_4_1_50_d_x",
+    "z3_3_4_1_100_d_x",
+    "z3_5_2_0.5_50_d_x",
+    "z3_5_2_0.5_100_d_x",
+    "z3_5_2_1_50_d_x",
+    "z3_5_2_1_100_d_x",
+    "z3_5_4_0.5_50_d_x",
+    "z3_5_4_0.5_100_d_x",
+    "z3_5_4_1_50_d_x",
+    "z3_5_4_1_100_d_x",
+    "z3_3_2_0.5_50_w_b",
+    "z3_3_2_0.5_100_w_b",
+    "z3_3_2_1_50_w_b",
+    "z3_3_2_1_100_w_b",
+    "z3_3_4_0.5_50_w_b",
+    "z3_3_4_0.5_100_w_b",
+    "z3_3_4_1_50_w_b",
+    "z3_3_4_1_100_w_b",
+    "z3_5_2_0.5_50_w_b",
+    "z3_5_2_0.5_100_w_b",
+    "z3_5_2_1_50_w_b",
+    "z3_5_2_1_100_w_b",
+    "z3_5_4_0.5_50_w_b",
+    "z3_5_4_0.5_100_w_b",
+    "z3_5_4_1_50_w_b",
+    "z3_5_4_1_100_w_b",
+    "z3_3_2_0.5_50_w_x",
+    "z3_3_2_0.5_100_w_x",
+    "z3_3_2_1_50_w_x",
+    "z3_3_2_1_100_w_x",
+    "z3_3_4_0.5_50_w_x",
+    "z3_3_4_0.5_100_w_x",
+    "z3_3_4_1_50_w_x",
+    "z3_3_4_1_100_w_x",
+    "z3_5_2_0.5_50_w_x",
+    "z3_5_2_0.5_100_w_x",
+    "z3_5_2_1_50_w_x",
+    "z3_5_2_1_100_w_x",
+    "z3_5_4_0.5_50_w_x",
+    "z3_5_4_0.5_100_w_x",
+    "z3_5_4_1_50_w_x",
+    "z3_5_4_1_100_w_x"
+  ],
+  "parameter_rationale": "Three preregistered line sources: chart 1H/4H, completed 1D, completed 1W. For each, bounce and breakout each cover wing 3/5, deviation 2/4%, contact zone 0.5/1%, max age 50/100 source bars: 96 variants plus baseline. Both support and resistance and both trade directions are tested in every variant.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on the same stock and 1H/4H signal timeframe, filled next open; separately compare chart-source third touch against the existing two-pivot trendline-breakout experiment.",
+  "signal_rule": "Two confirmed same-side ZigZag pivots on the selected chart, completed daily or completed weekly source define a projected support/resistance line. The higher-source pivot becomes usable only on the next date after its confirmation candle; no partial day/week is read. On the first later third contact, bounce enters away from the line after a rejecting close, or breakout enters through it after a beyond-zone close. Both support and resistance are eligible regardless of line slope. Ignore ambiguous simultaneous contacts and use each anchor pair once. Signal on completed 1H/4H close; fill next open; opposite signal closes/reverses.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Screen all completed results using the current eval policy; no automatic real-order approval.",
+  "run_command": "python3 -m pipeline.run experiments/zigzag/third-touch-line",
+  "limitations": [
+    "User-drawn line is an example, not a fixed objective indicator",
+    "A confirmed pivot is visible only wing bars after its center",
+    "No actual third-contact profit is assumed from the screenshot",
+    "Corporate actions are not fully covered; research status only",
+    "The 1D/1W line is projected in completed higher-bar steps during 1H/4H sessions, not fitted to wall-clock time."
+  ],
+  "research_provenance": {
+    "source": "user chart example 2026-11-07",
+    "type": "user hypothesis",
+    "note": "Visual example only; no future line or trade outcome is used as data."
+  },
+  "signal_semantics": "Single-stock long/short order signal on closed bar; next-open execution. Pivot is usable only on confirmation bar, never at its plotted historical position.",
+  "required_data": [
+    "OHLC candles",
+    "confirmed pivot timing"
+  ],
+  "availability_lag": "Chart pivot: wing completed chart bars; daily/weekly pivot: wing completed higher bars plus next trading date after confirming higher candle. No current unfinished day/week is used.",
+  "research_family": {
+    "viewed_methods": [
+      "confirmed two-pivot trendline breakout",
+      "third-touch bounce",
+      "third-touch breakout"
+    ],
+    "tested_variants": 96,
+    "late_history_seen": true
+  }
+}

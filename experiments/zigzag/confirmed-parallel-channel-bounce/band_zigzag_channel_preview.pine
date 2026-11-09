@@ -1,0 +1,254 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0.
+// Band-pivot idea and ta library: Trendoscope / HeWhoMustNotBeNamed.
+// Channel geometry and reversal entries: quant research preview, not paper parity.
+//@version=5
+strategy("Band ZigZag · parallel channel bounce · visual preview", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     commission_type=strategy.commission.percent, commission_value=0.05,
+     slippage=1, process_orders_on_close=false, max_lines_count=500)
+
+import HeWhoMustNotBeNamed/ta/1 as eta
+
+bandType = input.string("Bollinger Bands", "Bands", options=["Bollinger Bands", "Keltner Channel", "Donchian Channel"])
+maType = input.string("sma", "Average", options=["sma", "ema", "hma", "rma", "wma", "vwma", "highlow", "linreg", "median"])
+bandLength = input.int(20, "Band length", minval=5)
+bandMultiplier = input.float(2.0, "Band multiplier", minval=0.5, step=0.5)
+sticky = input.bool(true, "Sticky bands")
+adaptive = input.bool(true, "Adaptive bands")
+trueRange = input.bool(true, "True range for Keltner")
+zonePct = input.float(0.5, "Touch zone %", minval=0.05, step=0.05)
+maxAge = input.int(80, "Max channel age in bars", minval=1)
+exitMode = input.string("Opposite line", "Exit", options=["Opposite line", "5%", "8%"])
+showBands = input.bool(false, "Show pivot bands")
+bool chartOk = timeframe.isdaily and timeframe.multiplier == 1
+
+type Pivot
+    int bar
+    float price
+    int side
+
+var array<Pivot> zigzag = array.new<Pivot>()
+var array<line> zigzagLines = array.new_line()
+var line upperLine = na
+var line lowerLine = na
+var string usedLongKey = ""
+var string usedShortKey = ""
+var float activeBase = na
+var float activeSlope = na
+var float activeWidth = na
+var int activeBaseBar = na
+var bool activeFromHigh = false
+
+addPivot(array<Pivot> points, array<line> drawings, int side, float price) =>
+    int count = array.size(points)
+    if count == 0
+        array.push(points, Pivot.new(bar_index, price, side))
+    else
+        Pivot prior = array.get(points, count - 1)
+        bool replace = side == prior.side and price * side > prior.price * side
+        bool append = side != prior.side
+        if replace
+            array.set(points, count - 1, Pivot.new(bar_index, price, side))
+            if array.size(drawings) > 0
+                line.delete(array.pop(drawings))
+            if count > 1
+                Pivot earlier = array.get(points, count - 2)
+                array.push(drawings, line.new(earlier.bar, earlier.price, bar_index, price,
+                     color=color.new(color.yellow, 20), width=2))
+        if append
+            array.push(points, Pivot.new(bar_index, price, side))
+            array.push(drawings, line.new(prior.bar, prior.price, bar_index, price,
+                 color=color.new(color.yellow, 20), width=2))
+    if array.size(drawings) > 450
+        line.delete(array.shift(drawings))
+
+float middle = na
+float upperBand = na
+float lowerBand = na
+if bandType == "Bollinger Bands"
+    [bMiddle, bUpper, bLower] = eta.bb(close, maType, bandLength, bandMultiplier, sticky)
+    middle := bMiddle
+    upperBand := bUpper
+    lowerBand := bLower
+else if bandType == "Keltner Channel"
+    [kMiddle, kUpper, kLower] = eta.kc(close, maType, bandLength, bandMultiplier, trueRange, sticky)
+    middle := kMiddle
+    upperBand := kUpper
+    lowerBand := kLower
+else
+    [dMiddle, dUpper, dLower] = eta.dc(bandLength, false, close, sticky)
+    middle := dMiddle
+    upperBand := dUpper
+    lowerBand := dLower
+
+int currentDir = 0
+if array.size(zigzag) > 0
+    Pivot latestPivot = array.get(zigzag, array.size(zigzag)-1)
+    currentDir := latestPivot.side
+var float adaptiveUpper = na
+var float adaptiveLower = na
+adaptiveUpper := currentDir >= 0 or not adaptive ? upperBand : math.min(upperBand, nz(adaptiveUpper, upperBand))
+adaptiveLower := currentDir <= 0 or not adaptive ? lowerBand : math.max(lowerBand, nz(adaptiveLower, lowerBand))
+bool bandHigh = not na(adaptiveUpper) and high >= adaptiveUpper
+bool bandLow = not na(adaptiveLower) and low <= adaptiveLower
+
+// The most recent pivot is provisional. A higher high or lower low replaces it,
+// just as in the supplied Band-ZigZag. A drawn last segment can therefore move.
+if barstate.isconfirmed and chartOk
+    int priorSide = 0
+    if array.size(zigzag) > 0
+        Pivot priorPivot = array.get(zigzag, array.size(zigzag)-1)
+        priorSide := priorPivot.side
+    if priorSide == 0
+        if bandHigh
+            addPivot(zigzag, zigzagLines, 1, high)
+        if bandLow
+            addPivot(zigzag, zigzagLines, -1, low)
+    else
+        if priorSide == 1 and bandHigh
+            addPivot(zigzag, zigzagLines, 1, high)
+        if priorSide == -1 and bandLow
+            addPivot(zigzag, zigzagLines, -1, low)
+        if priorSide == -1 and bandHigh
+            addPivot(zigzag, zigzagLines, 1, high)
+        if priorSide == 1 and bandLow
+            addPivot(zigzag, zigzagLines, -1, low)
+
+int h1 = na
+int h2 = na
+int l1 = na
+int l2 = na
+if array.size(zigzag) > 0
+    for j = 0 to array.size(zigzag)-1
+        Pivot point = array.get(zigzag, j)
+        if point.side == 1
+            h1 := h2
+            h2 := j
+        else
+            l1 := l2
+            l2 := j
+
+float upper = na
+float lower = na
+float slope = na
+float width = na
+float basePrice = na
+int baseBar = na
+int anchorBar = na
+string channelKey = ""
+bool fromHigh = false
+
+if not na(h1) and not na(h2)
+    Pivot first = array.get(zigzag, h1)
+    Pivot second = array.get(zigzag, h2)
+    int anchorIndex = na
+    for j = h1+1 to array.size(zigzag)-1
+        Pivot candidate = array.get(zigzag, j)
+        if candidate.side == -1 and candidate.bar > first.bar and candidate.bar < second.bar
+            anchorIndex := j
+    if na(anchorIndex) and h2+1 < array.size(zigzag)
+        for j = h2+1 to array.size(zigzag)-1
+            Pivot candidate = array.get(zigzag, j)
+            if candidate.side == -1
+                anchorIndex := j
+    if not na(anchorIndex)
+        Pivot anchor = array.get(zigzag, anchorIndex)
+        float testSlope = (second.price-first.price)/(second.bar-first.bar)
+        float testWidth = second.price+testSlope*(anchor.bar-second.bar)-anchor.price
+        float testUpper = second.price+testSlope*(bar_index-second.bar)
+        if testWidth > 0 and testWidth/anchor.price >= 0.01 and bar_index-math.max(second.bar, anchor.bar) <= maxAge and testUpper-testWidth > 0
+            upper := testUpper
+            lower := testUpper-testWidth
+            slope := testSlope
+            width := testWidth
+            basePrice := second.price
+            baseBar := second.bar
+            anchorBar := anchor.bar
+            channelKey := "H:"+str.tostring(first.bar)+":"+str.tostring(second.bar)+":"+str.tostring(anchor.bar)
+            fromHigh := true
+
+if not na(l1) and not na(l2)
+    Pivot first = array.get(zigzag, l1)
+    Pivot second = array.get(zigzag, l2)
+    int anchorIndex = na
+    for j = l1+1 to array.size(zigzag)-1
+        Pivot candidate = array.get(zigzag, j)
+        if candidate.side == 1 and candidate.bar > first.bar and candidate.bar < second.bar
+            anchorIndex := j
+    if na(anchorIndex) and l2+1 < array.size(zigzag)
+        for j = l2+1 to array.size(zigzag)-1
+            Pivot candidate = array.get(zigzag, j)
+            if candidate.side == 1
+                anchorIndex := j
+    if not na(anchorIndex)
+        Pivot anchor = array.get(zigzag, anchorIndex)
+        float testSlope = (second.price-first.price)/(second.bar-first.bar)
+        float testWidth = anchor.price-(second.price+testSlope*(anchor.bar-second.bar))
+        float testLower = second.price+testSlope*(bar_index-second.bar)
+        if testWidth > 0 and testWidth/anchor.price >= 0.01 and bar_index-math.max(second.bar, anchor.bar) <= maxAge and testLower > 0 and (na(anchorBar) or math.max(second.bar, anchor.bar) > math.max(baseBar, anchorBar))
+            lower := testLower
+            upper := testLower+testWidth
+            slope := testSlope
+            width := testWidth
+            basePrice := second.price
+            baseBar := second.bar
+            anchorBar := anchor.bar
+            channelKey := "L:"+str.tostring(first.bar)+":"+str.tostring(second.bar)+":"+str.tostring(anchor.bar)
+            fromHigh := false
+
+if barstate.isconfirmed and chartOk
+    if not na(upper) and not na(lower)
+        if na(upperLine)
+            upperLine := line.new(baseBar, fromHigh ? basePrice : basePrice+width, bar_index, upper,
+                 color=color.red, width=2, extend=extend.right)
+            lowerLine := line.new(baseBar, fromHigh ? basePrice-width : basePrice, bar_index, lower,
+                 color=color.aqua, width=2, extend=extend.right)
+        else
+            line.set_xy1(upperLine, baseBar, fromHigh ? basePrice : basePrice+width)
+            line.set_xy2(upperLine, bar_index, upper)
+            line.set_xy1(lowerLine, baseBar, fromHigh ? basePrice-width : basePrice)
+            line.set_xy2(lowerLine, bar_index, lower)
+    else
+        if not na(upperLine)
+            line.delete(upperLine)
+            line.delete(lowerLine)
+            upperLine := na
+            lowerLine := na
+
+bool ready = chartOk and barstate.isconfirmed and time >= timestamp("Europe/Moscow", 2024, 1, 1, 0, 0) and not na(lower) and close > lower and close < upper
+bool support = ready and low <= lower*(1+zonePct/100) and close > open
+bool resistance = ready and high >= upper*(1-zonePct/100) and close < open
+bool goLong = support and not resistance and usedLongKey != channelKey
+bool goShort = resistance and not support and usedShortKey != channelKey
+float shares = math.floor(strategy.equity*0.25/close)
+if goLong and shares >= 1
+    strategy.entry("Band support long", strategy.long, qty=shares)
+    usedLongKey := channelKey
+    activeBase := basePrice
+    activeBaseBar := baseBar
+    activeSlope := slope
+    activeWidth := width
+    activeFromHigh := fromHigh
+else if goShort and shares >= 1
+    strategy.entry("Band resistance short", strategy.short, qty=shares)
+    usedShortKey := channelKey
+    activeBase := basePrice
+    activeBaseBar := baseBar
+    activeSlope := slope
+    activeWidth := width
+    activeFromHigh := fromHigh
+else if strategy.position_size != 0 and not na(activeBaseBar)
+    float basis = activeBase+activeSlope*(bar_index-activeBaseBar)
+    float targetUpper = activeFromHigh ? basis : basis+activeWidth
+    float targetLower = activeFromHigh ? basis-activeWidth : basis
+    bool closeLong = exitMode == "Opposite line" ? high >= targetUpper : high >= strategy.position_avg_price*(exitMode == "5%" ? 1.05 : 1.08)
+    bool closeShort = exitMode == "Opposite line" ? low <= targetLower : low <= strategy.position_avg_price*(exitMode == "5%" ? 0.95 : 0.92)
+    if strategy.position_size > 0 and (closeLong or close < targetLower*(1-zonePct/100))
+        strategy.close("Band support long")
+    if strategy.position_size < 0 and (closeShort or close > targetUpper*(1+zonePct/100))
+        strategy.close("Band resistance short")
+
+plot(showBands ? adaptiveUpper : na, "Band upper", color=color.new(color.green, 70))
+plot(showBands ? adaptiveLower : na, "Band lower", color=color.new(color.red, 70))
+plotshape(goLong, "Bounce long", shape.triangleup, location.belowbar, color.lime, size=size.small)
+plotshape(goShort, "Bounce short", shape.triangledown, location.abovebar, color.red, size=size.small)

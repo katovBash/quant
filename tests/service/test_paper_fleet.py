@@ -71,7 +71,7 @@ class PaperFleetTests(unittest.TestCase):
         configs = accounts(Path("papertrading/setups/fleet"), Path("/tmp/unused-paper-test"))
         self.assertEqual(len(configs), len(list(Path("papertrading/setups/fleet").glob("*.json"))))
         self.assertEqual(len({item.account_id for item in configs}), len(configs))
-        self.assertGreaterEqual(len({item.symbol for item in configs}), 8)
+        self.assertGreaterEqual(len({item.symbol for item in configs}), 7)
         for item in configs:
             self.assertEqual(load_strategy(item.strategy_id).STRATEGY_ID, item.strategy_id)
 

@@ -14,6 +14,7 @@ from pathlib import Path
 
 from papertrading.setup import load_setup
 from guardrails.lifecycle import publish as publish_lifecycle
+from eval.historical import report_strategy
 from service.data_sources.moex import BASE, HTTP_BASE, MOSCOW, MarketDataUnavailable, fetch_candles
 from service.paper_runner import LIVE_CANDLE_CACHE, load_strategy, run_once, save_state
 
@@ -25,8 +26,29 @@ DEFAULT_OUTPUT = ROOT / "papertrading/live"
 def accounts(setup_dir: Path, output: Path) -> list[argparse.Namespace]:
     result = []
     seen = set()
+    production_setups = setup_dir.resolve() == DEFAULT_SETUPS.resolve()
+    admission = {}
     for path in sorted(setup_dir.glob("*.json")):
         setup = load_setup(path)
+        if production_setups:
+            strategy_id = setup["strategy"]
+            if strategy_id not in admission:
+                strategy_dir = ROOT / "strategies" / strategy_id
+                selection_path = strategy_dir / "selection.json"
+                history_path = strategy_dir / "history_snapshot.json"
+                if selection_path.is_file() and history_path.is_file():
+                    screening = report_strategy(json.loads(selection_path.read_text()),
+                                                json.loads(history_path.read_text()))
+                    admission[strategy_id] = {row["symbol"] for row in screening["stocks"]
+                                              if row["status"] == "PASS_12M"}
+                else:
+                    admission[strategy_id] = set()
+            if setup["symbol"] not in admission[strategy_id]:
+                print(json.dumps({"status": "PAPER_ADMISSION_REJECTED",
+                                  "account_id": setup["account_id"],
+                                  "reason": "12-month net return must exceed policy threshold"},
+                                 ensure_ascii=False), flush=True)
+                continue
         module = load_strategy(setup["strategy"])
         if (getattr(module, "SYMBOL", setup["symbol"]) != setup["symbol"] or
                 getattr(module, "TIMEFRAME", setup["timeframe"]) != setup["timeframe"]):
@@ -41,7 +63,7 @@ def accounts(setup_dir: Path, output: Path) -> list[argparse.Namespace]:
             position_weight_pct=setup["position_weight_pct"], mode=setup["mode"],
             lot_size=setup["lot_size_shares"], fee_bps=setup["fee_bps"],
             slip_bps=setup["slip_bps"], borrow_bps_annual=setup["borrow_bps_annual"],
-            history_from="2022-01-01" if setup["timeframe"] == "1D" else "2024-01-01",
+            history_from="2022-01-01" if setup["timeframe"] in ("1D", "1W") else "2024-01-01",
             output=output, replay=None))
     if not result:
         raise ValueError(f"no paper setups in {setup_dir}")
@@ -102,7 +124,7 @@ def poll(configs: list[argparse.Namespace], now: datetime, *, preflight: bool = 
                          "error": f"MOEX ISS HTTPS: {secure_exc}; HTTP: {fallback_exc}"} for config in configs]
     grouped = {}
     for config in configs:
-        interval = 24 if config.timeframe == "1D" else 60
+        interval = 24 if config.timeframe in ("1D", "1W") else 60
         grouped.setdefault((config.symbol, interval), []).append(config)
     for (symbol, interval), selected in grouped.items():
         try:

@@ -1,0 +1,55 @@
+{
+  "strategy_id": "dual-zigzag-daily-sma20-4h",
+  "variant": "sma_20",
+  "timeframe": "4H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "last 200 completed 4H prefixes per selected stock; entry and raw exit events",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1600,
+  "signal_events_checked": 49,
+  "mismatches": 0,
+  "symbols": {
+    "VKCO": {
+      "bars_checked": 200,
+      "signal_events": 6,
+      "mismatches": 0
+    },
+    "NLMK": {
+      "bars_checked": 200,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "WUSH": {
+      "bars_checked": 200,
+      "signal_events": 6,
+      "mismatches": 0
+    },
+    "SFIN": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "UGLD": {
+      "bars_checked": 200,
+      "signal_events": 6,
+      "mismatches": 0
+    },
+    "PLZL": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "ALRS": {
+      "bars_checked": 200,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "SELG": {
+      "bars_checked": 200,
+      "signal_events": 5,
+      "mismatches": 0
+    }
+  },
+  "mismatch_examples": []
+}

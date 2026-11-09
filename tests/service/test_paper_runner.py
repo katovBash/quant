@@ -71,23 +71,29 @@ class PaperRunnerTests(unittest.TestCase):
         self.assertEqual(state["closed_trades"], 1)
         self.assertLess(state["position"], 0)
 
-    def test_gap_cancels_stale_order(self):
+    def test_gap_replays_each_completed_candle_in_order(self):
         state, _, _ = self.step(None, 40)
         state, _, _ = self.step(state, 41)
-        state, events, _ = self.step(state, 43)
-        self.assertEqual([e["action"] for e in events], ["GAP"])
-        self.assertEqual(state["position"], 0)
+        state, events, _ = self.step(state, 44)
+        self.assertEqual([e["action"] for e in events],
+                         ["GAP", "OPEN_LONG", "CLOSE_LONG", "OPEN_SHORT"])
+        self.assertLess(state["position"], 0)
+        self.assertEqual(events[1]["fill_bar"], self.raw[41]["begin"])
+        self.assertEqual(events[-1]["fill_bar"], self.raw[43]["begin"])
+        self.assertTrue(events[1]["recovered_after_gap"])
+        self.assertEqual(state["equity_log"][-3]["bar_ts"], self.raw[41]["begin"])
         self.assertEqual(state["gap_count"], 1)
 
     def test_evaluator_exports_only_dates_after_freeze(self):
         state, _, _ = self.step(None, 40)
         for n in range(41, 45):
             state, _, _ = self.step(state, n)
+        state["started_at"] = "2027-01-01T00:00:00+03:00"
         with TemporaryDirectory() as tmp:
             write_evaluation_files(Path(tmp), state)
-            self.assertIn("2027-01-04", (Path(tmp) / "closed_trades.csv").read_text())
-            self.assertIn("2027-01-04", (Path(tmp) / "equity.csv").read_text())
-            self.assertNotIn("2027-01-02", (Path(tmp) / "equity.csv").read_text())
+            self.assertIn("2027-01-02", (Path(tmp) / "closed_trades.csv").read_text())
+            self.assertIn("2027-01-02", (Path(tmp) / "equity.csv").read_text())
+            self.assertNotIn("2027-01-04", (Path(tmp) / "equity.csv").read_text())
 
     def test_capital_cannot_change_after_start(self):
         state, _, _ = self.step(None, 40)

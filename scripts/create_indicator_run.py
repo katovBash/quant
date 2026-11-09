@@ -39,7 +39,13 @@ def create(indicator_id: str, run_id: str, root: Path = DEFAULT_ROOT) -> Path:
         "indicator_id": indicator_id, "run_id": run_id, "status": "DRAFT",
         "hypothesis": None, "frozen_on": None, "source_snapshot": None,
         "eligible_universe": None, "corporate_actions": None,
-        "signal_timeframes": None, "parameter_grid": None,
+        "signal_timeframes": None, "entry_design": {
+            "mechanisms": [], "confirmation": None, "decision_time": None,
+            "delay_bars": None, "common_exit_rule": None,
+            "not_applicable": []}, "exit_design": {
+            "mechanisms": [], "parameter_ranges": None,
+            "decision_time": None, "not_applicable": []},
+        "parameter_grid": None,
         "expected_variants": None, "split": None, "baseline": None,
         "signal_rule": None, "cost_status": None, "selection": None,
         "run_command": None}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -25,8 +25,8 @@ def load_setup(path: Path, strategy_id: str | None = None) -> dict:
         raise ValueError("invalid strategy")
     if strategy_id is not None and setup["strategy"] != strategy_id:
         raise ValueError("strategy does not match expected rule")
-    if setup["timeframe"] not in ("1H", "4H", "1D"):
-        raise ValueError("this runner supports only 1H, 4H and 1D strategies")
+    if setup["timeframe"] not in ("1H", "4H", "1D", "1W"):
+        raise ValueError("this runner supports only 1H, 4H, 1D and 1W strategies")
     if setup["mode"] not in ("long", "short", "long_short"):
         raise ValueError("invalid mode")
     for key in ("initial_capital_rub", "position_weight_pct", "fee_bps", "slip_bps", "borrow_bps_annual"):

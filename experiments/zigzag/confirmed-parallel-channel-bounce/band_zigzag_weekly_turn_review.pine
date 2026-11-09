@@ -1,0 +1,152 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0.
+// Band-ZigZag pivot and band concepts: Trendoscope / HeWhoMustNotBeNamed.
+// Weekly turn signal is a separate quant review hypothesis, not a verified paper rule.
+//@version=5
+strategy("Band ZigZag · first observable weekly turn · review", overlay=true,
+     pyramiding=0, initial_capital=1000000,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.05,
+     process_orders_on_close=false, max_lines_count=500, max_labels_count=500)
+
+import HeWhoMustNotBeNamed/ta/1 as eta
+
+bandType = input.string("Bollinger Bands", "Bands", options=["Bollinger Bands", "Keltner Channel", "Donchian Channel"])
+maType = input.string("sma", "Average", options=["sma", "ema", "hma", "rma", "wma", "vwma", "highlow", "linreg", "median"])
+bandLength = input.int(20, "Band length", minval=5)
+bandMultiplier = input.float(2.0, "Band multiplier", minval=0.5, step=0.5)
+sticky = input.bool(true, "Sticky bands")
+adaptive = input.bool(true, "Adaptive bands")
+trueRange = input.bool(true, "True range for Keltner")
+confirmation = input.string("First rising close", "Turn confirmation", options=["First rising close", "Break previous week"])
+maxTurnAge = input.int(8, "Maximum weeks after pivot", minval=1)
+exitMode = input.string("Opposite turn", "Exit", options=["Opposite turn", "5%", "8%"])
+showBands = input.bool(false, "Show pivot bands")
+bool chartOk = timeframe.isweekly and timeframe.multiplier == 1
+
+type Pivot
+    int bar
+    float price
+    int side
+
+var array<Pivot> zigzag = array.new<Pivot>()
+var array<line> zigzagLines = array.new_line()
+var array<label> zigzagLabels = array.new_label()
+var int usedLongPivotBar = na
+var int usedShortPivotBar = na
+
+addPivot(array<Pivot> points, array<line> drawings, array<label> labels, int side, float price) =>
+    int count = array.size(points)
+    if count == 0
+        array.push(points, Pivot.new(bar_index, price, side))
+        array.push(labels, label.new(bar_index, price, side > 0 ? "H" : "L",
+             style=side > 0 ? label.style_label_down : label.style_label_up,
+             color=side > 0 ? color.red : color.teal, textcolor=color.white, size=size.tiny))
+    else
+        Pivot prior = array.get(points, count - 1)
+        bool replace = side == prior.side and price * side > prior.price * side
+        bool append = side != prior.side
+        if replace
+            array.set(points, count - 1, Pivot.new(bar_index, price, side))
+            label.delete(array.pop(labels))
+            array.push(labels, label.new(bar_index, price, side > 0 ? "H" : "L",
+                 style=side > 0 ? label.style_label_down : label.style_label_up,
+                 color=side > 0 ? color.red : color.teal, textcolor=color.white, size=size.tiny))
+            if array.size(drawings) > 0
+                line.delete(array.pop(drawings))
+            if count > 1
+                Pivot earlier = array.get(points, count - 2)
+                array.push(drawings, line.new(earlier.bar, earlier.price, bar_index, price,
+                     color=side > 0 ? color.new(color.red, 10) : color.new(color.aqua, 10), width=2))
+        if append
+            array.push(points, Pivot.new(bar_index, price, side))
+            array.push(drawings, line.new(prior.bar, prior.price, bar_index, price,
+                 color=side > 0 ? color.new(color.red, 10) : color.new(color.aqua, 10), width=2))
+            array.push(labels, label.new(bar_index, price, side > 0 ? "H" : "L",
+                 style=side > 0 ? label.style_label_down : label.style_label_up,
+                 color=side > 0 ? color.red : color.teal, textcolor=color.white, size=size.tiny))
+    if array.size(drawings) > 450
+        line.delete(array.shift(drawings))
+    if array.size(labels) > 450
+        label.delete(array.shift(labels))
+
+float upperBand = na
+float lowerBand = na
+if bandType == "Bollinger Bands"
+    [bMiddle, bUpper, bLower] = eta.bb(close, maType, bandLength, bandMultiplier, sticky)
+    upperBand := bUpper
+    lowerBand := bLower
+else if bandType == "Keltner Channel"
+    [kMiddle, kUpper, kLower] = eta.kc(close, maType, bandLength, bandMultiplier, trueRange, sticky)
+    upperBand := kUpper
+    lowerBand := kLower
+else
+    [dMiddle, dUpper, dLower] = eta.dc(bandLength, false, close, sticky)
+    upperBand := dUpper
+    lowerBand := dLower
+
+int priorSide = 0
+int priorPivotBar = na
+if array.size(zigzag) > 0
+    Pivot priorPivot = array.get(zigzag, array.size(zigzag)-1)
+    priorSide := priorPivot.side
+    priorPivotBar := priorPivot.bar
+var float adaptiveUpper = na
+var float adaptiveLower = na
+adaptiveUpper := priorSide >= 0 or not adaptive ? upperBand : math.min(upperBand, nz(adaptiveUpper, upperBand))
+adaptiveLower := priorSide <= 0 or not adaptive ? lowerBand : math.max(lowerBand, nz(adaptiveLower, lowerBand))
+bool bandHigh = not na(adaptiveUpper) and high >= adaptiveUpper
+bool bandLow = not na(adaptiveLower) and low <= adaptiveLower
+
+// Same-side extremes replace the provisional last pivot. TradingView may draw
+// that pivot on an older candle only after later bars; no orders are backdated.
+if chartOk and barstate.isconfirmed
+    if priorSide == 0
+        if bandHigh
+            addPivot(zigzag, zigzagLines, zigzagLabels, 1, high)
+        if bandLow
+            addPivot(zigzag, zigzagLines, zigzagLabels, -1, low)
+    else
+        if priorSide == 1 and bandHigh
+            addPivot(zigzag, zigzagLines, zigzagLabels, 1, high)
+        if priorSide == -1 and bandLow
+            addPivot(zigzag, zigzagLines, zigzagLabels, -1, low)
+        if priorSide == -1 and bandHigh
+            addPivot(zigzag, zigzagLines, zigzagLabels, 1, high)
+        if priorSide == 1 and bandLow
+            addPivot(zigzag, zigzagLines, zigzagLabels, -1, low)
+
+int lowPivotBar = na
+int highPivotBar = na
+if priorSide == -1
+    lowPivotBar := priorPivotBar
+if priorSide == 1
+    highPivotBar := priorPivotBar
+if array.size(zigzag) > 0
+    Pivot latestPivot = array.get(zigzag, array.size(zigzag)-1)
+    if latestPivot.side == -1
+        lowPivotBar := latestPivot.bar
+    if latestPivot.side == 1
+        highPivotBar := latestPivot.bar
+
+bool rising = confirmation == "First rising close" ? close > open and close > close[1] : close > high[1]
+bool falling = confirmation == "First rising close" ? close < open and close < close[1] : close < low[1]
+bool newLong = chartOk and barstate.isconfirmed and not na(lowPivotBar) and bar_index > lowPivotBar and bar_index-lowPivotBar <= maxTurnAge and rising and (na(usedLongPivotBar) or usedLongPivotBar != lowPivotBar)
+bool newShort = chartOk and barstate.isconfirmed and not na(highPivotBar) and bar_index > highPivotBar and bar_index-highPivotBar <= maxTurnAge and falling and (na(usedShortPivotBar) or usedShortPivotBar != highPivotBar)
+bool longSignal = newLong and not newShort
+bool shortSignal = newShort and not newLong
+
+if longSignal
+    strategy.entry("Weekly long", strategy.long)
+    usedLongPivotBar := lowPivotBar
+else if shortSignal
+    strategy.entry("Weekly short", strategy.short)
+    usedShortPivotBar := highPivotBar
+else if exitMode != "Opposite turn" and strategy.position_size > 0 and high >= strategy.position_avg_price*(exitMode == "5%" ? 1.05 : 1.08)
+    strategy.close("Weekly long")
+else if exitMode != "Opposite turn" and strategy.position_size < 0 and low <= strategy.position_avg_price*(exitMode == "5%" ? 0.95 : 0.92)
+    strategy.close("Weekly short")
+
+plot(showBands ? adaptiveUpper : na, "Band upper", color=color.new(color.green, 70))
+plot(showBands ? adaptiveLower : na, "Band lower", color=color.new(color.red, 70))
+plotshape(longSignal, "Observable long signal", shape.triangleup, location.belowbar, color.lime, size=size.small)
+plotshape(shortSignal, "Observable short signal", shape.triangledown, location.abovebar, color.red, size=size.small)

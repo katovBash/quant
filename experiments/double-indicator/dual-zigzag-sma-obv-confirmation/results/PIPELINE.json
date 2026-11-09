@@ -1,0 +1,35 @@
+{
+  "experiment": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation",
+  "stage": "PAPER_REGISTERED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "combined_10",
+    "symbols": 249,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": 0.16,
+    "median_train_worst_month_pnl_rub": -43841.66,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.18
+  },
+  "stocks": [
+    "MTLR",
+    "VKCO",
+    "NLMK",
+    "WUSH",
+    "GAZP",
+    "PLZL",
+    "SFIN",
+    "ALRS",
+    "SELG"
+  ],
+  "strategy_id": "dual-zigzag-sma20-obv10-4h",
+  "accounts": 9
+}

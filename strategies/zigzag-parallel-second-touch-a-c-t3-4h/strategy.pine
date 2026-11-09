@@ -1,0 +1,122 @@
+//@version=6
+strategy("Parallel channel · second touch · SFIN 4H · review", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     commission_type=strategy.commission.percent, commission_value=0.05,
+     slippage=1, process_orders_on_close=false, margin_long=100, margin_short=100)
+
+// Visual TradingView review. Python paper signals are checked against frozen
+// experiment candles; Pine order fills/costs have not been independently
+// reconciled with Python. Do not treat TradingView PnL as the paper result.
+int wing = 3
+float deviationPct = 2.0
+float zonePct = 0.5
+int maxAge = 50
+bool chartOk = timeframe.isintraday and timeframe.multiplier == 240
+bool active = time >= timestamp("Europe/Moscow", 2024, 1, 1, 0, 0)
+
+var int lastSide = 0
+var float lastPivotPrice = na
+var int low1Bar = na
+var int low2Bar = na
+var float low1 = na
+var float low2 = na
+var int high1Bar = na
+var int high2Bar = na
+var float high1 = na
+var float high2 = na
+var int upperAnchorBar = na
+var float upperAnchor = na
+var int lowerAnchorBar = na
+var float lowerAnchor = na
+var bool upperUsed = false
+var bool lowerUsed = false
+var bool upperBroken = false
+var bool lowerBroken = false
+var float activeBase = na
+var float activeSlope = na
+var int activeBaseBar = na
+var float activeWidth = na
+var int activeDirection = 0
+
+float lowSlope = not na(low1Bar) and not na(low2Bar) and low2Bar > low1Bar ? (low2-low1)/(low2Bar-low1Bar) : na
+float highSlope = not na(high1Bar) and not na(high2Bar) and high2Bar > high1Bar ? (high2-high1)/(high2Bar-high1Bar) : na
+float support = not na(lowSlope) ? low2+lowSlope*(bar_index-low2Bar) : na
+float resistance = not na(highSlope) ? high2+highSlope*(bar_index-high2Bar) : na
+float upperWidth = not na(upperAnchorBar) and not na(lowSlope) ? upperAnchor-(low2+lowSlope*(upperAnchorBar-low2Bar)) : na
+float lowerWidth = not na(lowerAnchorBar) and not na(highSlope) ? (high2+highSlope*(lowerAnchorBar-high2Bar))-lowerAnchor : na
+float upper = support+upperWidth
+float lower = resistance-lowerWidth
+bool shortSignal = chartOk and active and barstate.isconfirmed and not upperUsed and not upperBroken and not na(upper) and upperWidth/upperAnchor >= 0.01 and bar_index > upperAnchorBar+wing and bar_index-upperAnchorBar <= maxAge and close[1] <= upper[1] and high >= upper*(1-zonePct/100) and high <= upper*(1+zonePct/100) and close < upper
+bool longSignal = chartOk and active and barstate.isconfirmed and not lowerUsed and not lowerBroken and not na(lower) and lowerWidth/lowerAnchor >= 0.01 and bar_index > lowerAnchorBar+wing and bar_index-lowerAnchorBar <= maxAge and close[1] >= lower[1] and low >= lower*(1-zonePct/100) and low <= lower*(1+zonePct/100) and close > lower
+float shares = math.floor(strategy.equity*0.25/close)
+
+if shortSignal and not longSignal and shares >= 1
+    strategy.entry("Short", strategy.short, qty=shares)
+    upperUsed := true
+    activeBase := low2
+    activeSlope := lowSlope
+    activeBaseBar := low2Bar
+    activeWidth := upperWidth
+    activeDirection := -1
+else if longSignal and not shortSignal and shares >= 1
+    strategy.entry("Long", strategy.long, qty=shares)
+    lowerUsed := true
+    activeBase := high2
+    activeSlope := highSlope
+    activeBaseBar := high2Bar
+    activeWidth := lowerWidth
+    activeDirection := 1
+
+float activeLine = activeBase+activeSlope*(bar_index-activeBaseBar)
+float activeUpper = activeDirection < 0 ? activeLine+activeWidth : activeLine
+float activeLower = activeDirection < 0 ? activeLine : activeLine-activeWidth
+if strategy.position_size < 0 and ((low <= strategy.position_avg_price*0.97) or close > activeUpper*(1+zonePct/100))
+    strategy.close("Short")
+if strategy.position_size > 0 and ((high >= strategy.position_avg_price*1.03) or close < activeLower*(1-zonePct/100))
+    strategy.close("Long")
+if not na(upper) and close > upper*(1+zonePct/100)
+    upperBroken := true
+if not na(lower) and close < lower*(1-zonePct/100)
+    lowerBroken := true
+
+// Confirm the center only after wing future candles have closed. Events are
+// recorded now, while the line can be drawn back through its pivot centers.
+bool highPivot = bar_index >= 2*wing and high[wing] > ta.highest(high[wing+1], wing) and high[wing] >= ta.highest(high, wing)
+bool lowPivot = bar_index >= 2*wing and low[wing] < ta.lowest(low[wing+1], wing) and low[wing] <= ta.lowest(low, wing)
+float pivotHigh = high[wing]
+float pivotLow = low[wing]
+bool acceptHigh = highPivot and (lastSide == 0 or (lastSide == 1 and pivotHigh > lastPivotPrice) or (lastSide == -1 and 100*math.abs(pivotHigh/lastPivotPrice-1) >= deviationPct))
+if acceptHigh
+    lastSide := 1
+    lastPivotPrice := pivotHigh
+    high1Bar := high2Bar
+    high1 := high2
+    high2Bar := bar_index-wing
+    high2 := pivotHigh
+    lowerAnchorBar := na
+    lowerUsed := false
+    lowerBroken := false
+    if na(upperAnchorBar) and not na(low2Bar) and low2Bar < high2Bar and not na(low1Bar)
+        upperAnchorBar := high2Bar
+        upperAnchor := pivotHigh
+        upperUsed := false
+        upperBroken := false
+bool acceptLow = lowPivot and (lastSide == 0 or (lastSide == -1 and pivotLow < lastPivotPrice) or (lastSide == 1 and 100*math.abs(pivotLow/lastPivotPrice-1) >= deviationPct))
+if acceptLow
+    lastSide := -1
+    lastPivotPrice := pivotLow
+    low1Bar := low2Bar
+    low1 := low2
+    low2Bar := bar_index-wing
+    low2 := pivotLow
+    upperAnchorBar := na
+    upperUsed := false
+    upperBroken := false
+    if na(lowerAnchorBar) and not na(high2Bar) and high2Bar < low2Bar and not na(high1Bar)
+        lowerAnchorBar := low2Bar
+        lowerAnchor := pivotLow
+        lowerUsed := false
+        lowerBroken := false
+
+plot(upper, "Parallel resistance", color=color.new(color.red, 20), force_overlay=true)
+plot(lower, "Parallel support", color=color.new(color.teal, 20), force_overlay=true)

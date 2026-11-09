@@ -155,7 +155,7 @@ def package(folder: Path) -> dict:
             "## Pine для ручной проверки\n\n" + pine_text + "\n\n"
             "## До виртуального запуска\n\n"
             + "\n".join("- " + str(item) for item in blockers)
-            + "\n- Выбрать одну общую настройку и десять акций по ранним месяцам.\n"
+            + "\n- Выбрать одну общую настройку и все акции, прошедшие годовой порог.\n"
             "- Создать фиксированные Python/Pine и проверить совпадение сигналов.\n"
             "- Проверить лоты и расходы; только затем зарегистрировать виртуальные счета.\n",
             encoding="utf-8")
@@ -166,7 +166,9 @@ def package(folder: Path) -> dict:
             "FULL_GRID" if (results / "monthly_returns.csv").is_file() else
             "FIXED_CANDIDATE_ONLY" if (results / "candidate_monthly_returns.csv").is_file() else
             "MISSING"),
-        "status": "CLOSED" if paper.get("decision", {}).get("status") == "CLOSED" else
+        "status": "PAPER_STOPPED" if paper.get("deactivation") else
+                  "CLOSED" if paper.get("decision", {}).get("status") == "CLOSED" else
+                  "PAPER_REGISTERED_REVIEW" if paper.get("activation") and gate != "PAPER_CANDIDATE" else
                   "PAPER_REGISTERED" if paper.get("activation") else
                   "READY_FOR_FIXED_STRATEGY" if gate == "PAPER_CANDIDATE" else
                   "REVIEW_ONLY",

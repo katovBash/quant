@@ -1,0 +1,32 @@
+{
+  "experiment": "experiments/double-indicator/dual-zigzag-atr-breakout",
+  "stage": "NEEDS_FIXED_STRATEGY",
+  "run_mode": "full_run",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/double-indicator/dual-zigzag-atr-breakout/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "atr_0",
+    "symbols": 249,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": 0.12,
+    "median_train_worst_month_pnl_rub": -49774.0,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.06
+  },
+  "stocks": [
+    "RAGR",
+    "ALRS",
+    "MTLR",
+    "PLZL",
+    "SFIN",
+    "WUSH",
+    "NLMK"
+  ],
+  "next_action": "Create strategy.py, strategy.pine and measured parity.json; rerun with --strategy-dir"
+}

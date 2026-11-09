@@ -17,6 +17,7 @@ from papertrading.setup import load_setup
 from service.data_sources.moex import (MOSCOW, MarketDataUnavailable, fetch_candles,
                                        normalize_bars, parse_moscow)
 from src.ema.core.scan_ema import four_hour
+from src.research.timeframes import aggregate_weeks
 
 STRATEGY_PATH = Path(__file__).resolve().parents[1] / "strategies/line-retest-4h-wing1-zone05-slope/strategy.py"
 LIVE_CANDLE_CACHE = Path(__file__).resolve().parents[1] / "data/candles/moex_live"
@@ -29,8 +30,9 @@ STRATEGY_ID = _strategy.STRATEGY_ID
 STRATEGIES_ROOT = STRATEGY_PATH.parents[1]
 DEFAULT_POSITION_WEIGHT = 0.10
 TRADE_COLUMNS = ("observed_at", "signal_bar", "fill_bar", "symbol", "action", "qty",
-                 "price", "fee_rub", "borrow_rub", "cash_after", "position_after", "reason")
-EQUITY_COLUMNS = ("observed_at", "bar_end", "symbol", "strategy_equity", "baseline_equity",
+                 "price", "fee_rub", "borrow_rub", "cash_after", "position_after", "reason",
+                 "recovered_after_gap")
+EQUITY_COLUMNS = ("observed_at", "bar_ts", "bar_end", "symbol", "strategy_equity", "baseline_equity",
                   "cash", "position", "mark_price")
 EVALUATION_EQUITY_COLUMNS = ("date", "strategy_equity", "baseline_equity")
 CLOSED_COLUMNS = ("exit_date",)
@@ -162,6 +164,37 @@ def advance(state: dict | None, bars: list[dict], observed_at: str, *, symbol: s
     if index is None or index >= len(bars) - 1:
         raise ValueError("last processed candle missing from source; no order placed")
     fresh = bars[index + 1:]
+    if len(fresh) > 1:
+        # The data source has recovered several completed candles. Replay them
+        # in candle order, preserving the real observation time separately from
+        # each historical signal/fill candle. Never discard intermediate events.
+        replay = dict(state)
+        replay["trades_log"] = list(state["trades_log"])
+        replay["equity_log"] = list(state["equity_log"])
+        replay["gap_count"] += 1
+        gap = {"action": "GAP", "observed_at": observed_at, "symbol": symbol,
+               "signal_bar": state["last_bar"], "fill_bar": fresh[0]["ts"],
+               "reason": f"replayed {len(fresh)} completed candles",
+               "recovered_after_gap": True}
+        replay["trades_log"].append(gap)
+        all_events = [gap]
+        last_point = None
+        for next_index in range(index + 1, len(bars)):
+            current = bars[next_index]
+            completed_hourly = ([bar for bar in hourly_bars
+                                 if parse_moscow(bar["end"]) <= parse_moscow(current["end"])]
+                                if hourly_bars is not None else None)
+            replay, events, last_point = advance(
+                replay, bars[:next_index + 1], observed_at, symbol=symbol,
+                capital=capital, mode=mode, fee_bps=fee_bps, slip_bps=slip_bps,
+                borrow_bps=borrow_bps, lot_size=lot_size, history_from=history_from,
+                position_weight=position_weight, strategy_id=strategy_id,
+                timeframe=timeframe, strategy_module=strategy_module,
+                min_bars=min_bars, hourly_bars=completed_hourly)
+            for event in events:
+                event["recovered_after_gap"] = True
+            all_events.extend(events)
+        return replay, all_events, last_point
     last = fresh[-1]
     events = []
     state = dict(state)
@@ -172,47 +205,59 @@ def advance(state: dict | None, bars: list[dict], observed_at: str, *, symbol: s
         raise ValueError("candle end moved backwards")
     borrow = abs(state["position"]) * last["close"] * borrow_bps / 10000 * elapsed / (365 * 86400) if state["position"] < 0 else 0.0
     state["cash"] -= borrow
-    if len(fresh) > 1:
-        state["pending"] = None
-        state["gap_count"] += 1
-        events.append({"action": "GAP", "reason": f"missed {len(fresh) - 1} completed candles"})
-    else:
-        pending = state["pending"]
-        if pending is not None:
-            desired_side = 1 if pending["side"] == "long" else -1 if pending["side"] == "short" else 0
-            pos = state["position"]
-            mark = last["close"]
-            fee = fee_bps / 10000
-            slip = slip_bps / 10000
-            if pos and (desired_side == 0 or (pos > 0) != (desired_side > 0)):
-                price = mark * (1 - slip if pos > 0 else 1 + slip)
-                qty = abs(pos)
+    pending = state["pending"]
+    if timeframe == "1W":
+        previous_week = datetime.fromisoformat(state["last_bar"][:10]).isocalendar()[:2]
+        current_week = datetime.fromisoformat(last["ts"][:10]).isocalendar()[:2]
+        if current_week != previous_week:
+            # Only a subsequent week's first candle proves the preceding week
+            # is final, including weeks with a Saturday trading session.
+            weekly = aggregate_weeks(bars[:index + 1])
+            weekly_side = strategy_module.weekly_signal(weekly)
+            if weekly_side and mode != "long_short" and weekly_side != mode:
+                weekly_side = "flat" if state["position"] else None
+            if weekly_side:
+                pending = {"side": weekly_side, "bar": bars[index]["ts"]}
+                state["pending"] = pending
+    if pending is not None:
+        desired_side = 1 if pending["side"] == "long" else -1 if pending["side"] == "short" else 0
+        pos = state["position"]
+        # Weekly rules are evaluated on completed daily candles and create an
+        # order only after a completed week. A pending weekly order is replayed
+        # at the next daily open, matching the research's next-week-open fill.
+        mark = last["open"] if timeframe == "1W" else last["close"]
+        fee = fee_bps / 10000
+        slip = slip_bps / 10000
+        if pos and (desired_side == 0 or (pos > 0) != (desired_side > 0)):
+            price = mark * (1 - slip if pos > 0 else 1 + slip)
+            qty = abs(pos)
+            cost = qty * price * fee
+            state["cash"] += pos * price - cost
+            state["position"] = 0
+            state["closed_trades"] += 1
+            events.append(dict(action="CLOSE_LONG" if pos > 0 else "CLOSE_SHORT", qty=qty,
+                               price=price, fee_rub=cost, borrow_rub=borrow,
+                               signal_bar=pending["bar"], fill_bar=last["ts"],
+                               reason=strategy_id))
+        if state["position"] == 0 and desired_side:
+            equity = state["cash"]
+            qty = math.floor((equity * position_weight / (mark * (1 + slip) * (1 + fee))) / lot_size) * lot_size
+            if qty > 0:
+                price = mark * (1 + slip if desired_side > 0 else 1 - slip)
                 cost = qty * price * fee
-                state["cash"] += pos * price - cost
-                state["position"] = 0
-                state["closed_trades"] += 1
-                events.append(dict(action="CLOSE_LONG" if pos > 0 else "CLOSE_SHORT", qty=qty,
-                                   price=price, fee_rub=cost, borrow_rub=borrow,
-                                   signal_bar=pending["bar"], fill_bar=last["ts"],
-                                   reason=strategy_id))
-            if state["position"] == 0 and desired_side:
-                equity = state["cash"]
-                qty = math.floor((equity * position_weight / (mark * (1 + slip) * (1 + fee))) / lot_size) * lot_size
-                if qty > 0:
-                    price = mark * (1 + slip if desired_side > 0 else 1 - slip)
-                    cost = qty * price * fee
-                    debit = qty * price + cost
-                    if desired_side < 0 or debit <= state["cash"]:
-                        state["cash"] -= desired_side * qty * price + cost
-                        state["position"] = desired_side * qty
-                        state["entry_flow"] = debit if desired_side > 0 else qty * price - cost
-                        events.append(dict(action="OPEN_LONG" if desired_side > 0 else "OPEN_SHORT",
-                                           qty=qty, price=price, fee_rub=cost, borrow_rub=0.0,
-                                           signal_bar=pending["bar"], fill_bar=last["ts"],
-                                           reason=strategy_id))
-            state["pending"] = None
-    side = side_from_strategy(strategy_module or _strategy, bars, mode, state["position"],
-                              hourly_bars=hourly_bars)
+                debit = qty * price + cost
+                if desired_side < 0 or debit <= state["cash"]:
+                    state["cash"] -= desired_side * qty * price + cost
+                    state["position"] = desired_side * qty
+                    state["entry_flow"] = debit if desired_side > 0 else qty * price - cost
+                    events.append(dict(action="OPEN_LONG" if desired_side > 0 else "OPEN_SHORT",
+                                       qty=qty, price=price, fee_rub=cost, borrow_rub=0.0,
+                                       signal_bar=pending["bar"], fill_bar=last["ts"],
+                                       reason=strategy_id))
+        state["pending"] = None
+    side = (None if timeframe == "1W" else
+            side_from_strategy(strategy_module or _strategy, bars, mode, state["position"],
+                               hourly_bars=hourly_bars))
     if side == "flat":
         # Exit-only signal: handled by the same next-candle mechanism.
         state["pending"] = {"side": "flat", "bar": last["ts"]}
@@ -227,7 +272,7 @@ def advance(state: dict | None, bars: list[dict], observed_at: str, *, symbol: s
         qty = math.floor((capital * position_weight / (price * (1 + fee))) / lot_size) * lot_size
         state["baseline_qty"] = qty
         state["baseline_cash"] -= qty * price * (1 + fee)
-    point = {"observed_at": observed_at, "bar_end": last["end"], "symbol": symbol,
+    point = {"observed_at": observed_at, "bar_ts": last["ts"], "bar_end": last["end"], "symbol": symbol,
              "strategy_equity": state["cash"] + state["position"] * mark,
              "baseline_equity": state["baseline_cash"] + state["baseline_qty"] * mark,
              "cash": state["cash"], "position": state["position"], "mark_price": mark}
@@ -267,13 +312,14 @@ def write_evaluation_files(root: Path, state: dict) -> None:
     frozen_day = (datetime.fromisoformat(state["started_at"]).date() - timedelta(days=1)).isoformat()
     daily = {}
     for point in state["equity_log"]:
-        day = point["observed_at"][:10]
+        day = point.get("bar_ts", point["observed_at"])[:10]
         if day > frozen_day:
             daily[day] = {"date": day, "strategy_equity": point["strategy_equity"],
                           "baseline_equity": point["baseline_equity"]}
-    closes = [{"exit_date": event["observed_at"][:10]}
+    closes = [{"exit_date": event.get("fill_bar", event["observed_at"])[:10]}
               for event in state["trades_log"]
-              if event["action"].startswith("CLOSE_") and event["observed_at"][:10] > frozen_day]
+              if event["action"].startswith("CLOSE_")
+              and event.get("fill_bar", event["observed_at"])[:10] > frozen_day]
     append_csv(root / "equity.csv", EVALUATION_EQUITY_COLUMNS, list(daily.values()))
     append_csv(root / "closed_trades.csv", CLOSED_COLUMNS, closes)
 
@@ -284,7 +330,7 @@ def run_once(args: argparse.Namespace, now: datetime, source_bars: list[dict] | 
     state = json.loads(state_path.read_text()) if state_path.exists() else None
     strategy_id = getattr(args, "strategy_id", STRATEGY_ID)
     timeframe = getattr(args, "timeframe", "1H")
-    interval = 24 if timeframe == "1D" else 60
+    interval = 24 if timeframe in ("1D", "1W") else 60
     module = load_strategy(strategy_id)
     if getattr(module, "SYMBOL", args.symbol) != args.symbol or getattr(module, "TIMEFRAME", timeframe) != timeframe:
         raise ValueError("strategy ticker or timeframe differs from frozen rule")
@@ -342,7 +388,7 @@ def main() -> None:
     p.add_argument("--setup", type=Path, help="frozen account setup JSON copied from papertrading/setup.template.json")
     p.add_argument("--strategy", dest="strategy_id", default=STRATEGY_ID,
                    help="registered strategy ID; setup overrides this value")
-    p.add_argument("--timeframe", choices=("1H", "4H", "1D"), default="1H")
+    p.add_argument("--timeframe", choices=("1H", "4H", "1D", "1W"), default="1H")
     p.add_argument("--symbol", help="MOEX TQBR ticker")
     p.add_argument("--account-id", help="unique account directory name")
     p.add_argument("--output", type=Path, default=Path("papertrading/live"))
@@ -374,6 +420,8 @@ def main() -> None:
         args.fee_bps = setup["fee_bps"]
         args.slip_bps = setup["slip_bps"]
         args.borrow_bps_annual = setup["borrow_bps_annual"]
+        if args.timeframe == "1W":
+            args.history_from = "2022-01-01"
     if args.symbol is None or args.lot_size is None:
         p.error("provide --setup or both --symbol and --lot-size")
     args.symbol = args.symbol.upper()

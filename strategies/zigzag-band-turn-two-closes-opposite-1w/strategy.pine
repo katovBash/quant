@@ -1,0 +1,69 @@
+//@version=6
+// Fixed weekly Band-ZigZag rule selected from the full-universe experiment.
+// Formula mirrors src/research/band_zigzag_weekly.py.
+// TradingView compilation and fill-by-fill Pine parity are not verified.
+// Original Trendoscope eta.bb sticky/adaptive implementation is a separate visual reference.
+strategy("Weekly Band-ZigZag · two closes · opposite exit", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false, max_lines_count=500)
+
+confirmation = "two_closes"
+exitMode = "opposite"
+showBands = input.bool(false, "Show bands")
+chartOk = timeframe.isweekly and timeframe.multiplier == 1
+middle = ta.sma(close, 20)
+deviation = ta.stdev(close, 20, true)
+upper = middle + 2.0 * deviation
+lower = middle - 2.0 * deviation
+highEvent = not na(upper) and high >= upper
+lowEvent = not na(lower) and low <= lower
+
+var int pivotSide = 0
+var int pivotBar = na
+var float pivotPrice = na
+var int usedPivotBar = na
+var int previousPivotBar = na
+var float previousPivotPrice = na
+var array<line> zigzagLines = array.new_line()
+
+if chartOk and barstate.isconfirmed
+    if highEvent != lowEvent
+        newSide = highEvent ? 1 : -1
+        newPrice = highEvent ? high : low
+        if pivotSide != newSide or (newSide == 1 and newPrice > pivotPrice) or (newSide == -1 and newPrice < pivotPrice)
+            replacing = pivotSide == newSide
+            if pivotSide != 0 and pivotSide != newSide
+                previousPivotBar := pivotBar
+                previousPivotPrice := pivotPrice
+            pivotSide := newSide
+            pivotBar := bar_index
+            pivotPrice := newPrice
+            if replacing and array.size(zigzagLines) > 0
+                line.delete(array.pop(zigzagLines))
+            if not na(previousPivotBar)
+                array.push(zigzagLines, line.new(previousPivotBar, previousPivotPrice, pivotBar, pivotPrice,
+                     color=newSide == 1 ? color.red : color.aqua, width=2))
+                if array.size(zigzagLines) > 450
+                    line.delete(array.shift(zigzagLines))
+    ageOk = not na(pivotBar) and bar_index > pivotBar and bar_index - pivotBar <= 8
+    longOk = confirmation == "first_close" ? close > open and close > close[1] :
+         confirmation == "break_prev" ? close > high[1] : close > close[1] and close[1] > close[2]
+    shortOk = confirmation == "first_close" ? close < open and close < close[1] :
+         confirmation == "break_prev" ? close < low[1] : close < close[1] and close[1] < close[2]
+    longSignal = ageOk and pivotSide == -1 and longOk and (na(usedPivotBar) or usedPivotBar != pivotBar)
+    shortSignal = ageOk and pivotSide == 1 and shortOk and (na(usedPivotBar) or usedPivotBar != pivotBar)
+    if longSignal and strategy.position_size <= 0
+        strategy.entry("Long", strategy.long)
+        usedPivotBar := pivotBar
+    else if shortSignal and strategy.position_size >= 0
+        strategy.entry("Short", strategy.short)
+        usedPivotBar := pivotBar
+    else if exitMode != "opposite" and strategy.position_size > 0 and high >= strategy.position_avg_price * (exitMode == "target5" ? 1.05 : 1.08)
+        strategy.close("Long")
+    else if exitMode != "opposite" and strategy.position_size < 0 and low <= strategy.position_avg_price * (exitMode == "target5" ? 0.95 : 0.92)
+        strategy.close("Short")
+
+plot(showBands ? upper : na, "Upper", color=color.new(color.red, 65))
+plot(showBands ? lower : na, "Lower", color=color.new(color.aqua, 65))

@@ -25,6 +25,8 @@
 
 ## Примеры для ручного разбора
 
+Это **примеры отдельных пар**, а не прошедшая отбор стратегия. Для paper trading требуется одна общая настройка и хотя бы одна акция, прошедшая порог на последних полных 12 месяцах; результат проверки **всех** настроек приведён в [PAPER_REVIEW.md](PAPER_REVIEW.md) и `paper_review.json → rule_screening`.
+
 Сортировка: число прибыльных месяцев, затем худший месячный PnL. Соседние настройки и контроль нужно сравнить перед выводом.
 
 | Акция · интервал · вариант | Плюс / все месяцы | Средний месяц | Средний прибыльный / убыточный месяц | Худший месяц | Последний календарный год / YTD | Контроль: плюс / месяцы |
@@ -141,28 +143,29 @@
 
 Доля удачных сделок считается **только по закрытым сделкам**. Доходность включает переоценку открытой позиции и потому не выводится из этой доли. Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.
 
-| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Плюсовые месяцы | Вывод |
-|---|---|---:|---:|---:|---|
-| LENT · 1D · `shannon-avwap-reclaim_20` | long_only | 20/69 · 29.0% | 0 · — | 18/33 | diagnostic_only; selected examples, not whole grid |
-| LENT · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| PLZL · 1D · `shannon-avwap-reclaim_20` | long_only | 20/68 · 29.4% | 0 · — | 16/33 | diagnostic_only; selected examples, not whole grid |
-| PLZL · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| UGLD · 1D · `shannon-avwap-reclaim_20` | long_only | 24/70 · 34.3% | 0 · — | 19/33 | diagnostic_only; selected examples, not whole grid |
-| UGLD · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `shannon-avwap-reclaim_20` | long_only | 21/79 · 26.6% | 0 · — | 15/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| AFLT · 1D · `shannon-avwap-reclaim_20` | long_only | 16/78 · 20.5% | 0 · — | 15/33 | diagnostic_only; selected examples, not whole grid |
-| AFLT · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| MTSS · 1D · `shannon-avwap-reclaim_20` | long_only | 19/69 · 27.5% | 0 · — | 17/33 | diagnostic_only; selected examples, not whole grid |
-| MTSS · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| SPBE · 1D · `shannon-avwap-reclaim_20` | long_only | 17/83 · 20.5% | 0 · — | 15/33 | diagnostic_only; selected examples, not whole grid |
-| SPBE · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| BSPB · 1D · `shannon-avwap-reclaim_20` | long_only | 23/82 · 28.0% | 0 · — | 17/33 | diagnostic_only; selected examples, not whole grid |
-| BSPB · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| RTKM · 1D · `shannon-avwap-reclaim_20` | long_only | 19/77 · 24.7% | 0 · — | 13/33 | diagnostic_only; selected examples, not whole grid |
-| RTKM · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| OZON · 1D · `shannon-avwap-reclaim_20` | long_only | 13/61 · 21.3% | 0 · — | 13/33 | diagnostic_only; selected examples, not whole grid |
-| OZON · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
+
+| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Доходность всего периода | Плюсовые месяцы | Вывод |
+|---|---|---:|---:|---:|---:|---|
+| LENT · 1D · `shannon-avwap-reclaim_20` | long_only | 20/69 · 29.0% | 0 · — | +23.10% | 18/33 | diagnostic_only; selected examples, not whole grid |
+| LENT · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| PLZL · 1D · `shannon-avwap-reclaim_20` | long_only | 20/68 · 29.4% | 0 · — | +6.06% | 16/33 | diagnostic_only; selected examples, not whole grid |
+| PLZL · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| UGLD · 1D · `shannon-avwap-reclaim_20` | long_only | 24/70 · 34.3% | 0 · — | +20.28% | 19/33 | diagnostic_only; selected examples, not whole grid |
+| UGLD · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `shannon-avwap-reclaim_20` | long_only | 21/79 · 26.6% | 0 · — | +6.70% | 15/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| AFLT · 1D · `shannon-avwap-reclaim_20` | long_only | 16/78 · 20.5% | 0 · — | +4.34% | 15/33 | diagnostic_only; selected examples, not whole grid |
+| AFLT · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| MTSS · 1D · `shannon-avwap-reclaim_20` | long_only | 19/69 · 27.5% | 0 · — | +9.30% | 17/33 | diagnostic_only; selected examples, not whole grid |
+| MTSS · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| SPBE · 1D · `shannon-avwap-reclaim_20` | long_only | 17/83 · 20.5% | 0 · — | +29.46% | 15/33 | diagnostic_only; selected examples, not whole grid |
+| SPBE · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| BSPB · 1D · `shannon-avwap-reclaim_20` | long_only | 23/82 · 28.0% | 0 · — | -0.14% | 17/33 | diagnostic_only; selected examples, not whole grid |
+| BSPB · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| RTKM · 1D · `shannon-avwap-reclaim_20` | long_only | 19/77 · 24.7% | 0 · — | +0.13% | 13/33 | diagnostic_only; selected examples, not whole grid |
+| RTKM · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| OZON · 1D · `shannon-avwap-reclaim_20` | long_only | 13/61 · 21.3% | 0 · — | +15.84% | 13/33 | diagnostic_only; selected examples, not whole grid |
+| OZON · 1D · `shannon-avwap-reclaim_20` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
 
 [Все результаты по направлениям](trade_side_summary.csv). Если капитал уходит ниже нуля, вариант недопустим независимо от процента успешных сделок.
 

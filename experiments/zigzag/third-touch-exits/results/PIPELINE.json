@@ -1,0 +1,64 @@
+{
+  "experiment": "experiments/zigzag/third-touch-exits",
+  "stage": "PAPER_STOPPED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/zigzag/third-touch-exits/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "z3_a_c_x_t5",
+    "symbols": 249,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": -0.07,
+    "median_train_worst_month_pnl_rub": -46507.67,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.05
+  },
+  "stocks": [
+    "AFKS",
+    "SFIN",
+    "HEAD",
+    "TATNP",
+    "RTKM",
+    "ASTR",
+    "TATN",
+    "FESH",
+    "X5"
+  ],
+  "strategy_id": "zigzag-third-touch-a-c-x-t5-4h",
+  "accounts": 0,
+  "deactivation": {
+    "status": "PAPER_STOPPED",
+    "at": "2026-11-07T11:38:05.234475+03:00",
+    "reason": "Пользователь уточнил направление: нужен отбой от поддержки в long и от сопротивления в short; зарегистрированный z3_a_c_x_t5 торгует пробой.",
+    "strategy_id": "zigzag-third-touch-a-c-x-t5-4h",
+    "accounts_stopped": [
+      "AFKS-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H",
+      "SFIN-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H",
+      "HEAD-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H",
+      "TATNP-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H",
+      "RTKM-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H",
+      "ASTR-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H",
+      "TATN-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H",
+      "FESH-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H",
+      "X5-ZIGZAG-THIRD-TOUCH-A-C-X-T5-4H"
+    ],
+    "open_positions_at_stop": 0,
+    "setup_files_removed": [
+      "papertrading/setups/fleet/auto-afks-zigzag-third-touch-a-c-x-t5-4h.json",
+      "papertrading/setups/fleet/auto-astr-zigzag-third-touch-a-c-x-t5-4h.json",
+      "papertrading/setups/fleet/auto-fesh-zigzag-third-touch-a-c-x-t5-4h.json",
+      "papertrading/setups/fleet/auto-head-zigzag-third-touch-a-c-x-t5-4h.json",
+      "papertrading/setups/fleet/auto-rtkm-zigzag-third-touch-a-c-x-t5-4h.json",
+      "papertrading/setups/fleet/auto-sfin-zigzag-third-touch-a-c-x-t5-4h.json",
+      "papertrading/setups/fleet/auto-tatn-zigzag-third-touch-a-c-x-t5-4h.json",
+      "papertrading/setups/fleet/auto-tatnp-zigzag-third-touch-a-c-x-t5-4h.json",
+      "papertrading/setups/fleet/auto-x5-zigzag-third-touch-a-c-x-t5-4h.json"
+    ]
+  }
+}

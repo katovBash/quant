@@ -21,6 +21,8 @@
 
 ## Примеры для ручного разбора
 
+Это **примеры отдельных пар**, а не прошедшая отбор стратегия. Для paper trading требуется одна общая настройка и хотя бы одна акция, прошедшая порог на последних полных 12 месяцах; результат проверки **всех** настроек приведён в [PAPER_REVIEW.md](PAPER_REVIEW.md) и `paper_review.json → rule_screening`.
+
 Сортировка: число прибыльных месяцев, затем худший месячный PnL. Соседние настройки и контроль нужно сравнить перед выводом.
 
 | Акция · интервал · вариант | Плюс / все месяцы | Средний месяц | Средний прибыльный / убыточный месяц | Худший месяц | Последний календарный год / YTD | Контроль: плюс / месяцы |
@@ -137,28 +139,29 @@
 
 Доля удачных сделок считается **только по закрытым сделкам**. Доходность включает переоценку открытой позиции и потому не выводится из этой доли. Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.
 
-| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Плюсовые месяцы | Вывод |
-|---|---|---:|---:|---:|---|
-| LENT · 1D · `oneil-double-bottom_45` | long_only | 4/6 · 66.7% | 0 · — | 8/33 | diagnostic_only; selected examples, not whole grid |
-| LENT · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `oneil-double-bottom_45` | long_only | 3/4 · 75.0% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| SPBE · 1D · `oneil-double-bottom_45` | long_only | 3/4 · 75.0% | 0 · — | 4/33 | diagnostic_only; selected examples, not whole grid |
-| SPBE · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| CBOM · 1D · `oneil-double-bottom_45` | long_only | 4/5 · 80.0% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| CBOM · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| PLZL · 1D · `oneil-double-bottom_45` | long_only | 4/7 · 57.1% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| PLZL · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| ENPG · 1D · `oneil-double-bottom_45` | long_only | 2/3 · 66.7% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| ENPG · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| TRNFP · 1D · `oneil-double-bottom_45` | long_only | 2/2 · 100.0% | 0 · — | 4/33 | diagnostic_only; selected examples, not whole grid |
-| TRNFP · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| OZON · 1D · `oneil-double-bottom_45` | long_only | 2/4 · 50.0% | 0 · — | 4/33 | diagnostic_only; selected examples, not whole grid |
-| OZON · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| SFIN · 1D · `oneil-double-bottom_45` | long_only | 3/4 · 75.0% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| SFIN · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| GMKN · 1D · `oneil-double-bottom_45` | long_only | 2/5 · 40.0% | 0 · — | 4/33 | diagnostic_only; selected examples, not whole grid |
-| GMKN · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
+
+| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Доходность всего периода | Плюсовые месяцы | Вывод |
+|---|---|---:|---:|---:|---:|---|
+| LENT · 1D · `oneil-double-bottom_45` | long_only | 4/6 · 66.7% | 0 · — | +15.03% | 8/33 | diagnostic_only; selected examples, not whole grid |
+| LENT · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `oneil-double-bottom_45` | long_only | 3/4 · 75.0% | 0 · — | +4.36% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| SPBE · 1D · `oneil-double-bottom_45` | long_only | 3/4 · 75.0% | 0 · — | +26.48% | 4/33 | diagnostic_only; selected examples, not whole grid |
+| SPBE · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| CBOM · 1D · `oneil-double-bottom_45` | long_only | 4/5 · 80.0% | 0 · — | +11.10% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| CBOM · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| PLZL · 1D · `oneil-double-bottom_45` | long_only | 4/7 · 57.1% | 0 · — | +7.17% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| PLZL · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| ENPG · 1D · `oneil-double-bottom_45` | long_only | 2/3 · 66.7% | 0 · — | +4.82% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| ENPG · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| TRNFP · 1D · `oneil-double-bottom_45` | long_only | 2/2 · 100.0% | 0 · — | +0.71% | 4/33 | diagnostic_only; selected examples, not whole grid |
+| TRNFP · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| OZON · 1D · `oneil-double-bottom_45` | long_only | 2/4 · 50.0% | 0 · — | +2.72% | 4/33 | diagnostic_only; selected examples, not whole grid |
+| OZON · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| SFIN · 1D · `oneil-double-bottom_45` | long_only | 3/4 · 75.0% | 0 · — | +7.80% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| SFIN · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| GMKN · 1D · `oneil-double-bottom_45` | long_only | 2/5 · 40.0% | 0 · — | +1.68% | 4/33 | diagnostic_only; selected examples, not whole grid |
+| GMKN · 1D · `oneil-double-bottom_45` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
 
 [Все результаты по направлениям](trade_side_summary.csv). Если капитал уходит ниже нуля, вариант недопустим независимо от процента успешных сделок.
 

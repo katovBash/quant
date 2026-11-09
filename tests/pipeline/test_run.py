@@ -10,6 +10,38 @@ from pipeline import run as pipeline
 
 
 class PipelineRunTests(unittest.TestCase):
+    def test_registered_account_count_comes_from_activation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve()
+            experiment = root / "experiments/example"
+            results = experiment / "results"
+            strategy = root / "strategies/example"
+            results.mkdir(parents=True)
+            strategy.mkdir(parents=True)
+            (strategy / "check_parity.py").write_text("# checked by command mock\n")
+            (experiment / "protocol.json").write_text("{}")
+            (experiment / "run.py").write_text("# existing results\n")
+            review_path = results / "paper_review.json"
+            review_path.write_text(json.dumps({"rule": {"variant": "fixed"},
+                                               "stocks": [{"symbol": "ABC"}]}))
+            (results / "validation.json").write_text('{"structural_ok":true}')
+            dividends = root / "data/dividends/moex_coverage.json"
+            dividends.parent.mkdir(parents=True)
+            dividends.write_text('{"status":"SUBSCRIPTION_REQUIRED"}')
+            def command(*args):
+                if any("activate.py" in item for item in args):
+                    review = json.loads(review_path.read_text())
+                    review["activation"] = {"accounts": ["A", "B", "C"]}
+                    review_path.write_text(json.dumps(review))
+                return ""
+            with patch.object(pipeline, "ROOT", root), patch.object(
+                pipeline, "command", side_effect=command), patch(
+                "guardrails.lifecycle.experiment_gate", return_value=("PAPER_CANDIDATE", [])), patch(
+                "guardrails.lifecycle.publish", return_value={}):
+                state = pipeline.run(experiment, existing_results=True, strategy_dir=strategy)
+            self.assertEqual(state["stage"], "PAPER_REGISTERED")
+            self.assertEqual(state["accounts"], 3)
+
     def test_existing_results_revalidate_without_rerun_or_activation(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp).resolve()

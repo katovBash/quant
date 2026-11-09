@@ -51,11 +51,25 @@ def _side_analysis(output: Path) -> str:
         rows = list(csv.DictReader(stream))
     if not rows:
         return "Разбивка по направлениям пуста; вывод о long или short не делается."
+    total_rows = len(rows)
+    scope_note = ""
+    if total_rows > 100:
+        review_path = output / "paper_review.json"
+        review = json.loads(review_path.read_text(encoding="utf-8")) if review_path.is_file() else {}
+        rule = review.get("rule") or {}
+        selected = {item["symbol"] for item in review.get("stocks", [])}
+        focused = [row for row in rows if row["variant"] == rule.get("variant")
+                   and row["timeframe"] == rule.get("timeframe")
+                   and row["symbol"] in selected]
+        rows = focused if focused else rows[:20]
+        scope_note = (f"Полная разбивка содержит {total_rows} строк. Ниже показаны "
+                      f"{len(rows)} строк выбранной настройки и акций; остальные — в CSV.")
     lines = ["Доля удачных сделок считается **только по закрытым сделкам**. "
              "Доходность включает переоценку открытой позиции и потому не выводится из этой доли. "
-             "Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.", "",
-             "| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Плюсовые месяцы | Вывод |",
-             "|---|---|---:|---:|---:|---|"]
+             "Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.",
+             scope_note, "",
+             "| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Доходность всего периода | Плюсовые месяцы | Вывод |",
+             "|---|---|---:|---:|---:|---:|---|"]
     for row in rows:
         long_count = int(row["long_closed"])
         short_count = int(row["short_closed"])
@@ -65,6 +79,7 @@ def _side_analysis(output: Path) -> str:
                      if short_count else "0 · —")
         lines.append(f"| {row['symbol']} · {row['timeframe']} · `{row['variant']}` | "
                      f"{row['mode']} | {long_win} | {short_win} | "
+                     f"{_percent(float(row['return_pct']))} | "
                      f"{row['profitable_months']}/{row['months']} | {row.get('conclusion', '—')} |")
     lines += ["", "[Все результаты по направлениям](trade_side_summary.csv). "
               "Если капитал уходит ниже нуля, вариант недопустим независимо от процента успешных сделок."]

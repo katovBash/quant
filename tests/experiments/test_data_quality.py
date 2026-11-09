@@ -10,6 +10,18 @@ from src.research.timeframes import source_path
 
 
 class DataQualityTests(unittest.TestCase):
+    def test_exchange_documented_halt_does_not_look_like_missing_data(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cache = Path(tmp)
+            path = source_path(cache, "TEST", "1H")
+            path.write_text(json.dumps([
+                {"ts": "2024-02-13 13:00:00", "open": 100, "high": 101, "low": 99, "close": 100},
+                {"ts": "2024-02-13 15:00:00", "open": 100, "high": 101, "low": 99, "close": 100}]))
+            actual = candle_quality(cache, "TEST", "1H")
+            self.assertEqual(actual["status"], "basic_check_ok")
+            self.assertEqual(actual["documented_market_halt_hours"], 1)
+            self.assertEqual(actual["possible_intraday_gaps"], 0)
+
     def test_intraday_hole_is_flagged_as_possible(self):
         with tempfile.TemporaryDirectory() as tmp:
             cache = Path(tmp)

@@ -1,0 +1,104 @@
+{
+  "id": "zigzag-band-turn-two-closes-opposite-1w",
+  "timeframe": "1W",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/zigzag/weekly-band-turn-interactions/results/paper_review.json",
+  "variant": "bb20__two_closes__opposite",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/zigzag/weekly-band-turn-interactions/results/all_variants.csv",
+      "monthly_csv": "experiments/zigzag/weekly-band-turn-interactions/results/monthly_returns.csv",
+      "variant": "bb20__two_closes__opposite",
+      "timeframe": "1W"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "SNGS",
+      "net_return_pct": 35.2,
+      "closed_trades": 6,
+      "train_positive_share_pct": 70.83,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "NLMK",
+      "net_return_pct": 23.74,
+      "closed_trades": 4,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "HYDR",
+      "net_return_pct": 22.3,
+      "closed_trades": 4,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "PLZL",
+      "net_return_pct": 3.42,
+      "closed_trades": 2,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "MGNT",
+      "net_return_pct": 25.54,
+      "closed_trades": 4,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "MSNG",
+      "net_return_pct": 15.29,
+      "closed_trades": 5,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "ROSN",
+      "net_return_pct": 17.76,
+      "closed_trades": 6,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "GAZP",
+      "net_return_pct": 17.25,
+      "closed_trades": 6,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 100.0
+    },
+    {
+      "symbol": "SELG",
+      "net_return_pct": 19.75,
+      "closed_trades": 6,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "SPBE",
+      "net_return_pct": 6.36,
+      "closed_trades": 2,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 12.66,
+      "closed_trades": 4,
+      "train_positive_share_pct": 37.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "VTBR",
+      "net_return_pct": 1.44,
+      "closed_trades": 4,
+      "train_positive_share_pct": 29.17,
+      "late_positive_share_pct": 66.67
+    }
+  ]
+}

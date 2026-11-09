@@ -1,0 +1,157 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "source-pivot-stall",
+  "method_id": "zigzag-source-pivot-stall",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "hypothesis": "Using the user-supplied Band-ZigZag default pivot stream, reverse after exactly N complete bars without a newer extreme: low -> long, high -> short. Sweep every integer N from 0 to 30.",
+  "research_provenance": {
+    "source": "User-supplied Trendoscope Band-Zigzag Pine, 2026-11-07; HeWhoMustNotBeNamed/ta/1 published source",
+    "source_library_url": "https://www.tradingview.com/script/Hl3qMUJN-ta/",
+    "source_file": "source.pine",
+    "implementation": "Python port of default SMA20/Bollinger x2 sticky and adaptive pivot updates; Pine review uses original imports and pivot functions",
+    "scope": "Default Bollinger/SMA20/sticky/adaptive only; other band and moving-average input combinations are not part of this run"
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": []
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "15M",
+    "30M",
+    "1H",
+    "4H",
+    "1D",
+    "1W"
+  ],
+  "entry_design": {
+    "mechanisms": [
+      {
+        "id": "pivot_pause_reversal",
+        "description": "Observe the latest provisional ZigZag endpoint, wait N completed bars without a newer extreme, then trade opposite to the completed leg",
+        "delay_bars": {
+          "start": 0,
+          "stop": 30,
+          "step": 1
+        }
+      }
+    ],
+    "direction": "Latest low -> long; latest high -> short",
+    "decision_time": "At close of bar with age N; first fill at next bar open",
+    "reset": "A later high or low replacing the endpoint restarts the count; a new opposite pivot changes direction",
+    "common_exit_rule": "Opposite entry reverses the position; no other filter or exit",
+    "source_availability": {
+      "15M": "SOURCE_MISSING",
+      "30M": "SOURCE_MISSING",
+      "1H": "AVAILABLE",
+      "4H": "AVAILABLE",
+      "1D": "AVAILABLE",
+      "1W": "AVAILABLE"
+    }
+  },
+  "parameter_grid": {
+    "axes": {
+      "delay": {
+        "start": 0,
+        "stop": 30,
+        "step": 1
+      }
+    },
+    "variant_template": "pivot__d{delay}",
+    "include_baseline": true,
+    "max_combinations": 31
+  },
+  "expected_variants": [
+    "baseline",
+    "pivot__d0",
+    "pivot__d1",
+    "pivot__d2",
+    "pivot__d3",
+    "pivot__d4",
+    "pivot__d5",
+    "pivot__d6",
+    "pivot__d7",
+    "pivot__d8",
+    "pivot__d9",
+    "pivot__d10",
+    "pivot__d11",
+    "pivot__d12",
+    "pivot__d13",
+    "pivot__d14",
+    "pivot__d15",
+    "pivot__d16",
+    "pivot__d17",
+    "pivot__d18",
+    "pivot__d19",
+    "pivot__d20",
+    "pivot__d21",
+    "pivot__d22",
+    "pivot__d23",
+    "pivot__d24",
+    "pivot__d25",
+    "pivot__d26",
+    "pivot__d27",
+    "pivot__d28",
+    "pivot__d29",
+    "pivot__d30"
+  ],
+  "promotion_variant_prefixes": [
+    "pivot__"
+  ],
+  "parameter_rationale": "Every integer age 0..30 is tested, including requested 5, 10 and 30; 0 is an immediate unconfirmed endpoint control. No candle-direction, ratio or wick filter is added.",
+  "min_bars": 100,
+  "baseline": "25%-capital buy-and-hold per stock on the same candles and expense model",
+  "signal_rule": "Port source Pine add_pivots under default BB20 SMA, multiplier 2, sticky=true, useAdaptive=true. Each completed bar records latest provisional pivot. At exact age N since its last replacement, issue long after a low or short after a high. Fill next bar open. New extreme resets age. Reverse on opposite qualifying signal.",
+  "signal_semantics": "A plotted ZigZag endpoint is provisional and can move; historical label location is not the observation time. Event uses only the endpoint visible on the decision bar.",
+  "evaluation_unit": "Independent 1m RUB virtual backtest per stock, not a combined portfolio",
+  "execution_timing": "Signal on confirmed bar close, execution on next open; no backdated fill at pivot price",
+  "holding_period": "Until opposite qualifying pivot-pause signal",
+  "rebalance_rule": "At most one position per stock; opposite signal reverses",
+  "required_data": [
+    "1D OHLCV for 1D/1W",
+    "1H OHLCV for 1H/4H",
+    "1-minute OHLCV for 15M/30M (missing)"
+  ],
+  "availability_lag": "Only completed chart bars; 4H and 1W aggregated from completed source candles",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Compare all 31 preregistered delays, full-year and monthly outcomes, neighboring delays and identical buy-and-hold control. No automatic paper promotion before Pine/Python signal parity and user chart check.",
+  "research_family": {
+    "related_runs": [
+      "experiments/zigzag/bend-entry-multitimeframe",
+      "experiments/zigzag/band-stall-thresholds"
+    ],
+    "tested_variants_in_this_run": 31,
+    "earlier_history_seen": true,
+    "late_history_seen": true,
+    "untested_dependencies": [
+      "Alternative bands and moving averages from source input menu",
+      "15M/30M minute candles",
+      "TradingView/MOEX price-feed differences",
+      "Independent unseen holdout",
+      "Alternative exits"
+    ]
+  },
+  "run_command": "python3 -m pipeline.run experiments/zigzag/source-pivot-stall",
+  "limitations": [
+    "Pine strategy must still be compiled and trade-matched in TradingView",
+    "15M/30M source_missing",
+    "Corporate actions and short borrow are incomplete",
+    "User-supplied indicator has a provisional endpoint that may later extend"
+  ]
+}

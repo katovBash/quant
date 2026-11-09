@@ -14,6 +14,9 @@
     .top-right{display:flex;align-items:center;gap:18px;color:#98a8bd;font-size:12px}.live-pill{border:1px solid #315d56;background:#112a28;color:#51e0b1;border-radius:100px;padding:7px 11px;font-weight:750;letter-spacing:.06em}.live-pill.bad{color:#ffb59d;border-color:#6b423f;background:#321f25}
     main{padding-top:35px;padding-bottom:65px}.eyebrow{color:#50dcb5;text-transform:uppercase;letter-spacing:.18em;font-size:11px;font-weight:800;margin:0 0 8px}h1{font-size:clamp(28px,3vw,42px);letter-spacing:-.045em;margin:0;font-weight:750}.sub{margin:10px 0 28px;color:#9eafc4;font-size:14px;line-height:1.5}
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}.stat{background:#141e2d;border:1px solid #263347;border-radius:16px;padding:17px 19px;min-height:99px}.stat b{display:block;font-size:25px;letter-spacing:-.04em;margin-top:8px}.stat span{color:#98a8bd;font-size:12px}.stat small{display:block;color:#6f839b;font-size:11px;margin-top:3px}
+    .discovery-panel{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#141e2d;border:1px solid #263347;border-radius:16px;padding:16px 19px;margin:-8px 0 28px}.discovery-panel strong{display:block;font-size:14px}.discovery-panel small{display:block;color:#91a5bb;font-size:11px;margin-top:5px;line-height:1.4}.discovery-panel button{border:1px solid #496a70;border-radius:10px;background:#183b3a;color:#aaf0d9;padding:10px 14px;font:inherit;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}.discovery-panel button.off{background:#29313e;color:#c5d0df;border-color:#465264}.discovery-panel button:disabled{opacity:.55;cursor:wait}
+    .improve-panel{border:1px solid #315269;border-radius:16px;background:#132133;padding:18px;margin:18px 0 26px}.improve-panel h3{margin:0 0 8px;font-size:16px}.improve-panel p{color:#a9bdcf;font-size:12px;line-height:1.5}.improve-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:230px;overflow:auto;color:#c8dbe6;background:#0b1420;padding:13px;border-radius:9px;font-size:11px}.improve-panel textarea{display:block;width:100%;min-height:80px;resize:vertical;background:#0d1825;border:1px solid #3b5369;border-radius:9px;color:#e9eef7;padding:10px;font:inherit;font-size:12px}.improve-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:11px}.improve-actions button{background:#1d4947;color:#b6f4df;border:1px solid #42736e;border-radius:9px;padding:9px 12px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.improve-actions button:disabled{opacity:.5;cursor:wait}.improve-actions .stop{background:#432a31;color:#ffc3c3;border-color:#73505a}.improve-panel a{color:#78cfed}
+    @media(max-width:620px){.discovery-panel{align-items:stretch;flex-direction:column}.discovery-panel button{align-self:flex-start}}
     .section-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:24px 0 13px}.section-heading h2{font-size:17px;margin:0;letter-spacing:-.02em}.filters{display:flex;gap:6px;background:#121c2a;padding:4px;border:1px solid #263347;border-radius:10px}.filters button{border:0;color:#9eafc4;background:transparent;border-radius:7px;padding:7px 11px;font-weight:650;cursor:pointer}.filters button.active{background:#2a3b50;color:#f6fbff}
     .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.card{background:#141e2d;border:1px solid #263347;border-radius:17px;padding:19px;min-width:0;transition:border-color .2s}.card:hover{border-color:#47617a}.cardtop{display:flex;justify-content:space-between;gap:12px;align-items:start}.ticker{font-size:21px;font-weight:800;letter-spacing:-.035em}.timeframe{color:#7d93ab;font-size:12px;margin-left:7px}.badge{border-radius:8px;padding:6px 9px;font-size:11px;font-weight:850;letter-spacing:.07em;white-space:nowrap}.badge.long{background:#123d36;color:#49dfae}.badge.short{background:#4b2730;color:#ff9e9e}.badge.flat{background:#273446;color:#afc0d4}.badge.error{background:#5a3127;color:#ffc090}
     .rule{color:#a9bacd;font-size:12px;margin:8px 0 20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.figures{display:grid;grid-template-columns:1fr 1fr;gap:13px 10px}.figure small{display:block;color:#778ca4;font-size:11px;margin-bottom:5px}.figure strong{font-size:16px;font-weight:750}.positive{color:#51dfb2}.negative{color:#ff9a9a}.muted{color:#afc0d4}.cardfoot{display:flex;justify-content:space-between;border-top:1px solid #273346;margin-top:18px;padding-top:13px;gap:12px;color:#8fa2b8;font-size:11px}.pending{color:#f4c780}.errorline{color:#ffb59d;font-size:11px;margin-top:10px;overflow-wrap:anywhere}
@@ -24,9 +27,11 @@
 
     .strategy-tools{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:23px 0 14px}.strategy-tools input{width:min(390px,100%);border:1px solid #34445a;border-radius:11px;background:#111c2b;color:#e9eef7;padding:12px 14px;font:inherit}.strategy-tools input:focus{outline:2px solid #3b9ccc;outline-offset:2px}.strategy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.strategy-tile{width:100%;text-align:left;cursor:pointer;background:#141e2d;border:1px solid #263347;border-radius:17px;padding:20px;color:inherit;font:inherit;min-width:0}.strategy-tile:hover,.strategy-tile:focus-visible{border-color:#55c9ad;outline:none}.strategy-name{font-size:17px;font-weight:750;line-height:1.35}.strategy-meta{font-size:12px;color:#8da2b9;margin-top:8px}.strategy-numbers{display:flex;gap:20px;flex-wrap:wrap;margin-top:18px}.strategy-numbers span{font-size:12px;color:#9bb0c6}.strategy-numbers b{display:block;font-size:20px;color:#eaf4fa}.strategy-numbers small{display:block;font-size:11px;margin-top:2px;color:#8da2b9}.strategy-symbols{margin-top:15px;font-size:11px;color:#87a3b6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.back-button{border:1px solid #345065;border-radius:9px;background:#16293a;color:#a8e8da;padding:9px 12px;cursor:pointer;font:inherit;font-size:12px;font-weight:700}.back-button:hover{background:#1f3c4b}.detail-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:25px 0 12px}.detail-head h2{margin:0;font-size:24px}.detail-summary{color:#9eafc4;font-size:13px;line-height:1.5;margin:0 0 18px}.ranking-table{width:100%;border-collapse:collapse;font-size:12px;background:#141e2d;border-radius:14px;overflow:hidden}.ranking-table th,.ranking-table td{text-align:left;border-bottom:1px solid #263347;padding:11px 14px}.ranking-table th{color:#8297ad;font-weight:700;background:#182437}.ranking-table tr:last-child td{border-bottom:0}.ranking-table .yes{color:#59dfb4}.ranking-wrap{overflow:auto;border:1px solid #263347;border-radius:14px;margin:15px 0 25px}.detail-count{font-size:12px;color:#91a7bc}.detail-section[hidden],.overview-section[hidden]{display:none}
     .strategy-numbers .pnl-positive b,.strategy-numbers .pnl-positive small{color:#51dfb2}.strategy-numbers .pnl-negative b,.strategy-numbers .pnl-negative small{color:#ff9a9a}
+    .pine-open,.pine-actions button{border:1px solid #3d6970;border-radius:9px;background:#183b3a;color:#aaf0d9;padding:9px 12px;cursor:pointer;font:inherit;font-size:12px;font-weight:750}.pine-open{margin-left:auto}.pine-open:disabled{opacity:.45;cursor:not-allowed}.pine-dialog{width:min(980px,calc(100vw - 32px));max-height:min(85vh,900px);padding:0;border:1px solid #36536a;border-radius:16px;background:#101a28;color:#e9eef7;box-shadow:0 24px 80px #000a}.pine-dialog::backdrop{background:#050a13b8}.pine-dialog-head{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:18px 20px;border-bottom:1px solid #2a3b50}.pine-dialog-head h2{margin:0;font-size:19px}.pine-actions{display:flex;gap:8px}.pine-note{margin:0;padding:12px 20px;color:#9eb1c6;font-size:12px}.pine-code{margin:0 20px 20px;padding:18px;max-height:60vh;overflow:auto;border:1px solid #2a3b50;border-radius:10px;background:#0b111b;color:#d7e9ef;font-size:12px;line-height:1.5;tab-size:4}.pine-status{color:#96b0c6;font-size:12px;margin:0 20px 18px;min-height:16px}@media(max-width:620px){.pine-open{margin-left:0}.pine-dialog-head{align-items:start;flex-direction:column}.pine-code{font-size:11px}}
     .history-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 15px}.history-switch{display:flex;gap:4px;padding:4px;border:1px solid #34445a;border-radius:10px;background:#111c2b}.history-switch button{border:0;border-radius:7px;background:transparent;color:#9eafc4;padding:7px 11px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.history-switch button.active{background:#2a3b50;color:#f6fbff}.history-switch button:disabled{opacity:.4;cursor:not-allowed}.history-note{color:#8fa2b8;font-size:12px}.history-cell{white-space:nowrap;font-variant-numeric:tabular-nums}
     .history-symbol{border:0;background:none;color:#a8e8da;padding:0;font:inherit;font-weight:750;cursor:pointer;white-space:nowrap}.history-symbol:hover{text-decoration:underline}.history-symbol:focus-visible{outline:2px solid #55c9ad;outline-offset:3px;border-radius:2px}.history-symbol span{color:#7893aa;margin-left:5px}.monthly-detail-row td{background:#101a28;padding:15px 18px 19px}.month-detail h4{color:#b7c9db;font-size:12px;margin:14px 0 8px}.month-detail h4:first-child{margin-top:0}.month-grid{display:grid;grid-template-columns:repeat(12,minmax(68px,1fr));gap:7px}.month-chip{border:1px solid #2c3e52;background:#172436;border-radius:8px;padding:8px 7px;min-width:0;text-align:center;font-variant-numeric:tabular-nums}.month-chip.gain{border-color:#286958;background:#12382f}.month-chip.loss{border-color:#754247;background:#3b242b}.month-chip.flat{border-color:#34465a;background:#1b2939}.month-chip span{display:block;color:#a5b8c9;font-size:10px;margin-bottom:3px}.month-chip b{font-size:12px}.month-detail-empty{color:#8ca3b9;font-size:12px}@media(max-width:1100px){.month-grid{grid-template-columns:repeat(6,minmax(68px,1fr))}}@media(max-width:620px){.month-grid{grid-template-columns:repeat(3,minmax(68px,1fr))}}
     @media(max-width:1000px){.strategy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.strategy-grid{grid-template-columns:1fr}.strategy-tools{align-items:start;flex-direction:column}}
+    .experiment-section{margin-top:36px}.experiment-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.experiment-tools input{width:220px;border:1px solid #34445a;border-radius:9px;background:#111c2b;color:#e9eef7;padding:8px 10px;font:inherit;font-size:12px}.experiment-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.experiment-card{border:1px solid #263347;border-radius:14px;background:#141e2d;padding:18px;min-width:0}.experiment-card h3{font-size:15px;margin:0 0 8px;overflow-wrap:anywhere}.experiment-card p{font-size:12px;color:#9eafc4;line-height:1.5;margin:10px 0;overflow-wrap:anywhere}.experiment-meta{font-size:11px;color:#8fa2b8}.experiment-state{font-size:11px;font-weight:750;color:#f4c780}.experiment-state.closed{color:#ffaaa0}.experiment-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.experiment-actions button{border:1px solid #3d6970;border-radius:8px;background:#183b3a;color:#aaf0d9;padding:8px 11px;cursor:pointer;font:inherit;font-size:11px;font-weight:700}.experiment-actions button:disabled{opacity:.45;cursor:not-allowed}.experiment-report{white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit}@media(max-width:700px){.experiment-list{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -35,23 +40,32 @@
   <p class="eyebrow">Локальное наблюдение · MOEX ISS</p><h1>Стратегии и виртуальные счета</h1><p class="sub">Выбери стратегию, затем смотри её акции, позиции и сделки. Панель обновляется каждые 10 секунд; свечи опрашивает отдельный терминальный процесс.</p>
   <div class="warning" id="warning"></div>
   <div class="stats"><div class="stat"><span>Счетов</span><b id="total">—</b><small>в общем процессе</small></div><div class="stat"><span>Открыто long</span><b id="longs">—</b><small>виртуальные позиции</small></div><div class="stat"><span>Открыто short</span><b id="shorts">—</b><small>виртуальные позиции</small></div><div class="stat"><span>Ошибки источника</span><b id="errors">—</b><small>последний опрос</small></div></div>
+  <div class="discovery-panel"><div><strong id="discovery-title">Поиск новых стратегий · проверка состояния</strong><small id="discovery-detail">Ежедневное расписание управляется отдельно в Codex. Переключатель разрешает или запрещает запуск агента.</small></div><button id="discovery-toggle" type="button" aria-pressed="false">Загрузка…</button></div>
   <section class="overview-section" id="overview"><div class="strategy-tools"><h2 style="margin:0;font-size:18px">Стратегии <span class="detail-count" id="rule-count"></span></h2><input id="strategy-search" type="search" placeholder="Найти EMA, RSI, интервал…" aria-label="Поиск стратегии"></div><div class="strategy-grid" id="strategy-grid"><div class="empty">Загружаю стратегии…</div></div></section>
-  <section class="detail-section" id="detail" hidden><div class="detail-head"><button class="back-button" id="back-to-rules" type="button">← Все стратегии</button><h2 id="detail-title"></h2></div><p class="detail-summary" id="detail-summary"></p><h3 style="font-size:15px;margin:24px 0 10px">Акции стратегии <span class="detail-count" id="ranking-count"></span></h3><div class="history-toolbar" id="history-toolbar"><div class="history-switch" role="group" aria-label="Расходы в истории"><button id="history-after" type="button">После расходов</button><button id="history-before" type="button">До расходов</button></div><span class="history-note" id="history-note"></span></div><div class="ranking-wrap" id="ranking-wrap"></div><div class="section-heading"><h2>Виртуальные счета <small id="filter-count" style="font-size:12px;color:#8296ac;font-weight:500"></small></h2><div class="filters" aria-label="Фильтр счетов"><button data-filter="all" class="active">Все</button><button data-filter="open">Открыты</button><button data-filter="pending">Ожидают</button><button data-filter="error">Ошибки</button></div></div><div class="cards" id="cards"><div class="empty">Загружаю счета…</div></div></section>
-  <section class="activity"><div class="section-heading"><h2>Последние события</h2><span style="font-size:12px;color:#8296ac">Открытия, закрытия и пропуски свечей</span></div><div class="activity-list" id="events"><div class="empty">Загружаю журнал…</div></div></section>
+  <section class="detail-section" id="detail" hidden><div class="detail-head"><button class="back-button" id="back-to-rules" type="button">← Все стратегии</button><h2 id="detail-title"></h2><button class="pine-open" id="pine-open" type="button">Показать Pine Script</button></div><p class="detail-summary" id="detail-summary"></p><div class="improve-panel"><h3>Исследовать улучшение</h3><p id="improve-status">Агент сравнит новый вариант с этой стратегией. Действующие счета продолжат работать.</p><pre id="improve-plan" hidden></pre><label id="improve-guidance-wrap" hidden>Что изменить в гипотезе<textarea id="improve-guidance" maxlength="4000" placeholder="Например: проверь фильтр старшего тренда; сохрани исходные параметры входа."></textarea></label><div class="improve-actions"><button id="improve-start" type="button">Предложить улучшение</button><button id="improve-continue" type="button" hidden>Запустить проверку</button><button id="improve-cancel" class="stop" type="button" hidden>Остановить</button><button id="improve-report" type="button" hidden>Открыть отчёт</button></div><pre id="improve-log" hidden></pre></div><h3 style="font-size:15px;margin:24px 0 10px">Акции стратегии <span class="detail-count" id="ranking-count"></span></h3><div class="history-toolbar" id="history-toolbar"><div class="history-switch" role="group" aria-label="Расходы в истории"><button id="history-after" type="button">После расходов</button><button id="history-before" type="button">До расходов</button></div><span class="history-note" id="history-note"></span></div><div class="ranking-wrap" id="ranking-wrap"></div><div class="section-heading"><h2>Виртуальные счета <small id="filter-count" style="font-size:12px;color:#8296ac;font-weight:500"></small></h2><div class="filters" aria-label="Фильтр счетов"><button data-filter="all" class="active">Все</button><button data-filter="open">Открыты</button><button data-filter="pending">Ожидают</button><button data-filter="error">Ошибки</button></div></div><div class="cards" id="cards"><div class="empty">Загружаю счета…</div></div></section>
+  <section class="experiment-section overview-section" id="experiments-section"><div class="section-heading"><h2>Review <span class="detail-count" id="experiment-count"></span></h2><div class="experiment-tools"><input id="experiment-search" type="search" placeholder="Найти эксперимент…" aria-label="Поиск эксперимента"><div class="filters" aria-label="Фильтр экспериментов"><button type="button" data-experiment-filter="all" class="active">Все</button><button type="button" data-experiment-filter="pending">На проверке</button><button type="button" data-experiment-filter="closed">Закрыты</button></div></div></div><div class="experiment-list" id="experiment-list"><div class="empty">Загружаю эксперименты…</div></div></section>
+  <section class="activity"><div class="section-heading"><h2>Журнал событий</h2><span style="font-size:12px;color:#8296ac">Открытия, закрытия и восстановленные свечи</span></div><div class="activity-list" id="events"><div class="empty">Загружаю журнал…</div></div></section>
   <section class="activity"><div class="section-heading"><h2>Запросы процессов</h2><span style="font-size:12px;color:#8296ac">Fleet: 15 минут после завершения цикла · Web: обновление страницы каждые 10 секунд</span></div><div class="log-grid"><div class="log-panel"><h3>MOEX · quant-paper-fleet</h3><div id="fleet-requests"></div></div><div class="log-panel"><h3>Страница · quant-paper-web</h3><div id="web-requests"></div></div></div></section>
 </main>
+<dialog class="pine-dialog" id="pine-dialog" aria-labelledby="pine-title"><div class="pine-dialog-head"><h2 id="pine-title">Pine Script</h2><div class="pine-actions"><button id="pine-copy" type="button">Скопировать</button><button id="pine-close" type="button">Закрыть</button></div></div><p class="pine-note">Скопируй код в Pine Editor TradingView для ручной проверки. Расходы и исполнение в Pine могут отличаться от paper trading.</p><pre class="pine-code"><code id="pine-code"></code></pre><p class="pine-status" id="pine-status" role="status"></p></dialog>
+<dialog class="pine-dialog" id="experiment-dialog" aria-labelledby="experiment-dialog-title"><div class="pine-dialog-head"><h2 id="experiment-dialog-title">Отчёт эксперимента</h2><button class="back-button" id="experiment-close" type="button">Закрыть</button></div><pre class="pine-code experiment-report" id="experiment-report"></pre></dialog>
 <script id="snapshot" type="application/json">__INITIAL_SNAPSHOT__</script>
+<script>if(location.protocol==='file:')location.replace('http://127.0.0.1:8765/'+location.hash);</script>
 <script>
   const $ = id => document.getElementById(id);
   const rub = value => value == null ? '—' : new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(value) + ' ₽';
   const signedRub = value => value > 0 ? '+'+rub(value) : rub(value);
   const num = value => value == null ? '—' : new Intl.NumberFormat('ru-RU',{maximumFractionDigits:3}).format(value);
   const date = value => { if(!value) return '—'; const d=new Date(value); return Number.isNaN(d.getTime()) ? value : new Intl.DateTimeFormat('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'}).format(d); };
+  const barDate = value => value&&value.length>=10 ? value.slice(8,10)+'.'+value.slice(5,7)+'.'+value.slice(0,4)+(value.length>=16?' '+value.slice(11,16):'') : date(value);
   const runningFor = value => {if(!value)return '—';const minutes=Math.max(0,Math.floor((Date.now()-new Date(value).getTime())/60000));if(!Number.isFinite(minutes))return '—';const days=Math.floor(minutes/1440),hours=Math.floor(minutes%1440/60),mins=minutes%60;return [days?days+' д':'',hours?hours+' ч':'',!days&&(!hours||mins)?mins+' мин':''].filter(Boolean).join(' ')};
   const openPnl = accounts => {let pnl=0,capital=0,open=0,valued=0;for(const account of accounts){if(account.position){open++;if(Number.isFinite(account.open_pnl_rub)&&Number.isFinite(account.initial_capital)&&account.initial_capital>0){pnl+=account.open_pnl_rub;capital+=account.initial_capital;valued++}}}return open!==valued?{rub:null,pct:null}:{rub:pnl,pct:capital?100*pnl/capital:0}};
   let data = JSON.parse(document.getElementById('snapshot').textContent);
   let filter = 'all';
   let historyMode = 'after';
+  let experimentFilter = 'all';
+  let guidanceJobId = null;
+  let improvementBusy = false;
   const expandedMonths = new Set();
   function el(tag, className, text){const node=document.createElement(tag);if(className)node.className=className;if(text!=null)node.textContent=text;return node}
   function card(a){
@@ -70,10 +84,21 @@
     try{return location.hash.startsWith('#rule=')?decodeURIComponent(location.hash.slice(6)):null}
     catch{return null}
   }
+  function paperReviewDue(accounts){
+    if(!accounts.length||accounts.some(a=>!a.started_at))return false;
+    const starts=accounts.map(a=>new Date(a.started_at));
+    if(starts.some(start=>Number.isNaN(start.getTime())))return false;
+    const newestStart=new Date(Math.max(...starts.map(start=>start.getTime())));
+    const reviewAt=new Date(newestStart);
+    reviewAt.setMonth(reviewAt.getMonth()+2);
+    return Date.now()>=reviewAt.getTime();
+  }
   function strategyTile(rule, accounts){
     const button=el('button','strategy-tile');button.type='button';
     const title=el('div','strategy-name',rule.label||rule.id);
-    button.append(title,el('div','strategy-meta',rule.timeframe+' · paper trading'));
+    // Historical selection status is not a verdict on a running paper account.
+    const reviewNote=paperReviewDue(accounts)?' · 2М: можно оценить':'';
+    button.append(title,el('div','strategy-meta',rule.timeframe+' · paper trading'+reviewNote));
     const numbers=el('div','strategy-numbers');
     const current=openPnl(accounts);
     const metrics=[['Счетов',accounts.length+' / '+(rule.configured_symbols||[]).length],['Открыто',accounts.filter(a=>a.position!==0).length],['PnL',current.pct==null?'—':(current.pct>0?'+':'')+num(current.pct)+'%',signedRub(current.rub)]];
@@ -171,8 +196,11 @@
     if(selected){
       const own=accounts.filter(a=>a.strategy===selected.id);
       $('detail-title').textContent=selected.label||selected.id;
+      $('pine-open').disabled=!selected.pine_available;
+      $('pine-open').title=selected.pine_available?'Открыть код этой стратегии':'Pine Script для этой стратегии не найден';
       const historyDate=selected.history_snapshot?selected.history_snapshot.split('-').reverse().join('.'):'даты снимка';
       $('detail-summary').textContent=selected.timeframe+' · История по сохранённым свечам до '+historyDate+'. Ниже — отдельные текущие paper-счета: '+own.length+' из '+(selected.configured_symbols||[]).length+' настроенных.';
+      renderImprovement(selected);
       rankingTable(selected,own);
     }else{
       const query=$('strategy-search').value.trim().toLowerCase();
@@ -181,19 +209,96 @@
     }
     return selected;
   }
+  function improvementFor(ruleId){return (data.improvements||[]).find(job=>job.strategy_id===ruleId)}
+  function renderImprovement(rule){
+    const job=improvementFor(rule.id),active=['PLANNING','WAITING_REVIEW','RUNNING','BUILDING','CALCULATING'];
+    const anyActive=(data.improvements||[]).some(item=>active.includes(item.stage));
+    const labels={PLANNING:'Агент изучает стратегию и готовит гипотезу',WAITING_REVIEW:'Гипотеза готова. Поправь её и запусти проверку',RUNNING:'Запуск проверки',BUILDING:'Агент создаёт новый эксперимент',CALCULATING:'Идёт полный расчёт и валидация',DONE:'Проверка завершена',FAILED:'Ошибка исследования',CANCELLED:'Исследование остановлено'};
+    $('improve-status').textContent=job?(labels[job.stage]||job.stage)+(job.error?' · '+job.error:'')+(job.experiment?' · '+job.experiment:''):'Агент сравнит новый вариант с этой стратегией. Действующие счета продолжат работать.';
+    $('improve-start').hidden=Boolean(job&&active.includes(job.stage));
+    $('improve-start').disabled=improvementBusy||anyActive;
+    $('improve-continue').hidden=job?.stage!=='WAITING_REVIEW';
+    $('improve-continue').disabled=improvementBusy;
+    $('improve-cancel').hidden=!job||!active.includes(job.stage);
+    $('improve-cancel').disabled=improvementBusy;
+    $('improve-report').hidden=!job?.experiment||job.stage!=='DONE';
+    $('improve-report').disabled=improvementBusy;
+    const plan=job?.plan;
+    $('improve-plan').hidden=!plan;
+    $('improve-plan').textContent=plan?['Диагноз: '+plan.diagnosis,'Гипотеза: '+plan.hypothesis,'Изменение: '+plan.change,'Риск пропустить удачные входы: '+plan.lost_winners_risk,'Сравнение: '+plan.comparison,'Ограничения данных: '+plan.data_limitations].join('\n\n'):'';
+    $('improve-guidance-wrap').hidden=job?.stage!=='WAITING_REVIEW';
+    if(job&&guidanceJobId!==job.id){$('improve-guidance').value=job.guidance||'';guidanceJobId=job.id}
+    $('improve-log').hidden=!job?.log_tail;
+    $('improve-log').textContent=job?.log_tail||'';
+  }
+  async function improvementAction(action){
+    const rule=(data.rules||[]).find(item=>item.id===selectedRuleId());if(!rule)return;
+    const job=improvementFor(rule.id);const payload={action};
+    if(action==='start')payload.strategy_id=rule.id;
+    else{if(!job)return;payload.job_id=job.id;if(action==='continue')payload.guidance=$('improve-guidance').value}
+    improvementBusy=true;renderImprovement(rule);
+    try{
+      const response=await fetch('/api/improvements',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!response.ok)throw new Error('HTTP '+response.status+' · '+(await response.text()).slice(0,150));
+      await refreshStatus();
+    }catch(error){$('improve-status').textContent='Не удалось выполнить действие: '+error.message}
+    finally{improvementBusy=false;renderImprovement(rule)}
+  }
+  function renderExperiments(){
+    const rows=data.experiments||[];
+    $('experiment-count').textContent='· '+rows.length;
+    const query=$('experiment-search').value.trim().toLowerCase();
+    const shown=rows.filter(row=>(experimentFilter==='all'||row.review_state===experimentFilter)
+      &&(row.id+' '+(row.rule||'')+' '+(row.reason||'')).toLowerCase().includes(query));
+    $('experiment-list').replaceChildren(...(shown.length?shown.map(row=>{
+      const card=el('article','experiment-card');
+      const state=row.review_state==='closed'?'Закрыт после ревью':row.status==='READY_FOR_FIXED_STRATEGY'?'Ожидает исполняемую стратегию':'Ожидает ревью';
+      card.append(el('h3','',row.id),el('span','experiment-state '+(row.review_state==='closed'?'closed':''),state));
+      const meta=[row.timeframe,row.rule,row.candidate_stocks?row.candidate_stocks+' акций в обзоре':null].filter(Boolean).join(' · ');
+      if(meta)card.append(el('div','experiment-meta',meta));
+      card.append(el('p','',row.reason));
+      const actions=el('div','experiment-actions');
+      for(const [kind,label,available] of [['final','Итоговый отчёт',row.has_report],['paper','Paper review',row.has_paper_review]]){
+        const button=el('button','',label);button.type='button';button.disabled=!available;
+        button.addEventListener('click',()=>openExperimentReport(row.id,kind));actions.append(button);
+      }
+      card.append(actions);return card;
+    }):[el('div','empty','Экспериментов в этой категории нет.') ]));
+  }
+  async function openExperimentReport(id,kind){
+    const dialog=$('experiment-dialog');
+    $('experiment-dialog-title').textContent=(kind==='paper'?'Paper review · ':'Итоговый отчёт · ')+id;
+    $('experiment-report').textContent='Загрузка…';dialog.showModal();
+    try{
+      const url='/api/experiments/'+id.split('/').map(encodeURIComponent).join('/')+'/report?kind='+kind;
+      const response=await fetch(url,{cache:'no-store'});
+      if(!response.ok)throw new Error('HTTP '+response.status);
+      $('experiment-report').textContent=await response.text();
+    }catch(error){$('experiment-report').textContent='Не удалось открыть отчёт: '+error.message}
+  }
   function render(){if(!data)return;const a=data.accounts;
     $('total').textContent=a.length;$('longs').textContent=a.filter(x=>x.position>0).length;$('shorts').textContent=a.filter(x=>x.position<0).length;$('errors').textContent=data.shared_source_error?1:a.filter(x=>x.status!=='OK').length;
     $('updated').textContent='Опрос: '+date(data.observed_at);
+    const discovery=data.discovery||{},discoveryOn=discovery.enabled===true;
+    $('discovery-title').textContent='Поиск новых стратегий · '+(discoveryOn?'ВКЛ':'ВЫКЛ');
+    $('discovery-toggle').textContent=discoveryOn?'Выключить':'Включить';
+    $('discovery-toggle').classList.toggle('off',discoveryOn);
+    $('discovery-toggle').setAttribute('aria-pressed',String(discoveryOn));
+    $('discovery-detail').textContent=(discovery.last_run_day?'Последний запуск: '+discovery.last_run_day+' · '+(discovery.last_result||'—')+'. ':'Запусков ещё не было. ')
+      +'Ежедневное расписание управляется отдельно в Codex.';
     const healthy=data.fleet_running&&data.fresh;
     $('health').textContent=!data.fleet_running?'ПРОЦЕСС ОСТАНОВЛЕН':!data.fresh?'НЕТ СВЕЖЕГО ОПРОСА':data.shared_source_error?'MOEX НЕДОСТУПЕН':'ПРОЦЕСС ИДЁТ';$('health').className='live-pill'+(healthy&&!data.shared_source_error?'':' bad');
     const warning=$('warning');warning.classList.toggle('show',!healthy||data.shared_source_error);warning.textContent=!data.fleet_running?'Общий процесс paper trading остановлен. Сохранённые позиции показаны, но сделки сейчас не обновляются.':!data.fresh?'Последний опрос старше 30 минут. Проверьте терминальный процесс и соединение с MOEX.':data.shared_source_error?'Один общий сбой источника: '+data.source_error+'. Все счета сохраняют последние позиции; новые заявки при этом не создаются. Процесс повторит запрос при следующем опросе.':'';
     const activeRule=renderNavigation(a);
+    $('experiments-section').hidden=Boolean(activeRule);
+    if(!activeRule)renderExperiments();
     const own=activeRule?a.filter(x=>x.strategy===activeRule.id):a;
     const selected=own.filter(x=>filter==='all'||filter==='open'&&x.position!==0||filter==='pending'&&x.pending||filter==='error'&&x.status!=='OK');
     $('filter-count').textContent=filter==='all'?'· '+own.length+' из '+(activeRule?.configured_symbols||[]).length+' настроенных':'· показано '+selected.length+' из '+own.length;
     const cards=$('cards');cards.replaceChildren(...(selected.length?selected.map(card):[el('div','empty',own.length?'В этой категории счетов нет.':'Для этой стратегии виртуальных счетов пока нет.') ]));
-    const recent=own.filter(x=>x.last_event).map(x=>({account:x.account_id,event:x.last_event})).sort((x,y)=>(y.event.observed_at||'').localeCompare(x.event.observed_at||'')).slice(0,12);
-    const events=$('events');events.replaceChildren(...(recent.length?recent.map(({account,event})=>{const row=el('div','event');row.append(el('time','',date(event.observed_at)),el('b','',account),el('span','action '+(event.action?.startsWith('CLOSE')?'close':''),event.action+(event.qty?' · '+event.qty+' шт.':'')));return row}):[el('div','empty','Новых виртуальных сделок пока нет.') ]));
+    const selectedAccounts=new Set(own.map(x=>x.account_id));
+    const recent=(data.events||[]).filter(event=>selectedAccounts.has(event.account_id));
+    const events=$('events');events.replaceChildren(...(recent.length?recent.map(event=>{const row=el('div','event');const effective=event.fill_bar?barDate(event.fill_bar):date(event.observed_at);const delayed=event.fill_bar&&event.observed_at&&event.fill_bar.slice(0,10)!==event.observed_at.slice(0,10);row.append(el('time','',effective+(delayed?' · получено '+date(event.observed_at):'')),el('b','',event.account_id),el('span','action '+(event.action?.startsWith('CLOSE')?'close':''),event.action+(event.qty?' · '+event.qty+' шт.':'')));return row}):[el('div','empty','Новых виртуальных сделок пока нет.') ]));
     function logRows(items, fleet){return items.length?items.map(item=>{const row=el('div','log-row');const label=fleet?(item.symbol?item.symbol+' · ':'')+(item.url||item.kind||'запрос'):(item.method||'GET')+' '+(item.path||'/');const detail=el('code','',label);detail.title=label;const outcome=el('span',(item.status==='ERROR'||item.http_status>=400?'fail':'ok'),item.status==='ERROR'?'СБОЙ':String(item.http_status||item.status||'—'));if(item.duration_ms!=null)outcome.append(el('span','duration',item.duration_ms+' мс'));row.append(el('time','',date(item.at)),detail,outcome);return row}):[el('div','empty','Запросов после включения журнала ещё нет.') ]}
     $('fleet-requests').replaceChildren(...logRows(data.fleet_requests||[],true));$('web-requests').replaceChildren(...logRows(data.web_requests||[],false));
   }
@@ -202,6 +307,50 @@
   $('history-before').addEventListener('click',()=>{historyMode='before';render()});
   $('back-to-rules').addEventListener('click',()=>{location.hash=''});
   $('strategy-search').addEventListener('input',render);
+  $('experiment-search').addEventListener('input',renderExperiments);
+  document.querySelectorAll('[data-experiment-filter]').forEach(button=>button.addEventListener('click',()=>{
+    experimentFilter=button.dataset.experimentFilter;
+    document.querySelectorAll('[data-experiment-filter]').forEach(item=>item.classList.toggle('active',item===button));
+    renderExperiments();
+  }));
+  $('experiment-close').addEventListener('click',()=>$('experiment-dialog').close());
+  $('pine-open').addEventListener('click',async()=>{
+    const rule=(data.rules||[]).find(item=>item.id===selectedRuleId());
+    if(!rule?.pine_available)return;
+    const button=$('pine-open');button.disabled=true;
+    try{
+      const response=await fetch('/api/strategies/'+encodeURIComponent(rule.id)+'/pine',{cache:'no-store'});
+      if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      $('pine-code').textContent=await response.text();
+      $('pine-title').textContent='Pine Script · '+(rule.label||rule.id);
+      $('pine-status').textContent='';
+      $('pine-dialog').showModal();
+    }catch(error){$('detail-summary').textContent='Не удалось открыть Pine Script: '+error.message}
+    finally{button.disabled=!rule.pine_available}
+  });
+  $('pine-close').addEventListener('click',()=>$('pine-dialog').close());
+  $('pine-copy').addEventListener('click',async()=>{
+    const source=$('pine-code').textContent;
+    try{
+      if(!navigator.clipboard?.writeText)throw new Error('Clipboard API недоступен');
+      await navigator.clipboard.writeText(source);
+      $('pine-status').textContent='Код скопирован. Вставь его в Pine Editor.';
+    }catch(error){$('pine-status').textContent='Не удалось скопировать автоматически. Выдели код и скопируй вручную.'}
+  });
+  $('discovery-toggle').addEventListener('click',async()=>{
+    const button=$('discovery-toggle');button.disabled=true;
+    try{
+      const response=await fetch('/api/discovery',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({enabled:!(data.discovery?.enabled===true)})});
+      if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      data.discovery=await response.json();render();
+    }catch(error){$('discovery-detail').textContent='Не удалось изменить состояние: '+error.message}
+    finally{button.disabled=false}
+  });
+  $('improve-start').addEventListener('click',()=>improvementAction('start'));
+  $('improve-continue').addEventListener('click',()=>improvementAction('continue'));
+  $('improve-cancel').addEventListener('click',()=>improvementAction('cancel'));
+  $('improve-report').addEventListener('click',()=>{const job=improvementFor(selectedRuleId());if(job?.experiment)openExperimentReport(job.experiment.replace(/^experiments\//,''),'final')});
   window.addEventListener('hashchange',render);
   render();
   async function refreshStatus(){

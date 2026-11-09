@@ -1,0 +1,216 @@
+{
+  "structural_ok": true,
+  "policy_version": 1,
+  "status": "REVIEW_ONLY",
+  "coverage": {
+    "ok": true,
+    "rows": 2630,
+    "duplicates": [],
+    "timeframes": {
+      "1H": {
+        "symbols": 263,
+        "min_required": 0,
+        "variants": 5,
+        "incomplete_symbols": {},
+        "ok": true
+      },
+      "4H": {
+        "symbols": 263,
+        "min_required": 0,
+        "variants": 5,
+        "incomplete_symbols": {},
+        "ok": true
+      }
+    },
+    "pairs_with_at_least_100_closed_trades": 96,
+    "pairs_below_100_closed_trades": 2534,
+    "monthly": {
+      "rows": 80160,
+      "pairs": 2630,
+      "missing_or_short": {},
+      "duplicates": [],
+      "min_periods_available": 4,
+      "ok": true
+    }
+  },
+  "parameter_grid": {
+    "expected": 5,
+    "actual": 5,
+    "missing": [],
+    "unexpected": [],
+    "ok": true
+  },
+  "combination": {
+    "applicable": false,
+    "ok": true
+  },
+  "universe": {
+    "eligible_symbols": 267,
+    "covered_pairs": 534,
+    "missing_pairs": [],
+    "ok": true
+  },
+  "periods": {
+    "pairs": 2630,
+    "with_2_full_months": 2630,
+    "with_2_calendar_years": 2510,
+    "with_train_and_late": 2510,
+    "with_last_1m": 2630,
+    "with_last_3m": 2630,
+    "with_last_6m": 2500,
+    "with_last_9m": 2490,
+    "with_last_12m": 2460
+  },
+  "monthly_validation": {
+    "rows": 80160,
+    "pairs": 2630,
+    "duplicate_month_rows": 0,
+    "invalid_calendar_rows": 0,
+    "invalid_equity_rows": 0,
+    "return_mismatch_rows": 0,
+    "pnl_mismatch_rows": 0,
+    "invalid_trade_rows": 0,
+    "gap_pairs": 110,
+    "missing_months_inside_history": 690,
+    "affected_symbol_timeframes": 22,
+    "unique_missing_symbol_months": 138,
+    "invalid_examples": [],
+    "gap_examples": [
+      {
+        "symbol": "BLNG",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 4,
+        "first_missing": [
+          "2024-08",
+          "2024-09",
+          "2024-10",
+          "2024-11"
+        ]
+      },
+      {
+        "symbol": "BLNG",
+        "timeframe": "4H",
+        "example_variant": "baseline",
+        "missing_months": 4,
+        "first_missing": [
+          "2024-08",
+          "2024-09",
+          "2024-10",
+          "2024-11"
+        ]
+      },
+      {
+        "symbol": "ETLN",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 2,
+        "first_missing": [
+          "2025-07",
+          "2025-08"
+        ]
+      },
+      {
+        "symbol": "ETLN",
+        "timeframe": "4H",
+        "example_variant": "baseline",
+        "missing_months": 2,
+        "first_missing": [
+          "2025-07",
+          "2025-08"
+        ]
+      },
+      {
+        "symbol": "GAZA",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 9,
+        "first_missing": [
+          "2024-03",
+          "2024-04",
+          "2024-05",
+          "2024-06",
+          "2024-07",
+          "2024-08"
+        ]
+      },
+      {
+        "symbol": "GAZA",
+        "timeframe": "4H",
+        "example_variant": "baseline",
+        "missing_months": 9,
+        "first_missing": [
+          "2024-03",
+          "2024-04",
+          "2024-05",
+          "2024-06",
+          "2024-07",
+          "2024-08"
+        ]
+      },
+      {
+        "symbol": "GAZAP",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 9,
+        "first_missing": [
+          "2024-03",
+          "2024-04",
+          "2024-05",
+          "2024-06",
+          "2024-07",
+          "2024-08"
+        ]
+      },
+      {
+        "symbol": "GAZAP",
+        "timeframe": "4H",
+        "example_variant": "baseline",
+        "missing_months": 9,
+        "first_missing": [
+          "2024-03",
+          "2024-04",
+          "2024-05",
+          "2024-06",
+          "2024-07",
+          "2024-08"
+        ]
+      },
+      {
+        "symbol": "GTRK",
+        "timeframe": "1H",
+        "example_variant": "baseline",
+        "missing_months": 3,
+        "first_missing": [
+          "2024-08",
+          "2024-09",
+          "2024-10"
+        ]
+      },
+      {
+        "symbol": "GTRK",
+        "timeframe": "4H",
+        "example_variant": "baseline",
+        "missing_months": 3,
+        "first_missing": [
+          "2024-08",
+          "2024-09",
+          "2024-10"
+        ]
+      }
+    ],
+    "ok": true,
+    "continuous": false
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "covered_symbols": 0,
+    "verified_snapshot_sha256": null,
+    "moex_source_status": "SUBSCRIPTION_REQUIRED",
+    "moex_source_checked_at_utc": "2026-11-04T11:34:15.003496+00:00",
+    "all_symbols_covered": false
+  },
+  "note": "DATA_READY confirms data and report gates only; it does not approve a trading strategy."
+}

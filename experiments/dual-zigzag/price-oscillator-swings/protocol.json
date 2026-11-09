@@ -1,0 +1,319 @@
+{
+  "indicator_id": "dual-zigzag",
+  "run_id": "price-oscillator-swings",
+  "method_id": "dual-zigzag-price-rsi-swings",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "hypothesis": "A causally confirmed price ZigZag combined with a separate RSI ZigZag may improve annual net return and monthly risk over price-only, oscillator-only and same-stock buy-and-hold controls on MOEX 1H/4H. Target for inspection: >20% net return over the latest complete 12 months on an individual stock; no performance guarantee.",
+  "research_provenance": {
+    "source_url": "https://ru.tradingview.com/script/F8gYizEx-Dual-Zigzag-Trendoscope/",
+    "publication_date": "2024-12-16",
+    "accessed_on": "2026-11-08",
+    "source_code_status": "marked open-source but source text not available in accessible page",
+    "implementation": "mechanical adaptation, not exact Pine port",
+    "reviewed_methods": [
+      "price zigzag",
+      "oscillator zigzag",
+      "recursive levels",
+      "divergence application"
+    ],
+    "note": "The publication describes two separate recursive zigzags and gives no trade rule; this test uses level-zero causally confirmed swings only."
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1H",
+      "4H"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "required_data": [
+    "OHLCV 60-minute candles",
+    "RSI from completed closes",
+    "confirmed price and RSI pivot timestamps"
+  ],
+  "availability_lag": "Price and RSI pivots are only usable after wing completed bars to the right; close-time signals fill at next open.",
+  "signal_semantics": "Per-stock long/short signal from closed 1H or 4H bar; next open execution; no historical pivot-marker entry.",
+  "evaluation_unit": "Independent per-stock experimental account; one common parameter setting chosen by early ranking for paper review.",
+  "entry_design": {
+    "mechanisms": [
+      "price level breakout",
+      "RSI confirmed pivot reversal",
+      "price breakout aligned with latest RSI pivot direction",
+      "price/RSI opposite-extreme divergence"
+    ],
+    "confirmation": "wing 3 or 5 completed bars; price swing reversal 2% or 4%; oscillator swing reversal 3 RSI points",
+    "decision_time": "closed signal bar",
+    "delay_bars": [
+      0
+    ],
+    "common_exit_rule": "opposite entry signal or 24 completed bars",
+    "not_applicable": [
+      "unconfirmed last leg",
+      "higher recursive levels without source parity"
+    ]
+  },
+  "exit_design": {
+    "mechanisms": [
+      "opposite signal",
+      "24-bar holding cap"
+    ],
+    "parameter_ranges": {
+      "hold_bars": [
+        24
+      ]
+    },
+    "decision_time": "closed bar, next open",
+    "not_applicable": [
+      "intrabar stop without tick-level execution data"
+    ]
+  },
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "deviation": {
+            "values": [
+              2,
+              4
+            ]
+          }
+        },
+        "variant_template": "price_{wing}_{deviation}"
+      },
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "length": {
+            "values": [
+              7,
+              14
+            ]
+          }
+        },
+        "variant_template": "osc_{wing}_{length}"
+      },
+      {
+        "axes": {
+          "wing": {
+            "values": [
+              3,
+              5
+            ]
+          },
+          "deviation": {
+            "values": [
+              2,
+              4
+            ]
+          },
+          "length": {
+            "values": [
+              7,
+              14
+            ]
+          },
+          "design": {
+            "values": [
+              "trend-opp",
+              "trend-hold24",
+              "div-opp",
+              "div-hold24"
+            ]
+          }
+        },
+        "variant_template": "dual_{wing}_{deviation}_{length}_{design}"
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 40
+  },
+  "expected_variants": [
+    "baseline",
+    "price_3_2",
+    "price_3_4",
+    "price_5_2",
+    "price_5_4",
+    "osc_3_7",
+    "osc_3_14",
+    "osc_5_7",
+    "osc_5_14",
+    "dual_3_2_7_trend-opp",
+    "dual_3_2_7_trend-hold24",
+    "dual_3_2_7_div-opp",
+    "dual_3_2_7_div-hold24",
+    "dual_3_2_14_trend-opp",
+    "dual_3_2_14_trend-hold24",
+    "dual_3_2_14_div-opp",
+    "dual_3_2_14_div-hold24",
+    "dual_3_4_7_trend-opp",
+    "dual_3_4_7_trend-hold24",
+    "dual_3_4_7_div-opp",
+    "dual_3_4_7_div-hold24",
+    "dual_3_4_14_trend-opp",
+    "dual_3_4_14_trend-hold24",
+    "dual_3_4_14_div-opp",
+    "dual_3_4_14_div-hold24",
+    "dual_5_2_7_trend-opp",
+    "dual_5_2_7_trend-hold24",
+    "dual_5_2_7_div-opp",
+    "dual_5_2_7_div-hold24",
+    "dual_5_2_14_trend-opp",
+    "dual_5_2_14_trend-hold24",
+    "dual_5_2_14_div-opp",
+    "dual_5_2_14_div-hold24",
+    "dual_5_4_7_trend-opp",
+    "dual_5_4_7_trend-hold24",
+    "dual_5_4_7_div-opp",
+    "dual_5_4_7_div-hold24",
+    "dual_5_4_14_trend-opp",
+    "dual_5_4_14_trend-hold24",
+    "dual_5_4_14_div-opp",
+    "dual_5_4_14_div-hold24"
+  ],
+  "combination_design": {
+    "scope": "fixed_parameter_transfer",
+    "components": [
+      {
+        "name": "price confirmed ZigZag",
+        "parameters": {
+          "wing": [
+            3,
+            5
+          ],
+          "deviation": [
+            2,
+            4
+          ]
+        },
+        "controls": [
+          "price_3_2",
+          "price_3_4",
+          "price_5_2",
+          "price_5_4"
+        ]
+      },
+      {
+        "name": "RSI confirmed ZigZag",
+        "parameters": {
+          "wing": [
+            3,
+            5
+          ],
+          "length": [
+            7,
+            14
+          ]
+        },
+        "controls": [
+          "osc_3_7",
+          "osc_3_14",
+          "osc_5_7",
+          "osc_5_14"
+        ]
+      }
+    ],
+    "combined_variants": [
+      "dual_3_2_7_trend-opp",
+      "dual_3_2_7_trend-hold24",
+      "dual_3_2_7_div-opp",
+      "dual_3_2_7_div-hold24",
+      "dual_3_2_14_trend-opp",
+      "dual_3_2_14_trend-hold24",
+      "dual_3_2_14_div-opp",
+      "dual_3_2_14_div-hold24",
+      "dual_3_4_7_trend-opp",
+      "dual_3_4_7_trend-hold24",
+      "dual_3_4_7_div-opp",
+      "dual_3_4_7_div-hold24",
+      "dual_3_4_14_trend-opp",
+      "dual_3_4_14_trend-hold24",
+      "dual_3_4_14_div-opp",
+      "dual_3_4_14_div-hold24",
+      "dual_5_2_7_trend-opp",
+      "dual_5_2_7_trend-hold24",
+      "dual_5_2_7_div-opp",
+      "dual_5_2_7_div-hold24",
+      "dual_5_2_14_trend-opp",
+      "dual_5_2_14_trend-hold24",
+      "dual_5_2_14_div-opp",
+      "dual_5_2_14_div-hold24",
+      "dual_5_4_7_trend-opp",
+      "dual_5_4_7_trend-hold24",
+      "dual_5_4_7_div-opp",
+      "dual_5_4_7_div-hold24",
+      "dual_5_4_14_trend-opp",
+      "dual_5_4_14_trend-hold24",
+      "dual_5_4_14_div-opp",
+      "dual_5_4_14_div-hold24"
+    ],
+    "factorial_axes": [
+      "wing",
+      "deviation",
+      "length",
+      "design"
+    ],
+    "untested_dependencies": [
+      "recursive levels above zero",
+      "other built-in oscillators",
+      "custom external oscillator",
+      "Independent price and oscillator pivot wings: combined variants tie both wings to the same 3 or 5 bars"
+    ]
+  },
+  "parameter_rationale": "3/5 right-wing bars test short and medium swing confirmation; 2/4% price reversal; RSI7/14 short and standard periods. Each declared combination is evaluated. Level zero is deliberate because the author describes no trading rule for higher levels. Price and oscillator wings are tied in combined variants; independent wing interactions remain untested.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on same stock/timeframe, next-open fill",
+  "signal_rule": "Price breakout crosses a previously confirmed high/low. RSI swing is an alternating local extremum confirmed after wing bars and at least 3 RSI points reversal. Trend variant permits price breakout only when prior RSI swing direction agrees. Divergence variant requires last two confirmed price and RSI same-side pivots within 2*wing centers, with price lower low/RSI higher low or price higher high/RSI lower high. Signal at later confirmation, next-open fill. No pivot backdating.",
+  "execution_timing": "Decision on completed bar; fill next open; 25% of equity per position.",
+  "holding_period": "Opposite signal or 24 bars",
+  "rebalance_rule": "At new signal or exit only",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank all complete variants on early period; check latest complete 12-month net return >20% per stock as user target and current policy paper threshold separately. Latest history has already influenced design and is not independent validation.",
+  "research_family": {
+    "viewed_methods": [
+      "Dual Zigzag publication",
+      "existing confirmed-level-breakout experiment",
+      "RSI pivot reversal",
+      "price/RSI alignment",
+      "price/RSI divergence"
+    ],
+    "tested_variants": 40,
+    "late_history_seen": true
+  },
+  "run_command": "python3 -m pipeline.run experiments/dual-zigzag/price-oscillator-swings",
+  "limitations": [
+    "This is not an exact implementation of Trendoscope source code or recursive levels.",
+    "Corporate-action and short borrow coverage incomplete.",
+    "Selection history is seen; profitable backtest is not independent forward evidence."
+  ]
+}

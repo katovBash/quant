@@ -1,0 +1,76 @@
+{
+  "id": "zigzag-daily-line-bounce-a-trend-atr4-1d",
+  "timeframe": "1D",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/zigzag/daily-line-bounce-targets/results/paper_review.json",
+  "variant": "d_a_trend_a4",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/zigzag/daily-line-bounce-targets/results/all_variants.csv",
+      "monthly_csv": "experiments/zigzag/daily-line-bounce-targets/results/monthly_returns.csv",
+      "variant": "d_a_trend_a4",
+      "timeframe": "1D"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "CBOM",
+      "net_return_pct": 45.34,
+      "closed_trades": 23,
+      "train_positive_share_pct": 70.83,
+      "late_positive_share_pct": 11.11
+    },
+    {
+      "symbol": "ENPG",
+      "net_return_pct": 33.13,
+      "closed_trades": 17,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "GMKN",
+      "net_return_pct": 28.44,
+      "closed_trades": 17,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "RUAL",
+      "net_return_pct": 20.3,
+      "closed_trades": 21,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 12.93,
+      "closed_trades": 23,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 10.65,
+      "closed_trades": 21,
+      "train_positive_share_pct": 37.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "RAGR",
+      "net_return_pct": 18.14,
+      "closed_trades": 14,
+      "train_positive_share_pct": 36.36,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 7.78,
+      "closed_trades": 14,
+      "train_positive_share_pct": 29.17,
+      "late_positive_share_pct": 33.33
+    }
+  ]
+}

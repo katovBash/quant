@@ -1,35 +1,13 @@
 {
   "experiment": "experiments/william-oneil/oneil-double-bottom",
-  "stage": "NEEDS_FIXED_STRATEGY",
+  "stage": "CLOSED_RESEARCH",
   "run_mode": "existing_results_revalidated",
   "dividend_source": "SUBSCRIPTION_REQUIRED",
-  "experiment_gate": "PAPER_CANDIDATE",
+  "experiment_gate": "EXPERIMENT_CLOSED",
   "warnings": [
-    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
-    "В исходной вселенной есть календарные пропуски"
+    "Обе проверенные настройки дали 0 ликвидных акций с доходностью выше 10% за последние 12 полных месяцев после модельных расходов. Текущий эксперимент закрыт для paper trading."
   ],
   "review": "experiments/william-oneil/oneil-double-bottom/results/paper_review.json",
-  "rule": {
-    "timeframe": "1D",
-    "variant": "oneil-double-bottom_45",
-    "symbols": 250,
-    "median_train_positive_share_pct": 4.17,
-    "median_train_mean_month_return_pct": -0.03,
-    "median_train_worst_month_pnl_rub": -14544.47,
-    "median_late_positive_share_pct": 0.0,
-    "median_late_mean_month_return_pct": 0.0
-  },
-  "stocks": [
-    "LENT",
-    "MDMG",
-    "SPBE",
-    "CBOM",
-    "PLZL",
-    "ENPG",
-    "TRNFP",
-    "OZON",
-    "SFIN",
-    "GMKN"
-  ],
-  "next_action": "Create strategy.py, strategy.pine and measured parity.json; rerun with --strategy-dir"
+  "rule": null,
+  "stocks": []
 }

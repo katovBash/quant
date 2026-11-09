@@ -1,0 +1,203 @@
+{
+  "indicator_id": "double-indicator",
+  "run_id": "dual-zigzag-sma-obv-confirmation",
+  "method_id": "dual-zigzag-sma-obv-confirmation",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "parent_experiment": "experiments/double-indicator/dual-zigzag-daily-trend",
+  "hypothesis": "OBV net flow over 5, 10 or 20 completed signal bars may confirm fixed Dual ZigZag + daily SMA20 entries and reject more eventual losing than winning trades. Measure changes in PnL, monthly outcomes and risk; standalone OBV-crossing is an ablation.",
+  "research_provenance": {
+    "source_url": "https://ru.tradingview.com/script/F8gYizEx-Dual-Zigzag-Trendoscope/",
+    "obv_formula_source": "https://www.tradingview.com/support/solutions/43000502593-on-balance-volume-obv/",
+    "parent_experiment": "experiments/double-indicator/dual-zigzag-daily-trend",
+    "implementation": "adaptation: OBV flow as third indicator; Trendoscope shows OBV as possible external series but does not specify this trade rule"
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1H",
+      "4H"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "required_data": [
+    "completed 60-minute OHLCV candles with observed nonnegative volume",
+    "fixed confirmed price/RSI pivots",
+    "daily SMA20 aggregated from signal bars",
+    "OBV net volume flow"
+  ],
+  "availability_lag": "All OBV inputs are completed signal bars, including the current signal close/volume; entry at next open. SMA uses prior completed days only.",
+  "signal_semantics": "Per-stock long/short signal from closed 1H or 4H bar; next open execution; no historical pivot-marker entry.",
+  "evaluation_unit": "Independent per-stock experimental account; one common parameter setting chosen by early ranking for paper review.",
+  "entry_design": {
+    "mechanisms": [
+      "fixed parent SMA20 rule",
+      "OBV delta zero-crossing alone",
+      "parent entry confirmed by same-sign OBV delta"
+    ],
+    "confirmation": "OBV[i] - OBV[i-L] is positive for long, negative for short; L=5,10,20 completed bars",
+    "decision_time": "signal bar close",
+    "delay_bars": [
+      0
+    ],
+    "common_exit_rule": "parent raw opposite event for combined variant; OBV opposite crossing for standalone",
+    "not_applicable": [
+      "using plotted OBV pivot before confirmation",
+      "unobserved volume replaced with zero"
+    ]
+  },
+  "exit_design": {
+    "mechanisms": [
+      "unchanged parent raw opposite event",
+      "standalone OBV opposite crossing"
+    ],
+    "parameter_ranges": {},
+    "decision_time": "closed bar, next open",
+    "not_applicable": [
+      "new stop/target in this indicator-addition test"
+    ]
+  },
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "mode": {
+            "values": [
+              "parent"
+            ]
+          }
+        },
+        "variant_template": "{mode}"
+      },
+      {
+        "axes": {
+          "length": {
+            "values": [
+              5,
+              10,
+              20
+            ]
+          }
+        },
+        "variant_template": "obv_{length}"
+      },
+      {
+        "axes": {
+          "length": {
+            "values": [
+              5,
+              10,
+              20
+            ]
+          }
+        },
+        "variant_template": "combined_{length}"
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 7
+  },
+  "expected_variants": [
+    "baseline",
+    "parent",
+    "obv_5",
+    "obv_10",
+    "obv_20",
+    "combined_5",
+    "combined_10",
+    "combined_20"
+  ],
+  "combination_design": {
+    "scope": "fixed_parameter_transfer",
+    "components": [
+      {
+        "name": "frozen Dual ZigZag + SMA20",
+        "parameters": {
+          "price_wing": [
+            5
+          ],
+          "price_deviation_pct": [
+            2
+          ],
+          "rsi_length": [
+            14
+          ],
+          "daily_sma_length": [
+            20
+          ]
+        },
+        "controls": [
+          "parent"
+        ]
+      },
+      {
+        "name": "OBV directional flow",
+        "parameters": {
+          "lookback_bars": [
+            5,
+            10,
+            20
+          ]
+        },
+        "controls": [
+          "obv_5",
+          "obv_10",
+          "obv_20"
+        ]
+      }
+    ],
+    "combined_variants": [
+      "combined_5",
+      "combined_10",
+      "combined_20"
+    ],
+    "untested_dependencies": [
+      "OBV ZigZag pivots",
+      "independent tuning of original price/RSI/SMA parameters"
+    ]
+  },
+  "parameter_rationale": "OBV flow over 5, 10 and 20 completed 1H/4H bars spans short to medium confirmation. Frozen before reading this experiment PnL. Parent parameters and exits are not retuned.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on same stock/timeframe. `parent` is the fixed 4H SMA20 strategy applied to both declared intervals.",
+  "signal_rule": "OBV begins at zero and adds volume when close rises versus previous completed signal bar, subtracts when it falls, holds otherwise. Standalone entry occurs when L-bar OBV delta crosses zero. Combined entry preserves the parent event only if its sign agrees with current L-bar OBV delta. All parent raw opposite exits remain, even when the opposite entry is rejected. Fill next open.",
+  "execution_timing": "Decision on completed bar; fill next open; 25% of equity per position.",
+  "holding_period": "Until opposite original parent signal",
+  "rebalance_rule": "At new signal or exit only",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank all variants by early months, check every variant against current trailing-12m paper threshold and user >20% target. Compare selected combination to fixed parent on identical stock/timeframe pairs. Do not alter existing virtual accounts on this seen history.",
+  "research_family": {
+    "viewed_methods": [
+      "price/RSI dual ZigZag",
+      "daily SMA20 filter",
+      "OBV net flow confirmation",
+      "standalone OBV zero crossing"
+    ],
+    "tested_variants": 7,
+    "late_history_seen": true
+  },
+  "run_command": "python3 -m pipeline.run experiments/double-indicator/dual-zigzag-sma-obv-confirmation",
+  "limitations": [
+    "Late history already viewed during selection of both parent experiments.",
+    "Adding OBV is a new tested hypothesis, not an author-backed profitability claim.",
+    "Corporate events and short borrow remain incomplete."
+  ]
+}

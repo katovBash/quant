@@ -1,0 +1,154 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "daily-line-bounce-targets",
+  "method_id": "zigzag-daily-line-bounce-targets",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-07",
+  "hypothesis": "A 1D line through two past confirmed lows or highs can identify a third-contact reversal: buy the support rejection, sell short the resistance rejection. Compare 5%/8% fixed take profit with 2x/4x the prior 14-day average true range; require the next open for fills.",
+  "research_provenance": {
+    "source": "user-drawn 1D chart, 2026-11-07",
+    "type": "user hypothesis",
+    "note": "Marked touches are visual examples, not trade outcomes; all levels are reconstructed with past-only confirmed pivots."
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1D"
+  ],
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "preset": {
+            "values": [
+              "a",
+              "b"
+            ]
+          },
+          "slope": {
+            "values": [
+              "any",
+              "trend"
+            ]
+          },
+          "exit": {
+            "values": [
+              "t5",
+              "t8",
+              "a2",
+              "a4"
+            ]
+          }
+        },
+        "variant_template": "d_{preset}_{slope}_{exit}",
+        "max_combinations": 16
+      },
+      {
+        "axes": {
+          "preset": {
+            "values": [
+              "a",
+              "b"
+            ]
+          },
+          "slope": {
+            "values": [
+              "any",
+              "trend"
+            ]
+          }
+        },
+        "variant_template": "c_{preset}_{slope}_op",
+        "max_combinations": 4
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 20
+  },
+  "expected_variants": [
+    "baseline",
+    "d_a_any_t5",
+    "d_a_any_t8",
+    "d_a_any_a2",
+    "d_a_any_a4",
+    "d_a_trend_t5",
+    "d_a_trend_t8",
+    "d_a_trend_a2",
+    "d_a_trend_a4",
+    "d_b_any_t5",
+    "d_b_any_t8",
+    "d_b_any_a2",
+    "d_b_any_a4",
+    "d_b_trend_t5",
+    "d_b_trend_t8",
+    "d_b_trend_a2",
+    "d_b_trend_a4",
+    "c_a_any_op",
+    "c_a_trend_op",
+    "c_b_any_op",
+    "c_b_trend_op"
+  ],
+  "promotion_variant_prefixes": [
+    "d_"
+  ],
+  "parameter_rationale": "Two predeclared pivot presets from earlier ZigZag work: a=wing3/reversal2%/zone0.5%/age50 days; b=wing5/reversal4%/zone1%/age100 days. Test any slope and rising support/falling resistance. Compare fixed 5%/8% price targets with ATR14 distances 2x/4x. Same-entry opposite-signal controls are not eligible for promotion.",
+  "min_bars": 100,
+  "baseline": "Same-stock buy-and-hold with 25% capital and, for each pivot/slope setting, same-entry exit on opposite third-touch signal.",
+  "signal_rule": "On a completed 1D bar, use only pivots confirmed wing bars later. Two same-side pivots define a projected line. At its first later contact within the zone, require the candle to close back above support for long or below resistance for short. Exclude lines previously broken by a close beyond the zone; use each line once. Any slope or rising support/falling resistance is fixed by variant. Exit at 5%/8% price gain or 2x/4x ATR14 distance from next-open entry; ATR14 uses the 14 completed daily candles through the signal bar and is frozen at entry. If an opposite entry occurs sooner, reverse. All exits decide on completed bar and fill next open; no intrabar profit fill is assumed.",
+  "signal_semantics": "Single-stock long/short signal on 1D closed candles; next-open execution. Historical pivots are usable only after confirmation, never at their plotted centers.",
+  "evaluation_unit": "Independent 1m RUB virtual account per symbol; this is not a combined portfolio.",
+  "execution_timing": "Observe completed 1D candle; decide at its close; execute at next available candle open.",
+  "holding_period": "Until fixed or ATR-derived profit target, or opposite entry; no separate protective stop in this experiment.",
+  "rebalance_rule": "No intrabar rebalance; at most one position per account.",
+  "required_data": [
+    "1D OHLCV candles",
+    "confirmed pivot timing",
+    "14 completed daily true ranges"
+  ],
+  "availability_lag": "Pivot requires wing complete later 1D candles; ATR uses only the last 14 completed candles before entry.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank target-exit variants by train-period share of profitable complete months, then mean monthly net return, using one common rule; select the first train-ranked rule with liquid stocks above the strict 10% latest complete 12-month after-cost gate. Show all 2026 months as seen-history diagnostics and report every variant, including losers and opposite-signal controls.",
+  "research_family": {
+    "related_runs": [
+      "experiments/zigzag/third-touch-exits",
+      "experiments/zigzag/parallel-channel-second-touch"
+    ],
+    "tested_variants_in_this_run": 20,
+    "earlier_history_seen": true,
+    "late_history_seen": true,
+    "untested_dependencies": [
+      "no raw intrabar touch entry",
+      "no independent holdout after 2026-10-30",
+      "no combined portfolio"
+    ]
+  },
+  "run_command": "python3 -m pipeline.run experiments/zigzag/daily-line-bounce-targets",
+  "limitations": [
+    "User-drawn line is a visual example, not a uniquely specified indicator",
+    "Confirmed pivots appear only after wing later candles; no retrospective entry at the pivot center",
+    "A candle must reject the line by its close, so a wick-only touch without rejection is not an entry",
+    "No protective stop; this risk is visible in maximum drawdown and worst month",
+    "Corporate actions and short borrow are not fully covered",
+    "2026 has already been inspected in related ZigZag research; it is not an untouched holdout"
+  ]
+}

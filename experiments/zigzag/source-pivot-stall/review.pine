@@ -1,0 +1,212 @@
+//@version=5
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// Original ZigZag: © HeWhoMustNotBeNamed / Trendoscope. Entry timing adapted for this experiment.
+strategy("Source Band-ZigZag · pivot pause reversal · review", overlay=true,
+     initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     pyramiding=0, process_orders_on_close=false, margin_long=100, margin_short=100,
+     max_lines_count=500, max_labels_count=500, max_boxes_count=500)
+
+waitBars = input.int(5, "Completed bars since latest ZigZag extreme", minval=0, maxval=30, group="Entry")
+showTradeMarkers = input.bool(true, "Show entry signals", group="Entry")
+
+// Explicit output for the compiler; the visible bands and ZigZag are plotted below.
+plot(close, "Compiler output", display=display.none)
+
+// Default Bollinger SMA20 x2 from the source script, implemented locally.
+// Updating sticky bands uses the previous completed bar, as in the Python test.
+useAdaptive = true
+showBands = input.bool(true, 'Display Bands', group='Bands', tooltip = 'If selected, displays bands on chart')
+
+useLatestPivot = input.bool(true, 'Use Recent Pivot Override', group='Trend', inline='t')
+currentTrendInvalidationMultiplier = input.float(1.618, '', 0, 100, 1, group='Trend', inline='t',
+             tooltip = 'Trend calculation is done on last confirmed pivot. This option provides opportunity to also consider current unconfirmed pivot for defining trend on extreme moves. This will help in avoiding steep drawbacks')
+
+float middle = ta.sma(close, 20)
+float deviation = ta.stdev(close, 20)
+float rawUpper = middle + 2.0 * deviation
+float rawLower = middle - 2.0 * deviation
+var float upper = na
+var float lower = na
+bool previousBreakout = not na(upper[1]) and (high[1] >= upper[1] or low[1] <= lower[1])
+if not na(middle) and (na(upper) or previousBreakout)
+    upper := rawUpper
+    lower := rawLower
+
+type Pivot
+    float price
+    int bar
+    int bartime
+    int direction
+    float percentB
+    float ratio = 0
+
+type Drawing
+    line zigzagLine
+    label zigzagLabel
+
+unshift(array<Pivot> zigzag, Pivot p)=>
+    if(array.size(zigzag) > 1)
+        lastPivot = array.get(zigzag, 0)
+        llastPivot = array.get(zigzag, 1)
+        p.direction := p.price*p.direction > llastPivot.price*p.direction ? p.direction*2 : p.direction
+        p.ratio := math.abs(p.price - lastPivot.price)/math.abs(llastPivot.price - lastPivot.price)
+
+    array.unshift(zigzag, p)
+    if(array.size(zigzag)>15)
+        array.pop(zigzag)
+
+shift(array<Drawing> drawings)=>
+    del = array.shift(drawings)
+    line.delete(del.zigzagLine)
+    label.delete(del.zigzagLabel)
+
+unshift(array<Drawing> drawings, Drawing drawing, int maxItems)=>
+    array.unshift(drawings, drawing)
+    if(array.size(drawings) > maxItems)
+        del = array.pop(drawings)
+        line.delete(del.zigzagLine)
+        label.delete(del.zigzagLabel)
+
+var zigzag = array.new<Pivot>()
+
+var trend = 0
+var currentTrend = 0
+var currentDir = 0
+
+var currentTrendForce = 0
+var currentTrendExtreme = 0
+
+
+if(array.size(zigzag) > 1)
+    recentPivot = array.get(zigzag, 0)
+    lastPivot = array.get(zigzag, 1)
+
+    currentDir := recentPivot.direction
+    currentTrend := recentPivot.ratio > recentPivot.percentB? int(math.sign(recentPivot.direction)) : -int(math.sign(recentPivot.direction))
+    trend := lastPivot.ratio > lastPivot.percentB? int(math.sign(lastPivot.direction)) : -int(math.sign(lastPivot.direction))
+    currentTrendForce := recentPivot.ratio > recentPivot.percentB and recentPivot.ratio> currentTrendInvalidationMultiplier? int(math.sign(recentPivot.direction)) : -int(math.sign(recentPivot.direction))
+    
+
+var uupper = nz(upper)
+var llower = nz(lower)
+
+uupper := currentDir >= 0 or not useAdaptive? upper : math.min(upper, uupper)
+llower := currentDir <= 0 or not useAdaptive? lower : math.max(lower, llower)
+
+percentBHigh = (high - llower)/(uupper - llower)
+percentBLow = (uupper - low)/(uupper - llower)
+
+
+addPivot(zigzag, direction)=>
+    lastRemoved = false
+    price = direction > 0? high : low
+    percentB = direction > 0? percentBHigh : percentBLow
+    Pivot p = Pivot.new(price, bar_index, time, int(direction), percentB)
+    if(array.size(zigzag) == 0)
+        unshift(zigzag, p)
+    else
+        lastPivot = array.get(zigzag, 0)
+        lastPivotDirection = math.sign(lastPivot.direction)
+        if (lastPivotDirection != p.direction)
+            unshift(zigzag, p)
+        if(lastPivotDirection == p.direction and lastPivot.price*direction < p.price*direction)
+            array.remove(zigzag, 0)
+            unshift(zigzag, p)
+            lastRemoved := true
+    lastRemoved
+       
+
+add_pivots(zigzag, pHigh, pLow)=>
+    count = 0
+    removeLast = false
+    if(array.size(zigzag) == 0)
+        if(pHigh)
+            addPivot(zigzag, 1)
+            count+=1
+        if(pLow)
+            addPivot(zigzag, -1)
+            count+=1
+    else
+        lastPivot = array.get(zigzag, 0)
+        lastDir = math.sign(lastPivot.direction)
+        if(pHigh and lastDir == 1)  or (pLow and lastDir == -1)
+            removeLast := addPivot(zigzag, lastDir)
+            count := removeLast ? count+1 : count
+        if(pHigh and (lastDir == -1)) or (pLow and (lastDir == 1))
+            addPivot(zigzag, -lastDir)
+            count+=1
+
+    [count, removeLast]
+
+draw_zigzag(zigzag, count, removeLast)=>
+    var zigzagDrawings = array.new<Drawing>()
+    if(removeLast and array.size(zigzagDrawings) > 0)
+        shift(zigzagDrawings)
+    if(array.size(zigzag) > count and count >= 1)
+        for i=count to 1
+            startPivot = array.get(zigzag, count)
+            endPivot = array.get(zigzag, count-1)
+            startDirection = startPivot.direction
+            endDirection = endPivot.direction
+            lineColor = endDirection == 2? color.green : endDirection == -2? color.red : color.silver
+            txt = str.tostring(endPivot.ratio*100, format.percent) + "/" + str.tostring(endPivot.percentB*100, format.percent)
+            
+            ln = line.new(startPivot.bartime, startPivot.price, endPivot.bartime, endPivot.price, xloc.bar_time, color=lineColor, width = 2)
+            lbl = label.new(endPivot.bartime, endPivot.price, txt, xloc.bar_time, yloc.price, lineColor, endPivot.direction > 0? label.style_label_down : label.style_label_up, textcolor = color.black)
+            
+            Drawing dr = Drawing.new(ln, lbl)
+            unshift(zigzagDrawings, dr, 500)
+    zigzagDrawings
+
+
+pHigh = high >= uupper
+pLow = low <= llower
+[count, removeLast] = add_pivots(zigzag, pHigh, pLow)
+
+draw_zigzag(zigzag, count, removeLast)
+plot(showBands? uupper:na, 'Upper', color.green, 0, plot.style_linebr)
+plot(showBands? llower:na, 'Lower', color.red, 0, plot.style_linebr)
+
+var combinedTrend = 0
+
+combinedTrend := trend > 0 or (useLatestPivot and (currentTrendForce > 0))? 1 :
+                 trend < 0 or (useLatestPivot and (currentTrendForce < 0))? -1 : combinedTrend
+
+candleColor = combinedTrend > 0? color.green : combinedTrend < 0 ? color.red : color.silver
+
+plot(trend, 'Last Pivot Trend', trend >0? color.green : trend < 0? color.red : color.silver, display=display.data_window)
+plot(currentTrend, 'Current Pivot Trend', currentTrend > 0? color.green : currentTrend < 0? color.red : color.silver, display=display.data_window)
+plot(currentTrendForce, 'Force Trend', currentTrendForce >0? color.green : currentTrendForce < 0? color.red : color.silver, display=display.data_window)
+
+plot(combinedTrend, "Combined Trend", candleColor, display = display.data_window)
+plot(currentDir, "Current Direction", color=currentDir>0?color.green:currentDir<0?color.red:color.silver, display = display.data_window)
+
+// A source ZigZag endpoint is provisional: it can move until the next opposite pivot.
+// Count bars from the last currently visible extreme; any further extreme resets the clock.
+// A signal is decided only after this bar closes and fills at the next bar open.
+var int tradedPivotBar = na
+int observedPivotBar = na
+int observedPivotSide = 0
+if array.size(zigzag) > 1
+    Pivot observedPivot = array.get(zigzag, 0)
+    observedPivotBar := observedPivot.bar
+    observedPivotSide := int(math.sign(observedPivot.direction))
+
+bool ready = barstate.isconfirmed and not na(observedPivotBar) and bar_index - observedPivotBar == waitBars
+bool fresh = na(tradedPivotBar) or tradedPivotBar != observedPivotBar
+bool enterLong = ready and fresh and observedPivotSide < 0
+bool enterShort = ready and fresh and observedPivotSide > 0
+if enterLong
+    strategy.entry("Long", strategy.long)
+    tradedPivotBar := observedPivotBar
+else if enterShort
+    strategy.entry("Short", strategy.short)
+    tradedPivotBar := observedPivotBar
+
+plotshape(showTradeMarkers and enterLong, title="Long after low", style=shape.triangleup, location=location.belowbar, color=color.aqua, size=size.small)
+plotshape(showTradeMarkers and enterShort, title="Short after high", style=shape.triangledown, location=location.abovebar, color=color.red, size=size.small)
+plot(observedPivotBar, "Latest ZigZag extreme bar", display=display.data_window)
+plot(bar_index - observedPivotBar, "Bars since extreme", display=display.data_window)
+plot(enterLong ? 1 : enterShort ? -1 : 0, "Entry direction", display=display.data_window)

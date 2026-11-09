@@ -1,0 +1,87 @@
+{
+  "indicator_id": "harmonic",
+  "run_id": "ultimatex-confirmed-pattern",
+  "method_id": "ultimatex-confirmed-pattern-proxy",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "hypothesis": "A confirmed Gartley or Bat XABCD pattern may predict a reversal after transaction costs. Compare entry immediately after D confirmation with entry after 30% retracement of AD, and compare target/stop with a 20-bar timed exit.",
+  "research_provenance": {
+    "primary_source": "https://ru.tradingview.com/script/kbf6u0fV-Auto-Harmonic-Screener-UltimateX-Trendoscope/",
+    "author_documentation": "https://docs.trendoscope.com/auto-harmonic-screener-ultimatex/",
+    "implementation": "mechanical adaptation, not the paid/proprietary UltimateX output",
+    "source_claim": "The author scans confirmed recursive ZigZag pivots XABCD using Fibonacci ranges and separately marks awaiting-entry and in-trade patterns. Exact private ratio tables, recursive pivot engine and historical alert stream are unavailable; this experiment uses one confirmed ZigZag level and explicit standard Gartley/Bat bounds.",
+    "source_checked_on": "2026-11-08"
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": ["1H", "4H"]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": ["1H", "4H"],
+  "required_data": ["completed 60-minute OHLCV bars", "causally confirmed high/low pivots"],
+  "availability_lag": "D pivot is available only wing completed bars after its center; signal at confirmation close; fill at next open.",
+  "signal_semantics": "Per-stock long or short pattern event. Bullish X-low/A-high/B-low/C-high/D-low or bearish inverse. Each XABCD tuple can trigger at most one entry.",
+  "evaluation_unit": "Independent per-stock account, one common parameter setting; not a multi-stock portfolio return.",
+  "entry_design": {
+    "mechanisms": ["detect: signal on confirmed D pivot", "retrace30: first completed close reaching 30% of AD reversal after D confirmation, within 20 bars"],
+    "confirmation": "Pivots require wing=5 or 8 bars on both sides and at least 2% swing; Gartley and Bat ratios in signal code with 8% tolerance on point ratios. Reject a pattern if stop at X or 61.8% AD target was touched between D center and entry decision, because it is no longer awaiting entry.",
+    "delay_bars": [0],
+    "decision_time": "completed bar close",
+    "not_applicable": ["same-close fills", "unconfirmed D", "exact UltimateX state replay without proprietary alert data"]
+  },
+  "exit_design": {
+    "mechanisms": ["tp: target at 61.8% of AD reversal or invalidation beyond X; time limit 40 bars", "time20: close after 20 completed bars or invalidation beyond X"],
+    "decision_time": "completed bar close, next open exit",
+    "same_bar_order": "No intrabar stop/target fill assumed; if stop and target both touched in one completed bar, mark stop first and exit next open."
+  },
+  "parameter_grid": {
+    "axes": {
+      "pattern": {"values": ["gartley", "bat"]},
+      "wing": {"values": [5, 8]},
+      "entry": {"values": ["detect", "retrace30"]},
+      "exit": {"values": ["tp", "time20"]}
+    },
+    "variant_template": "{pattern}_w{wing}_{entry}_{exit}",
+    "include_baseline": true,
+    "max_combinations": 16
+  },
+  "expected_variants": [
+    "baseline",
+    "gartley_w5_detect_tp", "gartley_w5_detect_time20", "gartley_w5_retrace30_tp", "gartley_w5_retrace30_time20",
+    "gartley_w8_detect_tp", "gartley_w8_detect_time20", "gartley_w8_retrace30_tp", "gartley_w8_retrace30_time20",
+    "bat_w5_detect_tp", "bat_w5_detect_time20", "bat_w5_retrace30_tp", "bat_w5_retrace30_time20",
+    "bat_w8_detect_tp", "bat_w8_detect_time20", "bat_w8_retrace30_tp", "bat_w8_retrace30_time20"
+  ],
+  "parameter_rationale": "Wing 8 is author's documented default; wing 5 checks sensitivity. 8% ratio tolerance is documented default. Entry 0.3 and target 0.618 follow documented defaults, but their bases are explicitly adapted to AD. Gartley/Bat are two common classic types; other families are untested, not silently implied.",
+  "min_bars": 120,
+  "baseline": "One 25% long buy-and-hold position on same stock and timeframe, next-open fill.",
+  "signal_rule": "Confirmed XABCD Gartley or Bat pattern triggers detect entry on D confirmation or awaits a 30% AD retracement close for up to 20 bars. Signal at close, next-open fill. Exit at completed-bar target/stop or after 20 bars, next-open fill.",
+  "execution_timing": "Completed-bar observation and decision; next-open execution; 25% of equity per independent stock account.",
+  "holding_period": "Up to 20 or 40 bars depending on exit",
+  "rebalance_rule": "At signal and exit only",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank early history across all variants; inspect the >10% policy threshold and >20% user target on all settings; do not interpret seen late history as independent holdout.",
+  "research_family": {
+    "viewed_methods": ["UltimateX screener confirmed XABCD", "UltimateX pattern trade states", "Gartley", "Bat"],
+    "tested_variants": 16,
+    "untested": ["recursive ZigZag levels", "other UltimateX pattern families", "private exact signal parity"],
+    "late_history_seen": true
+  },
+  "run_command": "python3 -m pipeline.run experiments/harmonic/ultimatex-confirmed-pattern",
+  "limitations": ["Private UltimateX source and historical alert stream unavailable; this is an explicit proxy", "Late MOEX history already viewed", "Corporate actions and short borrowing not included"]
+}

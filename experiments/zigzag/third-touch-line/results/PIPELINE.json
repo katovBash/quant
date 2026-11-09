@@ -1,0 +1,32 @@
+{
+  "experiment": "experiments/zigzag/third-touch-line",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "full_run",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "Не выбраны одно правило и десять акций"
+  ],
+  "review": "experiments/zigzag/third-touch-line/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "z3_5_4_0.5_100_d_x",
+    "symbols": 249,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": 0.03,
+    "median_train_worst_month_pnl_rub": -51778.17,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.06
+  },
+  "stocks": [
+    "UPRO",
+    "FEES",
+    "NLMK",
+    "SELG",
+    "LKOH",
+    "SGZH",
+    "ASTR",
+    "VKCO",
+    "UGLD"
+  ]
+}

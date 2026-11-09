@@ -1,0 +1,109 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "weekly-band-turn-interactions",
+  "method_id": "zigzag-weekly-band-turn",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "hypothesis": "After an observable 1W Bollinger-band ZigZag low/high, compare three causal weekly reversal confirmations and three exit rules for long/short entries. A visual bottom label is not a tradable fill.",
+  "research_provenance": {
+    "source": "User supplied Trendoscope Band-ZigZag Pine and weekly chart 2026-11-07",
+    "type": "mechanical adaptation",
+    "note": "Imported eta.bb sticky/adaptive internals are unavailable. This experiment explicitly uses standard SMA20 Bollinger bands, population standard deviation and multiplier 2, without sticky/adaptive; it is not an exact test of the original visual script."
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1W"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "confirm": {
+        "values": [
+          "first_close",
+          "break_prev",
+          "two_closes"
+        ]
+      },
+      "exit": {
+        "values": [
+          "opposite",
+          "target5",
+          "target8"
+        ]
+      }
+    },
+    "variant_template": "bb20__{confirm}__{exit}",
+    "include_baseline": true,
+    "max_combinations": 9
+  },
+  "expected_variants": [
+    "baseline",
+    "bb20__first_close__opposite",
+    "bb20__first_close__target5",
+    "bb20__first_close__target8",
+    "bb20__break_prev__opposite",
+    "bb20__break_prev__target5",
+    "bb20__break_prev__target8",
+    "bb20__two_closes__opposite",
+    "bb20__two_closes__target5",
+    "bb20__two_closes__target8"
+  ],
+  "promotion_variant_prefixes": [
+    "bb20__"
+  ],
+  "parameter_rationale": "Fixed band length 20 and 2 standard deviations so the experiment isolates interaction choices: first rising/falling candle, prior-week high/low break, or two same-direction closes; exit on opposite turn, observed 5% target, or observed 8% target.",
+  "min_bars": 100,
+  "baseline": "Same-stock 25%-capital buy-and-hold on the same weekly bars and costs.",
+  "signal_rule": "Each completed weekly candle computes Bollinger SMA20 +/- 2 population standard deviations. A high touching upper band creates/replaces a high pivot, a low touching lower creates/replaces a low pivot; candles touching both are ignored as ambiguous. The latest pivot is provisional and may move only going forward. Within eight completed weeks after a low/high, test the chosen reversal confirmation. Enter once per pivot at next weekly open. Exit on opposite signal or, for targets, when completed weekly high/low reaches 5% or 8% from actual next-open entry, filled at the following weekly open; no intrabar target fill. No backdating.",
+  "signal_semantics": "Causal weekly Band-ZigZag inspired pivot and post-pivot turn; source-library sticky/adaptive behavior deliberately excluded.",
+  "evaluation_unit": "Independent 1m RUB virtual account per symbol; this is not a combined portfolio.",
+  "execution_timing": "Observe completed 1W candle; order at next available 1W open. No orders at visually backdated pivot center.",
+  "holding_period": "Until opposite signal or next-open execution after weekly target observation.",
+  "rebalance_rule": "No intrabar rebalance; at most one position per account.",
+  "required_data": [
+    "1D OHLCV aggregated to completed 1W bars"
+  ],
+  "availability_lag": "A weekly pivot exists at close of its band-touch week; a turn needs at least one subsequent completed week.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Compare all nine preregistered variants against baseline on every eligible TQBR ticker. Review monthly downside and strict >10% latest complete 12-month net gate; do not automatically promote because source parity, corporate actions and independent holdout remain unverified.",
+  "research_family": {
+    "related_runs": [
+      "experiments/zigzag/confirmed-parallel-channel-bounce"
+    ],
+    "tested_variants_in_this_run": 9,
+    "earlier_history_seen": true,
+    "late_history_seen": true,
+    "untested_dependencies": [
+      "Exact eta.bb sticky/adaptive source implementation",
+      "Independent post-2026-10-30 holdout",
+      "TradingView compiler and execution parity"
+    ]
+  },
+  "run_command": "python3 -m pipeline.run experiments/zigzag/weekly-band-turn-interactions",
+  "limitations": [
+    "This deterministic adaptation does not reproduce the imported Trendoscope band implementation exactly",
+    "Weekly signal fills at next weekly open, not at the bend price",
+    "2026 history has already been seen in ZigZag research",
+    "Corporate actions and short borrowing incomplete"
+  ]
+}

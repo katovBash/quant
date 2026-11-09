@@ -1,0 +1,60 @@
+{
+  "strategy_id": "dual-zigzag-sma20-obv10-4h",
+  "variant": "combined_10",
+  "timeframe": "4H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "latest 200 completed 4H prefixes per stock; accepted entry and raw exit",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1800,
+  "signal_events_checked": 51,
+  "mismatches": 0,
+  "symbols": {
+    "MTLR": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "VKCO": {
+      "bars_checked": 200,
+      "signal_events": 6,
+      "mismatches": 0
+    },
+    "NLMK": {
+      "bars_checked": 200,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "WUSH": {
+      "bars_checked": 200,
+      "signal_events": 6,
+      "mismatches": 0
+    },
+    "GAZP": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "PLZL": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "SFIN": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "ALRS": {
+      "bars_checked": 200,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "SELG": {
+      "bars_checked": 200,
+      "signal_events": 5,
+      "mismatches": 0
+    }
+  },
+  "mismatch_examples": []
+}

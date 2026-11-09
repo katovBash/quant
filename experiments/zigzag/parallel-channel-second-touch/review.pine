@@ -1,0 +1,64 @@
+//@version=6
+indicator("Parallel channel · second touch · review", overlay=true, max_lines_count=100)
+
+// Visual review for chart-timeframe lines only. Python additionally tests
+// completed 1D/1W source pivots, next-open fills, costs and several exits.
+wing = input.int(3, "Pivot wing", minval=1)
+zonePct = input.float(0.5, "Contact zone %", minval=0.05, step=0.05)
+maxAge = input.int(50, "Max channel age", minval=1)
+var int low1Bar = na
+var int low2Bar = na
+var float low1 = na
+var float low2 = na
+var int high1Bar = na
+var int high2Bar = na
+var float high1 = na
+var float high2 = na
+var int upperAnchorBar = na
+var float upperAnchor = na
+var int lowerAnchorBar = na
+var float lowerAnchor = na
+var bool upperUsed = false
+var bool lowerUsed = false
+
+pl = ta.pivotlow(low, wing, wing)
+ph = ta.pivothigh(high, wing, wing)
+if not na(pl)
+    low1Bar := low2Bar
+    low1 := low2
+    low2Bar := bar_index - wing
+    low2 := pl
+    upperAnchorBar := na
+    upperUsed := false
+if not na(ph)
+    high1Bar := high2Bar
+    high1 := high2
+    high2Bar := bar_index - wing
+    high2 := ph
+    lowerAnchorBar := na
+    lowerUsed := false
+    if not na(low2Bar) and not na(low1Bar) and high2Bar > low2Bar and na(upperAnchorBar)
+        upperAnchorBar := high2Bar
+        upperAnchor := ph
+if not na(pl) and not na(high2Bar) and not na(high1Bar) and low2Bar > high2Bar and na(lowerAnchorBar)
+    lowerAnchorBar := low2Bar
+    lowerAnchor := pl
+
+lowSlope = not na(low1Bar) and not na(low2Bar) and low2Bar > low1Bar ? (low2-low1)/(low2Bar-low1Bar) : na
+highSlope = not na(high1Bar) and not na(high2Bar) and high2Bar > high1Bar ? (high2-high1)/(high2Bar-high1Bar) : na
+support = not na(lowSlope) ? low2 + lowSlope*(bar_index-low2Bar) : na
+resistance = not na(highSlope) ? high2 + highSlope*(bar_index-high2Bar) : na
+upperWidth = not na(upperAnchorBar) ? upperAnchor-(low2+lowSlope*(upperAnchorBar-low2Bar)) : na
+lowerWidth = not na(lowerAnchorBar) ? (high2+highSlope*(lowerAnchorBar-high2Bar))-lowerAnchor : na
+upper = support + upperWidth
+lower = resistance - lowerWidth
+shortSignal = barstate.isconfirmed and not upperUsed and not na(upper) and upperWidth/upperAnchor >= 0.01 and bar_index-upperAnchorBar <= maxAge and high >= upper*(1-zonePct/100) and high <= upper*(1+zonePct/100) and close < upper
+longSignal = barstate.isconfirmed and not lowerUsed and not na(lower) and lowerWidth/lowerAnchor >= 0.01 and bar_index-lowerAnchorBar <= maxAge and low >= lower*(1-zonePct/100) and low <= lower*(1+zonePct/100) and close > lower
+if shortSignal
+    upperUsed := true
+if longSignal
+    lowerUsed := true
+plot(upper, "Parallel resistance", color=color.new(color.red, 20), force_overlay=true)
+plot(lower, "Parallel support", color=color.new(color.teal, 20), force_overlay=true)
+plotshape(shortSignal, "Second resistance touch", shape.triangledown, location.abovebar, color.red, size=size.tiny)
+plotshape(longSignal, "Second support touch", shape.triangleup, location.belowbar, color.teal, size=size.tiny)

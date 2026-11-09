@@ -1,0 +1,46 @@
+{
+  "strategy_id": "zigzag-daily-line-bounce-a-trend-atr4-1d",
+  "variant": "d_a_trend_a4",
+  "timeframe": "1D",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus experiment signal series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1161,
+  "signal_events_checked": 381,
+  "mismatches": 0,
+  "symbols": {
+    "CBOM": {
+      "bars_checked": 154,
+      "mismatches": 0
+    },
+    "ENPG": {
+      "bars_checked": 145,
+      "mismatches": 0
+    },
+    "GMKN": {
+      "bars_checked": 147,
+      "mismatches": 0
+    },
+    "RUAL": {
+      "bars_checked": 158,
+      "mismatches": 0
+    },
+    "SMLT": {
+      "bars_checked": 151,
+      "mismatches": 0
+    },
+    "WUSH": {
+      "bars_checked": 143,
+      "mismatches": 0
+    },
+    "RAGR": {
+      "bars_checked": 122,
+      "mismatches": 0
+    },
+    "SFIN": {
+      "bars_checked": 141,
+      "mismatches": 0
+    }
+  }
+}

@@ -23,6 +23,8 @@
 
 ## Примеры для ручного разбора
 
+Это **примеры отдельных пар**, а не прошедшая отбор стратегия. Для paper trading требуется одна общая настройка и хотя бы одна акция, прошедшая порог на последних полных 12 месяцах; результат проверки **всех** настроек приведён в [PAPER_REVIEW.md](PAPER_REVIEW.md) и `paper_review.json → rule_screening`.
+
 Сортировка: число прибыльных месяцев, затем худший месячный PnL. Соседние настройки и контроль нужно сравнить перед выводом.
 
 | Акция · интервал · вариант | Плюс / все месяцы | Средний месяц | Средний прибыльный / убыточный месяц | Худший месяц | Последний календарный год / YTD | Контроль: плюс / месяцы |
@@ -139,28 +141,29 @@
 
 Доля удачных сделок считается **только по закрытым сделкам**. Доходность включает переоценку открытой позиции и потому не выводится из этой доли. Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.
 
-| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Плюсовые месяцы | Вывод |
-|---|---|---:|---:|---:|---|
-| POSI · 1D · `gerchik-false-breakout_20` | long_only | 15/36 · 41.7% | 0 · — | 7/33 | diagnostic_only; selected examples, not whole grid |
-| POSI · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 25/46 · 54.3% | 13/33 | diagnostic_only; selected examples, not whole grid |
-| T · 1D · `gerchik-false-breakout_20` | long_only | 17/37 · 45.9% | 0 · — | 12/33 | diagnostic_only; selected examples, not whole grid |
-| T · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 18/47 · 38.3% | 10/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `gerchik-false-breakout_20` | long_only | 15/29 · 51.7% | 0 · — | 8/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 21/53 · 39.6% | 12/33 | diagnostic_only; selected examples, not whole grid |
-| SNGS · 1D · `gerchik-false-breakout_20` | long_only | 21/52 · 40.4% | 0 · — | 11/33 | diagnostic_only; selected examples, not whole grid |
-| SNGS · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 16/29 · 55.2% | 9/33 | diagnostic_only; selected examples, not whole grid |
-| VKCO · 1D · `gerchik-false-breakout_20` | long_only | 18/48 · 37.5% | 0 · — | 9/33 | diagnostic_only; selected examples, not whole grid |
-| VKCO · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 20/33 · 60.6% | 10/33 | diagnostic_only; selected examples, not whole grid |
-| LENT · 1D · `gerchik-false-breakout_20` | long_only | 13/29 · 44.8% | 0 · — | 9/33 | diagnostic_only; selected examples, not whole grid |
-| LENT · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 21/54 · 38.9% | 9/33 | diagnostic_only; selected examples, not whole grid |
-| SMLT · 1D · `gerchik-false-breakout_20` | long_only | 22/55 · 40.0% | 0 · — | 10/33 | diagnostic_only; selected examples, not whole grid |
-| SMLT · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 11/23 · 47.8% | 7/33 | diagnostic_only; selected examples, not whole grid |
-| RTKM · 1D · `gerchik-false-breakout_20` | long_only | 19/41 · 46.3% | 0 · — | 14/33 | diagnostic_only; selected examples, not whole grid |
-| RTKM · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 16/46 · 34.8% | 5/33 | diagnostic_only; selected examples, not whole grid |
-| VTBR · 1D · `gerchik-false-breakout_20` | long_only | 17/48 · 35.4% | 0 · — | 10/33 | diagnostic_only; selected examples, not whole grid |
-| VTBR · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 16/35 · 45.7% | 8/33 | diagnostic_only; selected examples, not whole grid |
-| RAGR · 1D · `gerchik-false-breakout_20` | long_only | 7/26 · 26.9% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| RAGR · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 6/13 · 46.2% | 3/33 | diagnostic_only; selected examples, not whole grid |
+
+| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Доходность всего периода | Плюсовые месяцы | Вывод |
+|---|---|---:|---:|---:|---:|---|
+| POSI · 1D · `gerchik-false-breakout_20` | long_only | 15/36 · 41.7% | 0 · — | -5.39% | 7/33 | diagnostic_only; selected examples, not whole grid |
+| POSI · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 25/46 · 54.3% | +6.11% | 13/33 | diagnostic_only; selected examples, not whole grid |
+| T · 1D · `gerchik-false-breakout_20` | long_only | 17/37 · 45.9% | 0 · — | -3.09% | 12/33 | diagnostic_only; selected examples, not whole grid |
+| T · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 18/47 · 38.3% | -3.79% | 10/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `gerchik-false-breakout_20` | long_only | 15/29 · 51.7% | 0 · — | +1.95% | 8/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 21/53 · 39.6% | -1.77% | 12/33 | diagnostic_only; selected examples, not whole grid |
+| SNGS · 1D · `gerchik-false-breakout_20` | long_only | 21/52 · 40.4% | 0 · — | -2.26% | 11/33 | diagnostic_only; selected examples, not whole grid |
+| SNGS · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 16/29 · 55.2% | +1.75% | 9/33 | diagnostic_only; selected examples, not whole grid |
+| VKCO · 1D · `gerchik-false-breakout_20` | long_only | 18/48 · 37.5% | 0 · — | -7.46% | 9/33 | diagnostic_only; selected examples, not whole grid |
+| VKCO · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 20/33 · 60.6% | +6.21% | 10/33 | diagnostic_only; selected examples, not whole grid |
+| LENT · 1D · `gerchik-false-breakout_20` | long_only | 13/29 · 44.8% | 0 · — | -0.92% | 9/33 | diagnostic_only; selected examples, not whole grid |
+| LENT · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 21/54 · 38.9% | -7.63% | 9/33 | diagnostic_only; selected examples, not whole grid |
+| SMLT · 1D · `gerchik-false-breakout_20` | long_only | 22/55 · 40.0% | 0 · — | -6.60% | 10/33 | diagnostic_only; selected examples, not whole grid |
+| SMLT · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 11/23 · 47.8% | -5.49% | 7/33 | diagnostic_only; selected examples, not whole grid |
+| RTKM · 1D · `gerchik-false-breakout_20` | long_only | 19/41 · 46.3% | 0 · — | +0.45% | 14/33 | diagnostic_only; selected examples, not whole grid |
+| RTKM · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 16/46 · 34.8% | -5.00% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| VTBR · 1D · `gerchik-false-breakout_20` | long_only | 17/48 · 35.4% | 0 · — | -8.62% | 10/33 | diagnostic_only; selected examples, not whole grid |
+| VTBR · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 16/35 · 45.7% | -5.84% | 8/33 | diagnostic_only; selected examples, not whole grid |
+| RAGR · 1D · `gerchik-false-breakout_20` | long_only | 7/26 · 26.9% | 0 · — | -7.59% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| RAGR · 1D · `gerchik-false-breakout_20` | short_only | 0 · — | 6/13 · 46.2% | +1.41% | 3/33 | diagnostic_only; selected examples, not whole grid |
 
 [Все результаты по направлениям](trade_side_summary.csv). Если капитал уходит ниже нуля, вариант недопустим независимо от процента успешных сделок.
 

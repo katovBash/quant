@@ -1,0 +1,119 @@
+{
+  "indicator_id": "double-indicator",
+  "run_id": "dual-zigzag-atr-breakout",
+  "method_id": "dual-zigzag-atr-breakout",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "parent_experiment": "experiments/dual-zigzag/price-oscillator-swings",
+  "hypothesis": "For the fixed 4H Dual ZigZag price/RSI trend rule, requiring the breakout close to clear the confirmed price pivot by 0.25, 0.5 or 1.0 previous-bar ATR(14) may reduce weak false-breakout losing trades. Test on both parent timeframes without retuning its price wing 5, deviation 2%, RSI 14 or exit. Measure lost winners as well as losers.",
+  "research_provenance": {
+    "source_url": "https://ru.tradingview.com/script/F8gYizEx-Dual-Zigzag-Trendoscope/",
+    "parent_experiment": "experiments/dual-zigzag/price-oscillator-swings",
+    "implementation": "new ATR confirmation, not from the author; exact frozen parent signal is the k=0 control"
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1H",
+      "4H"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "required_data": [
+    "OHLCV 60-minute candles",
+    "confirmed price and RSI pivots",
+    "ATR(14) from previous completed signal bars"
+  ],
+  "availability_lag": "The parent signal uses confirmed pivots. ATR uses only 14 bars closed before the breakout signal bar. Decision at signal close; execution next open.",
+  "signal_semantics": "Per-stock long/short signal from closed 1H or 4H bar; next open execution; no historical pivot-marker entry.",
+  "evaluation_unit": "Independent per-stock experimental account; one common parameter setting chosen by early ranking for paper review.",
+  "entry_design": {
+    "mechanisms": [
+      "unchanged parent breakout k=0",
+      "parent breakout distance >= k*prior ATR(14)"
+    ],
+    "confirmation": "Parent 5-bar price and RSI swing; k=0,0.25,0.5,1.0",
+    "decision_time": "closed signal bar",
+    "delay_bars": [
+      0
+    ],
+    "common_exit_rule": "next opposite accepted signal",
+    "not_applicable": [
+      "ATR alone has no directional entry signal"
+    ]
+  },
+  "exit_design": {
+    "mechanisms": [
+      "unchanged opposite accepted signal"
+    ],
+    "parameter_ranges": {},
+    "decision_time": "closed bar; next open",
+    "not_applicable": [
+      "changing stops or holding period in this confirmation experiment"
+    ]
+  },
+  "parameter_grid": {
+    "axes": {
+      "k": {
+        "values": [
+          0,
+          0.25,
+          0.5,
+          1
+        ]
+      }
+    },
+    "variant_template": "atr_{k}",
+    "include_baseline": true,
+    "max_combinations": 4
+  },
+  "expected_variants": [
+    "baseline",
+    "atr_0",
+    "atr_0.25",
+    "atr_0.5",
+    "atr_1"
+  ],
+  "parameter_rationale": "One-sided minimum breakout distance in units of previous 14-bar ATR: zero reproduces parent, 0.25/0.5/1 span weak to strong breakouts; fixed before result inspection.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on the same stock/timeframe; atr_0 is the fixed parent control.",
+  "signal_rule": "Compute frozen dual_5_2_14_trend-opp event. Before incorporating current-bar pivot confirmations, read last known price high/low. For k>0 keep long only if close - last high >= k*ATR14 from prior completed bars; keep short only if last low - close >= k*ATR14. No delayed re-entry. Exit/reverse on opposite retained event.",
+  "execution_timing": "Decision on completed bar; fill next open; 25% of equity per position.",
+  "holding_period": "Until opposite accepted signal",
+  "rebalance_rule": "At new signal or exit only",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Research comparison only; do not change existing live paper accounts from this test. Compare filter to atr_0 on identical symbol/timeframe/month pairs and inspect losing/winning trades, long/short, PnL, drawdown and >20% target.",
+  "research_family": {
+    "viewed_methods": [
+      "frozen dual_5_2_14_trend-opp parent",
+      "ATR14 breakout distance"
+    ],
+    "tested_variants": 4,
+    "late_history_seen": true
+  },
+  "run_command": "python3 -m pipeline.run experiments/double-indicator/dual-zigzag-atr-breakout",
+  "limitations": [
+    "Latest history was already viewed in parent experiment.",
+    "ATR alone has no directional entry signal.",
+    "Corporate actions and short borrow are not fully covered."
+  ]
+}

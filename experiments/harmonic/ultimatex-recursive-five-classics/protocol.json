@@ -1,0 +1,199 @@
+{
+  "indicator_id": "harmonic",
+  "run_id": "ultimatex-recursive-five-classics",
+  "method_id": "ultimatex-recursive-five-classics-proxy",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "hypothesis": "Five explicitly defined classic harmonic patterns and a second causal ZigZag level may produce more tradable reversal entries than the previous Gartley/Bat single-level proxy. Preserve the previous detect entry and time20 exit to isolate recognition breadth.",
+  "research_provenance": {
+    "primary_source": "https://ru.tradingview.com/script/kbf6u0fV-Auto-Harmonic-Screener-UltimateX-Trendoscope/",
+    "author_documentation": "https://docs.trendoscope.com/auto-harmonic-screener-ultimatex/",
+    "other_ratio_reference": "https://www.tradingview.com/script/GCrmWavH-Harmonic-Suite/",
+    "deep_crab_reference": "https://harmonictrader.com/wp-content/uploads/2020/04/vol1.pdf",
+    "implementation": "mechanical adaptation, not historical UltimateX alerts",
+    "source_checked_on": "2026-11-08",
+    "deviation": "Only five of eight author-listed classic families have a directly comparable XABCD geometry here; private ratio table and recursive engine unavailable."
+  },
+  "parent_experiment": "experiments/harmonic/ultimatex-confirmed-pattern",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1H",
+      "4H"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "required_data": [
+    "completed 60-minute OHLCV bars",
+    "confirmed level-0 and derived level-1 pivot events"
+  ],
+  "availability_lag": "Level 0 uses wing completed bars after pivot center; level 1 confirms after two subsequent level-0 events, each already confirmed on source bars. Entry signal at confirmation close; fill next open.",
+  "signal_semantics": "Bullish and bearish XABCD reversal events per stock. Level 1 is computed from the causal stream of confirmed level-0 pivots and never backdated to the plotted pivot center.",
+  "evaluation_unit": "Independent experimental account per stock; one global variant selected by early history for any paper review.",
+  "entry_design": {
+    "mechanisms": [
+      "detect on confirmed D pivot, fixed from parent experiment"
+    ],
+    "confirmation": "8% tolerance on declared ratio ranges; base ZigZag wing 5 or 8 and 2% reversal; level 1 uses wing 2 on confirmed level-0 event stream; reject candidates whose stop or 61.8% AD target was touched after D center before confirmation.",
+    "delay_bars": [
+      0
+    ],
+    "decision_time": "closed bar",
+    "not_applicable": [
+      "retrace30 is held out because this experiment isolates recognition breadth",
+      "unconfirmed D",
+      "exact proprietary UltimateX alerts"
+    ]
+  },
+  "exit_design": {
+    "mechanisms": [
+      "fixed parent time20: exit on invalidation or 20 bars after fill, next open"
+    ],
+    "interior_stop": "X",
+    "extension_stop": "D minus or plus 10% of absolute AD, by direction",
+    "target": "61.8% AD used only to reject already completed pre-entry patterns; no profit target in time20 rule",
+    "not_applicable": [
+      "new trailing or multiple targets in this recognition experiment"
+    ]
+  },
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "pattern": {
+            "values": [
+              "gartley",
+              "bat",
+              "butterfly",
+              "crab",
+              "deepcrab"
+            ]
+          },
+          "level": {
+            "values": [
+              0,
+              1
+            ]
+          },
+          "wing": {
+            "values": [
+              5,
+              8
+            ]
+          }
+        },
+        "variant_template": "{pattern}_l{level}_w{wing}"
+      },
+      {
+        "axes": {
+          "level": {
+            "values": [
+              0,
+              1
+            ]
+          },
+          "wing": {
+            "values": [
+              5,
+              8
+            ]
+          }
+        },
+        "variant_template": "union_l{level}_w{wing}"
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 24
+  },
+  "expected_variants": [
+    "baseline",
+    "gartley_l0_w5",
+    "gartley_l0_w8",
+    "gartley_l1_w5",
+    "gartley_l1_w8",
+    "bat_l0_w5",
+    "bat_l0_w8",
+    "bat_l1_w5",
+    "bat_l1_w8",
+    "butterfly_l0_w5",
+    "butterfly_l0_w8",
+    "butterfly_l1_w5",
+    "butterfly_l1_w8",
+    "crab_l0_w5",
+    "crab_l0_w8",
+    "crab_l1_w5",
+    "crab_l1_w8",
+    "deepcrab_l0_w5",
+    "deepcrab_l0_w8",
+    "deepcrab_l1_w5",
+    "deepcrab_l1_w8",
+    "union_l0_w5",
+    "union_l0_w8",
+    "union_l1_w5",
+    "union_l1_w8"
+  ],
+  "parameter_rationale": "Base wings 5 and 8 reproduce prior controls; level 1 is an explicit coarser event-derived scale. Five classic families have stated XABCD ratio definitions. A union tests their combined signal flow. No return-driven parameter search.",
+  "pattern_ratio_rules": {
+    "gartley": "AB/XA ~0.618; BC/AB 0.382-0.886; CD/BC 1.272-1.618; AD/XA ~0.786",
+    "bat": "AB/XA 0.382-0.5; BC/AB 0.382-0.886; CD/BC 1.618-2.618; AD/XA ~0.886",
+    "butterfly": "AB/XA ~0.786; BC/AB 0.382-0.886; CD/BC 1.618-2.618; AD/XA 1.272-1.618",
+    "crab": "AB/XA 0.382-0.618; BC/AB 0.382-0.886; CD/BC 2.618-3.618; AD/XA ~1.618",
+    "deepcrab": "AB/XA ~0.886; BC/AB 0.382-0.886; CD/BC 2.0-3.618; AD/XA ~1.618"
+  },
+  "pattern_exclusions": {
+    "cypher": "C extends above A and D references XC; needs separate geometry and stop rules",
+    "shark": "O-X-A-B-C structure, not a direct XABCD rule",
+    "nenstar": "Author private ratio definition not verified from accessible primary material"
+  },
+  "min_bars": 120,
+  "baseline": "One 25% long buy-and-hold position on same stock/timeframe, filled next open.",
+  "signal_rule": "For each declared XABCD family and causal level, signal at confirmed D if no intervening stop/target. Union picks one per pivot tuple in priority Gartley, Bat, Butterfly, Crab, DeepCrab. Exit at stop or 20 completed bars. All fills next open.",
+  "execution_timing": "Completed-bar decision; next-open execution; 25% equity per separate stock account.",
+  "holding_period": "At most 20 completed signal bars after entry.",
+  "rebalance_rule": "At entry/exit only.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Review all 48 timeframe x rule settings by early ranking; select first with every liquid stock above policy trailing-12m threshold, inspect >20% separately. Late history is seen, not an independent holdout.",
+  "research_family": {
+    "viewed_methods": [
+      "single-level Gartley/Bat proxy",
+      "Trendoscope classic pattern list",
+      "two-level recursive pivot mechanism",
+      "five-pattern union"
+    ],
+    "tested_variants": 24,
+    "late_history_seen": true,
+    "untested": [
+      "Cypher",
+      "Shark",
+      "Nenstar",
+      "anti/alternate patterns",
+      "exact UltimateX alert parity"
+    ]
+  },
+  "run_command": "python3 -m pipeline.run experiments/harmonic/ultimatex-recursive-five-classics",
+  "limitations": [
+    "Not exact UltimateX source or alert stream",
+    "Extension stop is an explicit proxy",
+    "Late history already viewed; no independent backtest",
+    "Corporate actions and short borrow incomplete"
+  ]
+}

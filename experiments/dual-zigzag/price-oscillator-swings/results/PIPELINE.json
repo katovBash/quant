@@ -1,0 +1,33 @@
+{
+  "experiment": "experiments/dual-zigzag/price-oscillator-swings",
+  "stage": "PAPER_REGISTERED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/dual-zigzag/price-oscillator-swings/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "dual_5_2_14_trend-opp",
+    "symbols": 249,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": 0.12,
+    "median_train_worst_month_pnl_rub": -49774.0,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.06
+  },
+  "stocks": [
+    "RAGR",
+    "ALRS",
+    "MTLR",
+    "PLZL",
+    "SFIN",
+    "WUSH",
+    "NLMK"
+  ],
+  "strategy_id": "dual-zigzag-rsi-trend-5-2-14-4h",
+  "accounts": 7
+}

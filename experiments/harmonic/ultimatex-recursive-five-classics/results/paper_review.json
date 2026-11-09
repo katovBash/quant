@@ -1,0 +1,1422 @@
+{
+  "review_version": 2,
+  "selection_scope": "all_passing",
+  "selection_method": "first_train_rank_with_passing_stocks",
+  "status": "REVIEW_ONLY",
+  "protocol": {
+    "indicator_id": "harmonic",
+    "run_id": "ultimatex-recursive-five-classics",
+    "method_id": "ultimatex-recursive-five-classics-proxy",
+    "status": "PREREGISTERED",
+    "frozen_on": "2026-11-08",
+    "hypothesis": "Five explicitly defined classic harmonic patterns and a second causal ZigZag level may produce more tradable reversal entries than the previous Gartley/Bat single-level proxy. Preserve the previous detect entry and time20 exit to isolate recognition breadth.",
+    "research_provenance": {
+      "primary_source": "https://ru.tradingview.com/script/kbf6u0fV-Auto-Harmonic-Screener-UltimateX-Trendoscope/",
+      "author_documentation": "https://docs.trendoscope.com/auto-harmonic-screener-ultimatex/",
+      "other_ratio_reference": "https://www.tradingview.com/script/GCrmWavH-Harmonic-Suite/",
+      "deep_crab_reference": "https://harmonictrader.com/wp-content/uploads/2020/04/vol1.pdf",
+      "implementation": "mechanical adaptation, not historical UltimateX alerts",
+      "source_checked_on": "2026-11-08",
+      "deviation": "Only five of eight author-listed classic families have a directly comparable XABCD geometry here; private ratio table and recursive engine unavailable."
+    },
+    "parent_experiment": "experiments/harmonic/ultimatex-confirmed-pattern",
+    "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+    "eligible_universe": {
+      "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+      "cache_dir": "data/candles/moex_scan",
+      "board": "TQBR",
+      "requires_source_timeframes": [
+        "1H",
+        "4H"
+      ]
+    },
+    "corporate_actions": {
+      "status": "unchecked",
+      "applied_in_main_results": false,
+      "splits_status": "unchecked",
+      "dividend_source_status_file": "data/dividends/moex_coverage.json"
+    },
+    "signal_timeframes": [
+      "1H",
+      "4H"
+    ],
+    "required_data": [
+      "completed 60-minute OHLCV bars",
+      "confirmed level-0 and derived level-1 pivot events"
+    ],
+    "availability_lag": "Level 0 uses wing completed bars after pivot center; level 1 confirms after two subsequent level-0 events, each already confirmed on source bars. Entry signal at confirmation close; fill next open.",
+    "signal_semantics": "Bullish and bearish XABCD reversal events per stock. Level 1 is computed from the causal stream of confirmed level-0 pivots and never backdated to the plotted pivot center.",
+    "evaluation_unit": "Independent experimental account per stock; one global variant selected by early history for any paper review.",
+    "entry_design": {
+      "mechanisms": [
+        "detect on confirmed D pivot, fixed from parent experiment"
+      ],
+      "confirmation": "8% tolerance on declared ratio ranges; base ZigZag wing 5 or 8 and 2% reversal; level 1 uses wing 2 on confirmed level-0 event stream; reject candidates whose stop or 61.8% AD target was touched after D center before confirmation.",
+      "delay_bars": [
+        0
+      ],
+      "decision_time": "closed bar",
+      "not_applicable": [
+        "retrace30 is held out because this experiment isolates recognition breadth",
+        "unconfirmed D",
+        "exact proprietary UltimateX alerts"
+      ]
+    },
+    "exit_design": {
+      "mechanisms": [
+        "fixed parent time20: exit on invalidation or 20 bars after fill, next open"
+      ],
+      "interior_stop": "X",
+      "extension_stop": "D minus or plus 10% of absolute AD, by direction",
+      "target": "61.8% AD used only to reject already completed pre-entry patterns; no profit target in time20 rule",
+      "not_applicable": [
+        "new trailing or multiple targets in this recognition experiment"
+      ]
+    },
+    "parameter_grid": {
+      "groups": [
+        {
+          "axes": {
+            "pattern": {
+              "values": [
+                "gartley",
+                "bat",
+                "butterfly",
+                "crab",
+                "deepcrab"
+              ]
+            },
+            "level": {
+              "values": [
+                0,
+                1
+              ]
+            },
+            "wing": {
+              "values": [
+                5,
+                8
+              ]
+            }
+          },
+          "variant_template": "{pattern}_l{level}_w{wing}"
+        },
+        {
+          "axes": {
+            "level": {
+              "values": [
+                0,
+                1
+              ]
+            },
+            "wing": {
+              "values": [
+                5,
+                8
+              ]
+            }
+          },
+          "variant_template": "union_l{level}_w{wing}"
+        }
+      ],
+      "include_baseline": true,
+      "max_combinations": 24
+    },
+    "expected_variants": [
+      "baseline",
+      "gartley_l0_w5",
+      "gartley_l0_w8",
+      "gartley_l1_w5",
+      "gartley_l1_w8",
+      "bat_l0_w5",
+      "bat_l0_w8",
+      "bat_l1_w5",
+      "bat_l1_w8",
+      "butterfly_l0_w5",
+      "butterfly_l0_w8",
+      "butterfly_l1_w5",
+      "butterfly_l1_w8",
+      "crab_l0_w5",
+      "crab_l0_w8",
+      "crab_l1_w5",
+      "crab_l1_w8",
+      "deepcrab_l0_w5",
+      "deepcrab_l0_w8",
+      "deepcrab_l1_w5",
+      "deepcrab_l1_w8",
+      "union_l0_w5",
+      "union_l0_w8",
+      "union_l1_w5",
+      "union_l1_w8"
+    ],
+    "parameter_rationale": "Base wings 5 and 8 reproduce prior controls; level 1 is an explicit coarser event-derived scale. Five classic families have stated XABCD ratio definitions. A union tests their combined signal flow. No return-driven parameter search.",
+    "pattern_ratio_rules": {
+      "gartley": "AB/XA ~0.618; BC/AB 0.382-0.886; CD/BC 1.272-1.618; AD/XA ~0.786",
+      "bat": "AB/XA 0.382-0.5; BC/AB 0.382-0.886; CD/BC 1.618-2.618; AD/XA ~0.886",
+      "butterfly": "AB/XA ~0.786; BC/AB 0.382-0.886; CD/BC 1.618-2.618; AD/XA 1.272-1.618",
+      "crab": "AB/XA 0.382-0.618; BC/AB 0.382-0.886; CD/BC 2.618-3.618; AD/XA ~1.618",
+      "deepcrab": "AB/XA ~0.886; BC/AB 0.382-0.886; CD/BC 2.0-3.618; AD/XA ~1.618"
+    },
+    "pattern_exclusions": {
+      "cypher": "C extends above A and D references XC; needs separate geometry and stop rules",
+      "shark": "O-X-A-B-C structure, not a direct XABCD rule",
+      "nenstar": "Author private ratio definition not verified from accessible primary material"
+    },
+    "min_bars": 120,
+    "baseline": "One 25% long buy-and-hold position on same stock/timeframe, filled next open.",
+    "signal_rule": "For each declared XABCD family and causal level, signal at confirmed D if no intervening stop/target. Union picks one per pivot tuple in priority Gartley, Bat, Butterfly, Crab, DeepCrab. Exit at stop or 20 completed bars. All fills next open.",
+    "execution_timing": "Completed-bar decision; next-open execution; 25% equity per separate stock account.",
+    "holding_period": "At most 20 completed signal bars after entry.",
+    "rebalance_rule": "At entry/exit only.",
+    "initial_capital_rub": 1000000,
+    "position_weight_pct": 25,
+    "simulator_cost_bps_per_side": 15,
+    "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+    "start": "2024-01-01",
+    "split": "2026-01-01",
+    "late_sample_status": "seen_history",
+    "primary_evaluation": "monthly",
+    "selection": "Review all 48 timeframe x rule settings by early ranking; select first with every liquid stock above policy trailing-12m threshold, inspect >20% separately. Late history is seen, not an independent holdout.",
+    "research_family": {
+      "viewed_methods": [
+        "single-level Gartley/Bat proxy",
+        "Trendoscope classic pattern list",
+        "two-level recursive pivot mechanism",
+        "five-pattern union"
+      ],
+      "tested_variants": 24,
+      "late_history_seen": true,
+      "untested": [
+        "Cypher",
+        "Shark",
+        "Nenstar",
+        "anti/alternate patterns",
+        "exact UltimateX alert parity"
+      ]
+    },
+    "run_command": "python3 -m pipeline.run experiments/harmonic/ultimatex-recursive-five-classics",
+    "limitations": [
+      "Not exact UltimateX source or alert stream",
+      "Extension stop is an explicit proxy",
+      "Late history already viewed; no independent backtest",
+      "Corporate actions and short borrow incomplete"
+    ]
+  },
+  "validation": {
+    "structural_ok": true,
+    "policy_version": 1,
+    "status": "REVIEW_ONLY",
+    "coverage": {
+      "ok": true,
+      "rows": 13150,
+      "duplicates": [],
+      "timeframes": {
+        "1H": {
+          "symbols": 263,
+          "min_required": 0,
+          "variants": 25,
+          "incomplete_symbols": {},
+          "ok": true
+        },
+        "4H": {
+          "symbols": 263,
+          "min_required": 0,
+          "variants": 25,
+          "incomplete_symbols": {},
+          "ok": true
+        }
+      },
+      "pairs_with_at_least_100_closed_trades": 0,
+      "pairs_below_100_closed_trades": 13150,
+      "monthly": {
+        "rows": 400800,
+        "pairs": 13150,
+        "missing_or_short": {},
+        "duplicates": [],
+        "min_periods_available": 4,
+        "ok": true
+      }
+    },
+    "parameter_grid": {
+      "expected": 25,
+      "actual": 25,
+      "missing": [],
+      "unexpected": [],
+      "ok": true
+    },
+    "combination": {
+      "applicable": false,
+      "ok": true
+    },
+    "universe": {
+      "eligible_symbols": 267,
+      "covered_pairs": 534,
+      "missing_pairs": [],
+      "ok": true
+    },
+    "periods": {
+      "pairs": 13150,
+      "with_2_full_months": 13150,
+      "with_2_calendar_years": 12550,
+      "with_train_and_late": 12550,
+      "with_last_1m": 13150,
+      "with_last_3m": 13150,
+      "with_last_6m": 12500,
+      "with_last_9m": 12450,
+      "with_last_12m": 12300
+    },
+    "monthly_validation": {
+      "rows": 400800,
+      "pairs": 13150,
+      "duplicate_month_rows": 0,
+      "invalid_calendar_rows": 0,
+      "invalid_equity_rows": 0,
+      "return_mismatch_rows": 0,
+      "pnl_mismatch_rows": 0,
+      "invalid_trade_rows": 0,
+      "gap_pairs": 550,
+      "missing_months_inside_history": 3450,
+      "affected_symbol_timeframes": 22,
+      "unique_missing_symbol_months": 138,
+      "invalid_examples": [],
+      "gap_examples": [
+        {
+          "symbol": "BLNG",
+          "timeframe": "1H",
+          "example_variant": "baseline",
+          "missing_months": 4,
+          "first_missing": [
+            "2024-08",
+            "2024-09",
+            "2024-10",
+            "2024-11"
+          ]
+        },
+        {
+          "symbol": "BLNG",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 4,
+          "first_missing": [
+            "2024-08",
+            "2024-09",
+            "2024-10",
+            "2024-11"
+          ]
+        },
+        {
+          "symbol": "ETLN",
+          "timeframe": "1H",
+          "example_variant": "baseline",
+          "missing_months": 2,
+          "first_missing": [
+            "2025-07",
+            "2025-08"
+          ]
+        },
+        {
+          "symbol": "ETLN",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 2,
+          "first_missing": [
+            "2025-07",
+            "2025-08"
+          ]
+        },
+        {
+          "symbol": "GAZA",
+          "timeframe": "1H",
+          "example_variant": "baseline",
+          "missing_months": 9,
+          "first_missing": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-06",
+            "2024-07",
+            "2024-08"
+          ]
+        },
+        {
+          "symbol": "GAZA",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 9,
+          "first_missing": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-06",
+            "2024-07",
+            "2024-08"
+          ]
+        },
+        {
+          "symbol": "GAZAP",
+          "timeframe": "1H",
+          "example_variant": "baseline",
+          "missing_months": 9,
+          "first_missing": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-06",
+            "2024-07",
+            "2024-08"
+          ]
+        },
+        {
+          "symbol": "GAZAP",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 9,
+          "first_missing": [
+            "2024-03",
+            "2024-04",
+            "2024-05",
+            "2024-06",
+            "2024-07",
+            "2024-08"
+          ]
+        },
+        {
+          "symbol": "GTRK",
+          "timeframe": "1H",
+          "example_variant": "baseline",
+          "missing_months": 3,
+          "first_missing": [
+            "2024-08",
+            "2024-09",
+            "2024-10"
+          ]
+        },
+        {
+          "symbol": "GTRK",
+          "timeframe": "4H",
+          "example_variant": "baseline",
+          "missing_months": 3,
+          "first_missing": [
+            "2024-08",
+            "2024-09",
+            "2024-10"
+          ]
+        }
+      ],
+      "ok": true,
+      "continuous": false
+    },
+    "corporate_actions": {
+      "status": "unchecked",
+      "applied_in_main_results": false,
+      "splits_status": "unchecked",
+      "covered_symbols": 0,
+      "verified_snapshot_sha256": null,
+      "moex_source_status": "SUBSCRIPTION_REQUIRED",
+      "moex_source_checked_at_utc": "2026-11-04T11:34:15.003496+00:00",
+      "all_symbols_covered": false
+    },
+    "note": "DATA_READY confirms data and report gates only; it does not approve a trading strategy."
+  },
+  "focus_rules": [],
+  "rule": {
+    "timeframe": "1H",
+    "variant": "union_l0_w8",
+    "symbols": 249,
+    "median_train_positive_share_pct": 4.17,
+    "median_train_mean_month_return_pct": -0.01,
+    "median_train_worst_month_pnl_rub": -4160.05,
+    "median_late_positive_share_pct": 0.0,
+    "median_late_mean_month_return_pct": 0.0
+  },
+  "candidate_rules": [
+    {
+      "timeframe": "1H",
+      "variant": "union_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 4.17,
+      "median_train_mean_month_return_pct": -0.01,
+      "median_train_worst_month_pnl_rub": -4160.05,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "union_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 4.17,
+      "median_train_mean_month_return_pct": -0.01,
+      "median_train_worst_month_pnl_rub": -4781.15,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "bat_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "bat_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "bat_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "bat_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "butterfly_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "butterfly_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "crab_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "crab_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "crab_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "crab_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "deepcrab_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "deepcrab_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "deepcrab_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "deepcrab_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": -0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "gartley_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "gartley_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "gartley_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "gartley_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "union_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "bat_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "bat_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "bat_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "bat_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "butterfly_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "butterfly_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "butterfly_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "butterfly_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "crab_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "crab_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "crab_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "crab_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "deepcrab_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "deepcrab_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "deepcrab_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": -0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "deepcrab_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "gartley_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "gartley_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "gartley_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "gartley_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "union_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "union_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "union_l1_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": 0.0,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "butterfly_l0_w8",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": -210.13,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "union_l1_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": -853.49,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "4H",
+      "variant": "union_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": -0.0,
+      "median_train_worst_month_pnl_rub": -1029.58,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    },
+    {
+      "timeframe": "1H",
+      "variant": "butterfly_l0_w5",
+      "symbols": 249,
+      "median_train_positive_share_pct": 0.0,
+      "median_train_mean_month_return_pct": 0.0,
+      "median_train_worst_month_pnl_rub": -2806.05,
+      "median_late_positive_share_pct": 0.0,
+      "median_late_mean_month_return_pct": 0.0
+    }
+  ],
+  "stocks": [],
+  "blockers": [
+    "для выбранной настройки найдено 0 акций с полными 12 месяцами и доходностью >10% после расходов; по всей сетке хотя бы одну прошедшую акцию дают 0 настроек",
+    "в исходной выборке есть календарные пропуски; проверь затронутые пары",
+    "дивиденды и сплиты покрыты не полностью",
+    "Python/Pine реализация и совпадение сигналов для выбранного правила не проверены",
+    "фактические лоты, заём short и конфигурации paper-счетов не проверены"
+  ],
+  "rule_screening": [
+    {
+      "train_rank": 1,
+      "timeframe": "1H",
+      "variant": "union_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 2,
+      "timeframe": "1H",
+      "variant": "union_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 3,
+      "timeframe": "1H",
+      "variant": "bat_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 4,
+      "timeframe": "1H",
+      "variant": "bat_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 5,
+      "timeframe": "1H",
+      "variant": "bat_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 6,
+      "timeframe": "1H",
+      "variant": "bat_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 7,
+      "timeframe": "1H",
+      "variant": "butterfly_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 8,
+      "timeframe": "1H",
+      "variant": "butterfly_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 9,
+      "timeframe": "1H",
+      "variant": "crab_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 10,
+      "timeframe": "1H",
+      "variant": "crab_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 11,
+      "timeframe": "1H",
+      "variant": "crab_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 12,
+      "timeframe": "1H",
+      "variant": "crab_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 13,
+      "timeframe": "1H",
+      "variant": "deepcrab_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 14,
+      "timeframe": "1H",
+      "variant": "deepcrab_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 15,
+      "timeframe": "1H",
+      "variant": "deepcrab_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 16,
+      "timeframe": "1H",
+      "variant": "deepcrab_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 17,
+      "timeframe": "1H",
+      "variant": "gartley_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 18,
+      "timeframe": "1H",
+      "variant": "gartley_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 19,
+      "timeframe": "1H",
+      "variant": "gartley_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 20,
+      "timeframe": "1H",
+      "variant": "gartley_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 21,
+      "timeframe": "1H",
+      "variant": "union_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 22,
+      "timeframe": "4H",
+      "variant": "bat_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 23,
+      "timeframe": "4H",
+      "variant": "bat_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 24,
+      "timeframe": "4H",
+      "variant": "bat_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 25,
+      "timeframe": "4H",
+      "variant": "bat_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 26,
+      "timeframe": "4H",
+      "variant": "butterfly_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 27,
+      "timeframe": "4H",
+      "variant": "butterfly_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 28,
+      "timeframe": "4H",
+      "variant": "butterfly_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 29,
+      "timeframe": "4H",
+      "variant": "butterfly_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 30,
+      "timeframe": "4H",
+      "variant": "crab_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 31,
+      "timeframe": "4H",
+      "variant": "crab_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 32,
+      "timeframe": "4H",
+      "variant": "crab_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 33,
+      "timeframe": "4H",
+      "variant": "crab_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 34,
+      "timeframe": "4H",
+      "variant": "deepcrab_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 35,
+      "timeframe": "4H",
+      "variant": "deepcrab_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 36,
+      "timeframe": "4H",
+      "variant": "deepcrab_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 37,
+      "timeframe": "4H",
+      "variant": "deepcrab_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 38,
+      "timeframe": "4H",
+      "variant": "gartley_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 39,
+      "timeframe": "4H",
+      "variant": "gartley_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 40,
+      "timeframe": "4H",
+      "variant": "gartley_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 41,
+      "timeframe": "4H",
+      "variant": "gartley_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 42,
+      "timeframe": "4H",
+      "variant": "union_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 43,
+      "timeframe": "4H",
+      "variant": "union_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 44,
+      "timeframe": "4H",
+      "variant": "union_l1_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 45,
+      "timeframe": "1H",
+      "variant": "butterfly_l0_w8",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 46,
+      "timeframe": "1H",
+      "variant": "union_l1_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 47,
+      "timeframe": "4H",
+      "variant": "union_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    },
+    {
+      "train_rank": 48,
+      "timeframe": "1H",
+      "variant": "butterfly_l0_w5",
+      "liquid_candidates": 63,
+      "passed_trailing_12m": 0,
+      "has_paper_candidates": false,
+      "qualifying_stocks": [],
+      "turnover_threshold_rub": 53450526.4
+    }
+  ],
+  "screening_summary": {
+    "rules_checked": 48,
+    "rules_with_paper_candidates": 0,
+    "selected_train_rank": 1,
+    "selected_passed": 0,
+    "max_passed_any_rule": 0
+  },
+  "focused_reviews": [],
+  "liquidity": {
+    "measured_liquidity": 249,
+    "turnover_threshold_rub": 53450526.4,
+    "liquid_candidates": 63
+  },
+  "screening": {
+    "liquid_candidates": 63,
+    "passed_trailing_12m": 0,
+    "threshold_after_costs_pct": 10
+  }
+}

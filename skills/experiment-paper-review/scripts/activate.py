@@ -1,4 +1,4 @@
-"""Register a validated fixed rule and its ten virtual accounts, idempotently."""
+"""Register a validated fixed rule and one virtual account per passing stock."""
 
 from __future__ import annotations
 
@@ -32,13 +32,16 @@ def activate(review_path: Path, strategy_dir: Path) -> dict:
     if strategy_dir.parent != ROOT / "strategies":
         raise ValueError("strategy folder must be directly inside strategies/")
     review = read_json(review_path)
+    if review.get("review_version", 1) < 2 and not review.get("activation"):
+        raise ValueError("rerun paper review to screen every fixed rule before new activation")
     gate, warnings = experiment_gate(review)
     if gate != "PAPER_CANDIDATE":
         raise ValueError("paper activation gate failed: " + gate + "; " + "; ".join(warnings))
     rule = review.get("rule")
     stocks = review.get("stocks", [])
-    if not review.get("validation", {}).get("structural_ok") or not rule or len(stocks) != 10:
-        raise ValueError("validated fixed rule and exactly ten stocks required")
+    if (not review.get("validation", {}).get("structural_ok") or not rule
+            or len(stocks) < 1):
+        raise ValueError("validated fixed rule and at least one passing stock required")
     if review["protocol"].get("cost_status") == "gross_before_costs":
         raise ValueError("paper activation requires an after-cost historical run")
     if any(item.get("candle_quality", {}).get("status") != "basic_check_ok" for item in stocks):
@@ -94,7 +97,7 @@ def activate(review_path: Path, strategy_dir: Path) -> dict:
                  "status": "HISTORICAL_RANKING", "cost_status": cost["cost_status"],
                  "source_review": str(review_path.relative_to(ROOT)),
                  "variant": rule["variant"],
-                 "selection_rule": "one global variant ranked on train months; ten liquid stocks ranked on train months",
+                 "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
                  "history_sources": {"after": {
                      "all_variants_csv": str(source_rel / "all_variants.csv"),
                      "monthly_csv": str(source_rel / "monthly_returns.csv"),

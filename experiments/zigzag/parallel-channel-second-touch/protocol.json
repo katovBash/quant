@@ -1,0 +1,172 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "parallel-channel-second-touch",
+  "method_id": "zigzag-parallel-channel-second-touch",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-07",
+  "hypothesis": "A parallel resistance/support line anchored to the first confirmed opposite pivot after two confirmed same-side pivots allows an earlier second-contact reversal entry than waiting for a third contact on that opposite line.",
+  "research_provenance": {
+    "source": "user chart hypothesis 2026-11-07",
+    "type": "user hypothesis",
+    "note": "The drawn chart is only a geometric example, not return evidence."
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "preset": {
+            "values": [
+              "a",
+              "b"
+            ]
+          },
+          "source": {
+            "values": [
+              "c",
+              "d",
+              "w"
+            ]
+          },
+          "exit": {
+            "values": [
+              "line",
+              "t3",
+              "t5"
+            ]
+          }
+        },
+        "variant_template": "pc_{preset}_{source}_{exit}",
+        "max_combinations": 18
+      },
+      {
+        "axes": {
+          "preset": {
+            "values": [
+              "a",
+              "b"
+            ]
+          },
+          "source": {
+            "values": [
+              "c",
+              "d",
+              "w"
+            ]
+          },
+          "exit": {
+            "values": [
+              "t3",
+              "t5"
+            ]
+          }
+        },
+        "variant_template": "tc_{preset}_{source}_{exit}",
+        "max_combinations": 12
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 30
+  },
+  "expected_variants": [
+    "baseline",
+    "pc_a_c_line",
+    "pc_a_c_t3",
+    "pc_a_c_t5",
+    "pc_a_d_line",
+    "pc_a_d_t3",
+    "pc_a_d_t5",
+    "pc_a_w_line",
+    "pc_a_w_t3",
+    "pc_a_w_t5",
+    "pc_b_c_line",
+    "pc_b_c_t3",
+    "pc_b_c_t5",
+    "pc_b_d_line",
+    "pc_b_d_t3",
+    "pc_b_d_t5",
+    "pc_b_w_line",
+    "pc_b_w_t3",
+    "pc_b_w_t5",
+    "tc_a_c_t3",
+    "tc_a_c_t5",
+    "tc_a_d_t3",
+    "tc_a_d_t5",
+    "tc_a_w_t3",
+    "tc_a_w_t5",
+    "tc_b_c_t3",
+    "tc_b_c_t5",
+    "tc_b_d_t3",
+    "tc_b_d_t5",
+    "tc_b_w_t3",
+    "tc_b_w_t5"
+  ],
+  "parameter_rationale": "Two previously fixed causally plausible pivot presets: a=wing3/deviation2%/zone0.5%/age50; b=wing5/deviation4%/zone1%/age100. Both test chart, completed 1D, and completed 1W source lines. Channel exits: opposite projected boundary, 3% and 5% target. Matched third-contact control uses 3% and 5% targets. All declared tuples are run.",
+  "min_bars": 100,
+  "baseline": "Same-stock 25% buy-and-hold; matched existing third-touch bounce entries with the same pivot preset, line source and 3%/5% target.",
+  "signal_rule": "Two confirmed low pivots define support; the first subsequently confirmed high pivot above the extrapolated support anchors a strictly parallel upper boundary. The first later rejection of that upper boundary within zone opens short. Symmetric two highs plus first low anchor open long on lower-boundary rejection. Both first anchor and later contact must be known by their confirmation bars; each channel enters at most once. Require width >=1% of anchor price. Invalidate channel on a close beyond the boundary plus zone. Exit on opposite projected channel boundary or fixed 3%/5% target; all exits share a close-beyond-zone stop. Signal at completed bar close, fill at next bar open. No directional slope filter.",
+  "signal_semantics": "Single-stock long/short signal, not a cross-sectional portfolio; higher-timeframe source uses only completed prior day/week. Entry and exit at next available open.",
+  "execution_timing": "Observe complete bar, decide at close, fill next available open. Higher-timeframe pivot is usable only after complete confirmation candle and on a later trading date.",
+  "holding_period": "Until fixed target, opposite projected channel boundary, or boundary-break stop.",
+  "rebalance_rule": "No intrabar rebalance; at most one position per account.",
+  "required_data": [
+    "OHLC candles",
+    "confirmed pivot timing"
+  ],
+  "availability_lag": "Chart pivot after wing completed bars; 1D/1W pivot after wing completed higher bars and next trading date.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank fixed variants by median net monthly return over complete 2024-2025 train months across all eligible symbols, with 2025 calendar-year net return as tie-break. Compare each channel 3%/5% variant to the matched third-touch control on identical symbol/timeframe/preset/source. Report all variants, trade counts, full years, recent 1/3/6/9/12 months, and 2026 seen history. Do not infer independent validation from 2026, which was already inspected when forming the idea. Paper promotion can only consider pc_ channel variants; tc_ third-touch variants are controls. This prefix rule was clarified after the first full run and must not be presented as independent preregistration.",
+  "research_family": {
+    "related_runs": [
+      "experiments/zigzag/third-touch-line",
+      "experiments/zigzag/third-touch-exits"
+    ],
+    "tested_variants": 31,
+    "late_history_seen": true,
+    "untested_dependencies": [
+      "width threshold below 1%",
+      "additional wing/deviation combinations",
+      "non-reversal breakout at second contact"
+    ]
+  },
+  "run_command": "python3 -m pipeline.run experiments/zigzag/parallel-channel-second-touch",
+  "limitations": [
+    "The hand-drawn line is not a fixed objective indicator.",
+    "Dividends and splits are not fully applied; results are review-only until checked.",
+    "Higher-timeframe lines are projected in higher-bar coordinates, not wall-clock time.",
+    "A 1% minimum channel width and two fixed parameter presets are preregistered; this is not an exhaustive grid of all pivot settings."
+  ],
+  "promotion_variant_prefixes": [
+    "pc_"
+  ],
+  "selection_amendment": {
+    "made_on": "2026-11-07",
+    "status": "post_hoc_after_full_results",
+    "reason": "The shared selector ranked third-touch control tc as an adoption candidate for a second-touch hypothesis. Controls remain in all calculations and paired comparisons, but only pc channel variants can represent this experiment in paper review. This correction is not an independent preregistered selection."
+  }
+}

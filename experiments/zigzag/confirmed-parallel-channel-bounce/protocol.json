@@ -1,0 +1,136 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "confirmed-parallel-channel-bounce",
+  "method_id": "zigzag-confirmed-parallel-channel-bounce",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-07",
+  "hypothesis": "A daily ZigZag structure with two confirmed highs and one confirmed intervening low (or two lows and one high) defines parallel resistance and support. A completed candle rejecting either extreme produces a trade away from that boundary. Compare candle confirmation and 5%, 8%, opposite-line exits against the previous two-same-side-line rule.",
+  "research_provenance": {
+    "source": "user-drawn 1D chart, 2026-11-07",
+    "type": "user hypothesis",
+    "note": "The marked circles are visual examples without ticker or timestamps; exact trade matching cannot be asserted. Lines use only confirmed historical pivots."
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1D"
+  ],
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "preset": {
+            "values": [
+              "a",
+              "b"
+            ]
+          },
+          "confirm": {
+            "values": [
+              "inside",
+              "directional"
+            ]
+          },
+          "exit": {
+            "values": [
+              "t5",
+              "t8",
+              "op"
+            ]
+          }
+        },
+        "variant_template": "ch_{preset}_{confirm}_{exit}",
+        "max_combinations": 12
+      },
+      {
+        "axes": {
+          "control": {
+            "values": [
+              "old_d_a_trend_a4"
+            ]
+          }
+        },
+        "variant_template": "{control}",
+        "max_combinations": 1
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 13
+  },
+  "expected_variants": [
+    "baseline",
+    "ch_a_inside_t5",
+    "ch_a_inside_t8",
+    "ch_a_inside_op",
+    "ch_a_directional_t5",
+    "ch_a_directional_t8",
+    "ch_a_directional_op",
+    "ch_b_inside_t5",
+    "ch_b_inside_t8",
+    "ch_b_inside_op",
+    "ch_b_directional_t5",
+    "ch_b_directional_t8",
+    "ch_b_directional_op",
+    "old_d_a_trend_a4"
+  ],
+  "promotion_variant_prefixes": [
+    "ch_"
+  ],
+  "parameter_rationale": "Predeclared a=wing3/reversal2%/zone0.5%/age80, b=wing5/reversal4%/zone1%/age120. Test close-inside and directional candles; compare fixed 5%, 8% and opposite-channel exits. The old active rule is a nonpromotable control.",
+  "min_bars": 100,
+  "baseline": "Same-stock buy-and-hold with 25% capital, plus old_d_a_trend_a4 fixed active-rule control on identical candles.",
+  "signal_rule": "On each completed 1D candle, only already-confirmed ZigZag pivots are usable. The two latest highs form upper boundary and the latest confirmed low between them anchors a parallel lower boundary; if no intervening low, use a later confirmed low. Symmetrically, two lows plus one high define the channel. Prefer the most recently confirmed complete channel. Long when a candle touches or pierces support but closes inside; short when it touches or pierces resistance but closes inside. Variant may additionally require bullish/bearish candle body. At most one entry per boundary/channel. A close outside the zone invalidates that boundary. Signals fill at next open. Exit at 5%, 8%, opposite channel edge, or on close beyond active channel, executed next open. No intrabar target fill is assumed.",
+  "signal_semantics": "1D parallel-channel bounce from confirmed ZigZag pivots; no future pivots or backdated entries.",
+  "evaluation_unit": "Independent 1m RUB virtual account per symbol; this is not a combined portfolio.",
+  "execution_timing": "Observe completed 1D candle; decide at its close; execute at next available candle open.",
+  "holding_period": "Until target, opposite boundary, channel break or opposite entry.",
+  "rebalance_rule": "No intrabar rebalance; at most one position per account.",
+  "required_data": [
+    "1D OHLCV candles",
+    "confirmed ZigZag pivot timing"
+  ],
+  "availability_lag": "A pivot is available after wing later daily candles; the signal uses only earlier confirmations.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank predeclared channel variants by early complete-month positive share and mean monthly net return; choose first train-ranked rule with liquid stocks above strict 10% latest complete 12-month after-cost gate. The old active rule is a control only. Late already-seen history is diagnostic.",
+  "research_family": {
+    "related_runs": [
+      "experiments/zigzag/daily-line-bounce-targets",
+      "experiments/zigzag/parallel-channel-second-touch"
+    ],
+    "tested_variants_in_this_run": 13,
+    "earlier_history_seen": true,
+    "late_history_seen": true,
+    "untested_dependencies": [
+      "exact user chart ticker/time not available",
+      "no independent holdout after 2026-10-30",
+      "Pine fill parity not established"
+    ]
+  },
+  "run_command": "python3 -m pipeline.run experiments/zigzag/confirmed-parallel-channel-bounce",
+  "limitations": [
+    "Pivot confirmation is delayed by wing days; plotting at the pivot center does not imply earlier tradability",
+    "A long wick through the line can enter only if the candle closes back inside the channel",
+    "2026 history has already been inspected in related ZigZag work",
+    "Corporate actions and short borrow are not fully covered"
+  ]
+}

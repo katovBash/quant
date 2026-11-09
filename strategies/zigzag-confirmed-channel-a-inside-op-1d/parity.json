@@ -1,0 +1,18 @@
+{
+  "strategy_id": "zigzag-confirmed-channel-a-inside-op-1d",
+  "variant": "ch_a_inside_op",
+  "timeframe": "1D",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus experiment signal series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 191,
+  "signal_events_checked": 102,
+  "mismatches": 0,
+  "symbols": {
+    "ASTR": {
+      "bars_checked": 191,
+      "mismatches": 0
+    }
+  }
+}

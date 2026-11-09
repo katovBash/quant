@@ -1,0 +1,189 @@
+//@version=6
+// Daily visual review. Pivots become usable only after their right wing closes.
+// A wick may pass the boundary; an entry needs the completed candle back inside.
+strategy("ZigZag · confirmed parallel channel bounce · 1D review", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     commission_type=strategy.commission.percent, commission_value=0.05,
+     slippage=1, process_orders_on_close=false, margin_long=100, margin_short=100,
+     max_lines_count=500)
+
+string preset = input.string("a", "Channel preset", options=["a", "b"])
+string confirmation = input.string("inside", "Candle confirmation", options=["inside", "directional"])
+string exitMode = input.string("Opposite line", "Exit", options=["5%", "8%", "Opposite line"])
+int wing = preset == "a" ? 3 : 5
+float reversal = preset == "a" ? 2.0 : 4.0
+float zone = preset == "a" ? 0.5 : 1.0
+int maxAge = preset == "a" ? 80 : 120
+bool chartOk = timeframe.isdaily and timeframe.multiplier == 1
+bool startOk = time >= timestamp("Europe/Moscow", 2024, 1, 1, 0, 0)
+float ph = ta.pivothigh(high, wing, wing)
+float pl = ta.pivotlow(low, wing, wing)
+
+var array<int> highBars = array.new_int()
+var array<float> highPrices = array.new_float()
+var array<int> highConfirmed = array.new_int()
+var array<int> lowBars = array.new_int()
+var array<float> lowPrices = array.new_float()
+var array<int> lowConfirmed = array.new_int()
+var int lastSide = 0
+var float lastPrice = na
+var int lastZigBar = na
+var string currentKey = ""
+var bool longUsed = false
+var bool shortUsed = false
+var bool longBroken = false
+var bool shortBroken = false
+var int activeBaseBar = na
+var float activeBasePrice = na
+var float activeSlope = na
+var float activeWidth = na
+var bool activeFromHigh = false
+
+float upper = na
+float lower = na
+float slope = na
+float width = na
+int baseBar = na
+float basePrice = na
+int selectedConfirmation = na
+string key = ""
+bool fromHigh = false
+
+if array.size(highBars) >= 2 and array.size(lowBars) >= 1
+    int firstBar = array.get(highBars, array.size(highBars)-2)
+    int secondBar = array.get(highBars, array.size(highBars)-1)
+    float firstPrice = array.get(highPrices, array.size(highPrices)-2)
+    float secondPrice = array.get(highPrices, array.size(highPrices)-1)
+    int secondConfirmed = array.get(highConfirmed, array.size(highConfirmed)-1)
+    int anchorIndex = na
+    for j = 0 to array.size(lowBars)-1
+        int candidate = array.get(lowBars, j)
+        if candidate > firstBar and candidate < secondBar
+            anchorIndex := j
+    if na(anchorIndex)
+        for j = 0 to array.size(lowBars)-1
+            if array.get(lowBars, j) > secondBar
+                anchorIndex := j
+    if not na(anchorIndex)
+        int anchorBar = array.get(lowBars, anchorIndex)
+        float anchor = array.get(lowPrices, anchorIndex)
+        int confirmedAt = math.max(secondConfirmed, array.get(lowConfirmed, anchorIndex))
+        float candidateSlope = (secondPrice-firstPrice)/(secondBar-firstBar)
+        float candidateWidth = secondPrice+candidateSlope*(anchorBar-secondBar)-anchor
+        float candidateUpper = secondPrice+candidateSlope*(bar_index-secondBar)
+        float candidateLower = candidateUpper-candidateWidth
+        if bar_index > confirmedAt and bar_index-math.max(secondBar, anchorBar) <= maxAge and candidateWidth > 0 and candidateWidth/anchor >= 0.01 and candidateLower > 0
+            upper := candidateUpper
+            lower := candidateLower
+            slope := candidateSlope
+            width := candidateWidth
+            baseBar := secondBar
+            basePrice := secondPrice
+            selectedConfirmation := confirmedAt
+            key := "H:"+str.tostring(firstBar)+":"+str.tostring(secondBar)+":"+str.tostring(anchorBar)
+            fromHigh := true
+
+if array.size(lowBars) >= 2 and array.size(highBars) >= 1
+    int firstBar = array.get(lowBars, array.size(lowBars)-2)
+    int secondBar = array.get(lowBars, array.size(lowBars)-1)
+    float firstPrice = array.get(lowPrices, array.size(lowPrices)-2)
+    float secondPrice = array.get(lowPrices, array.size(lowPrices)-1)
+    int secondConfirmed = array.get(lowConfirmed, array.size(lowConfirmed)-1)
+    int anchorIndex = na
+    for j = 0 to array.size(highBars)-1
+        int candidate = array.get(highBars, j)
+        if candidate > firstBar and candidate < secondBar
+            anchorIndex := j
+    if na(anchorIndex)
+        for j = 0 to array.size(highBars)-1
+            if array.get(highBars, j) > secondBar
+                anchorIndex := j
+    if not na(anchorIndex)
+        int anchorBar = array.get(highBars, anchorIndex)
+        float anchor = array.get(highPrices, anchorIndex)
+        int confirmedAt = math.max(secondConfirmed, array.get(highConfirmed, anchorIndex))
+        float candidateSlope = (secondPrice-firstPrice)/(secondBar-firstBar)
+        float candidateWidth = anchor-(secondPrice+candidateSlope*(anchorBar-secondBar))
+        float candidateLower = secondPrice+candidateSlope*(bar_index-secondBar)
+        float candidateUpper = candidateLower+candidateWidth
+        if bar_index > confirmedAt and bar_index-math.max(secondBar, anchorBar) <= maxAge and candidateWidth > 0 and candidateWidth/anchor >= 0.01 and candidateLower > 0 and (na(selectedConfirmation) or confirmedAt > selectedConfirmation)
+            upper := candidateUpper
+            lower := candidateLower
+            slope := candidateSlope
+            width := candidateWidth
+            baseBar := secondBar
+            basePrice := secondPrice
+            selectedConfirmation := confirmedAt
+            key := "L:"+str.tostring(firstBar)+":"+str.tostring(secondBar)+":"+str.tostring(anchorBar)
+            fromHigh := false
+
+if key != currentKey
+    currentKey := key
+    longUsed := false
+    shortUsed := false
+    longBroken := false
+    shortBroken := false
+
+bool insidePrior = not na(lower) and close[1] >= lower-slope and close[1] <= upper-slope
+bool insideClose = not na(lower) and close > lower and close < upper
+bool support = insidePrior and insideClose and low <= lower*(1+zone/100) and (confirmation == "inside" or close > open)
+bool resistance = insidePrior and insideClose and high >= upper*(1-zone/100) and (confirmation == "inside" or close < open)
+bool longSignal = chartOk and startOk and barstate.isconfirmed and support and not resistance and not longUsed and not longBroken
+bool shortSignal = chartOk and startOk and barstate.isconfirmed and resistance and not support and not shortUsed and not shortBroken
+float shares = math.floor(strategy.equity*0.25/close)
+
+if longSignal and shares >= 1
+    strategy.entry("Channel long", strategy.long, qty=shares)
+    activeBaseBar := baseBar
+    activeBasePrice := basePrice
+    activeSlope := slope
+    activeWidth := width
+    activeFromHigh := fromHigh
+    longUsed := true
+else if shortSignal and shares >= 1
+    strategy.entry("Channel short", strategy.short, qty=shares)
+    activeBaseBar := baseBar
+    activeBasePrice := basePrice
+    activeSlope := slope
+    activeWidth := width
+    activeFromHigh := fromHigh
+    shortUsed := true
+else if chartOk and strategy.position_size != 0 and not na(activeBaseBar)
+    float activeBasis = activeBasePrice+activeSlope*(bar_index-activeBaseBar)
+    float activeUpper = activeFromHigh ? activeBasis : activeBasis+activeWidth
+    float activeLower = activeFromHigh ? activeBasis-activeWidth : activeBasis
+    bool takeLong = exitMode == "Opposite line" ? high >= activeUpper : high >= strategy.position_avg_price*(exitMode == "5%" ? 1.05 : 1.08)
+    bool takeShort = exitMode == "Opposite line" ? low <= activeLower : low <= strategy.position_avg_price*(exitMode == "5%" ? 0.95 : 0.92)
+    if strategy.position_size > 0 and (takeLong or close < activeLower*(1-zone/100))
+        strategy.close("Channel long")
+    if strategy.position_size < 0 and (takeShort or close > activeUpper*(1+zone/100))
+        strategy.close("Channel short")
+
+if barstate.isconfirmed
+    if not na(lower) and close < lower*(1-zone/100)
+        longBroken := true
+    if not na(upper) and close > upper*(1+zone/100)
+        shortBroken := true
+    if not na(ph) and (lastSide == 0 or (lastSide == 1 and ph > lastPrice) or (lastSide == -1 and 100*math.abs(ph/lastPrice-1) >= reversal))
+        if not na(lastZigBar)
+            line.new(lastZigBar, lastPrice, bar_index-wing, ph, color=color.new(color.yellow, 60), width=1, force_overlay=true)
+        array.push(highBars, bar_index-wing)
+        array.push(highPrices, ph)
+        array.push(highConfirmed, bar_index)
+        lastSide := 1
+        lastPrice := ph
+        lastZigBar := bar_index-wing
+    if not na(pl) and (lastSide == 0 or (lastSide == -1 and pl < lastPrice) or (lastSide == 1 and 100*math.abs(pl/lastPrice-1) >= reversal))
+        if not na(lastZigBar)
+            line.new(lastZigBar, lastPrice, bar_index-wing, pl, color=color.new(color.yellow, 60), width=1, force_overlay=true)
+        array.push(lowBars, bar_index-wing)
+        array.push(lowPrices, pl)
+        array.push(lowConfirmed, bar_index)
+        lastSide := -1
+        lastPrice := pl
+        lastZigBar := bar_index-wing
+
+plot(chartOk ? upper : na, "ZigZag parallel resistance", color=color.red, linewidth=2, force_overlay=true)
+plot(chartOk ? lower : na, "ZigZag parallel support", color=color.aqua, linewidth=2, force_overlay=true)
+plotshape(longSignal, "Long at support", shape.triangleup, location.belowbar, color.lime, size=size.small, force_overlay=true)
+plotshape(shortSignal, "Short at resistance", shape.triangledown, location.abovebar, color.red, size=size.small, force_overlay=true)

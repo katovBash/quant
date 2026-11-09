@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED",
+  "decided_on": "2026-11-07",
+  "decided_by": "agent_after_user_review_request",
+  "scope": "current_frozen_grid_no_paper_promotion",
+  "reason": "Все 24 проверенные настройки дали 0 ликвидных акций с доходностью выше 10% за последние 12 полных месяцев после модельных расходов. Текущий эксперимент закрыт для paper trading.",
+  "evidence": {
+    "rules_screened": 24,
+    "max_passing_stocks_any_rule": 0,
+    "threshold_12m_after_cost_pct": 10
+  },
+  "note": "Это решение относится к текущим данным и сетке параметров, а не ко всем возможным комбинациям Connors и Turtle."
+}

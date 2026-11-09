@@ -1,6 +1,8 @@
 .DS_Store
 data/.DS_Store
 __pycache__/
+workers/discovery/runtime/
+workers/optimization/runtime/
 *.py[cod]
 .venv/
 venv/
@@ -14,6 +16,7 @@ papertrading/migrations/
 *.log
 experiments/.rebuild_logs/
 experiments/**/results/.monthly_work/
+experiments/**/results/bend_event_forward.csv
 experiments/*-grid-search/results/monthly_returns.csv
 experiments/*-grid-search/results/monthly_case_summary.csv
 

@@ -1,0 +1,233 @@
+{
+  "selection_period": "2025 full train year",
+  "late_period": "2026 seen history; diagnostic only",
+  "unit": "matched symbol/timeframe/preset/line-source/entry-style",
+  "ranked_by": "median_2025_net_pct",
+  "exit_modes": [
+    {
+      "exit_mode": "op",
+      "matched_cells": 5760,
+      "median_2025_net_pct": -1.7689,
+      "median_paired_delta_vs_op_pp": 0.0,
+      "positive_months_2025_pct": 45.62,
+      "median_2026_seen_ytd_pct": -1.8723,
+      "closed_trades_2025": 90831
+    },
+    {
+      "exit_mode": "line",
+      "matched_cells": 5760,
+      "median_2025_net_pct": -1.4862,
+      "median_paired_delta_vs_op_pp": 0.0,
+      "positive_months_2025_pct": 42.18,
+      "median_2026_seen_ytd_pct": -1.6732,
+      "closed_trades_2025": 110149
+    },
+    {
+      "exit_mode": "t3",
+      "matched_cells": 5760,
+      "median_2025_net_pct": -0.0751,
+      "median_paired_delta_vs_op_pp": 0.2729,
+      "positive_months_2025_pct": 36.86,
+      "median_2026_seen_ytd_pct": -0.3172,
+      "closed_trades_2025": 112763
+    },
+    {
+      "exit_mode": "t5",
+      "matched_cells": 5760,
+      "median_2025_net_pct": -0.098,
+      "median_paired_delta_vs_op_pp": 0.3437,
+      "positive_months_2025_pct": 37.9,
+      "median_2026_seen_ytd_pct": -0.3886,
+      "closed_trades_2025": 104828
+    },
+    {
+      "exit_mode": "t8",
+      "matched_cells": 5760,
+      "median_2025_net_pct": -0.2846,
+      "median_paired_delta_vs_op_pp": 0.2327,
+      "positive_months_2025_pct": 39.15,
+      "median_2026_seen_ytd_pct": -0.5167,
+      "closed_trades_2025": 98859
+    }
+  ],
+  "by_line_source": [
+    {
+      "line_source": "chart",
+      "exit_mode": "op",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -3.6643,
+      "positive_months_2025_pct": 44.58,
+      "median_2026_seen_ytd_pct": -3.4941
+    },
+    {
+      "line_source": "chart",
+      "exit_mode": "line",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -3.369,
+      "positive_months_2025_pct": 43.03,
+      "median_2026_seen_ytd_pct": -3.8293
+    },
+    {
+      "line_source": "chart",
+      "exit_mode": "t3",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -3.057,
+      "positive_months_2025_pct": 44.91,
+      "median_2026_seen_ytd_pct": -3.2408
+    },
+    {
+      "line_source": "chart",
+      "exit_mode": "t5",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -2.9283,
+      "positive_months_2025_pct": 45.0,
+      "median_2026_seen_ytd_pct": -3.1895
+    },
+    {
+      "line_source": "chart",
+      "exit_mode": "t8",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -3.0954,
+      "positive_months_2025_pct": 44.79,
+      "median_2026_seen_ytd_pct": -3.2586
+    },
+    {
+      "line_source": "1D",
+      "exit_mode": "op",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -1.6957,
+      "positive_months_2025_pct": 47.04,
+      "median_2026_seen_ytd_pct": -1.4619
+    },
+    {
+      "line_source": "1D",
+      "exit_mode": "line",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -1.4361,
+      "positive_months_2025_pct": 44.58,
+      "median_2026_seen_ytd_pct": -1.1442
+    },
+    {
+      "line_source": "1D",
+      "exit_mode": "t3",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -0.6395,
+      "positive_months_2025_pct": 44.85,
+      "median_2026_seen_ytd_pct": -1.2051
+    },
+    {
+      "line_source": "1D",
+      "exit_mode": "t5",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -0.4887,
+      "positive_months_2025_pct": 44.47,
+      "median_2026_seen_ytd_pct": -1.2301
+    },
+    {
+      "line_source": "1D",
+      "exit_mode": "t8",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -0.6179,
+      "positive_months_2025_pct": 44.66,
+      "median_2026_seen_ytd_pct": -1.1375
+    },
+    {
+      "line_source": "1W",
+      "exit_mode": "op",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -0.7169,
+      "positive_months_2025_pct": 45.24,
+      "median_2026_seen_ytd_pct": -1.1226
+    },
+    {
+      "line_source": "1W",
+      "exit_mode": "line",
+      "matched_cells": 1920,
+      "median_2025_net_pct": -0.1168,
+      "positive_months_2025_pct": 38.93,
+      "median_2026_seen_ytd_pct": -0.0453
+    },
+    {
+      "line_source": "1W",
+      "exit_mode": "t3",
+      "matched_cells": 1920,
+      "median_2025_net_pct": 0.7321,
+      "positive_months_2025_pct": 20.82,
+      "median_2026_seen_ytd_pct": 0.5945
+    },
+    {
+      "line_source": "1W",
+      "exit_mode": "t5",
+      "matched_cells": 1920,
+      "median_2025_net_pct": 1.043,
+      "positive_months_2025_pct": 24.24,
+      "median_2026_seen_ytd_pct": 0.8536
+    },
+    {
+      "line_source": "1W",
+      "exit_mode": "t8",
+      "matched_cells": 1920,
+      "median_2025_net_pct": 1.1943,
+      "positive_months_2025_pct": 28.02,
+      "median_2026_seen_ytd_pct": 0.9329
+    }
+  ],
+  "best_by_signal_timeframe_and_line_source": [
+    {
+      "signal_timeframe": "1H",
+      "line_source": "chart",
+      "exit_mode": "t3",
+      "matched_cells": 960,
+      "median_2025_net_pct": -3.7056,
+      "positive_months_2025_pct": 43.82,
+      "median_2026_seen_ytd_pct": -4.6116
+    },
+    {
+      "signal_timeframe": "1H",
+      "line_source": "1D",
+      "exit_mode": "t5",
+      "matched_cells": 960,
+      "median_2025_net_pct": -0.4847,
+      "positive_months_2025_pct": 44.39,
+      "median_2026_seen_ytd_pct": -1.3783
+    },
+    {
+      "signal_timeframe": "1H",
+      "line_source": "1W",
+      "exit_mode": "t8",
+      "matched_cells": 960,
+      "median_2025_net_pct": 1.2083,
+      "positive_months_2025_pct": 28.38,
+      "median_2026_seen_ytd_pct": 0.7807
+    },
+    {
+      "signal_timeframe": "4H",
+      "line_source": "chart",
+      "exit_mode": "t5",
+      "matched_cells": 960,
+      "median_2025_net_pct": -2.0438,
+      "positive_months_2025_pct": 46.12,
+      "median_2026_seen_ytd_pct": -1.8531
+    },
+    {
+      "signal_timeframe": "4H",
+      "line_source": "1D",
+      "exit_mode": "t8",
+      "matched_cells": 960,
+      "median_2025_net_pct": -0.3882,
+      "positive_months_2025_pct": 44.91,
+      "median_2026_seen_ytd_pct": -0.8535
+    },
+    {
+      "signal_timeframe": "4H",
+      "line_source": "1W",
+      "exit_mode": "t8",
+      "matched_cells": 960,
+      "median_2025_net_pct": 1.1717,
+      "positive_months_2025_pct": 27.66,
+      "median_2026_seen_ytd_pct": 1.0423
+    }
+  ],
+  "best_historical_exit": "t3",
+  "adoption_recommended": false
+}

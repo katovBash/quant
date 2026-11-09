@@ -1,0 +1,83 @@
+{
+  "id": "dual-zigzag-sma20-obv10-4h",
+  "timeframe": "4H",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/paper_review.json",
+  "variant": "combined_10",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/all_variants.csv",
+      "monthly_csv": "experiments/double-indicator/dual-zigzag-sma-obv-confirmation/results/monthly_returns.csv",
+      "variant": "combined_10",
+      "timeframe": "4H"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "MTLR",
+      "net_return_pct": 27.06,
+      "closed_trades": 35,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "VKCO",
+      "net_return_pct": 32.86,
+      "closed_trades": 35,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "NLMK",
+      "net_return_pct": 11.43,
+      "closed_trades": 30,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 49.65,
+      "closed_trades": 27,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "GAZP",
+      "net_return_pct": 21.83,
+      "closed_trades": 31,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "PLZL",
+      "net_return_pct": 5.23,
+      "closed_trades": 40,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 63.39,
+      "closed_trades": 27,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "ALRS",
+      "net_return_pct": 25.66,
+      "closed_trades": 34,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "SELG",
+      "net_return_pct": 13.69,
+      "closed_trades": 29,
+      "train_positive_share_pct": 37.5,
+      "late_positive_share_pct": 77.78
+    }
+  ]
+}

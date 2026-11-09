@@ -66,7 +66,10 @@ def run(experiment_dir: Path, *, existing_results: bool = False,
                       "review": str(review_path.relative_to(ROOT)),
                       "rule": review.get("rule"),
                       "stocks": [item["symbol"] for item in review.get("stocks", [])]})
-        if existing_results and review.get("activation") and strategy_dir is None:
+        if review.get("deactivation"):
+            state["stage"] = "PAPER_STOPPED"
+            state["accounts"] = 0
+        elif existing_results and review.get("activation") and strategy_dir is None:
             state["stage"] = ("PAPER_REGISTERED_EXISTING" if gate == "PAPER_CANDIDATE"
                               else "PAPER_REGISTERED_REVIEW_REQUIRED")
             state["accounts"] = len(review["activation"].get("accounts", []))
@@ -85,10 +88,13 @@ def run(experiment_dir: Path, *, existing_results: bool = False,
             command(str(parity_script))
             command(str(ROOT / "skills/experiment-paper-review/scripts/activate.py"),
                     "--review", str(review_path), "--strategy-dir", str(strategy_dir))
+            command(str(ROOT / "scripts/build_experiment_packages.py"),
+                    "--experiment", str(experiment_dir))
             publish(ROOT / "papertrading/live", ROOT / "papertrading/setups/fleet", ROOT / "strategies")
             state["stage"] = "PAPER_REGISTERED"
             state["strategy_id"] = strategy_dir.name
-            state["accounts"] = 10
+            activated_review = json.loads(review_path.read_text(encoding="utf-8"))
+            state["accounts"] = len(activated_review.get("activation", {}).get("accounts", []))
     except Exception as exc:
         state["stage"] = "PIPELINE_ERROR"
         state["error"] = str(exc)

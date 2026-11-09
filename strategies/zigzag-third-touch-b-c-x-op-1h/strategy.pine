@@ -1,0 +1,82 @@
+//@version=6
+// Frozen z3_b_c_x_op chart-source variant. Visual TradingView check; fills and costs may differ from Python.
+strategy("ZigZag third touch breakout 5/4/1/100 · 1H", overlay = true,
+     pyramiding = 0, initial_capital = 1000000, currency = currency.RUB,
+     commission_type = strategy.commission.percent, commission_value = 0.05,
+     slippage = 1, process_orders_on_close = false)
+
+int wing = 5
+float reversal = 4.0
+float zone = 1.0
+int maxAge = 100
+float ph = ta.pivothigh(high, wing, wing)
+float pl = ta.pivotlow(low, wing, wing)
+var int lastSide = 0
+var float lastPrice = na
+var int h0i = na
+var int h1i = na
+var int l0i = na
+var int l1i = na
+var float h0 = na
+var float h1 = na
+var float l0 = na
+var float l1 = na
+var int hConfirm = na
+var int lConfirm = na
+var bool hUsed = false
+var bool lUsed = false
+var bool hBroken = false
+var bool lBroken = false
+
+float upper = not na(h0i) and not na(h1i) and h1i > h0i ? h1 + (h1 - h0) * (bar_index - h1i) / (h1i - h0i) : na
+float lower = not na(l0i) and not na(l1i) and l1i > l0i ? l1 + (l1 - l0) * (bar_index - l1i) / (l1i - l0i) : na
+float upperPrev = not na(upper) ? h1 + (h1 - h0) * (bar_index - 1 - h1i) / (h1i - h0i) : na
+float lowerPrev = not na(lower) ? l1 + (l1 - l0) * (bar_index - 1 - l1i) / (l1i - l0i) : na
+bool chartOk = timeframe.isintraday and timeframe.multiplier == 60
+bool hReady = chartOk and barstate.isconfirmed and not na(upper) and upper > 0 and not hUsed and bar_index > hConfirm and bar_index - h1i <= maxAge and close[1] <= upperPrev
+bool lReady = chartOk and barstate.isconfirmed and not na(lower) and lower > 0 and not lUsed and bar_index > lConfirm and bar_index - l1i <= maxAge and close[1] >= lowerPrev
+bool hBreak = hReady and high >= upper * (1 - zone / 100) and close > upper * (1 + zone / 100)
+bool lBreak = lReady and low <= lower * (1 + zone / 100) and close < lower * (1 - zone / 100)
+bool longSignal = hBreak and not lBreak
+bool shortSignal = lBreak and not hBreak
+float shares = math.floor(strategy.equity * 0.25 / close)
+
+if longSignal and shares >= 1
+    strategy.entry("Long", strategy.long, qty = shares)
+else if shortSignal and shares >= 1
+    strategy.entry("Short", strategy.short, qty = shares)
+
+if barstate.isconfirmed
+    if hBreak
+        hUsed := true
+    if lBreak
+        lUsed := true
+    if not na(upper) and close > upper * (1 + zone / 100)
+        hBroken := true
+    if not na(lower) and close < lower * (1 - zone / 100)
+        lBroken := true
+    if not na(ph) and (lastSide == 0 or (lastSide == 1 and ph > lastPrice) or (lastSide == -1 and 100 * math.abs(ph / lastPrice - 1) >= reversal))
+        lastSide := 1
+        lastPrice := ph
+        h0i := h1i
+        h0 := h1
+        h1i := bar_index - wing
+        h1 := ph
+        hConfirm := bar_index
+        hUsed := false
+        hBroken := false
+    if not na(pl) and (lastSide == 0 or (lastSide == -1 and pl < lastPrice) or (lastSide == 1 and 100 * math.abs(pl / lastPrice - 1) >= reversal))
+        lastSide := -1
+        lastPrice := pl
+        l0i := l1i
+        l0 := l1
+        l1i := bar_index - wing
+        l1 := pl
+        lConfirm := bar_index
+        lUsed := false
+        lBroken := false
+
+plot(upper, "Resistance", color = color.red)
+plot(lower, "Support", color = color.teal)
+plotshape(longSignal, "Long", shape.triangleup, location.belowbar, color.lime, size = size.tiny)
+plotshape(shortSignal, "Short", shape.triangledown, location.abovebar, color.red, size = size.tiny)

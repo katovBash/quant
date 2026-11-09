@@ -21,6 +21,8 @@
 
 ## Примеры для ручного разбора
 
+Это **примеры отдельных пар**, а не прошедшая отбор стратегия. Для paper trading требуется одна общая настройка и хотя бы одна акция, прошедшая порог на последних полных 12 месяцах; результат проверки **всех** настроек приведён в [PAPER_REVIEW.md](PAPER_REVIEW.md) и `paper_review.json → rule_screening`.
+
 Сортировка: число прибыльных месяцев, затем худший месячный PnL. Соседние настройки и контроль нужно сравнить перед выводом.
 
 | Акция · интервал · вариант | Плюс / все месяцы | Средний месяц | Средний прибыльный / убыточный месяц | Худший месяц | Последний календарный год / YTD | Контроль: плюс / месяцы |
@@ -137,28 +139,29 @@
 
 Доля удачных сделок считается **только по закрытым сделкам**. Доходность включает переоценку открытой позиции и потому не выводится из этой доли. Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.
 
-| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Плюсовые месяцы | Вывод |
-|---|---|---:|---:|---:|---|
-| LENT · 1D · `oneil-flat-base_25` | long_only | 5/7 · 71.4% | 0 · — | 8/33 | diagnostic_only; selected examples, not whole grid |
-| LENT · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| ENPG · 1D · `oneil-flat-base_25` | long_only | 4/6 · 66.7% | 0 · — | 7/33 | diagnostic_only; selected examples, not whole grid |
-| ENPG · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `oneil-flat-base_25` | long_only | 4/11 · 36.4% | 0 · — | 6/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| PLZL · 1D · `oneil-flat-base_25` | long_only | 5/12 · 41.7% | 0 · — | 7/33 | diagnostic_only; selected examples, not whole grid |
-| PLZL · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| MOEX · 1D · `oneil-flat-base_25` | long_only | 3/13 · 23.1% | 0 · — | 6/33 | diagnostic_only; selected examples, not whole grid |
-| MOEX · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| UGLD · 1D · `oneil-flat-base_25` | long_only | 5/8 · 62.5% | 0 · — | 9/33 | diagnostic_only; selected examples, not whole grid |
-| UGLD · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| UPRO · 1D · `oneil-flat-base_25` | long_only | 2/8 · 25.0% | 0 · — | 6/33 | diagnostic_only; selected examples, not whole grid |
-| UPRO · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| AFLT · 1D · `oneil-flat-base_25` | long_only | 2/8 · 25.0% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| AFLT · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| NLMK · 1D · `oneil-flat-base_25` | long_only | 3/8 · 37.5% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| NLMK · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| OZON · 1D · `oneil-flat-base_25` | long_only | 2/3 · 66.7% | 0 · — | 5/33 | diagnostic_only; selected examples, not whole grid |
-| OZON · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
+
+| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Доходность всего периода | Плюсовые месяцы | Вывод |
+|---|---|---:|---:|---:|---:|---|
+| LENT · 1D · `oneil-flat-base_25` | long_only | 5/7 · 71.4% | 0 · — | +12.16% | 8/33 | diagnostic_only; selected examples, not whole grid |
+| LENT · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| ENPG · 1D · `oneil-flat-base_25` | long_only | 4/6 · 66.7% | 0 · — | +12.25% | 7/33 | diagnostic_only; selected examples, not whole grid |
+| ENPG · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `oneil-flat-base_25` | long_only | 4/11 · 36.4% | 0 · — | +1.50% | 6/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| PLZL · 1D · `oneil-flat-base_25` | long_only | 5/12 · 41.7% | 0 · — | +4.17% | 7/33 | diagnostic_only; selected examples, not whole grid |
+| PLZL · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| MOEX · 1D · `oneil-flat-base_25` | long_only | 3/13 · 23.1% | 0 · — | -6.59% | 6/33 | diagnostic_only; selected examples, not whole grid |
+| MOEX · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| UGLD · 1D · `oneil-flat-base_25` | long_only | 5/8 · 62.5% | 0 · — | +20.45% | 9/33 | diagnostic_only; selected examples, not whole grid |
+| UGLD · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| UPRO · 1D · `oneil-flat-base_25` | long_only | 2/8 · 25.0% | 0 · — | +6.22% | 6/33 | diagnostic_only; selected examples, not whole grid |
+| UPRO · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| AFLT · 1D · `oneil-flat-base_25` | long_only | 2/8 · 25.0% | 0 · — | +5.20% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| AFLT · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| NLMK · 1D · `oneil-flat-base_25` | long_only | 3/8 · 37.5% | 0 · — | -4.21% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| NLMK · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| OZON · 1D · `oneil-flat-base_25` | long_only | 2/3 · 66.7% | 0 · — | +9.93% | 5/33 | diagnostic_only; selected examples, not whole grid |
+| OZON · 1D · `oneil-flat-base_25` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
 
 [Все результаты по направлениям](trade_side_summary.csv). Если капитал уходит ниже нуля, вариант недопустим независимо от процента успешных сделок.
 

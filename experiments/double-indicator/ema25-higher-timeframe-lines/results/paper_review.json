@@ -1,4 +1,7 @@
 {
+  "review_version": 2,
+  "selection_scope": "all_passing",
+  "selection_method": "first_train_rank_with_passing_stocks",
   "status": "REVIEW_ONLY",
   "protocol": {
     "frozen_on": "2026-11-02",
@@ -167,6 +170,10 @@
       "unexpected": [],
       "ok": true
     },
+    "combination": {
+      "applicable": false,
+      "ok": true
+    },
     "universe": {
       "eligible_symbols": 10,
       "covered_pairs": 20,
@@ -208,10 +215,13 @@
       "splits_status": "unchecked",
       "covered_symbols": 0,
       "verified_snapshot_sha256": null,
+      "moex_source_status": "SUBSCRIPTION_REQUIRED",
+      "moex_source_checked_at_utc": "2026-11-04T11:34:15.003496+00:00",
       "all_symbols_covered": false
     },
     "note": "DATA_READY confirms data and report gates only; it does not approve a trading strategy."
   },
+  "focus_rules": [],
   "rule": null,
   "candidate_rules": [],
   "stocks": [],

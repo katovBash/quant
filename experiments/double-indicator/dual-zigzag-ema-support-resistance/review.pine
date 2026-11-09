@@ -1,0 +1,38 @@
+//@version=6
+// Visual EMA contact review for the experiment. No orders are placed.
+// Higher-timeframe lines use the previous completed day/week only.
+indicator("Dual ZigZag study: EMA support/resistance contact", overlay=true)
+
+string source = input.string("same", "EMA source", options=["same", "day", "week"])
+int length = input.int(20, "EMA length", options=[9, 20, 50, 100])
+float zoneAtr = 0.5
+
+float sameEma = ta.ema(close, length)
+float dayEma = request.security(syminfo.tickerid, "D", ta.ema(close, length)[1],
+     lookahead=barmerge.lookahead_on)
+float daySlope = request.security(syminfo.tickerid, "D",
+     ta.ema(close, length)[1] - ta.ema(close, length)[2],
+     lookahead=barmerge.lookahead_on)
+float weekEma = request.security(syminfo.tickerid, "W", ta.ema(close, length)[1],
+     lookahead=barmerge.lookahead_on)
+float weekSlope = request.security(syminfo.tickerid, "W",
+     ta.ema(close, length)[1] - ta.ema(close, length)[2],
+     lookahead=barmerge.lookahead_on)
+
+float line = source == "same" ? sameEma : source == "day" ? dayEma : weekEma
+float slope = source == "same" ? sameEma - sameEma[1] :
+     source == "day" ? daySlope : weekSlope
+float atr = ta.atr(14)
+bool warmed = bar_index >= length and not na(line) and not na(line[1]) and not na(atr)
+bool longContact = barstate.isconfirmed and warmed and close[1] >= line[1] and
+     math.abs(low - line) <= zoneAtr * atr and close > line and slope > 0
+bool shortContact = barstate.isconfirmed and warmed and close[1] <= line[1] and
+     math.abs(high - line) <= zoneAtr * atr and close < line and slope < 0
+
+plot(line, "EMA support/resistance", color=color.yellow, linewidth=2)
+plotshape(longContact, "Long EMA contact", shape.triangleup,
+     location.belowbar, color=color.lime, size=size.tiny)
+plotshape(shortContact, "Short EMA contact", shape.triangledown,
+     location.abovebar, color=color.red, size=size.tiny)
+plot(ta.barssince(longContact) <= 5 ? 1 : 0, "Long contact in current/prior 5", display=display.data_window)
+plot(ta.barssince(shortContact) <= 5 ? 1 : 0, "Short contact in current/prior 5", display=display.data_window)

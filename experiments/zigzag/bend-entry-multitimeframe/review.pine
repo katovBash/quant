@@ -1,0 +1,93 @@
+//@version=6
+// Band-ZigZag bend-entry grid for 15M/30M/1H/4H/1D review.
+// Mirrors bend_signals.py, not Trendoscope's imported sticky/adaptive bands.
+// TradingView compilation and Pine/Python fill parity have not been verified.
+strategy("Band-ZigZag · causal bend entry · review", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false, max_lines_count=500)
+
+trigger = input.string("same", "Entry", options=["same", "close", "break"])
+delayBars = input.int(1, "Bars since last extreme (close/break)", minval=1, maxval=20)
+ratioCode = input.string("r0", "Previous-leg threshold", options=["r0", "r100"])
+wickCode = input.string("w0", "Pivot wick", options=["w0", "w50"])
+showBands = input.bool(false, "Show bands")
+bool chartOk = (timeframe.isintraday and (timeframe.multiplier == 15 or timeframe.multiplier == 30 or
+     timeframe.multiplier == 60 or timeframe.multiplier == 240)) or
+     (timeframe.isdaily and timeframe.multiplier == 1)
+
+middle = ta.sma(close, 20)
+deviation = ta.stdev(close, 20, true)
+upper = middle + 2.0 * deviation
+lower = middle - 2.0 * deviation
+highTouch = not na(upper) and high >= upper
+lowTouch = not na(lower) and low <= lower
+
+var int pivotSide = 0
+var int pivotBar = na
+var int priorBar = na
+var float pivotPrice = na
+var float priorPrice = na
+var float priorPriorPrice = na
+var float pivotWick = 0.0
+var int usedPivotBar = na
+var array<line> zigzagLines = array.new_line()
+
+if chartOk and barstate.isconfirmed
+    changed = false
+    if highTouch != lowTouch
+        newSide = highTouch ? 1 : -1
+        newPrice = highTouch ? high : low
+        if newSide != pivotSide
+            priorBar := pivotBar
+            priorPriorPrice := priorPrice
+            priorPrice := pivotSide == 0 ? na : pivotPrice
+            pivotSide := newSide
+            pivotBar := bar_index
+            pivotPrice := newPrice
+            changed := true
+            if not na(priorBar)
+                array.push(zigzagLines, line.new(priorBar, priorPrice, pivotBar, pivotPrice,
+                     color=newSide == 1 ? color.red : color.aqua, width=2))
+        else if (newSide == 1 and newPrice > pivotPrice) or (newSide == -1 and newPrice < pivotPrice)
+            pivotBar := bar_index
+            pivotPrice := newPrice
+            changed := true
+            if array.size(zigzagLines) > 0
+                line.set_xy2(array.get(zigzagLines, array.size(zigzagLines) - 1), pivotBar, pivotPrice)
+        if changed
+            span = high - low
+            pivotWick := span > 0 ? (pivotSide == 1 ? high - math.max(open, close) : math.min(open, close) - low) / span : 0.0
+        if array.size(zigzagLines) > 450
+            line.delete(array.shift(zigzagLines))
+    denominator = not na(priorPrice) and not na(priorPriorPrice) ? math.abs(priorPrice - priorPriorPrice) : na
+    legRatio = not na(denominator) and denominator > 0 ? math.abs(pivotPrice - priorPrice) / denominator : na
+    ratioOk = ratioCode == "r0" or (not na(legRatio) and legRatio >= 1.0)
+    wickOk = wickCode == "w0" or pivotWick >= 0.5
+    int direction = 0
+    if trigger == "same" and changed
+        if pivotSide == 1 and close < open and close < upper
+            direction := -1
+        else if pivotSide == -1 and close > open and close > lower
+            direction := 1
+    else if not na(pivotBar) and bar_index - pivotBar == delayBars
+        if trigger == "close"
+            if pivotSide == 1 and close < open and close < close[1]
+                direction := -1
+            else if pivotSide == -1 and close > open and close > close[1]
+                direction := 1
+        else if trigger == "break"
+            if pivotSide == 1 and close < low[1]
+                direction := -1
+            else if pivotSide == -1 and close > high[1]
+                direction := 1
+    if direction != 0 and ratioOk and wickOk and (na(usedPivotBar) or usedPivotBar != pivotBar)
+        if direction > 0
+            strategy.entry("Long", strategy.long)
+        else
+            strategy.entry("Short", strategy.short)
+        usedPivotBar := pivotBar
+
+plot(showBands ? upper : na, "Upper", color=color.new(color.red, 70))
+plot(showBands ? lower : na, "Lower", color=color.new(color.aqua, 70))

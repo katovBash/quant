@@ -1,0 +1,97 @@
+//@version=6
+// Frozen d_a_trend_a4 1D rule. Pine fills/costs have not been reconciled with Python.
+// Pivots become usable only after their right-wing candles are complete.
+strategy("ZigZag · 1D rising support / falling resistance · 4 ATR14", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     commission_type=strategy.commission.percent, commission_value=0.05,
+     slippage=1, process_orders_on_close=false, margin_long=100, margin_short=100)
+
+int preset = 3
+float reversal = preset == 3 ? 2.0 : 4.0
+float zone = preset == 3 ? 0.5 : 1.0
+int maxAge = preset == 3 ? 50 : 100
+bool trendOnly = true
+string targetMode = "4 × ATR14"
+bool chartOk = timeframe.isdaily and timeframe.multiplier == 1
+bool active = time >= timestamp("Europe/Moscow", 2024, 1, 1, 0, 0)
+
+float ph = ta.pivothigh(high, preset, preset)
+float pl = ta.pivotlow(low, preset, preset)
+float atr14 = ta.sma(ta.tr(true), 14)
+var int lastSide = 0
+var float lastPrice = na
+var int h0i = na
+var int h1i = na
+var int l0i = na
+var int l1i = na
+var float h0 = na
+var float h1 = na
+var float l0 = na
+var float l1 = na
+var int hConfirm = na
+var int lConfirm = na
+var bool hUsed = false
+var bool lUsed = false
+var bool hBroken = false
+var bool lBroken = false
+var float targetDistance = na
+
+float hSlope = not na(h0i) and not na(h1i) and h1i > h0i ? (h1-h0)/(h1i-h0i) : na
+float lSlope = not na(l0i) and not na(l1i) and l1i > l0i ? (l1-l0)/(l1i-l0i) : na
+float upper = not na(hSlope) ? h1+hSlope*(bar_index-h1i) : na
+float lower = not na(lSlope) ? l1+lSlope*(bar_index-l1i) : na
+float upperPrev = not na(hSlope) ? h1+hSlope*(bar_index-1-h1i) : na
+float lowerPrev = not na(lSlope) ? l1+lSlope*(bar_index-1-l1i) : na
+bool hReady = chartOk and active and barstate.isconfirmed and not na(upper) and upper > 0 and not hUsed and not hBroken and bar_index > hConfirm and bar_index-h1i <= maxAge and close[1] <= upperPrev and (not trendOnly or hSlope < 0)
+bool lReady = chartOk and active and barstate.isconfirmed and not na(lower) and lower > 0 and not lUsed and not lBroken and bar_index > lConfirm and bar_index-l1i <= maxAge and close[1] >= lowerPrev and (not trendOnly or lSlope > 0)
+bool hBounce = hReady and high >= upper*(1-zone/100) and high <= upper*(1+zone/100) and close < upper
+bool lBounce = lReady and low <= lower*(1+zone/100) and low >= lower*(1-zone/100) and close > lower
+bool longSignal = lBounce and not hBounce
+bool shortSignal = hBounce and not lBounce
+float shares = math.floor(strategy.equity*0.25/close)
+
+if longSignal and shares >= 1
+    targetDistance := atr14*(targetMode == "2 × ATR14" ? 2.0 : 4.0)
+    strategy.entry("Support long", strategy.long, qty=shares)
+else if shortSignal and shares >= 1
+    targetDistance := atr14*(targetMode == "2 × ATR14" ? 2.0 : 4.0)
+    strategy.entry("Resistance short", strategy.short, qty=shares)
+else if chartOk and strategy.position_size > 0 and (targetMode == "5%" ? high >= strategy.position_avg_price*1.05 : targetMode == "8%" ? high >= strategy.position_avg_price*1.08 : high >= strategy.position_avg_price+targetDistance)
+    strategy.close("Support long")
+else if chartOk and strategy.position_size < 0 and (targetMode == "5%" ? low <= strategy.position_avg_price*0.95 : targetMode == "8%" ? low <= strategy.position_avg_price*0.92 : low <= strategy.position_avg_price-targetDistance)
+    strategy.close("Resistance short")
+
+if barstate.isconfirmed
+    if hBounce
+        hUsed := true
+    if lBounce
+        lUsed := true
+    if not na(upper) and close > upper*(1+zone/100)
+        hBroken := true
+    if not na(lower) and close < lower*(1-zone/100)
+        lBroken := true
+    if not na(ph) and (lastSide == 0 or (lastSide == 1 and ph > lastPrice) or (lastSide == -1 and 100*math.abs(ph/lastPrice-1) >= reversal))
+        lastSide := 1
+        lastPrice := ph
+        h0i := h1i
+        h0 := h1
+        h1i := bar_index-preset
+        h1 := ph
+        hConfirm := bar_index
+        hUsed := false
+        hBroken := false
+    if not na(pl) and (lastSide == 0 or (lastSide == -1 and pl < lastPrice) or (lastSide == 1 and 100*math.abs(pl/lastPrice-1) >= reversal))
+        lastSide := -1
+        lastPrice := pl
+        l0i := l1i
+        l0 := l1
+        l1i := bar_index-preset
+        l1 := pl
+        lConfirm := bar_index
+        lUsed := false
+        lBroken := false
+
+plot(upper, "Confirmed resistance", color=color.red, force_overlay=true)
+plot(lower, "Confirmed support", color=color.teal, force_overlay=true)
+plotshape(longSignal, "Buy from support", shape.triangleup, location.belowbar, color.lime, size=size.tiny)
+plotshape(shortSignal, "Short from resistance", shape.triangledown, location.abovebar, color.red, size=size.tiny)

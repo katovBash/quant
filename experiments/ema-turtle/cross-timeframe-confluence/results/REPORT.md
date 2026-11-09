@@ -61,6 +61,8 @@
 
 ## Примеры для ручного разбора
 
+Это **примеры отдельных пар**, а не прошедшая отбор стратегия. Для paper trading требуется одна общая настройка и хотя бы одна акция, прошедшая порог на последних полных 12 месяцах; результат проверки **всех** настроек приведён в [PAPER_REVIEW.md](PAPER_REVIEW.md) и `paper_review.json → rule_screening`.
+
 Сортировка: число прибыльных месяцев, затем худший месячный PnL. Соседние настройки и контроль нужно сравнить перед выводом.
 
 | Акция · интервал · вариант | Плюс / все месяцы | Средний месяц | Средний прибыльный / убыточный месяц | Худший месяц | Последний календарный год / YTD | Контроль: плюс / месяцы |
@@ -177,27 +179,28 @@
 
 Доля удачных сделок считается **только по закрытым сделкам**. Доходность включает переоценку открытой позиции и потому не выводится из этой доли. Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.
 
-| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Плюсовые месяцы | Вывод |
-|---|---|---:|---:|---:|---|
-| WUSH · 1H · `turtle_entry_ema_higher` | long_only | 22/53 · 41.5% | 0 · — | 17/33 | diagnostic_only; compare monthly downside and both directions |
-| WUSH · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 46/77 · 59.7% | 22/33 | diagnostic_only; compare monthly downside and both directions |
-| VSMO · 1H · `turtle_entry_ema_higher` | long_only | 14/59 · 23.7% | 0 · — | 10/33 | diagnostic_only; compare monthly downside and both directions |
-| VSMO · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 36/72 · 50.0% | 20/33 | diagnostic_only; compare monthly downside and both directions |
-| SFIN · 1H · `turtle_entry_ema_higher` | long_only | 24/60 · 40.0% | 0 · — | 14/33 | diagnostic_only; compare monthly downside and both directions |
-| SFIN · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 30/62 · 48.4% | 19/33 | diagnostic_only; compare monthly downside and both directions |
-| RTGZ · 1H · `turtle_entry_ema_higher` | long_only | 8/12 · 66.7% | 0 · — | 12/33 | diagnostic_only; compare monthly downside and both directions |
-| RTGZ · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 7/17 · 41.2% | 12/33 | diagnostic_only; compare monthly downside and both directions |
-| ROLO · 1H · `turtle_entry_ema_higher` | long_only | 13/51 · 25.5% | 0 · — | 9/33 | diagnostic_only; compare monthly downside and both directions |
-| ROLO · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 30/60 · 50.0% | 18/33 | diagnostic_only; compare monthly downside and both directions |
-| UNKL · 4H · `turtle_entry_ema_higher` | long_only | 3/5 · 60.0% | 0 · — | 4/33 | diagnostic_only; compare monthly downside and both directions |
-| UNKL · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 5/12 · 41.7% | 20/33 | diagnostic_only; compare monthly downside and both directions |
-| WUSH · 4H · `turtle_entry_ema_higher` | long_only | 6/12 · 50.0% | 0 · — | 9/33 | diagnostic_only; compare monthly downside and both directions |
-| WUSH · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 13/22 · 59.1% | 17/33 | diagnostic_only; compare monthly downside and both directions |
-| MGNT · 4H · `turtle_entry_ema_higher` | long_only | 6/17 · 35.3% | 0 · — | 6/33 | diagnostic_only; compare monthly downside and both directions |
-| MGNT · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 14/29 · 48.3% | 16/33 | diagnostic_only; compare monthly downside and both directions |
-| VSMO · 4H · `turtle_entry_ema_higher` | long_only | 4/12 · 33.3% | 0 · — | 5/33 | diagnostic_only; compare monthly downside and both directions |
-| VSMO · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 11/22 · 50.0% | 16/33 | diagnostic_only; compare monthly downside and both directions |
-| MRKU · 4H · `turtle_entry_ema_higher` | long_only | 9/20 · 45.0% | 0 · — | 11/33 | diagnostic_only; compare monthly downside and both directions |
-| MRKU · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 7/13 · 53.8% | 10/33 | diagnostic_only; compare monthly downside and both directions |
+
+| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Доходность всего периода | Плюсовые месяцы | Вывод |
+|---|---|---:|---:|---:|---:|---|
+| WUSH · 1H · `turtle_entry_ema_higher` | long_only | 22/53 · 41.5% | 0 · — | +8.43% | 17/33 | diagnostic_only; compare monthly downside and both directions |
+| WUSH · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 46/77 · 59.7% | +63.57% | 22/33 | diagnostic_only; compare monthly downside and both directions |
+| VSMO · 1H · `turtle_entry_ema_higher` | long_only | 14/59 · 23.7% | 0 · — | +0.97% | 10/33 | diagnostic_only; compare monthly downside and both directions |
+| VSMO · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 36/72 · 50.0% | +18.60% | 20/33 | diagnostic_only; compare monthly downside and both directions |
+| SFIN · 1H · `turtle_entry_ema_higher` | long_only | 24/60 · 40.0% | 0 · — | +39.96% | 14/33 | diagnostic_only; compare monthly downside and both directions |
+| SFIN · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 30/62 · 48.4% | +46.44% | 19/33 | diagnostic_only; compare monthly downside and both directions |
+| RTGZ · 1H · `turtle_entry_ema_higher` | long_only | 8/12 · 66.7% | 0 · — | +18.57% | 12/33 | diagnostic_only; compare monthly downside and both directions |
+| RTGZ · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 7/17 · 41.2% | +3.61% | 12/33 | diagnostic_only; compare monthly downside and both directions |
+| ROLO · 1H · `turtle_entry_ema_higher` | long_only | 13/51 · 25.5% | 0 · — | -9.30% | 9/33 | diagnostic_only; compare monthly downside and both directions |
+| ROLO · 1H · `turtle_entry_ema_higher` | short_only | 0 · — | 30/60 · 50.0% | +34.49% | 18/33 | diagnostic_only; compare monthly downside and both directions |
+| UNKL · 4H · `turtle_entry_ema_higher` | long_only | 3/5 · 60.0% | 0 · — | -0.09% | 4/33 | diagnostic_only; compare monthly downside and both directions |
+| UNKL · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 5/12 · 41.7% | +9.98% | 20/33 | diagnostic_only; compare monthly downside and both directions |
+| WUSH · 4H · `turtle_entry_ema_higher` | long_only | 6/12 · 50.0% | 0 · — | +4.56% | 9/33 | diagnostic_only; compare monthly downside and both directions |
+| WUSH · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 13/22 · 59.1% | +29.26% | 17/33 | diagnostic_only; compare monthly downside and both directions |
+| MGNT · 4H · `turtle_entry_ema_higher` | long_only | 6/17 · 35.3% | 0 · — | -2.20% | 6/33 | diagnostic_only; compare monthly downside and both directions |
+| MGNT · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 14/29 · 48.3% | +12.49% | 16/33 | diagnostic_only; compare monthly downside and both directions |
+| VSMO · 4H · `turtle_entry_ema_higher` | long_only | 4/12 · 33.3% | 0 · — | +7.08% | 5/33 | diagnostic_only; compare monthly downside and both directions |
+| VSMO · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 11/22 · 50.0% | +13.27% | 16/33 | diagnostic_only; compare monthly downside and both directions |
+| MRKU · 4H · `turtle_entry_ema_higher` | long_only | 9/20 · 45.0% | 0 · — | +21.98% | 11/33 | diagnostic_only; compare monthly downside and both directions |
+| MRKU · 4H · `turtle_entry_ema_higher` | short_only | 0 · — | 7/13 · 53.8% | +8.02% | 10/33 | diagnostic_only; compare monthly downside and both directions |
 
 [Все результаты по направлениям](trade_side_summary.csv). Если капитал уходит ниже нуля, вариант недопустим независимо от процента успешных сделок.

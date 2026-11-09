@@ -1,0 +1,79 @@
+//@version=6
+// Visual review only. Python/Pine signal and fill parity is not verified.
+// Higher-timeframe plots use the last completed 1D/1W line; trade arrows are chart-source only.
+// Exit modes and next-open fills are compared in Python; this chart does not reproduce their fills.
+// Python fills on the next open with modeled costs.
+indicator("ZigZag · third-touch exit comparison · review", overlay = true)
+string lineSource = input.string("Chart", "Line timeframe", options = ["Chart", "1D", "1W"])
+int wing = input.int(3, "Pivot wing", options = [3, 5])
+float reversal = input.float(2.0, "Minimum reversal %", options = [2.0, 4.0])
+float zone = input.float(0.5, "Contact zone %", options = [0.5, 1.0])
+int maxAge = input.int(50, "Maximum line age", options = [50, 100])
+string style = input.string("Bounce", "Third contact", options = ["Bounce", "Breakout"])
+float ph = ta.pivothigh(high, wing, wing)
+float pl = ta.pivotlow(low, wing, wing)
+var int lastSide = 0
+var float lastPrice = na
+var int h0i = na
+var int h1i = na
+var int l0i = na
+var int l1i = na
+var float h0 = na
+var float h1 = na
+var float l0 = na
+var float l1 = na
+var int hConfirm = na
+var int lConfirm = na
+var bool hUsed = false
+var bool lUsed = false
+var bool hBroken = false
+var bool lBroken = false
+float upper = not na(h0i) and not na(h1i) and h1i > h0i ? h1 + (h1 - h0) * (bar_index - h1i) / (h1i - h0i) : na
+float lower = not na(l0i) and not na(l1i) and l1i > l0i ? l1 + (l1 - l0) * (bar_index - l1i) / (l1i - l0i) : na
+float upperPrev = not na(upper) and not na(h0i) and not na(h1i) ? h1 + (h1 - h0) * (bar_index - 1 - h1i) / (h1i - h0i) : na
+float lowerPrev = not na(lower) and not na(l0i) and not na(l1i) ? l1 + (l1 - l0) * (bar_index - 1 - l1i) / (l1i - l0i) : na
+bool hReady = barstate.isconfirmed and not na(upper) and upper > 0 and not hUsed and bar_index > hConfirm and bar_index - h1i <= maxAge and close[1] <= upperPrev
+bool lReady = barstate.isconfirmed and not na(lower) and lower > 0 and not lUsed and bar_index > lConfirm and bar_index - l1i <= maxAge and close[1] >= lowerPrev
+bool hBounce = hReady and not hBroken and high >= upper * (1 - zone / 100) and high <= upper * (1 + zone / 100) and close < upper
+bool lBounce = lReady and not lBroken and low <= lower * (1 + zone / 100) and low >= lower * (1 - zone / 100) and close > lower
+bool hBreak = hReady and high >= upper * (1 - zone / 100) and close > upper * (1 + zone / 100)
+bool lBreak = lReady and low <= lower * (1 + zone / 100) and close < lower * (1 - zone / 100)
+bool highSignal = style == "Bounce" ? hBounce : hBreak
+bool lowSignal = style == "Bounce" ? lBounce : lBreak
+bool longSignal = lineSource == "Chart" and not (highSignal and lowSignal) and (style == "Bounce" ? lowSignal : highSignal)
+bool shortSignal = lineSource == "Chart" and not (highSignal and lowSignal) and (style == "Bounce" ? highSignal : lowSignal)
+if barstate.isconfirmed
+    if highSignal
+        hUsed := true
+    if lowSignal
+        lUsed := true
+    if not na(upper) and close > upper * (1 + zone / 100)
+        hBroken := true
+    if not na(lower) and close < lower * (1 - zone / 100)
+        lBroken := true
+    if not na(ph) and (lastSide == 0 or (lastSide == 1 and ph > lastPrice) or (lastSide == -1 and 100 * math.abs(ph / lastPrice - 1) >= reversal))
+        lastSide := 1
+        lastPrice := ph
+        h0i := h1i
+        h0 := h1
+        h1i := bar_index - wing
+        h1 := ph
+        hConfirm := bar_index
+        hUsed := false
+        hBroken := false
+    if not na(pl) and (lastSide == 0 or (lastSide == -1 and pl < lastPrice) or (lastSide == 1 and 100 * math.abs(pl / lastPrice - 1) >= reversal))
+        lastSide := -1
+        lastPrice := pl
+        l0i := l1i
+        l0 := l1
+        l1i := bar_index - wing
+        l1 := pl
+        lConfirm := bar_index
+        lUsed := false
+        lBroken := false
+float shownUpper = lineSource == "Chart" ? upper : request.security(syminfo.tickerid, lineSource == "1D" ? "D" : "W", upper[1], lookahead = barmerge.lookahead_on)
+float shownLower = lineSource == "Chart" ? lower : request.security(syminfo.tickerid, lineSource == "1D" ? "D" : "W", lower[1], lookahead = barmerge.lookahead_on)
+plot(shownUpper, "Two-pivot resistance", color = color.red)
+plot(shownLower, "Two-pivot support", color = color.teal)
+plotshape(longSignal, "Third touch long", shape.triangleup, location.belowbar, color.lime, size = size.tiny)
+plotshape(shortSignal, "Third touch short", shape.triangledown, location.abovebar, color.red, size = size.tiny)

@@ -44,7 +44,8 @@ def write_regimes(output: Path, monthly: list[dict]) -> None:
                "profitable_months", "median_month_pnl_rub", "mean_month_pnl_rub"))
 
 
-def run(experiment: Path, *, smoke: bool = False, signal_factory=None) -> dict:
+def run(experiment: Path, *, smoke: bool = False, signal_factory=None,
+        context_factory=None) -> dict:
     protocol = json.loads((experiment / "protocol.json").read_text(encoding="utf-8"))
     output = experiment / ("smoke" if smoke else "results")
     output.mkdir(exist_ok=True)
@@ -72,11 +73,12 @@ def run(experiment: Path, *, smoke: bool = False, signal_factory=None) -> dict:
                     continue
                 observed = {bar["ts"][:7] for bar in bars if bar["ts"] >= protocol["start"]}
                 gate = [True] * len(bars)
+                active_factory = context_factory(symbol, timeframe) if context_factory else signal_factory
                 for variant in variants:
                     if variant == "baseline":
                         entries, exits = signals("baseline", bars, 0)
-                    elif signal_factory is not None:
-                        entries, exits = signal_factory(variant, bars)
+                    elif active_factory is not None:
+                        entries, exits = active_factory(variant, bars)
                     else:
                         lookback = int(variant.rsplit("_", 1)[1])
                         entries, exits = signals(method, bars, lookback)

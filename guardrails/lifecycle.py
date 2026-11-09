@@ -10,9 +10,11 @@ from pathlib import Path
 
 try:
     from guardrails.policy import load_policy
+    from eval.historical import trailing_year_gate
 except ModuleNotFoundError:  # direct `python3 guardrails/lifecycle.py` invocation
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from guardrails.policy import load_policy
+    from eval.historical import trailing_year_gate
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -31,14 +33,39 @@ def experiment_gate(review: dict | None) -> tuple[str, list[str]]:
     if not validation.get("structural_ok"):
         return "EXPERIMENT_INVALID", ["Структурная проверка эксперимента не пройдена"]
     policy = load_policy()["experiment"]
-    if not review.get("rule") or len(review.get("stocks", [])) != policy["paper_stock_count"]:
-        return "EXPERIMENT_REVIEW", ["Не выбраны одно правило и десять акций"]
+    if not review.get("rule") or len(review.get("stocks", [])) < policy["min_paper_stocks"]:
+        return "EXPERIMENT_REVIEW", ["Не выбраны одно правило и прошедшие акции"]
+    if review.get("review_version", 1) >= 2:
+        ranked = review.get("candidate_rules") or []
+        screened = review.get("rule_screening") or []
+        summary = review.get("screening_summary") or {}
+        rule = review["rule"]
+        if review.get("selection_method") == "first_train_rank_with_passing_stocks":
+            chosen = next((item for item in screened
+                           if item.get("passed_trailing_12m", 0) >= policy["min_paper_stocks"]), None)
+            count_key = "selected_passed"
+        else:
+            chosen = screened[0] if screened else None
+            count_key = "best_by_train_passed"
+        if (not ranked or len(screened) != len(ranked)
+                or chosen is None
+                or (chosen.get("timeframe"), chosen.get("variant"))
+                   != (rule.get("timeframe"), rule.get("variant"))
+                or summary.get("rules_checked") != len(screened)
+                or summary.get(count_key) != chosen.get("passed_trailing_12m")
+                or chosen.get("passed_trailing_12m", 0) < len(review["stocks"])
+                or (review.get("selection_scope") == "all_passing"
+                    and chosen.get("passed_trailing_12m") != len(review["stocks"]))):
+            return "EXPERIMENT_REVIEW", ["Не подтверждена проверка всех настроек по годовому порогу"]
     cost_status = str(review.get("protocol", {}).get("cost_status") or "")
     if not cost_status.startswith("after_"):
         return "EXPERIMENT_REVIEW", ["История посчитана до расходов"]
     if any(stock.get("candle_quality", {}).get("status") != "basic_check_ok"
            for stock in review["stocks"]):
         return "EXPERIMENT_REVIEW", ["Качество свечей выбранных акций не подтверждено"]
+    passed, failures = trailing_year_gate(review["stocks"])
+    if not passed:
+        return "RETURN_BELOW_PAPER_THRESHOLD", failures
     warnings = []
     if validation.get("corporate_actions", {}).get("status") != "complete":
         warnings.append("Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт")
@@ -81,7 +108,9 @@ def build(live_root: Path, setup_root: Path, strategies_root: Path) -> dict:
                              "days": paper.get("paper_calendar_days"),
                              "return_pct": paper.get("paper_return_pct")})
         counts = dict(Counter(account["stage"] for account in accounts))
-        if not accounts or all(account["stage"] == "WAITING_FOR_FIRST_POLL" for account in accounts):
+        if historical_gate not in ("PAPER_CANDIDATE",):
+            stage = "PAPER_GATE_FAILED"
+        elif not accounts or all(account["stage"] == "WAITING_FOR_FIRST_POLL" for account in accounts):
             stage = "PAPER_QUEUED"
         elif any(account["stage"] == "PAPER_STOP_REVIEW" for account in accounts):
             stage = "PAPER_STOP_REVIEW"

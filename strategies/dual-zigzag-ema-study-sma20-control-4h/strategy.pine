@@ -1,0 +1,73 @@
+//@version=6
+strategy("Dual ZigZag RSI + prior-day SMA20 4H (research)", overlay=true,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15)
+
+// Selected long-entry filter. Python signal parity is measured on MOEX candles.
+// Pine/TradingView parity is unmeasured. Use on 4H only. Daily closes are
+// built from completed 4H bars, matching the research source.
+// The author did not publish a trade rule for Dual Zigzag.
+wing = 5
+deviation = 2.0
+rsiLength = 14
+oscDeviation = 3.0
+r = ta.rsi(close, rsiLength)
+
+ph = ta.pivothigh(high, wing, wing)
+pl = ta.pivotlow(low, wing, wing)
+oh = ta.pivothigh(r, wing, wing)
+ol = ta.pivotlow(r, wing, wing)
+
+var int priceSide = 0
+var float priceValue = na
+var float confirmedHigh = na
+var float confirmedLow = na
+var int oscSide = 0
+var float oscValue = na
+
+// At the first bar of a new day, the previous 4H close becomes the
+// completed prior daily close. Keep the last 20 such closes.
+var array<float> dailyCloses = array.new_float()
+var float priorDailyClose = na
+var float dailyMean = na
+if ta.change(time("D")) != 0 and bar_index > 0
+    priorDailyClose := close[1]
+    array.push(dailyCloses, priorDailyClose)
+    if array.size(dailyCloses) > 20
+        array.shift(dailyCloses)
+    if array.size(dailyCloses) == 20
+        dailyMean := array.sum(dailyCloses) / 20
+longAllowed = not na(dailyMean) and priorDailyClose > dailyMean
+
+// Decide with levels and oscillator state known before accepting pivots that
+// become confirmed on this bar. Orders fill at TradingView's next bar open.
+longRaw = barstate.isconfirmed and not na(confirmedHigh) and close[1] <= confirmedHigh and close > confirmedHigh and oscSide == -1
+longEvent = longRaw and longAllowed
+shortEvent = barstate.isconfirmed and not na(confirmedLow) and close[1] >= confirmedLow and close < confirmedLow and oscSide == 1
+if longEvent
+    strategy.entry("Long", strategy.long)
+else if shortEvent
+    strategy.entry("Short", strategy.short)
+else if longRaw
+    strategy.close("Short")
+
+if barstate.isconfirmed
+    if not na(ph) and (priceSide == 0 or priceSide == 1 and ph > priceValue or priceSide == -1 and math.abs(ph / priceValue - 1) * 100 >= deviation)
+        priceSide := 1
+        priceValue := ph
+        confirmedHigh := ph
+    if not na(pl) and (priceSide == 0 or priceSide == -1 and pl < priceValue or priceSide == 1 and math.abs(pl / priceValue - 1) * 100 >= deviation)
+        priceSide := -1
+        priceValue := pl
+        confirmedLow := pl
+    if not na(oh) and (oscSide == 0 or oscSide == 1 and oh > oscValue or oscSide == -1 and math.abs(oh - oscValue) >= oscDeviation)
+        oscSide := 1
+        oscValue := oh
+    if not na(ol) and (oscSide == 0 or oscSide == -1 and ol < oscValue or oscSide == 1 and math.abs(ol - oscValue) >= oscDeviation)
+        oscSide := -1
+        oscValue := ol
+
+plot(confirmedHigh, "Confirmed high", color=color.orange, style=plot.style_stepline)
+plot(confirmedLow, "Confirmed low", color=color.aqua, style=plot.style_stepline)
+plotshape(longEvent, "Long event", shape.triangleup, location.belowbar, color.lime, size=size.tiny)
+plotshape(shortEvent, "Short event", shape.triangledown, location.abovebar, color.red, size=size.tiny)

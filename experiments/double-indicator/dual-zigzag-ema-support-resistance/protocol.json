@@ -1,0 +1,384 @@
+{
+  "indicator_id": "double-indicator",
+  "run_id": "dual-zigzag-ema-support-resistance",
+  "method_id": "dual-zigzag-ema-support-resistance",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "parent_experiment": "experiments/double-indicator/dual-zigzag-daily-trend",
+  "grandparent_experiment": "experiments/dual-zigzag/price-oscillator-swings",
+  "hypothesis": "A directional touch and rejection of a causal EMA line may confirm frozen Dual ZigZag entries as dynamic support/resistance. Test EMA 9/20/50/100 on signal, completed daily and completed weekly sources, as an independent bounce and as confirmation of raw and fixed SMA20 ZigZag entries.",
+  "research_provenance": {
+    "zigzag_source": "https://ru.tradingview.com/script/F8gYizEx-Dual-Zigzag-Trendoscope/",
+    "ema_definition": "https://www.tradingview.com/support/solutions/43000592270-exponential-moving-average/",
+    "implementation": "mechanical EMA support/resistance adaptation; not authored by Trendoscope",
+    "frozen_parent_variant": "dual_5_2_14_trend-opp",
+    "frozen_sma_variant": "sma_20",
+    "source_checked_on": "2026-11-08"
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1H",
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "ema_source_timeframes": {
+    "1H": [
+      "1H",
+      "1D",
+      "1W"
+    ],
+    "4H": [
+      "4H",
+      "1D",
+      "1W"
+    ]
+  },
+  "required_data": [
+    "completed 60-minute OHLCV bars",
+    "completed daily OHLCV bars",
+    "weekly OHLCV aggregated from completed daily bars",
+    "confirmed frozen price and RSI ZigZag events",
+    "ATR14 from signal candles"
+  ],
+  "availability_lag": "Signal-frame EMA uses completed current close. Daily EMA uses only dates strictly before signal date. Weekly EMA uses only completed ISO weeks strictly before current ISO week. Signal and bounce are observed at bar close; fill next open.",
+  "signal_semantics": "Per-stock long/short signal. EMA support is a bullish touch/rejection and nonnegative EMA slope; resistance is bearish mirror. Raw and SMA20 parent exit events are unchanged.",
+  "evaluation_unit": "Independent per-stock experimental account. Compare selected combination against both fixed parent controls on identical stock/timeframe pairs.",
+  "entry_design": {
+    "mechanisms": [
+      "unchanged raw Dual ZigZag",
+      "unchanged frozen ZigZag plus prior-day SMA20",
+      "standalone EMA bounce",
+      "raw ZigZag entry conditioned on EMA bounce",
+      "SMA20 ZigZag entry conditioned on EMA bounce"
+    ],
+    "bounce_formula": "Long: prior signal close >= prior EMA, abs(current low - current EMA) <= 0.5*ATR14, current close > EMA, EMA current > previous source EMA. Short: prior close <= prior EMA, abs(current high - EMA) <= 0.5*ATR14, current close < EMA, EMA current < previous source EMA. Only completed source candles.",
+    "confirmation_windows": {
+      "now": "bounce on same signal bar",
+      "recent5": "bounce on current or one of previous five completed signal bars"
+    },
+    "delay_bars": [
+      0
+    ],
+    "decision_time": "completed signal bar close",
+    "not_applicable": [
+      "unconfirmed ZigZag pivot marker",
+      "current unfinished daily/weekly candle",
+      "EMA lines from lower source timeframe than signal"
+    ]
+  },
+  "exit_design": {
+    "mechanisms": [
+      "raw parent opposite event for raw and SMA20 controls and all combinations",
+      "opposite EMA bounce event for EMA-only ablation"
+    ],
+    "decision_time": "completed bar close, next-open fill",
+    "not_applicable": [
+      "new stop/target in this EMA confirmation experiment"
+    ]
+  },
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "mode": {
+            "values": [
+              "zz_raw",
+              "zz_sma20"
+            ]
+          }
+        },
+        "variant_template": "{mode}"
+      },
+      {
+        "axes": {
+          "source": {
+            "values": [
+              "same",
+              "day",
+              "week"
+            ]
+          },
+          "length": {
+            "values": [
+              9,
+              20,
+              50,
+              100
+            ]
+          }
+        },
+        "variant_template": "ema_{source}_{length}"
+      },
+      {
+        "axes": {
+          "base": {
+            "values": [
+              "raw",
+              "sma20"
+            ]
+          },
+          "source": {
+            "values": [
+              "same",
+              "day",
+              "week"
+            ]
+          },
+          "length": {
+            "values": [
+              9,
+              20,
+              50,
+              100
+            ]
+          },
+          "window": {
+            "values": [
+              "now",
+              "recent5"
+            ]
+          }
+        },
+        "variant_template": "{base}_{source}_{length}_{window}"
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 62
+  },
+  "expected_variants": [
+    "baseline",
+    "zz_raw",
+    "zz_sma20",
+    "ema_same_9",
+    "ema_same_20",
+    "ema_same_50",
+    "ema_same_100",
+    "ema_day_9",
+    "ema_day_20",
+    "ema_day_50",
+    "ema_day_100",
+    "ema_week_9",
+    "ema_week_20",
+    "ema_week_50",
+    "ema_week_100",
+    "raw_same_9_now",
+    "raw_same_9_recent5",
+    "raw_same_20_now",
+    "raw_same_20_recent5",
+    "raw_same_50_now",
+    "raw_same_50_recent5",
+    "raw_same_100_now",
+    "raw_same_100_recent5",
+    "raw_day_9_now",
+    "raw_day_9_recent5",
+    "raw_day_20_now",
+    "raw_day_20_recent5",
+    "raw_day_50_now",
+    "raw_day_50_recent5",
+    "raw_day_100_now",
+    "raw_day_100_recent5",
+    "raw_week_9_now",
+    "raw_week_9_recent5",
+    "raw_week_20_now",
+    "raw_week_20_recent5",
+    "raw_week_50_now",
+    "raw_week_50_recent5",
+    "raw_week_100_now",
+    "raw_week_100_recent5",
+    "sma20_same_9_now",
+    "sma20_same_9_recent5",
+    "sma20_same_20_now",
+    "sma20_same_20_recent5",
+    "sma20_same_50_now",
+    "sma20_same_50_recent5",
+    "sma20_same_100_now",
+    "sma20_same_100_recent5",
+    "sma20_day_9_now",
+    "sma20_day_9_recent5",
+    "sma20_day_20_now",
+    "sma20_day_20_recent5",
+    "sma20_day_50_now",
+    "sma20_day_50_recent5",
+    "sma20_day_100_now",
+    "sma20_day_100_recent5",
+    "sma20_week_9_now",
+    "sma20_week_9_recent5",
+    "sma20_week_20_now",
+    "sma20_week_20_recent5",
+    "sma20_week_50_now",
+    "sma20_week_50_recent5",
+    "sma20_week_100_now",
+    "sma20_week_100_recent5"
+  ],
+  "parameter_rationale": "EMA9 covers short reactions, EMA20/50 cover intermediate levels and EMA100 covers slow support/resistance. Same, previous completed day and previous completed week compare line scale. A fixed 0.5 ATR contact zone normalizes by volatility. Same-bar and five-prior-bar confirmation distinguish coincident touch from setup before ZigZag breakout. All declared values are tested without return-driven pruning.",
+  "combination_design": {
+    "scope": "fixed_parameter_transfer",
+    "components": [
+      {
+        "name": "frozen raw price/RSI Dual ZigZag",
+        "parameters": {
+          "price_wing": [
+            5
+          ],
+          "price_deviation_pct": [
+            2
+          ],
+          "rsi_length": [
+            14
+          ]
+        },
+        "controls": [
+          "zz_raw"
+        ]
+      },
+      {
+        "name": "frozen prior-day SMA20 long filter",
+        "parameters": {
+          "daily_sma_length": [
+            20
+          ]
+        },
+        "controls": [
+          "zz_sma20"
+        ]
+      },
+      {
+        "name": "EMA support/resistance bounce",
+        "parameters": {
+          "lengths": [
+            9,
+            20,
+            50,
+            100
+          ],
+          "sources": [
+            "same",
+            "day",
+            "week"
+          ],
+          "zone_atr": [
+            0.5
+          ],
+          "windows": [
+            "now",
+            "recent5"
+          ]
+        },
+        "controls": [
+          "ema_same_9",
+          "ema_same_20",
+          "ema_same_50",
+          "ema_same_100",
+          "ema_day_9",
+          "ema_day_20",
+          "ema_day_50",
+          "ema_day_100",
+          "ema_week_9",
+          "ema_week_20",
+          "ema_week_50",
+          "ema_week_100"
+        ]
+      }
+    ],
+    "combined_variants": [
+      "raw_same_9_now",
+      "raw_same_9_recent5",
+      "raw_same_20_now",
+      "raw_same_20_recent5",
+      "raw_same_50_now",
+      "raw_same_50_recent5",
+      "raw_same_100_now",
+      "raw_same_100_recent5",
+      "raw_day_9_now",
+      "raw_day_9_recent5",
+      "raw_day_20_now",
+      "raw_day_20_recent5",
+      "raw_day_50_now",
+      "raw_day_50_recent5",
+      "raw_day_100_now",
+      "raw_day_100_recent5",
+      "raw_week_9_now",
+      "raw_week_9_recent5",
+      "raw_week_20_now",
+      "raw_week_20_recent5",
+      "raw_week_50_now",
+      "raw_week_50_recent5",
+      "raw_week_100_now",
+      "raw_week_100_recent5",
+      "sma20_same_9_now",
+      "sma20_same_9_recent5",
+      "sma20_same_20_now",
+      "sma20_same_20_recent5",
+      "sma20_same_50_now",
+      "sma20_same_50_recent5",
+      "sma20_same_100_now",
+      "sma20_same_100_recent5",
+      "sma20_day_9_now",
+      "sma20_day_9_recent5",
+      "sma20_day_20_now",
+      "sma20_day_20_recent5",
+      "sma20_day_50_now",
+      "sma20_day_50_recent5",
+      "sma20_day_100_now",
+      "sma20_day_100_recent5",
+      "sma20_week_9_now",
+      "sma20_week_9_recent5",
+      "sma20_week_20_now",
+      "sma20_week_20_recent5",
+      "sma20_week_50_now",
+      "sma20_week_50_recent5",
+      "sma20_week_100_now",
+      "sma20_week_100_recent5"
+    ],
+    "untested_dependencies": [
+      "retuning price/RSI/SMA parameters",
+      "EMA zone width other than 0.5 ATR",
+      "new exit optimization"
+    ]
+  },
+  "min_bars": 120,
+  "baseline": "One 25% long buy-and-hold position on same stock/timeframe, next open. zz_raw and zz_sma20 are frozen controls.",
+  "signal_rule": "EMA bounce is independently tradable. Combined entry retains raw or frozen SMA20 ZigZag event only if same-direction EMA bounce occurred on current or previous five signal bars. Rejected parent entries do not suppress original opposite exit events. No lookahead.",
+  "execution_timing": "Completed-bar decision, next-open fill, 25% of equity per independent stock account.",
+  "holding_period": "Parent variants until opposite raw parent event; EMA-alone until opposite EMA bounce.",
+  "rebalance_rule": "At signal or exit only.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank all fixed EMA settings by early history; check every setting against policy >10% latest trailing-12m and user >20% target. Compare selected combination with same-stock fixed SMA20 parent; do not replace existing virtual accounts based on seen history.",
+  "research_family": {
+    "viewed_methods": [
+      "frozen Dual ZigZag raw",
+      "frozen daily SMA20 long filter",
+      "EMA directional touch/rejection",
+      "same-bar and recent-five-bar relation"
+    ],
+    "tested_variants": 62,
+    "late_history_seen": true
+  },
+  "run_command": "python3 -m pipeline.run experiments/double-indicator/dual-zigzag-ema-support-resistance",
+  "limitations": [
+    "Late history already seen in parent and prior indicator experiments",
+    "EMA rule is new adaptation, not Trendoscope author trade rule",
+    "Corporate events, short borrow and exchange lots incomplete"
+  ]
+}

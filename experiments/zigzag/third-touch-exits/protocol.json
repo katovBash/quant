@@ -1,0 +1,168 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "third-touch-exits",
+  "method_id": "zigzag-third-touch-exits",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-07",
+  "hypothesis": "For the same third-contact entry, closing at the opposite support/resistance or on a fixed 3/5/8% price target may improve monthly net outcomes versus waiting for the opposite third-contact signal.",
+  "source_url": "https://www.tradingview.com/support/solutions/43000591664-zigzag-indicator/",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "preset": {
+        "values": [
+          "a",
+          "b"
+        ]
+      },
+      "source": {
+        "values": [
+          "c",
+          "d",
+          "w"
+        ]
+      },
+      "style": {
+        "values": [
+          "b",
+          "x"
+        ]
+      },
+      "exit_rule": {
+        "values": [
+          "op",
+          "line",
+          "t3",
+          "t5",
+          "t8"
+        ]
+      }
+    },
+    "variant_template": "z3_{preset}_{source}_{style}_{exit_rule}",
+    "include_baseline": true,
+    "max_combinations": 60
+  },
+  "expected_variants": [
+    "baseline",
+    "z3_a_c_b_op",
+    "z3_a_c_b_line",
+    "z3_a_c_b_t3",
+    "z3_a_c_b_t5",
+    "z3_a_c_b_t8",
+    "z3_a_c_x_op",
+    "z3_a_c_x_line",
+    "z3_a_c_x_t3",
+    "z3_a_c_x_t5",
+    "z3_a_c_x_t8",
+    "z3_a_d_b_op",
+    "z3_a_d_b_line",
+    "z3_a_d_b_t3",
+    "z3_a_d_b_t5",
+    "z3_a_d_b_t8",
+    "z3_a_d_x_op",
+    "z3_a_d_x_line",
+    "z3_a_d_x_t3",
+    "z3_a_d_x_t5",
+    "z3_a_d_x_t8",
+    "z3_a_w_b_op",
+    "z3_a_w_b_line",
+    "z3_a_w_b_t3",
+    "z3_a_w_b_t5",
+    "z3_a_w_b_t8",
+    "z3_a_w_x_op",
+    "z3_a_w_x_line",
+    "z3_a_w_x_t3",
+    "z3_a_w_x_t5",
+    "z3_a_w_x_t8",
+    "z3_b_c_b_op",
+    "z3_b_c_b_line",
+    "z3_b_c_b_t3",
+    "z3_b_c_b_t5",
+    "z3_b_c_b_t8",
+    "z3_b_c_x_op",
+    "z3_b_c_x_line",
+    "z3_b_c_x_t3",
+    "z3_b_c_x_t5",
+    "z3_b_c_x_t8",
+    "z3_b_d_b_op",
+    "z3_b_d_b_line",
+    "z3_b_d_b_t3",
+    "z3_b_d_b_t5",
+    "z3_b_d_b_t8",
+    "z3_b_d_x_op",
+    "z3_b_d_x_line",
+    "z3_b_d_x_t3",
+    "z3_b_d_x_t5",
+    "z3_b_d_x_t8",
+    "z3_b_w_b_op",
+    "z3_b_w_b_line",
+    "z3_b_w_b_t3",
+    "z3_b_w_b_t5",
+    "z3_b_w_b_t8",
+    "z3_b_w_x_op",
+    "z3_b_w_x_line",
+    "z3_b_w_x_t3",
+    "z3_b_w_x_t5",
+    "z3_b_w_x_t8"
+  ],
+  "parameter_rationale": "Two entry presets fixed before inspecting results: a=wing3/deviation2%/zone0.5%/age50, b=wing5/deviation4%/zone1%/age100. Each is crossed with chart/1D/1W lines, bounce/breakout entries and five exit rules: opposite entry, opposite projected line contact, 3%, 5%, 8% price target. All 60 combinations are tested.",
+  "min_bars": 100,
+  "baseline": "Same-stock 25% buy-and-hold and the identical third-touch entries with opposite-signal exits; all modes share candles and costs.",
+  "signal_rule": "Entries use the third-touch-line protocol. Exit modes: opposite third-touch signal; first bar touching the opposite projected line ahead of entry; first bar whose high/low reaches 3%, 5% or 8% from next-open entry price. Exit is decided on the completed signal bar and filled at the next open; no intrabar order-fill ordering is assumed. Opposite entry may close/reverse earlier. Both long and short are tested.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Choose the exit mode with the highest median net return in the last full train calendar year (2025) across identical symbol/timeframe/entry-preset/source/style cells. Report paired improvement versus opposite-signal exit, the fraction of positive months, median max drawdown and 2026 seen-history result; if the winner does not improve the paired median or its 2026 median is negative, make no adoption recommendation. This is an exit-method study, not a full factorial search of every entry parameter.",
+  "run_command": "python3 -m pipeline.run experiments/zigzag/third-touch-exits",
+  "limitations": [
+    "User-drawn line is an example, not a fixed objective indicator",
+    "A confirmed pivot is visible only wing bars after its center",
+    "No actual third-contact profit is assumed from the screenshot",
+    "Corporate actions are not fully covered; research status only",
+    "The 1D/1W line is projected in completed higher-bar steps during 1H/4H sessions, not fitted to wall-clock time.",
+    "Only two preregistered entry presets are used for exit comparison; other entry-exit interactions remain untested."
+  ],
+  "research_provenance": {
+    "source": "user chart example 2026-11-07",
+    "type": "user hypothesis",
+    "note": "Visual example only; no future line or trade outcome is used as data."
+  },
+  "signal_semantics": "Single-stock long/short order signal on closed bar; next-open execution. Pivot is usable only on confirmation bar, never at its plotted historical position.",
+  "required_data": [
+    "OHLC candles",
+    "confirmed pivot timing"
+  ],
+  "availability_lag": "Chart pivot: wing completed chart bars; daily/weekly pivot: wing completed higher bars plus next trading date after confirming higher candle. No current unfinished day/week is used.",
+  "research_family": {
+    "related_run": "experiments/zigzag/third-touch-line",
+    "tested_variants": 60,
+    "entry_presets": [
+      "a:3,2,0.5,50",
+      "b:5,4,1,100"
+    ],
+    "late_history_seen": true
+  }
+}

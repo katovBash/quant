@@ -1,10 +1,11 @@
 {
   "experiment": "experiments/zigzag/confirmed-level-retest",
   "monthly_coverage": "FULL_GRID",
-  "status": "REVIEW_ONLY",
-  "paper_gate": "EXPERIMENT_REVIEW",
+  "status": "READY_FOR_FIXED_STRATEGY",
+  "paper_gate": "PAPER_CANDIDATE",
   "paper_gate_warnings": [
-    "Качество свечей выбранных акций не подтверждено"
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
   ],
   "missing_required_evidence": [],
   "validation_status": "REVIEW_ONLY",

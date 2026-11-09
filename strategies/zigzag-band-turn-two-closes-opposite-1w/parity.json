@@ -1,0 +1,76 @@
+{
+  "strategy_id": "zigzag-band-turn-two-closes-opposite-1w",
+  "variant": "bb20__two_closes__opposite",
+  "timeframe": "1W",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper next-week transition vs frozen completed-week signal series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 2972,
+  "signal_events_checked": 89,
+  "mismatches": 0,
+  "symbols": {
+    "SNGS": {
+      "week_transitions": 248,
+      "signal_events": 10,
+      "mismatches": 0
+    },
+    "NLMK": {
+      "week_transitions": 248,
+      "signal_events": 7,
+      "mismatches": 0
+    },
+    "HYDR": {
+      "week_transitions": 248,
+      "signal_events": 8,
+      "mismatches": 0
+    },
+    "PLZL": {
+      "week_transitions": 248,
+      "signal_events": 5,
+      "mismatches": 0
+    },
+    "MGNT": {
+      "week_transitions": 248,
+      "signal_events": 6,
+      "mismatches": 0
+    },
+    "MSNG": {
+      "week_transitions": 247,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "ROSN": {
+      "week_transitions": 248,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "GAZP": {
+      "week_transitions": 248,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "SELG": {
+      "week_transitions": 247,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "SPBE": {
+      "week_transitions": 247,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "SFIN": {
+      "week_transitions": 247,
+      "signal_events": 6,
+      "mismatches": 0
+    },
+    "VTBR": {
+      "week_transitions": 248,
+      "signal_events": 7,
+      "mismatches": 0
+    }
+  },
+  "mismatch_examples": [],
+  "note": "A week is finalized only when the first completed daily candle of the next ISO week is observed, so Saturday sessions are included. The paper order is backdated to that day's opening price on replay."
+}

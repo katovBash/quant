@@ -1,0 +1,72 @@
+//@version=6
+// Band-ZigZag leg-ratio and stale-extreme experiment; mirrors stall_signals.py.
+// Review only. The imported Trendoscope sticky/adaptive ta library is not reproduced.
+// Observe on 1H, 4H, 1D or 1W. Orders fill at next bar open.
+strategy("Band-ZigZag · leg threshold + extreme stall · review", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false, max_lines_count=500)
+
+ratioCode = input.string("r100", "Leg length", options=["r0", "r100", "r150"])
+stallBars = input.int(2, "Bars without new extreme", minval=1, maxval=3)
+confirmation = input.string("close", "Reversal", options=["close", "break"])
+showBands = input.bool(false, "Show Bollinger bands")
+chartOk = (timeframe.isintraday and timeframe.multiplier == 60 or
+     timeframe.isintraday and timeframe.multiplier == 240 or
+     timeframe.isdaily and timeframe.multiplier == 1 or
+     timeframe.isweekly and timeframe.multiplier == 1)
+
+middle = ta.sma(close, 20)
+deviation = ta.stdev(close, 20, true)
+upper = middle + 2.0 * deviation
+lower = middle - 2.0 * deviation
+highTouch = not na(upper) and high >= upper
+lowTouch = not na(lower) and low <= lower
+threshold = ratioCode == "r0" ? 0.0 : ratioCode == "r100" ? 1.0 : 1.5
+
+var int pivotSide = 0
+var int pivotBar = na
+var int priorBar = na
+var float pivotPrice = na
+var float priorPrice = na
+var float priorPriorPrice = na
+var int usedPivotBar = na
+var array<line> zigzagLines = array.new_line()
+
+if chartOk and barstate.isconfirmed
+    if highTouch != lowTouch
+        newSide = highTouch ? 1 : -1
+        newPrice = highTouch ? high : low
+        if newSide != pivotSide
+            priorBar := pivotBar
+            priorPriorPrice := priorPrice
+            priorPrice := pivotSide == 0 ? na : pivotPrice
+            pivotSide := newSide
+            pivotBar := bar_index
+            pivotPrice := newPrice
+            if not na(priorPrice)
+                array.push(zigzagLines, line.new(priorBar, priorPrice, pivotBar, pivotPrice,
+                     color=newSide == 1 ? color.red : color.aqua, width=2))
+        else if (newSide == 1 and newPrice > pivotPrice) or (newSide == -1 and newPrice < pivotPrice)
+            pivotBar := bar_index
+            pivotPrice := newPrice
+            if array.size(zigzagLines) > 0
+                line.set_xy2(array.get(zigzagLines, array.size(zigzagLines) - 1), pivotBar, pivotPrice)
+        if array.size(zigzagLines) > 450
+            line.delete(array.shift(zigzagLines))
+    denominator = not na(priorPrice) and not na(priorPriorPrice) ? math.abs(priorPrice - priorPriorPrice) : na
+    legRatio = not na(denominator) and denominator > 0 ? math.abs(pivotPrice - priorPrice) / denominator : 0.0
+    ageOk = not na(pivotBar) and bar_index - pivotBar == stallBars
+    longOk = confirmation == "close" ? close > open and close > close[1] : close > high[1]
+    shortOk = confirmation == "close" ? close < open and close < close[1] : close < low[1]
+    if ageOk and legRatio >= threshold and (na(usedPivotBar) or usedPivotBar != pivotBar)
+        if pivotSide == -1 and longOk
+            strategy.entry("Long", strategy.long)
+            usedPivotBar := pivotBar
+        else if pivotSide == 1 and shortOk
+            strategy.entry("Short", strategy.short)
+            usedPivotBar := pivotBar
+
+plot(showBands ? upper : na, "Upper", color=color.new(color.red, 70))
+plot(showBands ? lower : na, "Lower", color=color.new(color.aqua, 70))

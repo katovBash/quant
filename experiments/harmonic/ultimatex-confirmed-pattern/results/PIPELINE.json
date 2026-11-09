@@ -1,0 +1,22 @@
+{
+  "experiment": "experiments/harmonic/ultimatex-confirmed-pattern",
+  "stage": "REVIEW_REQUIRED",
+  "run_mode": "full_run",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_REVIEW",
+  "warnings": [
+    "Не выбраны одно правило и прошедшие акции"
+  ],
+  "review": "experiments/harmonic/ultimatex-confirmed-pattern/results/paper_review.json",
+  "rule": {
+    "timeframe": "1H",
+    "variant": "bat_w5_detect_time20",
+    "symbols": 249,
+    "median_train_positive_share_pct": 0.0,
+    "median_train_mean_month_return_pct": 0.0,
+    "median_train_worst_month_pnl_rub": 0.0,
+    "median_late_positive_share_pct": 0.0,
+    "median_late_mean_month_return_pct": 0.0
+  },
+  "stocks": []
+}

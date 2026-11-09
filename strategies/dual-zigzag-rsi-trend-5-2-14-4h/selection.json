@@ -1,0 +1,69 @@
+{
+  "id": "dual-zigzag-rsi-trend-5-2-14-4h",
+  "timeframe": "4H",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/dual-zigzag/price-oscillator-swings/results/paper_review.json",
+  "variant": "dual_5_2_14_trend-opp",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/dual-zigzag/price-oscillator-swings/results/all_variants.csv",
+      "monthly_csv": "experiments/dual-zigzag/price-oscillator-swings/results/monthly_returns.csv",
+      "variant": "dual_5_2_14_trend-opp",
+      "timeframe": "4H"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "RAGR",
+      "net_return_pct": 32.65,
+      "closed_trades": 28,
+      "train_positive_share_pct": 63.64,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "ALRS",
+      "net_return_pct": 25.81,
+      "closed_trades": 43,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "MTLR",
+      "net_return_pct": 21.15,
+      "closed_trades": 43,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "PLZL",
+      "net_return_pct": 13.79,
+      "closed_trades": 47,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 56.06,
+      "closed_trades": 32,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 49.24,
+      "closed_trades": 35,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "NLMK",
+      "net_return_pct": 15.71,
+      "closed_trades": 41,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 77.78
+    }
+  ]
+}

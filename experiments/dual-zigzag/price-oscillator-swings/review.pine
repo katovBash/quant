@@ -1,0 +1,34 @@
+//@version=6
+indicator("Dual ZigZag causal swing review (research)", overlay=true, max_labels_count=500)
+
+// Review aid for the frozen grid. This is not the author's script and is not
+// signal/trade parity with Python. Pivot markers appear on the confirmation
+// bar; no offset back to the historical extremum is used for decisions.
+priceWing = input.int(3, "Price/oscillator wing", options=[3, 5])
+priceDeviation = input.float(2.0, "Price reversal %", options=[2.0, 4.0])
+rsiLength = input.int(14, "RSI length", options=[7, 14])
+showOsc = input.bool(true, "Show confirmed RSI turns")
+
+r = ta.rsi(close, rsiLength)
+ph = ta.pivothigh(high, priceWing, priceWing)
+pl = ta.pivotlow(low, priceWing, priceWing)
+oh = ta.pivothigh(r, priceWing, priceWing)
+ol = ta.pivotlow(r, priceWing, priceWing)
+
+var float lastHigh = na
+var float lastLow = na
+var int lastPriceSide = 0
+if barstate.isconfirmed
+    if not na(ph) and (lastPriceSide == 0 or lastPriceSide == 1 and ph > lastHigh or lastPriceSide == -1 and math.abs(ph / lastLow - 1) * 100 >= priceDeviation)
+        lastHigh := ph
+        lastPriceSide := 1
+    if not na(pl) and (lastPriceSide == 0 or lastPriceSide == -1 and pl < lastLow or lastPriceSide == 1 and math.abs(pl / lastHigh - 1) * 100 >= priceDeviation)
+        lastLow := pl
+        lastPriceSide := -1
+
+plot(lastHigh, "Last confirmed high", color=color.orange, style=plot.style_stepline)
+plot(lastLow, "Last confirmed low", color=color.aqua, style=plot.style_stepline)
+plotshape(not na(ph), "Confirmed price high", shape.triangledown, location.abovebar, color.orange, size=size.tiny)
+plotshape(not na(pl), "Confirmed price low", shape.triangleup, location.belowbar, color.aqua, size=size.tiny)
+plotshape(showOsc and not na(oh), "Confirmed RSI high", shape.circle, location.abovebar, color.fuchsia, size=size.tiny)
+plotshape(showOsc and not na(ol), "Confirmed RSI low", shape.circle, location.belowbar, color.lime, size=size.tiny)

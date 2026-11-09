@@ -1,0 +1,50 @@
+{
+  "strategy_id": "dual-zigzag-rsi-trend-5-2-14-4h",
+  "variant": "dual_5_2_14_trend-opp",
+  "timeframe": "4H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "latest 200 completed 4H prefixes per selected stock versus frozen full-series signals",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1400,
+  "signal_events_checked": 43,
+  "mismatches": 0,
+  "symbols": {
+    "RAGR": {
+      "bars_checked": 200,
+      "signal_events": 7,
+      "mismatches": 0
+    },
+    "ALRS": {
+      "bars_checked": 200,
+      "signal_events": 9,
+      "mismatches": 0
+    },
+    "MTLR": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "PLZL": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "SFIN": {
+      "bars_checked": 200,
+      "signal_events": 4,
+      "mismatches": 0
+    },
+    "WUSH": {
+      "bars_checked": 200,
+      "signal_events": 6,
+      "mismatches": 0
+    },
+    "NLMK": {
+      "bars_checked": 200,
+      "signal_events": 9,
+      "mismatches": 0
+    }
+  },
+  "mismatch_examples": []
+}

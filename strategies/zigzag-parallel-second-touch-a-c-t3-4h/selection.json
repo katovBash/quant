@@ -1,0 +1,27 @@
+{
+  "id": "zigzag-parallel-second-touch-a-c-t3-4h",
+  "timeframe": "4H",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/zigzag/parallel-channel-second-touch/results/paper_review.json",
+  "variant": "pc_a_c_t3",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/zigzag/parallel-channel-second-touch/results/all_variants.csv",
+      "monthly_csv": "experiments/zigzag/parallel-channel-second-touch/results/monthly_returns.csv",
+      "variant": "pc_a_c_t3",
+      "timeframe": "4H"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 8.43,
+      "closed_trades": 118,
+      "train_positive_share_pct": 37.5,
+      "late_positive_share_pct": 44.44
+    }
+  ]
+}

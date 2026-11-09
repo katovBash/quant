@@ -1,31 +1,13 @@
 {
   "experiment": "experiments/single-indicator/connors-turtle-soup",
-  "stage": "REVIEW_REQUIRED",
-  "experiment_gate": "EXPERIMENT_REVIEW",
+  "stage": "CLOSED_RESEARCH",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "EXPERIMENT_CLOSED",
   "warnings": [
-    "Качество свечей выбранных акций не подтверждено"
+    "Все 24 проверенные настройки дали 0 ликвидных акций с доходностью выше 10% за последние 12 полных месяцев после модельных расходов. Текущий эксперимент закрыт для paper trading."
   ],
   "review": "experiments/single-indicator/connors-turtle-soup/results/paper_review.json",
-  "rule": {
-    "timeframe": "4H",
-    "variant": "soup_20_5_6",
-    "symbols": 249,
-    "median_train_positive_share_pct": 37.5,
-    "median_train_mean_month_return_pct": -0.16,
-    "median_train_worst_month_pnl_rub": -23223.16,
-    "median_late_positive_share_pct": 33.33,
-    "median_late_mean_month_return_pct": -0.32
-  },
-  "stocks": [
-    "OZON",
-    "NMTP",
-    "AFLT",
-    "VTBR",
-    "SPBE",
-    "RUAL",
-    "CBOM",
-    "SMLT",
-    "NLMK",
-    "SVCB"
-  ]
+  "rule": null,
+  "stocks": []
 }

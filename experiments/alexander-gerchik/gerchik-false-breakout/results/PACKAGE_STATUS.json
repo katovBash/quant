@@ -1,21 +1,21 @@
 {
   "experiment": "experiments/alexander-gerchik/gerchik-false-breakout",
   "monthly_coverage": "FULL_GRID",
-  "status": "READY_FOR_FIXED_STRATEGY",
-  "paper_gate": "PAPER_CANDIDATE",
+  "status": "CLOSED",
+  "paper_gate": "EXPERIMENT_CLOSED",
   "paper_gate_warnings": [
-    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
-    "В исходной вселенной есть календарные пропуски"
+    "Все 4 проверенные настройки дали 0 ликвидных акций с доходностью выше 10% за последние 12 полных месяцев после модельных расходов. Текущий эксперимент закрыт для paper trading."
   ],
   "missing_required_evidence": [],
   "validation_status": "REVIEW_ONLY",
-  "paper_review_status": "REVIEW_ONLY",
+  "paper_review_status": "CLOSED",
   "pine": "AVAILABLE_FOR_REVIEW",
   "files": {
     "manifest.json": "experiments/alexander-gerchik/gerchik-false-breakout/results/manifest.json",
     "validation.json": "experiments/alexander-gerchik/gerchik-false-breakout/results/validation.json",
     "REPORT.md": "experiments/alexander-gerchik/gerchik-false-breakout/results/REPORT.md",
     "PAPER_REVIEW.md": "experiments/alexander-gerchik/gerchik-false-breakout/results/PAPER_REVIEW.md",
-    "PINE_STATUS.json": "experiments/alexander-gerchik/gerchik-false-breakout/results/PINE_STATUS.json"
+    "PINE_STATUS.json": "experiments/alexander-gerchik/gerchik-false-breakout/results/PINE_STATUS.json",
+    "trade_side_summary.csv": "experiments/alexander-gerchik/gerchik-false-breakout/results/trade_side_summary.csv"
   }
 }

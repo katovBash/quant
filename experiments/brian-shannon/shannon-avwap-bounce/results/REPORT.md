@@ -25,6 +25,8 @@
 
 ## Примеры для ручного разбора
 
+Это **примеры отдельных пар**, а не прошедшая отбор стратегия. Для paper trading требуется одна общая настройка и хотя бы одна акция, прошедшая порог на последних полных 12 месяцах; результат проверки **всех** настроек приведён в [PAPER_REVIEW.md](PAPER_REVIEW.md) и `paper_review.json → rule_screening`.
+
 Сортировка: число прибыльных месяцев, затем худший месячный PnL. Соседние настройки и контроль нужно сравнить перед выводом.
 
 | Акция · интервал · вариант | Плюс / все месяцы | Средний месяц | Средний прибыльный / убыточный месяц | Худший месяц | Последний календарный год / YTD | Контроль: плюс / месяцы |
@@ -141,28 +143,29 @@
 
 Доля удачных сделок считается **только по закрытым сделкам**. Доходность включает переоценку открытой позиции и потому не выводится из этой доли. Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.
 
-| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Плюсовые месяцы | Вывод |
-|---|---|---:|---:|---:|---|
-| OZON · 1D · `shannon-avwap-bounce_40` | long_only | 11/32 · 34.4% | 0 · — | 16/33 | diagnostic_only; selected examples, not whole grid |
-| OZON · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| LENT · 1D · `shannon-avwap-bounce_40` | long_only | 10/42 · 23.8% | 0 · — | 16/33 | diagnostic_only; selected examples, not whole grid |
-| LENT · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| MTSS · 1D · `shannon-avwap-bounce_40` | long_only | 10/43 · 23.3% | 0 · — | 17/33 | diagnostic_only; selected examples, not whole grid |
-| MTSS · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `shannon-avwap-bounce_40` | long_only | 16/44 · 36.4% | 0 · — | 17/33 | diagnostic_only; selected examples, not whole grid |
-| MDMG · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| BSPB · 1D · `shannon-avwap-bounce_40` | long_only | 9/46 · 19.6% | 0 · — | 15/33 | diagnostic_only; selected examples, not whole grid |
-| BSPB · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| PLZL · 1D · `shannon-avwap-bounce_40` | long_only | 13/39 · 33.3% | 0 · — | 16/33 | diagnostic_only; selected examples, not whole grid |
-| PLZL · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| AFLT · 1D · `shannon-avwap-bounce_40` | long_only | 8/40 · 20.0% | 0 · — | 13/33 | diagnostic_only; selected examples, not whole grid |
-| AFLT · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| ENPG · 1D · `shannon-avwap-bounce_40` | long_only | 13/55 · 23.6% | 0 · — | 14/33 | diagnostic_only; selected examples, not whole grid |
-| ENPG · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| TATN · 1D · `shannon-avwap-bounce_40` | long_only | 15/42 · 35.7% | 0 · — | 17/33 | diagnostic_only; selected examples, not whole grid |
-| TATN · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
-| FEES · 1D · `shannon-avwap-bounce_40` | long_only | 16/56 · 28.6% | 0 · — | 16/33 | diagnostic_only; selected examples, not whole grid |
-| FEES · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | 0/33 | diagnostic_only; selected examples, not whole grid |
+
+| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Доходность всего периода | Плюсовые месяцы | Вывод |
+|---|---|---:|---:|---:|---:|---|
+| OZON · 1D · `shannon-avwap-bounce_40` | long_only | 11/32 · 34.4% | 0 · — | +40.77% | 16/33 | diagnostic_only; selected examples, not whole grid |
+| OZON · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| LENT · 1D · `shannon-avwap-bounce_40` | long_only | 10/42 · 23.8% | 0 · — | +23.89% | 16/33 | diagnostic_only; selected examples, not whole grid |
+| LENT · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| MTSS · 1D · `shannon-avwap-bounce_40` | long_only | 10/43 · 23.3% | 0 · — | +12.27% | 17/33 | diagnostic_only; selected examples, not whole grid |
+| MTSS · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `shannon-avwap-bounce_40` | long_only | 16/44 · 36.4% | 0 · — | +12.75% | 17/33 | diagnostic_only; selected examples, not whole grid |
+| MDMG · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| BSPB · 1D · `shannon-avwap-bounce_40` | long_only | 9/46 · 19.6% | 0 · — | +3.57% | 15/33 | diagnostic_only; selected examples, not whole grid |
+| BSPB · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| PLZL · 1D · `shannon-avwap-bounce_40` | long_only | 13/39 · 33.3% | 0 · — | +17.73% | 16/33 | diagnostic_only; selected examples, not whole grid |
+| PLZL · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| AFLT · 1D · `shannon-avwap-bounce_40` | long_only | 8/40 · 20.0% | 0 · — | +3.78% | 13/33 | diagnostic_only; selected examples, not whole grid |
+| AFLT · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| ENPG · 1D · `shannon-avwap-bounce_40` | long_only | 13/55 · 23.6% | 0 · — | -0.84% | 14/33 | diagnostic_only; selected examples, not whole grid |
+| ENPG · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| TATN · 1D · `shannon-avwap-bounce_40` | long_only | 15/42 · 35.7% | 0 · — | +15.79% | 17/33 | diagnostic_only; selected examples, not whole grid |
+| TATN · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
+| FEES · 1D · `shannon-avwap-bounce_40` | long_only | 16/56 · 28.6% | 0 · — | +1.24% | 16/33 | diagnostic_only; selected examples, not whole grid |
+| FEES · 1D · `shannon-avwap-bounce_40` | short_only | 0 · — | 0 · — | +0.00% | 0/33 | diagnostic_only; selected examples, not whole grid |
 
 [Все результаты по направлениям](trade_side_summary.csv). Если капитал уходит ниже нуля, вариант недопустим независимо от процента успешных сделок.
 

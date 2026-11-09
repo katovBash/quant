@@ -1,0 +1,131 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "band-stall-thresholds",
+  "method_id": "zigzag-band-stall-thresholds",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "hypothesis": "An observable ZigZag leg length reaching 100% or 150% of the preceding leg, followed by one to three bars without a new extreme, may improve reversal entry timing across 1H, 4H, 1D and 1W.",
+  "research_provenance": {
+    "source": "User supplied Trendoscope Band-Zigzag Pine plus chart 2026-11-08",
+    "type": "formula-based adaptation",
+    "note": "Source label first percentage is |current pivot - prior pivot| / |prior pivot - pivot before|. Second percentage is normalized location outside adaptive band, not a 100% return target and is at least 100% at a band touch. Imported sticky/adaptive band internals are not reproduced here."
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1H",
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H",
+    "1D",
+    "1W"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "ratio": {
+        "values": [
+          "r0",
+          "r100",
+          "r150"
+        ]
+      },
+      "stall": {
+        "values": [
+          "s1",
+          "s2",
+          "s3"
+        ]
+      },
+      "confirmation": {
+        "values": [
+          "close",
+          "break"
+        ]
+      }
+    },
+    "variant_template": "bb20__{ratio}__{stall}__{confirmation}",
+    "include_baseline": true,
+    "max_combinations": 18
+  },
+  "expected_variants": [
+    "baseline",
+    "bb20__r0__s1__close",
+    "bb20__r0__s1__break",
+    "bb20__r0__s2__close",
+    "bb20__r0__s2__break",
+    "bb20__r0__s3__close",
+    "bb20__r0__s3__break",
+    "bb20__r100__s1__close",
+    "bb20__r100__s1__break",
+    "bb20__r100__s2__close",
+    "bb20__r100__s2__break",
+    "bb20__r100__s3__close",
+    "bb20__r100__s3__break",
+    "bb20__r150__s1__close",
+    "bb20__r150__s1__break",
+    "bb20__r150__s2__close",
+    "bb20__r150__s2__break",
+    "bb20__r150__s3__close",
+    "bb20__r150__s3__break"
+  ],
+  "promotion_variant_prefixes": [
+    "bb20__"
+  ],
+  "parameter_rationale": "Compare no leg-length gate against 100% and 150%; wait 1, 2, 3 completed bars without a new band extreme; require reverse candle close or prior-bar extreme break. Band length20/multiplier2 and exit on opposite entry fixed to isolate entry timing.",
+  "min_bars": 100,
+  "baseline": "25%-capital buy-and-hold control on each same-stock timeframe; r0/s1/close is the unfiltered first-pause control.",
+  "signal_rule": "Completed bars compute SMA20(close) ± 2 population standard deviations. High/low band touch creates or replaces the latest provisional ZigZag extreme; a candle touching both is ignored. Its first label percentage is the current leg price length divided by the preceding leg length; the second label percentB is not used because a band touch itself makes it >=100%. After the chosen exact number of completed bars without a new extreme, if the leg-ratio threshold is met and the candle reverses or breaks the previous bar extreme, create one signal per pivot. Long follows a low, short follows a high. Fill at next bar open; exit only by an opposite signal, also at next open. No future pivot confirmation or backdating.",
+  "signal_semantics": "Causal post-band-extreme stall; threshold refers to ZigZag leg-length ratio, not price return.",
+  "evaluation_unit": "Independent 1m RUB virtual account per symbol; this is not a combined portfolio.",
+  "execution_timing": "Observe a completed signal candle on the declared timeframe; enter at the next available bar open.",
+  "holding_period": "Until opposite entry signal; no fixed profit target or stop in this entry-timing comparison.",
+  "rebalance_rule": "No intrabar rebalance; at most one position per account.",
+  "required_data": [
+    "1H OHLCV",
+    "4H OHLCV from 60-minute bars",
+    "1D OHLCV",
+    "1W OHLCV from completed daily bars"
+  ],
+  "availability_lag": "Current bar close; a provisional pivot can be revised only by information available at later closes.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Compare predeclared 18 variants and the buy-and-hold control across all available symbols and timeframes. Report each full calendar month and latest complete 12 months. Do not promote from this research until source-band and Pine/Python signal parity, corporate events and independent holdout are verified.",
+  "research_family": {
+    "related_runs": [
+      "experiments/zigzag/weekly-band-turn-interactions"
+    ],
+    "tested_variants_in_this_run": 18,
+    "earlier_history_seen": true,
+    "late_history_seen": true,
+    "untested_dependencies": [
+      "Exact Trendoscope sticky/adaptive imported implementation",
+      "Alternative fixed target and stop exits",
+      "Independent post-2026-10-30 holdout"
+    ]
+  },
+  "run_command": "python3 -m pipeline.run experiments/zigzag/band-stall-thresholds",
+  "limitations": [
+    "The source script label percentage is a leg-length ratio, not a return percentage",
+    "A provisional pivot may be replaced; historical line appearance is not the real-time signal time",
+    "The Band-ZigZag implementation uses explicit non-sticky Bollinger bands rather than the imported source library",
+    "Corporate actions and short borrowing incomplete"
+  ]
+}

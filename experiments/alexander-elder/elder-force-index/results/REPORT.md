@@ -23,6 +23,8 @@
 
 ## Примеры для ручного разбора
 
+Это **примеры отдельных пар**, а не прошедшая отбор стратегия. Для paper trading требуется одна общая настройка и хотя бы одна акция, прошедшая порог на последних полных 12 месяцах; результат проверки **всех** настроек приведён в [PAPER_REVIEW.md](PAPER_REVIEW.md) и `paper_review.json → rule_screening`.
+
 Сортировка: число прибыльных месяцев, затем худший месячный PnL. Соседние настройки и контроль нужно сравнить перед выводом.
 
 | Акция · интервал · вариант | Плюс / все месяцы | Средний месяц | Средний прибыльный / убыточный месяц | Худший месяц | Последний календарный год / YTD | Контроль: плюс / месяцы |
@@ -139,28 +141,29 @@
 
 Доля удачных сделок считается **только по закрытым сделкам**. Доходность включает переоценку открытой позиции и потому не выводится из этой доли. Сравнение направлений проведено на уже просмотренной истории; это гипотеза для отдельной проверки.
 
-| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Плюсовые месяцы | Вывод |
-|---|---|---:|---:|---:|---|
-| WUSH · 1D · `elder-force-index_2` | long_only | 13/39 · 33.3% | 0 · — | 6/33 | diagnostic_only; selected examples, not whole grid |
-| WUSH · 1D · `elder-force-index_2` | short_only | 0 · — | 40/84 · 47.6% | 19/33 | diagnostic_only; selected examples, not whole grid |
-| POSI · 1D · `elder-force-index_2` | long_only | 22/51 · 43.1% | 0 · — | 7/33 | diagnostic_only; selected examples, not whole grid |
-| POSI · 1D · `elder-force-index_2` | short_only | 0 · — | 30/73 · 41.1% | 13/33 | diagnostic_only; selected examples, not whole grid |
-| BELU · 1D · `elder-force-index_2` | long_only | 11/45 · 24.4% | 0 · — | 8/33 | diagnostic_only; selected examples, not whole grid |
-| BELU · 1D · `elder-force-index_2` | short_only | 0 · — | 33/90 · 36.7% | 16/33 | diagnostic_only; selected examples, not whole grid |
-| FEES · 1D · `elder-force-index_2` | long_only | 16/55 · 29.1% | 0 · — | 6/33 | diagnostic_only; selected examples, not whole grid |
-| FEES · 1D · `elder-force-index_2` | short_only | 0 · — | 36/83 · 43.4% | 14/33 | diagnostic_only; selected examples, not whole grid |
-| VSEH · 1D · `elder-force-index_2` | long_only | 16/32 · 50.0% | 0 · — | 8/33 | diagnostic_only; selected examples, not whole grid |
-| VSEH · 1D · `elder-force-index_2` | short_only | 0 · — | 20/51 · 39.2% | 12/33 | diagnostic_only; selected examples, not whole grid |
-| MTLR · 1D · `elder-force-index_2` | long_only | 12/42 · 28.6% | 0 · — | 4/33 | diagnostic_only; selected examples, not whole grid |
-| MTLR · 1D · `elder-force-index_2` | short_only | 0 · — | 38/93 · 40.9% | 16/33 | diagnostic_only; selected examples, not whole grid |
-| ASTR · 1D · `elder-force-index_2` | long_only | 14/44 · 31.8% | 0 · — | 7/33 | diagnostic_only; selected examples, not whole grid |
-| ASTR · 1D · `elder-force-index_2` | short_only | 0 · — | 32/73 · 43.8% | 13/33 | diagnostic_only; selected examples, not whole grid |
-| BSPB · 1D · `elder-force-index_2` | long_only | 28/78 · 35.9% | 0 · — | 12/33 | diagnostic_only; selected examples, not whole grid |
-| BSPB · 1D · `elder-force-index_2` | short_only | 0 · — | 19/59 · 32.2% | 7/33 | diagnostic_only; selected examples, not whole grid |
-| BANEP · 1D · `elder-force-index_2` | long_only | 16/55 · 29.1% | 0 · — | 6/33 | diagnostic_only; selected examples, not whole grid |
-| BANEP · 1D · `elder-force-index_2` | short_only | 0 · — | 29/74 · 39.2% | 12/33 | diagnostic_only; selected examples, not whole grid |
-| UNAC · 1D · `elder-force-index_2` | long_only | 6/36 · 16.7% | 0 · — | 2/33 | diagnostic_only; selected examples, not whole grid |
-| UNAC · 1D · `elder-force-index_2` | short_only | 0 · — | 33/76 · 43.4% | 18/33 | diagnostic_only; selected examples, not whole grid |
+
+| Акция · интервал · вариант | Режим | Закрыто long / выигрыш | Закрыто short / выигрыш | Доходность всего периода | Плюсовые месяцы | Вывод |
+|---|---|---:|---:|---:|---:|---|
+| WUSH · 1D · `elder-force-index_2` | long_only | 13/39 · 33.3% | 0 · — | +0.90% | 6/33 | diagnostic_only; selected examples, not whole grid |
+| WUSH · 1D · `elder-force-index_2` | short_only | 0 · — | 40/84 · 47.6% | +45.00% | 19/33 | diagnostic_only; selected examples, not whole grid |
+| POSI · 1D · `elder-force-index_2` | long_only | 22/51 · 43.1% | 0 · — | +1.36% | 7/33 | diagnostic_only; selected examples, not whole grid |
+| POSI · 1D · `elder-force-index_2` | short_only | 0 · — | 30/73 · 41.1% | +18.27% | 13/33 | diagnostic_only; selected examples, not whole grid |
+| BELU · 1D · `elder-force-index_2` | long_only | 11/45 · 24.4% | 0 · — | -3.81% | 8/33 | diagnostic_only; selected examples, not whole grid |
+| BELU · 1D · `elder-force-index_2` | short_only | 0 · — | 33/90 · 36.7% | +29.96% | 16/33 | diagnostic_only; selected examples, not whole grid |
+| FEES · 1D · `elder-force-index_2` | long_only | 16/55 · 29.1% | 0 · — | -2.27% | 6/33 | diagnostic_only; selected examples, not whole grid |
+| FEES · 1D · `elder-force-index_2` | short_only | 0 · — | 36/83 · 43.4% | +7.16% | 14/33 | diagnostic_only; selected examples, not whole grid |
+| VSEH · 1D · `elder-force-index_2` | long_only | 16/32 · 50.0% | 0 · — | +6.31% | 8/33 | diagnostic_only; selected examples, not whole grid |
+| VSEH · 1D · `elder-force-index_2` | short_only | 0 · — | 20/51 · 39.2% | +15.78% | 12/33 | diagnostic_only; selected examples, not whole grid |
+| MTLR · 1D · `elder-force-index_2` | long_only | 12/42 · 28.6% | 0 · — | -3.76% | 4/33 | diagnostic_only; selected examples, not whole grid |
+| MTLR · 1D · `elder-force-index_2` | short_only | 0 · — | 38/93 · 40.9% | +30.25% | 16/33 | diagnostic_only; selected examples, not whole grid |
+| ASTR · 1D · `elder-force-index_2` | long_only | 14/44 · 31.8% | 0 · — | -0.18% | 7/33 | diagnostic_only; selected examples, not whole grid |
+| ASTR · 1D · `elder-force-index_2` | short_only | 0 · — | 32/73 · 43.8% | +13.01% | 13/33 | diagnostic_only; selected examples, not whole grid |
+| BSPB · 1D · `elder-force-index_2` | long_only | 28/78 · 35.9% | 0 · — | -1.72% | 12/33 | diagnostic_only; selected examples, not whole grid |
+| BSPB · 1D · `elder-force-index_2` | short_only | 0 · — | 19/59 · 32.2% | -2.06% | 7/33 | diagnostic_only; selected examples, not whole grid |
+| BANEP · 1D · `elder-force-index_2` | long_only | 16/55 · 29.1% | 0 · — | -4.02% | 6/33 | diagnostic_only; selected examples, not whole grid |
+| BANEP · 1D · `elder-force-index_2` | short_only | 0 · — | 29/74 · 39.2% | +9.24% | 12/33 | diagnostic_only; selected examples, not whole grid |
+| UNAC · 1D · `elder-force-index_2` | long_only | 6/36 · 16.7% | 0 · — | -12.58% | 2/33 | diagnostic_only; selected examples, not whole grid |
+| UNAC · 1D · `elder-force-index_2` | short_only | 0 · — | 33/76 · 43.4% | +41.72% | 18/33 | diagnostic_only; selected examples, not whole grid |
 
 [Все результаты по направлениям](trade_side_summary.csv). Если капитал уходит ниже нуля, вариант недопустим независимо от процента успешных сделок.
 

@@ -1,0 +1,327 @@
+{
+  "indicator_id": "zigzag",
+  "run_id": "bend-entry-multitimeframe",
+  "method_id": "zigzag-bend-entry",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "hypothesis": "A band-extreme rejection at delay 0, or a reversal confirmation at every integer delay from 1 to 20 completed bars without a new extreme, may identify causal ZigZag bends across intraday and daily intervals. Leg ratio and wick are factorial filters.",
+  "research_provenance": {
+    "source": "User chart and requested 1D/4H/subday bend entries 2026-11-08",
+    "type": "mechanical Band-ZigZag adaptation",
+    "note": "Original imported Trendoscope sticky/adaptive bands cannot be exactly reproduced; use explicit BB20 population standard deviation. No visual retrospective pivot is treated as a tradable past signal."
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D",
+      "1H"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "15M",
+    "30M",
+    "1H",
+    "4H",
+    "1D"
+  ],
+  "entry_design": {
+    "mechanisms": [
+      {"id": "same", "description": "Band touch and rejection body on the same completed candle", "delay_bars": [0]},
+      {"id": "close", "description": "Opposite body and close versus the previous completed candle", "delay_bars": {"start": 1, "stop": 20, "step": 1}},
+      {"id": "break", "description": "Close beyond the previous candle low/high", "delay_bars": {"start": 1, "stop": 20, "step": 1}}
+    ],
+    "direction": "Long after a lower-band bend; short after an upper-band bend",
+    "decision_time": "At signal candle close; execution at next candle open",
+    "common_exit_rule": "Reverse on the next qualifying opposite entry",
+    "source_availability": {"15M": "SOURCE_MISSING", "30M": "SOURCE_MISSING", "1H": "CALCULATED", "4H": "CALCULATED", "1D": "CALCULATED"},
+    "not_applicable": []
+  },
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "trigger": {
+            "values": [
+              "same"
+            ]
+          },
+          "delay": {
+            "values": [
+              0
+            ]
+          },
+          "ratio": {
+            "values": [
+              "r0",
+              "r100"
+            ]
+          },
+          "wick": {
+            "values": [
+              "w0",
+              "w50"
+            ]
+          }
+        },
+        "variant_template": "bend__{trigger}__d{delay}__{ratio}__{wick}",
+        "max_combinations": 4
+      },
+      {
+        "axes": {
+          "trigger": {
+            "values": [
+              "close",
+              "break"
+            ]
+          },
+          "delay": {
+            "start": 1,
+            "stop": 20,
+            "step": 1
+          },
+          "ratio": {
+            "values": [
+              "r0",
+              "r100"
+            ]
+          },
+          "wick": {
+            "values": [
+              "w0",
+              "w50"
+            ]
+          }
+        },
+        "variant_template": "bend__{trigger}__d{delay}__{ratio}__{wick}",
+        "max_combinations": 160
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 164
+  },
+  "expected_variants": [
+    "baseline",
+    "bend__same__d0__r0__w0",
+    "bend__same__d0__r0__w50",
+    "bend__same__d0__r100__w0",
+    "bend__same__d0__r100__w50",
+    "bend__close__d1__r0__w0",
+    "bend__close__d1__r0__w50",
+    "bend__close__d1__r100__w0",
+    "bend__close__d1__r100__w50",
+    "bend__close__d2__r0__w0",
+    "bend__close__d2__r0__w50",
+    "bend__close__d2__r100__w0",
+    "bend__close__d2__r100__w50",
+    "bend__close__d3__r0__w0",
+    "bend__close__d3__r0__w50",
+    "bend__close__d3__r100__w0",
+    "bend__close__d3__r100__w50",
+    "bend__close__d4__r0__w0",
+    "bend__close__d4__r0__w50",
+    "bend__close__d4__r100__w0",
+    "bend__close__d4__r100__w50",
+    "bend__close__d5__r0__w0",
+    "bend__close__d5__r0__w50",
+    "bend__close__d5__r100__w0",
+    "bend__close__d5__r100__w50",
+    "bend__close__d6__r0__w0",
+    "bend__close__d6__r0__w50",
+    "bend__close__d6__r100__w0",
+    "bend__close__d6__r100__w50",
+    "bend__close__d7__r0__w0",
+    "bend__close__d7__r0__w50",
+    "bend__close__d7__r100__w0",
+    "bend__close__d7__r100__w50",
+    "bend__close__d8__r0__w0",
+    "bend__close__d8__r0__w50",
+    "bend__close__d8__r100__w0",
+    "bend__close__d8__r100__w50",
+    "bend__close__d9__r0__w0",
+    "bend__close__d9__r0__w50",
+    "bend__close__d9__r100__w0",
+    "bend__close__d9__r100__w50",
+    "bend__close__d10__r0__w0",
+    "bend__close__d10__r0__w50",
+    "bend__close__d10__r100__w0",
+    "bend__close__d10__r100__w50",
+    "bend__close__d11__r0__w0",
+    "bend__close__d11__r0__w50",
+    "bend__close__d11__r100__w0",
+    "bend__close__d11__r100__w50",
+    "bend__close__d12__r0__w0",
+    "bend__close__d12__r0__w50",
+    "bend__close__d12__r100__w0",
+    "bend__close__d12__r100__w50",
+    "bend__close__d13__r0__w0",
+    "bend__close__d13__r0__w50",
+    "bend__close__d13__r100__w0",
+    "bend__close__d13__r100__w50",
+    "bend__close__d14__r0__w0",
+    "bend__close__d14__r0__w50",
+    "bend__close__d14__r100__w0",
+    "bend__close__d14__r100__w50",
+    "bend__close__d15__r0__w0",
+    "bend__close__d15__r0__w50",
+    "bend__close__d15__r100__w0",
+    "bend__close__d15__r100__w50",
+    "bend__close__d16__r0__w0",
+    "bend__close__d16__r0__w50",
+    "bend__close__d16__r100__w0",
+    "bend__close__d16__r100__w50",
+    "bend__close__d17__r0__w0",
+    "bend__close__d17__r0__w50",
+    "bend__close__d17__r100__w0",
+    "bend__close__d17__r100__w50",
+    "bend__close__d18__r0__w0",
+    "bend__close__d18__r0__w50",
+    "bend__close__d18__r100__w0",
+    "bend__close__d18__r100__w50",
+    "bend__close__d19__r0__w0",
+    "bend__close__d19__r0__w50",
+    "bend__close__d19__r100__w0",
+    "bend__close__d19__r100__w50",
+    "bend__close__d20__r0__w0",
+    "bend__close__d20__r0__w50",
+    "bend__close__d20__r100__w0",
+    "bend__close__d20__r100__w50",
+    "bend__break__d1__r0__w0",
+    "bend__break__d1__r0__w50",
+    "bend__break__d1__r100__w0",
+    "bend__break__d1__r100__w50",
+    "bend__break__d2__r0__w0",
+    "bend__break__d2__r0__w50",
+    "bend__break__d2__r100__w0",
+    "bend__break__d2__r100__w50",
+    "bend__break__d3__r0__w0",
+    "bend__break__d3__r0__w50",
+    "bend__break__d3__r100__w0",
+    "bend__break__d3__r100__w50",
+    "bend__break__d4__r0__w0",
+    "bend__break__d4__r0__w50",
+    "bend__break__d4__r100__w0",
+    "bend__break__d4__r100__w50",
+    "bend__break__d5__r0__w0",
+    "bend__break__d5__r0__w50",
+    "bend__break__d5__r100__w0",
+    "bend__break__d5__r100__w50",
+    "bend__break__d6__r0__w0",
+    "bend__break__d6__r0__w50",
+    "bend__break__d6__r100__w0",
+    "bend__break__d6__r100__w50",
+    "bend__break__d7__r0__w0",
+    "bend__break__d7__r0__w50",
+    "bend__break__d7__r100__w0",
+    "bend__break__d7__r100__w50",
+    "bend__break__d8__r0__w0",
+    "bend__break__d8__r0__w50",
+    "bend__break__d8__r100__w0",
+    "bend__break__d8__r100__w50",
+    "bend__break__d9__r0__w0",
+    "bend__break__d9__r0__w50",
+    "bend__break__d9__r100__w0",
+    "bend__break__d9__r100__w50",
+    "bend__break__d10__r0__w0",
+    "bend__break__d10__r0__w50",
+    "bend__break__d10__r100__w0",
+    "bend__break__d10__r100__w50",
+    "bend__break__d11__r0__w0",
+    "bend__break__d11__r0__w50",
+    "bend__break__d11__r100__w0",
+    "bend__break__d11__r100__w50",
+    "bend__break__d12__r0__w0",
+    "bend__break__d12__r0__w50",
+    "bend__break__d12__r100__w0",
+    "bend__break__d12__r100__w50",
+    "bend__break__d13__r0__w0",
+    "bend__break__d13__r0__w50",
+    "bend__break__d13__r100__w0",
+    "bend__break__d13__r100__w50",
+    "bend__break__d14__r0__w0",
+    "bend__break__d14__r0__w50",
+    "bend__break__d14__r100__w0",
+    "bend__break__d14__r100__w50",
+    "bend__break__d15__r0__w0",
+    "bend__break__d15__r0__w50",
+    "bend__break__d15__r100__w0",
+    "bend__break__d15__r100__w50",
+    "bend__break__d16__r0__w0",
+    "bend__break__d16__r0__w50",
+    "bend__break__d16__r100__w0",
+    "bend__break__d16__r100__w50",
+    "bend__break__d17__r0__w0",
+    "bend__break__d17__r0__w50",
+    "bend__break__d17__r100__w0",
+    "bend__break__d17__r100__w50",
+    "bend__break__d18__r0__w0",
+    "bend__break__d18__r0__w50",
+    "bend__break__d18__r100__w0",
+    "bend__break__d18__r100__w50",
+    "bend__break__d19__r0__w0",
+    "bend__break__d19__r0__w50",
+    "bend__break__d19__r100__w0",
+    "bend__break__d19__r100__w50",
+    "bend__break__d20__r0__w0",
+    "bend__break__d20__r0__w50",
+    "bend__break__d20__r100__w0",
+    "bend__break__d20__r100__w50"
+  ],
+  "promotion_variant_prefixes": [
+    "bend__"
+  ],
+  "parameter_rationale": "Full integer delay scope 1–20 (approximately one trading month on 1D; increasingly shorter wall-clock periods below 1D), plus same-bar delay 0. Cross with both confirmation types, 0/100% prior-leg threshold and 0/50% pivot-wick threshold. All 164 combinations are declared before the full run; no sparse sampling of candle delays.",
+  "min_bars": 100,
+  "baseline": "25%-capital buy-and-hold on the same instrument/timeframe/costs; bend__close__d1__r0__w0 is the first-next-bar confirmation control.",
+  "signal_rule": "On each completed bar compute BB20 SMA(close) +/- 2 population standard deviations. A one-sided band touch creates/replaces latest provisional high/low. At delay 0, the touching candle closes back inside its band with body away from the extreme. At each exact delay 1–20 since the last new extreme, close requires an opposite-direction body and close versus previous bar; break requires close beyond previous bar low/high. Optional filters: current leg >= preceding leg, pivot wick >=50% of pivot candle range. One signal per pivot. Long after low, short after high; fill at next bar open. Opposite qualifying entry reverses. No future pivot confirmation.",
+  "signal_semantics": "Causal bend entry at completed candle close; future 3/10-bar returns and correlations are diagnostic outcomes only, never signal inputs.",
+  "evaluation_unit": "Independent 1m RUB virtual account per symbol; this is not a combined portfolio.",
+  "execution_timing": "Observe completed signal candle; fill next available candle open. No intrabar order or historical pivot-center fill.",
+  "holding_period": "Until opposite qualifying signal; no fixed target in this entry-only comparison.",
+  "rebalance_rule": "No intrabar rebalance; at most one position per account.",
+  "required_data": [
+    "1D OHLCV",
+    "1H OHLCV for 1H and 4H",
+    "1-minute OHLCV for 15M and 30M; absent in frozen snapshot"
+  ],
+  "availability_lag": "At the signal candle close; 4H uses only finished groups and subhourly bars require actual minute candles.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Compare all 164 preregistered variants across every eligible symbol and available timeframe. Analyze per-month and annual net returns and exploratory feature correlations, but do not promote due unavailable 15M/30M source, unverified original band parity and previously viewed late sample.",
+  "research_family": {
+    "related_runs": [
+      "experiments/zigzag/band-stall-thresholds",
+      "experiments/zigzag/weekly-band-turn-interactions"
+    ],
+    "tested_variants_in_this_run": 164,
+    "earlier_history_seen": true,
+    "late_history_seen": true,
+    "untested_dependencies": [
+      "Exact Trendoscope sticky/adaptive imported implementation",
+      "15M and 30M minute-candle archive",
+      "Independent post-2026-10-30 holdout",
+      "Alternative exits and stop losses"
+    ]
+  },
+  "run_command": "python3 -m pipeline.run experiments/zigzag/bend-entry-multitimeframe",
+  "limitations": [
+    "15M/30M require real minute candles and are SOURCE_MISSING in the frozen snapshot",
+    "Band formula is an explicit adaptation, not the original imported library",
+    "Feature correlations use future outcomes only for offline diagnostics and are not causal proof",
+    "Short borrow, dividends and splits are not fully modeled"
+  ]
+}

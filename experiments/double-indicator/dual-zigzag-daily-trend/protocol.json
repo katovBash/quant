@@ -1,0 +1,139 @@
+{
+  "indicator_id": "double-indicator",
+  "run_id": "dual-zigzag-daily-trend",
+  "method_id": "dual-zigzag-daily-trend",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-08",
+  "parent_experiment": "experiments/dual-zigzag/price-oscillator-swings",
+  "hypothesis": "For the frozen dual_5_2_14_trend-opp signal, rejecting long entries when the latest completed daily close is not above its daily SMA20 or SMA50 may cut more losing than winning long trades without degrading net return. Short entries remain. Short-only is an ablation. All exits use the original opposite event.",
+  "research_provenance": {
+    "source_url": "https://ru.tradingview.com/script/F8gYizEx-Dual-Zigzag-Trendoscope/",
+    "filter_reference": "https://www.tradingview.com/support/solutions/43000502589-moving-averages/",
+    "parent_experiment": "experiments/dual-zigzag/price-oscillator-swings",
+    "implementation": "new directional trend confirmation, not authored by Trendoscope"
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1H",
+      "4H"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H"
+  ],
+  "required_data": [
+    "OHLCV 60-minute signal candles",
+    "completed daily closes aggregated from the same 1H or 4H signal source",
+    "confirmed parent price and RSI pivots"
+  ],
+  "availability_lag": "Daily closes are aggregated from the same completed 1H/4H candles, but only dates strictly earlier than the signal date enter SMA; 50 earlier trading days are required. Signal after intraday close, fill next open.",
+  "signal_semantics": "Per-stock long/short signal from closed 1H or 4H bar; next open execution; no historical pivot-marker entry.",
+  "evaluation_unit": "Independent per-stock experimental account; one common parameter setting chosen by early ranking for paper review.",
+  "entry_design": {
+    "mechanisms": [
+      "unchanged parent",
+      "short-only ablation",
+      "parent long signal confirmed by prior daily close > prior daily SMA20",
+      "parent long signal confirmed by prior daily close > prior daily SMA50"
+    ],
+    "confirmation": "All price and RSI parameters fixed as parent; 20 or 50 completed daily bars",
+    "decision_time": "closed signal bar",
+    "delay_bars": [
+      0
+    ],
+    "common_exit_rule": "opposite original parent signal",
+    "not_applicable": [
+      "current incomplete day",
+      "SMA as standalone directional strategy in this test"
+    ]
+  },
+  "exit_design": {
+    "mechanisms": [
+      "unchanged original opposite parent event"
+    ],
+    "parameter_ranges": {},
+    "decision_time": "closed signal bar; next open",
+    "not_applicable": [
+      "new stop or take-profit; only entry confirmation tested"
+    ]
+  },
+  "parameter_grid": {
+    "groups": [
+      {
+        "axes": {
+          "mode": {
+            "values": [
+              "parent",
+              "short_only"
+            ]
+          }
+        },
+        "variant_template": "{mode}"
+      },
+      {
+        "axes": {
+          "length": {
+            "values": [
+              20,
+              50
+            ]
+          }
+        },
+        "variant_template": "sma_{length}"
+      }
+    ],
+    "include_baseline": true,
+    "max_combinations": 4
+  },
+  "expected_variants": [
+    "baseline",
+    "parent",
+    "short_only",
+    "sma_20",
+    "sma_50"
+  ],
+  "parameter_rationale": "SMA20 covers about a trading month and SMA50 a medium-term trend; fixed before PnL. Parent and short-only give both endpoints of long filtering.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on same stock/timeframe; `parent` reproduces frozen dual_5_2_14_trend-opp.",
+  "signal_rule": "Calculate frozen dual_5_2_14_trend-opp event. Build daily closes from the same completed signal-timeframe candles. Short events always pass. For each long event compare latest prior-date close with SMA of the prior 20 or 50 aggregated daily closes, including that prior close. Without 20/50 prior trading dates, reject the long. All opposite raw parent events remain exit signals; no current incomplete day.",
+  "execution_timing": "Decision on completed bar; fill next open; 25% of equity per position.",
+  "holding_period": "Until opposite original parent signal",
+  "rebalance_rule": "At new signal or exit only",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank all tested fixed settings on early months; screen every setting against current trailing-12m policy and user >20% research target. Do not replace or alter live accounts on this same seen history alone.",
+  "research_family": {
+    "viewed_methods": [
+      "frozen dual_5_2_14_trend-opp",
+      "prior-day SMA20",
+      "prior-day SMA50",
+      "short-only ablation"
+    ],
+    "tested_variants": 4,
+    "late_history_seen": true
+  },
+  "run_command": "python3 -m pipeline.run experiments/double-indicator/dual-zigzag-daily-trend",
+  "limitations": [
+    "Daily close is lagged to the following trading date.",
+    "Late history already seen in parent and ATR-filter tests.",
+    "Corporate-action and short borrowing coverage incomplete.",
+    "Method correction before paper registration: use daily closes aggregated from the same hourly snapshot, not separate pre-2024 daily candles; full experiment rerun. Prior result is superseded."
+  ]
+}
