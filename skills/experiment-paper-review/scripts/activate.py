@@ -118,7 +118,7 @@ def activate(review_path: Path, strategy_dir: Path) -> dict:
     if not any(item["id"] == strategy_dir.name for item in catalog["rules"]):
         catalog["rules"].append({"id": strategy_dir.name,
                                  "label": f"Turtle {rule['variant'][len('dennis_turtle_'):].replace('_', '/')} · {rule['timeframe']}"
-                                 if rule["variant"].startswith("dennis_turtle_") else rule["variant"] + " · " + rule["timeframe"],
+                                 if rule["variant"].startswith("dennis_turtle_") else strategy_dir.name,
                                  "experiment": review_path.parent.parent.name,
                                  "timeframe": rule["timeframe"]})
     # All sources and collisions are checked before writing live configuration.
