@@ -1,0 +1,61 @@
+//@version=6
+// VTBR-only diagnostic; TradingView/Python fill parity is not yet verified.
+strategy("VTBR Band-ZigZag · directional 4 · 1W", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false, max_lines_count=500)
+
+chartOk = timeframe.isweekly and timeframe.multiplier == 1
+middle = ta.sma(close, 20)
+deviation = ta.stdev(close, 20, true)
+upper = middle + 2.0 * deviation
+lower = middle - 2.0 * deviation
+highEvent = not na(upper) and high >= upper
+lowEvent = not na(lower) and low <= lower
+
+var int pivotSide = 0
+var int pivotBar = na
+var float pivotPrice = na
+var int usedPivotBar = na
+var int previousPivotBar = na
+var float previousPivotPrice = na
+var array<line> zigzagLines = array.new_line()
+
+if chartOk and barstate.isconfirmed
+    // A candle touching both bands is ambiguous and creates no new pivot.
+    if highEvent != lowEvent
+        newSide = highEvent ? 1 : -1
+        newPrice = highEvent ? high : low
+        if pivotSide != newSide or (newSide == 1 and newPrice > pivotPrice) or (newSide == -1 and newPrice < pivotPrice)
+            replacing = pivotSide == newSide
+            if pivotSide != 0 and not replacing
+                previousPivotBar := pivotBar
+                previousPivotPrice := pivotPrice
+            pivotSide := newSide
+            pivotBar := bar_index
+            pivotPrice := newPrice
+            if replacing and array.size(zigzagLines) > 0
+                line.delete(array.pop(zigzagLines))
+            if not na(previousPivotBar)
+                array.push(zigzagLines, line.new(previousPivotBar, previousPivotPrice, pivotBar, pivotPrice,
+                     color=newSide == 1 ? color.red : color.aqua, width=2))
+                if array.size(zigzagLines) > 450
+                    line.delete(array.shift(zigzagLines))
+
+    fourUp = close > close[1] and close[1] > close[2] and close[2] > close[3] and close[3] > close[4]
+    fourDown = close < close[1] and close[1] < close[2] and close[2] < close[3] and close[3] < close[4]
+    recentPivot = not na(pivotBar) and bar_index > pivotBar and bar_index - pivotBar <= 8
+    unusedPivot = na(usedPivotBar) or usedPivotBar != pivotBar
+    longSignal = bar_index >= 22 and recentPivot and unusedPivot and pivotSide == -1 and fourUp
+    shortSignal = bar_index >= 22 and recentPivot and unusedPivot and pivotSide == 1 and fourDown
+
+    if longSignal or shortSignal
+        usedPivotBar := pivotBar
+        if longSignal and strategy.position_size <= 0
+            strategy.entry("Long", strategy.long)
+        else if shortSignal and strategy.position_size >= 0
+            strategy.entry("Short", strategy.short)
+
+plot(upper, "Upper band", color=color.new(color.red, 75))
+plot(lower, "Lower band", color=color.new(color.aqua, 75))

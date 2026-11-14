@@ -1,0 +1,14 @@
+{
+  "id": "crypto-sma20-band-breakout-review",
+  "status": "TRADINGVIEW_REVIEW_ONLY",
+  "market": "crypto",
+  "timeframe": "chart_timeframe",
+  "default_parameters": {
+    "sma_length": 20,
+    "standard_deviations": 2.0,
+    "confirmation_closes": 1
+  },
+  "crypto_backtest_in_repository": false,
+  "paper_accounts_registered": false,
+  "related_moex_experiment": "experiments/john-bollinger/sma-band-close-breakout"
+}

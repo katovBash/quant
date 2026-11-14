@@ -1,0 +1,50 @@
+//@version=6
+// VTBR-only diagnostic. These settings have not passed TradingView/Python fill parity.
+strategy("VTBR weekly Band-ZigZag · confirmation study", overlay=true,
+     initial_capital=1000000, currency=currency.RUB, pyramiding=0,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false)
+
+mode = input.string("directional", "Confirmation", options=["directional", "sma20", "combined"])
+weeks = input.int(2, "Completed weeks", minval=2, maxval=4)
+chartOk = timeframe.isweekly and timeframe.multiplier == 1
+middle = ta.sma(close, 20)
+deviation = ta.stdev(close, 20, true)
+upper = middle + 2.0 * deviation
+lower = middle - 2.0 * deviation
+highEvent = not na(upper) and high >= upper
+lowEvent = not na(lower) and low <= lower
+var int pivotSide = 0
+var int pivotBar = na
+var float pivotPrice = na
+var int usedPivotBar = na
+
+if chartOk and barstate.isconfirmed
+    if highEvent != lowEvent
+        newSide = highEvent ? 1 : -1
+        newPrice = highEvent ? high : low
+        if pivotSide != newSide or (newSide == 1 and newPrice > pivotPrice) or (newSide == -1 and newPrice < pivotPrice)
+            pivotSide := newSide
+            pivotBar := bar_index
+            pivotPrice := newPrice
+    directional = true
+    beyondMean = true
+    for offset = 0 to weeks - 1
+        if pivotSide == -1
+            directional := directional and close[offset] > close[offset + 1]
+            beyondMean := beyondMean and close[offset] > middle[offset]
+        else
+            directional := directional and close[offset] < close[offset + 1]
+            beyondMean := beyondMean and close[offset] < middle[offset]
+    confirmed = mode == "directional" ? directional : mode == "sma20" ? beyondMean : directional and beyondMean
+    signal = bar_index >= 20 + weeks and not na(pivotBar) and bar_index > pivotBar and bar_index - pivotBar <= 8 and (na(usedPivotBar) or usedPivotBar != pivotBar) and confirmed
+    if signal and pivotSide == -1 and strategy.position_size <= 0
+        strategy.entry("Long", strategy.long)
+        usedPivotBar := pivotBar
+    else if signal and pivotSide == 1 and strategy.position_size >= 0
+        strategy.entry("Short", strategy.short)
+        usedPivotBar := pivotBar
+
+plot(upper, "Upper band", color=color.new(color.red, 75))
+plot(lower, "Lower band", color=color.new(color.aqua, 75))

@@ -1,0 +1,66 @@
+{
+  "strategy_id": "sma-band-close-breakout-30-15-1-1d",
+  "variant": "bb_30_15_1",
+  "timeframe": "1D",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1007,
+  "signal_events_checked": 774,
+  "mismatches": 0,
+  "symbols": {
+    "POSI": {
+      "bars_checked": 77,
+      "mismatches": 0
+    },
+    "VKCO": {
+      "bars_checked": 78,
+      "mismatches": 0
+    },
+    "SMLT": {
+      "bars_checked": 79,
+      "mismatches": 0
+    },
+    "MGNT": {
+      "bars_checked": 76,
+      "mismatches": 0
+    },
+    "MSNG": {
+      "bars_checked": 80,
+      "mismatches": 0
+    },
+    "AFLT": {
+      "bars_checked": 77,
+      "mismatches": 0
+    },
+    "HYDR": {
+      "bars_checked": 78,
+      "mismatches": 0
+    },
+    "PLZL": {
+      "bars_checked": 79,
+      "mismatches": 0
+    },
+    "UNAC": {
+      "bars_checked": 79,
+      "mismatches": 0
+    },
+    "VTBR": {
+      "bars_checked": 76,
+      "mismatches": 0
+    },
+    "SELG": {
+      "bars_checked": 79,
+      "mismatches": 0
+    },
+    "UGLD": {
+      "bars_checked": 72,
+      "mismatches": 0
+    },
+    "MAGN": {
+      "bars_checked": 77,
+      "mismatches": 0
+    }
+  }
+}

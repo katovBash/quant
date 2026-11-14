@@ -1,0 +1,77 @@
+//@version=6
+// VTBR 1W review: lower/upper Bollinger bands are the support/resistance zones.
+// This entry variant has not been backtested or checked for Pine/Python fill parity.
+strategy("VTBR Band-ZigZag · band touch reversal · 1W · review", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false, max_lines_count=500)
+
+maxWeeksAfterTouch = input.int(1, "Weeks after band touch", minval=0, maxval=4)
+chartOk = timeframe.isweekly and timeframe.multiplier == 1
+middle = ta.sma(close, 20)
+deviation = ta.stdev(close, 20, true)
+upper = middle + 2.0 * deviation
+lower = middle - 2.0 * deviation
+highEvent = not na(upper) and high >= upper
+lowEvent = not na(lower) and low <= lower
+
+var int pivotSide = 0
+var int pivotBar = na
+var float pivotPrice = na
+var int usedPivotBar = na
+var int previousPivotBar = na
+var float previousPivotPrice = na
+var float lastLowPivot = na
+var float priorLowPivot = na
+var float lastHighPivot = na
+var float priorHighPivot = na
+var array<line> zigzagLines = array.new_line()
+
+if chartOk and barstate.isconfirmed
+    // The new extreme is known only at this week's close. Both-band weeks are ambiguous.
+    if highEvent != lowEvent
+        newSide = highEvent ? 1 : -1
+        newPrice = highEvent ? high : low
+        if pivotSide != newSide or (newSide == 1 and newPrice > pivotPrice) or (newSide == -1 and newPrice < pivotPrice)
+            replacing = pivotSide == newSide
+            if newSide == -1
+                if not replacing
+                    priorLowPivot := lastLowPivot
+                lastLowPivot := newPrice
+            else
+                if not replacing
+                    priorHighPivot := lastHighPivot
+                lastHighPivot := newPrice
+            if pivotSide != 0 and not replacing
+                previousPivotBar := pivotBar
+                previousPivotPrice := pivotPrice
+            pivotSide := newSide
+            pivotBar := bar_index
+            pivotPrice := newPrice
+            if replacing and array.size(zigzagLines) > 0
+                line.delete(array.pop(zigzagLines))
+            if not na(previousPivotBar)
+                array.push(zigzagLines, line.new(previousPivotBar, previousPivotPrice, pivotBar, pivotPrice,
+                     color=newSide == 1 ? color.red : color.aqua, width=2))
+                if array.size(zigzagLines) > 450
+                    line.delete(array.shift(zigzagLines))
+
+    recentBandPivot = not na(pivotBar) and bar_index - pivotBar <= maxWeeksAfterTouch
+    unusedPivot = na(usedPivotBar) or usedPivotBar != pivotBar
+    longSignal = recentBandPivot and unusedPivot and pivotSide == -1 and close > close[1]
+    shortSignal = recentBandPivot and unusedPivot and pivotSide == 1 and close < close[1]
+    newLow = not na(priorLowPivot) and lastLowPivot < priorLowPivot
+    newHigh = not na(priorHighPivot) and lastHighPivot > priorHighPivot
+    // Flat entries keep the original rule. Reversal requires a fresh extreme.
+    longAllowed = strategy.position_size == 0 or (strategy.position_size < 0 and newLow)
+    shortAllowed = strategy.position_size == 0 or (strategy.position_size > 0 and newHigh)
+    if longSignal and longAllowed
+        strategy.entry("Long", strategy.long)
+        usedPivotBar := pivotBar
+    else if shortSignal and shortAllowed
+        strategy.entry("Short", strategy.short)
+        usedPivotBar := pivotBar
+
+plot(upper, "Upper resistance · Bollinger", color=color.red, linewidth=2)
+plot(lower, "Lower support · Bollinger", color=color.aqua, linewidth=2)

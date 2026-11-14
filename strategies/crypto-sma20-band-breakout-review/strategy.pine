@@ -1,0 +1,40 @@
+//@version=6
+// Standalone Bollinger breakout study for the current chart timeframe.
+// Crypto performance has not been reproduced in this repository.
+strategy("Bollinger bands · close outside · any chart TF · review", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false)
+
+length = input.int(20, "SMA length", minval=2)
+deviations = input.float(2.0, "Standard deviations", minval=0.1, step=0.1)
+confirmBars = input.int(1, "Closes outside band to confirm", minval=1, maxval=5)
+
+middle = ta.sma(close, length)
+spread = deviations * ta.stdev(close, length, true)
+upper = middle + spread
+lower = middle - spread
+
+var int aboveCount = 0
+var int belowCount = 0
+bool longSignal = false
+bool shortSignal = false
+
+if barstate.isconfirmed and not na(upper) and not na(lower)
+    // Start a streak only when the close crosses the band from inside.
+    aboveCount := close > upper ? (close[1] <= upper[1] ? 1 : aboveCount > 0 ? aboveCount + 1 : 0) : 0
+    belowCount := close < lower ? (close[1] >= lower[1] ? 1 : belowCount > 0 ? belowCount + 1 : 0) : 0
+    longSignal := aboveCount == confirmBars
+    shortSignal := belowCount == confirmBars
+    if longSignal and strategy.position_size <= 0
+        strategy.entry("Long", strategy.long)
+    else if shortSignal and strategy.position_size >= 0
+        strategy.entry("Short", strategy.short)
+
+plot(upper, "Upper resistance", color=color.red, linewidth=2)
+plot(lower, "Lower support", color=color.aqua, linewidth=2)
+plotshape(longSignal, title="Confirmed upper breakout", style=shape.triangleup,
+     location=location.belowbar, color=color.lime, size=size.tiny)
+plotshape(shortSignal, title="Confirmed lower breakdown", style=shape.triangledown,
+     location=location.abovebar, color=color.red, size=size.tiny)

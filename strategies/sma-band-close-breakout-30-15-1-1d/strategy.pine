@@ -1,0 +1,28 @@
+//@version=6
+// Fixed from experiments/john-bollinger/sma-band-close-breakout.
+// TradingView execution parity remains unverified; paper orders use strategy.py.
+strategy("SMA30 Bollinger 1.5σ · close breakout · 1D", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false)
+
+chartOk = timeframe.isdaily and timeframe.multiplier == 1
+middle = ta.sma(close, 30)
+spread = 1.5 * ta.stdev(close, 30, true)
+upper = middle + spread
+lower = middle - spread
+longSignal = chartOk and barstate.isconfirmed and not na(upper[1]) and close > upper and close[1] <= upper[1]
+shortSignal = chartOk and barstate.isconfirmed and not na(lower[1]) and close < lower and close[1] >= lower[1]
+
+if longSignal and strategy.position_size <= 0
+    strategy.entry("Long", strategy.long)
+else if shortSignal and strategy.position_size >= 0
+    strategy.entry("Short", strategy.short)
+
+plot(upper, "Upper resistance", color=color.red, linewidth=2)
+plot(lower, "Lower support", color=color.aqua, linewidth=2)
+plotshape(longSignal, title="Upper breakout", style=shape.triangleup,
+     location=location.belowbar, color=color.lime, size=size.tiny)
+plotshape(shortSignal, title="Lower breakdown", style=shape.triangledown,
+     location=location.abovebar, color=color.red, size=size.tiny)

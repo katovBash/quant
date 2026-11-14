@@ -463,6 +463,27 @@
       }
     },
     {
+      "experiment": "experiments/john-bollinger/sma-band-close-breakout",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/john-bollinger/sma-band-close-breakout/results/manifest.json",
+        "validation.json": "experiments/john-bollinger/sma-band-close-breakout/results/validation.json",
+        "REPORT.md": "experiments/john-bollinger/sma-band-close-breakout/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/john-bollinger/sma-band-close-breakout/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/john-bollinger/sma-band-close-breakout/results/PINE_STATUS.json"
+      }
+    },
+    {
       "experiment": "experiments/macd-grid-search",
       "monthly_coverage": "FULL_GRID",
       "status": "REVIEW_ONLY",
@@ -1039,6 +1060,26 @@
         "REPORT.md": "experiments/zigzag/third-touch-line/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/zigzag/third-touch-line/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/zigzag/third-touch-line/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/zigzag/vtbr-weekly-turn-confirmation",
+      "monthly_coverage": "FULL_GRID",
+      "status": "REVIEW_ONLY",
+      "paper_gate": "EXPERIMENT_REVIEW",
+      "paper_gate_warnings": [
+        "Не выбраны одно правило и прошедшие акции"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/zigzag/vtbr-weekly-turn-confirmation/results/manifest.json",
+        "validation.json": "experiments/zigzag/vtbr-weekly-turn-confirmation/results/validation.json",
+        "REPORT.md": "experiments/zigzag/vtbr-weekly-turn-confirmation/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/zigzag/vtbr-weekly-turn-confirmation/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/zigzag/vtbr-weekly-turn-confirmation/results/PINE_STATUS.json"
       }
     },
     {

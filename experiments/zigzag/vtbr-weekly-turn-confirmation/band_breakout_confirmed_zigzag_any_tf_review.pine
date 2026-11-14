@@ -1,0 +1,88 @@
+//@version=6
+// Confirmed upper-band breakout for long; five-calendar-week high-stall for short.
+// New visual rule: no Python backtest or Pine/Python fill parity yet.
+strategy("Bollinger breakout + confirmed ZigZag · chart TF · review", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false, max_lines_count=500)
+
+length = input.int(20, "Band SMA length", minval=2)
+deviations = input.float(2.0, "Band standard deviations", minval=0.1, step=0.1)
+leftBars = input.int(3, "ZigZag left bars", minval=1)
+rightBars = input.int(2, "ZigZag confirmation bars", minval=1)
+stallWeeks = input.int(5, "Weeks without a new high for short", minval=1)
+
+middle = ta.sma(close, length)
+spread = deviations * ta.stdev(close, length, true)
+upper = middle + spread
+lower = middle - spread
+confirmedHigh = ta.pivothigh(high, leftBars, rightBars)
+confirmedLow = ta.pivotlow(low, leftBars, rightBars)
+
+var float lastHigh = na
+var int highKnownAt = na
+var int lastHighPivotBar = na
+var int lastHighPivotTime = na
+var int usedStallHighBar = na
+var bool highInvalidated = false
+var int zigzagSide = 0
+var int zigzagBar = na
+var float zigzagPrice = na
+var int previousBar = na
+var float previousPrice = na
+var array<line> zigzagLines = array.new_line()
+bool longSignal = false
+bool stallShortSignal = false
+
+if barstate.isconfirmed
+    // Even an unconfirmed higher wick invalidates the old high's stall timer.
+    if not na(lastHigh) and high > lastHigh
+        highInvalidated := true
+    // The swing is known now, rightBars candles after its drawn location.
+    newHigh = not na(confirmedHigh) and na(confirmedLow)
+    newLow = not na(confirmedLow) and na(confirmedHigh)
+    if newHigh or newLow
+        newSide = newHigh ? 1 : -1
+        newPrice = newHigh ? confirmedHigh : confirmedLow
+        newBar = bar_index - rightBars
+        if zigzagSide != newSide or (newSide == 1 and newPrice > zigzagPrice) or (newSide == -1 and newPrice < zigzagPrice)
+            replacing = zigzagSide == newSide
+            if newHigh
+                lastHigh := newPrice
+                highKnownAt := bar_index
+                lastHighPivotBar := newBar
+                lastHighPivotTime := time[rightBars]
+                highInvalidated := high > newPrice
+            if zigzagSide != 0 and not replacing
+                previousBar := zigzagBar
+                previousPrice := zigzagPrice
+            zigzagSide := newSide
+            zigzagBar := newBar
+            zigzagPrice := newPrice
+            if replacing and array.size(zigzagLines) > 0
+                line.delete(array.pop(zigzagLines))
+            if not na(previousBar)
+                array.push(zigzagLines, line.new(previousBar, previousPrice, zigzagBar, zigzagPrice,
+                     color=newSide == 1 ? color.red : color.aqua, width=2))
+                if array.size(zigzagLines) > 450
+                    line.delete(array.shift(zigzagLines))
+
+    longSignal := not na(lastHigh) and bar_index > highKnownAt and
+         close > upper and close[1] <= upper[1] and close > lastHigh
+    stallShortSignal := not na(lastHighPivotTime) and bar_index > highKnownAt and
+         not highInvalidated and time - lastHighPivotTime >= stallWeeks * 7 * 24 * 60 * 60 * 1000 and
+         (na(usedStallHighBar) or usedStallHighBar != lastHighPivotBar) and
+         strategy.position_size >= 0 and not longSignal
+    if longSignal and strategy.position_size <= 0
+        strategy.entry("Long", strategy.long)
+    else if stallShortSignal and strategy.position_size >= 0
+        strategy.entry("Short", strategy.short)
+        usedStallHighBar := lastHighPivotBar
+
+plot(upper, "Upper resistance · Bollinger", color=color.red, linewidth=2)
+plot(lower, "Lower support · Bollinger", color=color.aqua, linewidth=2)
+plotshape(longSignal, title="Long after confirmed high breakout", style=shape.triangleup,
+     location=location.belowbar, color=color.lime, size=size.tiny)
+plotshape(stallShortSignal, title="Short after five weeks without new high", style=shape.triangledown,
+     location=location.abovebar, color=color.yellow, size=size.small)

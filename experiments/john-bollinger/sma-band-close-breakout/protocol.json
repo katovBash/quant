@@ -1,0 +1,99 @@
+{
+  "indicator_id": "john-bollinger",
+  "run_id": "sma-band-close-breakout",
+  "method_id": "sma-band-close-breakout",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-14",
+  "hypothesis": "A single completed close beyond the SMA Bollinger band may give timely long/short breakouts; test adjacent SMA lengths, band widths and one/two-close confirmations across all cached instruments and 1H/4H/1D/1W.",
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H",
+    "1D",
+    "1W"
+  ],
+  "parameter_grid": {
+    "axes": {
+      "length": {
+        "values": [
+          20,
+          30
+        ]
+      },
+      "sigma10": {
+        "values": [
+          15,
+          20,
+          25
+        ]
+      },
+      "confirm": {
+        "values": [
+          1,
+          2
+        ]
+      }
+    },
+    "variant_template": "bb_{length}_{sigma10}_{confirm}",
+    "include_baseline": true,
+    "max_combinations": 13
+  },
+  "expected_variants": [
+    "baseline",
+    "bb_20_15_1",
+    "bb_20_15_2",
+    "bb_20_20_1",
+    "bb_20_20_2",
+    "bb_20_25_1",
+    "bb_20_25_2",
+    "bb_30_15_1",
+    "bb_30_15_2",
+    "bb_30_20_1",
+    "bb_30_20_2",
+    "bb_30_25_1",
+    "bb_30_25_2"
+  ],
+  "parameter_rationale": "SMA length 20 is the user rule; 30 probes nearby slower bands. Widths 1.5/2/2.5 standard deviations and 1/2 completed closes test entry sensitivity without a huge opportunistic grid.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on the same stock and timeframe, filled next open",
+  "signal_rule": "Compute SMA and population standard deviation on completed bars. After a close crosses above the upper band from inside, require 1 or 2 consecutive closes above and signal long exactly once; symmetric lower-band crossing signals short. Opposite signal reverses. Execute at next bar open. Do not draw or trade on unfinished bars.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Rank fixed variants using early months; latest 12m after-cost gate >10% per liquid stock; already seen late history is not holdout.",
+  "run_command": "python3 -m pipeline.run experiments/john-bollinger/sma-band-close-breakout",
+  "limitations": [
+    "Source is user-designed, not an attributed Bollinger method",
+    "No dividends or splits in main result",
+    "No independent holdout after 2026-10-30",
+    "Pine compilation and fill-by-fill parity pending"
+  ],
+  "research_provenance": {
+    "source": "User-specified Pine rule in this conversation, 2026-11-14",
+    "type": "mechanical_user_hypothesis",
+    "note": "Different from bollinger-confirmed-breakout: no middle-band exit; opposite crossing reverses the position."
+  },
+  "signal_semantics": "Independent per-symbol long/short breakout, no ZigZag or middle-SMA signal.",
+  "evaluation_unit": "Independent 1m RUB virtual account per symbol.",
+  "execution_timing": "Completed current-timeframe bar, next-open fill.",
+  "holding_period": "Until opposite breakout signal."
+}

@@ -101,7 +101,7 @@ class PaperFleetTests(unittest.TestCase):
 
             with patch("service.paper_fleet.fetch_candles", side_effect=saved_candles) as fetch:
                 rows = poll(configs, now, preflight=False)
-            self.assertEqual(fetch.call_count, len({(item.symbol, item.timeframe == "1D") for item in configs}))
+            self.assertEqual(fetch.call_count, len({(item.symbol, item.timeframe in ("1D", "1W")) for item in configs}))
             self.assertEqual(len(rows), len(configs))
             self.assertTrue(all(row["status"] == "OK" and row["orders_created"] == 0 for row in rows))
             self.assertEqual(len(list(Path(tmp).glob("*/state.json"))), len(configs))
