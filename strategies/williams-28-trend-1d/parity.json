@@ -1,0 +1,54 @@
+{
+  "strategy_id": "williams-28-trend-1d",
+  "variant": "williams_28_trend",
+  "timeframe": "1D",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1706,
+  "signal_events_checked": 592,
+  "mismatches": 0,
+  "symbols": {
+    "VKCO": {
+      "bars_checked": 173,
+      "mismatches": 0
+    },
+    "POSI": {
+      "bars_checked": 157,
+      "mismatches": 0
+    },
+    "SMLT": {
+      "bars_checked": 170,
+      "mismatches": 0
+    },
+    "HYDR": {
+      "bars_checked": 171,
+      "mismatches": 0
+    },
+    "MAGN": {
+      "bars_checked": 174,
+      "mismatches": 0
+    },
+    "ALRS": {
+      "bars_checked": 171,
+      "mismatches": 0
+    },
+    "SELG": {
+      "bars_checked": 167,
+      "mismatches": 0
+    },
+    "PLZL": {
+      "bars_checked": 176,
+      "mismatches": 0
+    },
+    "UNAC": {
+      "bars_checked": 165,
+      "mismatches": 0
+    },
+    "UGLD": {
+      "bars_checked": 182,
+      "mismatches": 0
+    }
+  }
+}

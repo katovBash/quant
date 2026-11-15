@@ -1,0 +1,115 @@
+{
+  "indicator_id": "stoch",
+  "run_id": "stochastic-cross",
+  "method_id": "stoch",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-15",
+  "hypothesis": "Stochastic K/D cross may be more useful near extremes than at all levels.",
+  "research_provenance": {
+    "type": "mechanical_interpretation",
+    "author": "George Lane",
+    "primary_source": "https://www.tradingview.com/support/solutions/43000502332-stochastic-stoch/",
+    "source_checked_on": "2026-11-15",
+    "actual_trades_verified": false,
+    "personal_return_status": "not_available",
+    "source_status": "Official TradingView indicator description and formula consulted; no personal trade journal claimed.",
+    "adaptations": "Entry at completed-bar crossing; opposite directional entry reverses at next open. Parameters and confirmation modes are research hypotheses, not the named author's personal trading rules.",
+    "research_family": {
+      "sources_reviewed": 1,
+      "hypotheses_selected": 1,
+      "existing_comparators": []
+    }
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "required_data": [
+    "completed OHLC bars"
+  ],
+  "availability_lag": "All signal inputs become known after bar close; order fills at next available bar open. Ichimoku uses only the cloud values already plotted at that close.",
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H",
+    "1D",
+    "1W"
+  ],
+  "entry_design": {
+    "mechanisms": [
+      "cross",
+      "extreme"
+    ],
+    "confirmation": "one completed signal bar with causal indicator values",
+    "decision_time": "bar close",
+    "delay_bars": 1,
+    "not_applicable": [
+      "sub-hour history is not consistently available for the full frozen universe"
+    ]
+  },
+  "exit_design": {
+    "mechanisms": [
+      "reverse at next opposite qualified signal"
+    ],
+    "parameter_ranges": {},
+    "decision_time": "bar close, next-open fill",
+    "not_applicable": []
+  },
+  "parameter_grid": {
+    "axes": {
+      "length": {
+        "values": [
+          14,
+          28
+        ]
+      },
+      "mode": {
+        "values": [
+          "cross",
+          "extreme"
+        ]
+      }
+    },
+    "variant_template": "stoch_{length}_{mode}",
+    "include_baseline": true,
+    "max_combinations": 5
+  },
+  "expected_variants": [
+    "baseline",
+    "stoch_14_cross",
+    "stoch_14_extreme",
+    "stoch_28_cross",
+    "stoch_28_extreme"
+  ],
+  "parameter_rationale": "Two conventional neighboring horizons and two mechanically distinct signal interpretations form a complete 2x2 grid. This bounded grid was frozen before inspecting PnL; it is not a claim to have tested every possible numerical setting.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on the same stock and timeframe, filled next open",
+  "signal_rule": "Stochastic K/D cross may be more useful near extremes than at all levels. Exact causal implementation: src/research/classic_indicator_grid.py; opposite signal reverses at next open.",
+  "signal_semantics": "Independent directional order for each symbol and timeframe; not a common-capital portfolio.",
+  "evaluation_unit": "Independent 1m RUB virtual account per stock and timeframe.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Train-month ranking, then latest complete 12m after-cost return >10% for every liquid stock. Late history is seen, not independent holdout.",
+  "run_command": "python3 -m pipeline.run experiments/stoch/stochastic-cross",
+  "limitations": [
+    "Historical parameter search; late history used for acceptance gate",
+    "Corporate actions and short borrowing not in primary PnL",
+    "Pine/Python trade parity unverified until fixed strategy stage"
+  ]
+}

@@ -1,0 +1,25 @@
+//@version=6
+// Fixed research hypothesis. TradingView/Python fill parity is not verified.
+// Closed bars decide; market orders fill at the next available bar open.
+strategy("CCI · cci_20_trend · 1D · review", overlay=true, pyramiding=0, initial_capital=1000000,
+     currency=currency.RUB, default_qty_type=strategy.percent_of_equity,
+     default_qty_value=25, commission_type=strategy.commission.percent,
+     commission_value=0.15, process_orders_on_close=false)
+length = 20
+chartOk = timeframe.period == "D"
+bool longSignal = false
+bool shortSignal = false
+value = ta.cci(hlc3, length)
+if bar_index >= length and barstate.isconfirmed
+    longSignal := ta.crossover(value, 100)
+    shortSignal := ta.crossunder(value, -100)
+longSignal := longSignal and chartOk
+shortSignal := shortSignal and chartOk
+if longSignal and strategy.position_size <= 0
+    strategy.entry("Long", strategy.long)
+else if shortSignal and strategy.position_size >= 0
+    strategy.entry("Short", strategy.short)
+plotshape(longSignal, title="Long signal", style=shape.triangleup,
+     location=location.belowbar, color=color.lime, size=size.tiny)
+plotshape(shortSignal, title="Short signal", style=shape.triangledown,
+     location=location.abovebar, color=color.red, size=size.tiny)

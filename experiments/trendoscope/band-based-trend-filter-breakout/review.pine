@@ -1,0 +1,47 @@
+//@version=6
+// Mechanical interpretation of Trendoscope's Band Based Trend Filter description.
+// Fixed review variant: bh_20_20_2_touch_opp; compiler and Python fill parity pending.
+strategy("Band-hit trend filter · 2 separated hits · review", overlay=true,
+     pyramiding=0, initial_capital=1000000, currency=currency.RUB,
+     default_qty_type=strategy.percent_of_equity, default_qty_value=25,
+     commission_type=strategy.commission.percent, commission_value=0.15,
+     process_orders_on_close=false)
+
+middle = ta.sma(close, 20)
+spread = 2.0 * ta.stdev(close, 20, true)
+upper = middle + spread
+lower = middle - spread
+
+var int lastSide = 0
+var int hitCount = 0
+var bool returnedToMiddle = false
+bool longSignal = false
+bool shortSignal = false
+
+if barstate.isconfirmed and not na(upper) and not na(lower)
+    side = close > upper ? 1 : close < lower ? -1 : 0
+    if side != 0
+        if side != lastSide
+            lastSide := side
+            hitCount := 1
+            returnedToMiddle := false
+        else if returnedToMiddle
+            hitCount += 1
+            returnedToMiddle := false
+        else
+            side := 0
+        longSignal := side == 1 and hitCount >= 2
+        shortSignal := side == -1 and hitCount >= 2
+    else if lastSide != 0
+        returnedToMiddle := returnedToMiddle or (low <= middle and high >= middle)
+
+if longSignal and strategy.position_size <= 0
+    strategy.entry("Long", strategy.long)
+else if shortSignal and strategy.position_size >= 0
+    strategy.entry("Short", strategy.short)
+
+plot(upper, "Upper band", color=color.red)
+plot(middle, "Middle band", color=color.gray)
+plot(lower, "Lower band", color=color.aqua)
+plotshape(longSignal, "Long signal", shape.triangleup, location.belowbar, color.lime)
+plotshape(shortSignal, "Short signal", shape.triangledown, location.abovebar, color.red)

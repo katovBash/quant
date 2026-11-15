@@ -1,0 +1,66 @@
+{
+  "strategy_id": "keltner-30-wide-4h",
+  "variant": "keltner_30_wide",
+  "timeframe": "4H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 2149,
+  "signal_events_checked": 649,
+  "mismatches": 0,
+  "symbols": {
+    "X5": {
+      "bars_checked": 168,
+      "mismatches": 0
+    },
+    "WUSH": {
+      "bars_checked": 160,
+      "mismatches": 0
+    },
+    "MTLR": {
+      "bars_checked": 165,
+      "mismatches": 0
+    },
+    "SMLT": {
+      "bars_checked": 161,
+      "mismatches": 0
+    },
+    "RUAL": {
+      "bars_checked": 161,
+      "mismatches": 0
+    },
+    "ENPG": {
+      "bars_checked": 161,
+      "mismatches": 0
+    },
+    "VKCO": {
+      "bars_checked": 170,
+      "mismatches": 0
+    },
+    "PHOR": {
+      "bars_checked": 167,
+      "mismatches": 0
+    },
+    "SFIN": {
+      "bars_checked": 168,
+      "mismatches": 0
+    },
+    "UGLD": {
+      "bars_checked": 167,
+      "mismatches": 0
+    },
+    "ALRS": {
+      "bars_checked": 167,
+      "mismatches": 0
+    },
+    "BELU": {
+      "bars_checked": 163,
+      "mismatches": 0
+    },
+    "SGZH": {
+      "bars_checked": 171,
+      "mismatches": 0
+    }
+  }
+}

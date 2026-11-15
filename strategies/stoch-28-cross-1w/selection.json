@@ -1,0 +1,83 @@
+{
+  "id": "stoch-28-cross-1w",
+  "timeframe": "1W",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/stoch/stochastic-cross/results/paper_review.json",
+  "variant": "stoch_28_cross",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/stoch/stochastic-cross/results/all_variants.csv",
+      "monthly_csv": "experiments/stoch/stochastic-cross/results/monthly_returns.csv",
+      "variant": "stoch_28_cross",
+      "timeframe": "1W"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "VKCO",
+      "net_return_pct": 18.3,
+      "closed_trades": 28,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "BELU",
+      "net_return_pct": 39.03,
+      "closed_trades": 27,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "RNFT",
+      "net_return_pct": 44.54,
+      "closed_trades": 28,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "RUAL",
+      "net_return_pct": 19.22,
+      "closed_trades": 31,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 18.09,
+      "closed_trades": 30,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 95.44,
+      "closed_trades": 30,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "FEES",
+      "net_return_pct": 7.94,
+      "closed_trades": 34,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "HYDR",
+      "net_return_pct": 13.75,
+      "closed_trades": 35,
+      "train_positive_share_pct": 41.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "IRAO",
+      "net_return_pct": 5.59,
+      "closed_trades": 34,
+      "train_positive_share_pct": 37.5,
+      "late_positive_share_pct": 55.56
+    }
+  ]
+}

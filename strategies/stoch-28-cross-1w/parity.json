@@ -1,0 +1,50 @@
+{
+  "strategy_id": "stoch-28-cross-1w",
+  "variant": "stoch_28_cross",
+  "timeframe": "1W",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1211,
+  "signal_events_checked": 418,
+  "mismatches": 0,
+  "symbols": {
+    "VKCO": {
+      "bars_checked": 130,
+      "mismatches": 0
+    },
+    "BELU": {
+      "bars_checked": 139,
+      "mismatches": 0
+    },
+    "RNFT": {
+      "bars_checked": 134,
+      "mismatches": 0
+    },
+    "RUAL": {
+      "bars_checked": 132,
+      "mismatches": 0
+    },
+    "SMLT": {
+      "bars_checked": 131,
+      "mismatches": 0
+    },
+    "SFIN": {
+      "bars_checked": 133,
+      "mismatches": 0
+    },
+    "FEES": {
+      "bars_checked": 136,
+      "mismatches": 0
+    },
+    "HYDR": {
+      "bars_checked": 141,
+      "mismatches": 0
+    },
+    "IRAO": {
+      "bars_checked": 135,
+      "mismatches": 0
+    }
+  }
+}

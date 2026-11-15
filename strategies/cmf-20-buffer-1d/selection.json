@@ -1,0 +1,41 @@
+{
+  "id": "cmf-20-buffer-1d",
+  "timeframe": "1D",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/cmf/money-flow-cross/results/paper_review.json",
+  "variant": "cmf_20_buffer",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/cmf/money-flow-cross/results/all_variants.csv",
+      "monthly_csv": "experiments/cmf/money-flow-cross/results/monthly_returns.csv",
+      "variant": "cmf_20_buffer",
+      "timeframe": "1D"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "UNAC",
+      "net_return_pct": 24.97,
+      "closed_trades": 25,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 100.0
+    },
+    {
+      "symbol": "ASTR",
+      "net_return_pct": 6.68,
+      "closed_trades": 34,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "SGZH",
+      "net_return_pct": 5.72,
+      "closed_trades": 38,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 66.67
+    }
+  ]
+}

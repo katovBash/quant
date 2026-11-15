@@ -1,0 +1,34 @@
+//@version=6
+// Fixed research hypothesis. TradingView/Python fill parity is not verified.
+// Closed bars decide; market orders fill at the next available bar open.
+strategy("ICHIMOKU · ichimoku_22_break · 1D · review", overlay=true, pyramiding=0, initial_capital=1000000,
+     currency=currency.RUB, default_qty_type=strategy.percent_of_equity,
+     default_qty_value=25, commission_type=strategy.commission.percent,
+     commission_value=0.15, process_orders_on_close=false)
+length = 22
+chartOk = timeframe.period == "D"
+bool longSignal = false
+bool shortSignal = false
+conversionLength = 7
+spanLength = 44
+conversion = (ta.highest(high, conversionLength) + ta.lowest(low, conversionLength)) / 2
+base = (ta.highest(high, length) + ta.lowest(low, length)) / 2
+spanA = (conversion + base) / 2
+spanB = (ta.highest(high, spanLength) + ta.lowest(low, spanLength)) / 2
+visibleUpper = math.max(spanA[length], spanB[length])
+visibleLower = math.min(spanA[length], spanB[length])
+if bar_index >= spanLength + length and barstate.isconfirmed
+    longSignal := close > visibleUpper and close[1] <= visibleUpper[1] and (true or spanA[length] > spanB[length])
+    shortSignal := close < visibleLower and close[1] >= visibleLower[1] and (true or spanA[length] < spanB[length])
+plot(visibleUpper, "Visible cloud upper", color=color.new(color.green, 65))
+plot(visibleLower, "Visible cloud lower", color=color.new(color.red, 65))
+longSignal := longSignal and chartOk
+shortSignal := shortSignal and chartOk
+if longSignal and strategy.position_size <= 0
+    strategy.entry("Long", strategy.long)
+else if shortSignal and strategy.position_size >= 0
+    strategy.entry("Short", strategy.short)
+plotshape(longSignal, title="Long signal", style=shape.triangleup,
+     location=location.belowbar, color=color.lime, size=size.tiny)
+plotshape(shortSignal, title="Short signal", style=shape.triangledown,
+     location=location.abovebar, color=color.red, size=size.tiny)

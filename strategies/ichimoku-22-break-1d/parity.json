@@ -1,0 +1,46 @@
+{
+  "strategy_id": "ichimoku-22-break-1d",
+  "variant": "ichimoku_22_break",
+  "timeframe": "1D",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1367,
+  "signal_events_checked": 429,
+  "mismatches": 0,
+  "symbols": {
+    "VKCO": {
+      "bars_checked": 171,
+      "mismatches": 0
+    },
+    "VTBR": {
+      "bars_checked": 172,
+      "mismatches": 0
+    },
+    "SMLT": {
+      "bars_checked": 180,
+      "mismatches": 0
+    },
+    "HYDR": {
+      "bars_checked": 177,
+      "mismatches": 0
+    },
+    "MAGN": {
+      "bars_checked": 171,
+      "mismatches": 0
+    },
+    "MSNG": {
+      "bars_checked": 181,
+      "mismatches": 0
+    },
+    "UNAC": {
+      "bars_checked": 163,
+      "mismatches": 0
+    },
+    "UGLD": {
+      "bars_checked": 152,
+      "mismatches": 0
+    }
+  }
+}

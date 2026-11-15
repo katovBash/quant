@@ -65,6 +65,27 @@
       }
     },
     {
+      "experiment": "experiments/aroon/trend-cross",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/aroon/trend-cross/results/manifest.json",
+        "validation.json": "experiments/aroon/trend-cross/results/validation.json",
+        "REPORT.md": "experiments/aroon/trend-cross/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/aroon/trend-cross/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/aroon/trend-cross/results/PINE_STATUS.json"
+      }
+    },
+    {
       "experiment": "experiments/brian-shannon/shannon-avwap-bounce",
       "monthly_coverage": "FULL_GRID",
       "status": "READY_FOR_FIXED_STRATEGY",
@@ -106,6 +127,69 @@
         "PAPER_REVIEW.md": "experiments/brian-shannon/shannon-avwap-reclaim/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/brian-shannon/shannon-avwap-reclaim/results/PINE_STATUS.json",
         "trade_side_summary.csv": "experiments/brian-shannon/shannon-avwap-reclaim/results/trade_side_summary.csv"
+      }
+    },
+    {
+      "experiment": "experiments/cci/deviation-extremes",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/cci/deviation-extremes/results/manifest.json",
+        "validation.json": "experiments/cci/deviation-extremes/results/validation.json",
+        "REPORT.md": "experiments/cci/deviation-extremes/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/cci/deviation-extremes/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/cci/deviation-extremes/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/cmf/money-flow-cross",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/cmf/money-flow-cross/results/manifest.json",
+        "validation.json": "experiments/cmf/money-flow-cross/results/validation.json",
+        "REPORT.md": "experiments/cmf/money-flow-cross/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/cmf/money-flow-cross/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/cmf/money-flow-cross/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/dmi/directional-cross",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/dmi/directional-cross/results/manifest.json",
+        "validation.json": "experiments/dmi/directional-cross/results/validation.json",
+        "REPORT.md": "experiments/dmi/directional-cross/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/dmi/directional-cross/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/dmi/directional-cross/results/PINE_STATUS.json"
       }
     },
     {
@@ -421,6 +505,27 @@
       }
     },
     {
+      "experiment": "experiments/ichimoku/visible-cloud-break",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/ichimoku/visible-cloud-break/results/manifest.json",
+        "validation.json": "experiments/ichimoku/visible-cloud-break/results/validation.json",
+        "REPORT.md": "experiments/ichimoku/visible-cloud-break/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/ichimoku/visible-cloud-break/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/ichimoku/visible-cloud-break/results/PINE_STATUS.json"
+      }
+    },
+    {
       "experiment": "experiments/john-bollinger/bollinger-confirmed-breakout",
       "monthly_coverage": "FULL_GRID",
       "status": "CLOSED",
@@ -484,6 +589,27 @@
       }
     },
     {
+      "experiment": "experiments/keltner/atr-envelope-break",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/keltner/atr-envelope-break/results/manifest.json",
+        "validation.json": "experiments/keltner/atr-envelope-break/results/validation.json",
+        "REPORT.md": "experiments/keltner/atr-envelope-break/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/keltner/atr-envelope-break/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/keltner/atr-envelope-break/results/PINE_STATUS.json"
+      }
+    },
+    {
       "experiment": "experiments/macd-grid-search",
       "monthly_coverage": "FULL_GRID",
       "status": "REVIEW_ONLY",
@@ -542,6 +668,27 @@
         "REPORT.md": "experiments/macro-key-rate/published-decision-direction/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/macro-key-rate/published-decision-direction/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/macro-key-rate/published-decision-direction/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/mfi/money-flow-reentry",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/mfi/money-flow-reentry/results/manifest.json",
+        "validation.json": "experiments/mfi/money-flow-reentry/results/validation.json",
+        "REPORT.md": "experiments/mfi/money-flow-reentry/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/mfi/money-flow-reentry/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/mfi/money-flow-reentry/results/PINE_STATUS.json"
       }
     },
     {
@@ -668,6 +815,27 @@
       }
     },
     {
+      "experiment": "experiments/stoch/stochastic-cross",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/stoch/stochastic-cross/results/manifest.json",
+        "validation.json": "experiments/stoch/stochastic-cross/results/validation.json",
+        "REPORT.md": "experiments/stoch/stochastic-cross/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/stoch/stochastic-cross/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/stoch/stochastic-cross/results/PINE_STATUS.json"
+      }
+    },
+    {
       "experiment": "experiments/three-trader-rules",
       "monthly_coverage": "FULL_GRID",
       "status": "REVIEW_ONLY",
@@ -685,6 +853,27 @@
         "REPORT.md": "experiments/three-trader-rules/results/REPORT.md",
         "PAPER_REVIEW.md": "experiments/three-trader-rules/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/three-trader-rules/results/PINE_STATUS.json"
+      }
+    },
+    {
+      "experiment": "experiments/trendoscope/band-based-trend-filter-breakout",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/trendoscope/band-based-trend-filter-breakout/results/manifest.json",
+        "validation.json": "experiments/trendoscope/band-based-trend-filter-breakout/results/validation.json",
+        "REPORT.md": "experiments/trendoscope/band-based-trend-filter-breakout/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/trendoscope/band-based-trend-filter-breakout/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/trendoscope/band-based-trend-filter-breakout/results/PINE_STATUS.json"
       }
     },
     {
@@ -799,6 +988,27 @@
         "PAPER_REVIEW.md": "experiments/william-oneil/oneil-flat-base/results/PAPER_REVIEW.md",
         "PINE_STATUS.json": "experiments/william-oneil/oneil-flat-base/results/PINE_STATUS.json",
         "trade_side_summary.csv": "experiments/william-oneil/oneil-flat-base/results/trade_side_summary.csv"
+      }
+    },
+    {
+      "experiment": "experiments/williams/percent-r-reentry",
+      "monthly_coverage": "FULL_GRID",
+      "status": "PAPER_REGISTERED",
+      "paper_gate": "PAPER_CANDIDATE",
+      "paper_gate_warnings": [
+        "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+        "В исходной вселенной есть календарные пропуски"
+      ],
+      "missing_required_evidence": [],
+      "validation_status": "REVIEW_ONLY",
+      "paper_review_status": "REVIEW_ONLY",
+      "pine": "AVAILABLE_FOR_REVIEW",
+      "files": {
+        "manifest.json": "experiments/williams/percent-r-reentry/results/manifest.json",
+        "validation.json": "experiments/williams/percent-r-reentry/results/validation.json",
+        "REPORT.md": "experiments/williams/percent-r-reentry/results/REPORT.md",
+        "PAPER_REVIEW.md": "experiments/williams/percent-r-reentry/results/PAPER_REVIEW.md",
+        "PINE_STATUS.json": "experiments/williams/percent-r-reentry/results/PINE_STATUS.json"
       }
     },
     {

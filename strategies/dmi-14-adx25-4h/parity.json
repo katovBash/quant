@@ -1,0 +1,46 @@
+{
+  "strategy_id": "dmi-14-adx25-4h",
+  "variant": "dmi_14_adx25",
+  "timeframe": "4H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1445,
+  "signal_events_checked": 499,
+  "mismatches": 0,
+  "symbols": {
+    "WUSH": {
+      "bars_checked": 160,
+      "mismatches": 0
+    },
+    "CBOM": {
+      "bars_checked": 180,
+      "mismatches": 0
+    },
+    "RUAL": {
+      "bars_checked": 192,
+      "mismatches": 0
+    },
+    "VKCO": {
+      "bars_checked": 189,
+      "mismatches": 0
+    },
+    "HYDR": {
+      "bars_checked": 181,
+      "mismatches": 0
+    },
+    "SGZH": {
+      "bars_checked": 182,
+      "mismatches": 0
+    },
+    "MTLR": {
+      "bars_checked": 189,
+      "mismatches": 0
+    },
+    "X5": {
+      "bars_checked": 172,
+      "mismatches": 0
+    }
+  }
+}

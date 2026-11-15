@@ -1,0 +1,30 @@
+{
+  "strategy_id": "mfi-28-rebound-4h",
+  "variant": "mfi_28_rebound",
+  "timeframe": "4H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 665,
+  "signal_events_checked": 186,
+  "mismatches": 0,
+  "symbols": {
+    "FESH": {
+      "bars_checked": 162,
+      "mismatches": 0
+    },
+    "NMTP": {
+      "bars_checked": 159,
+      "mismatches": 0
+    },
+    "SGZH": {
+      "bars_checked": 176,
+      "mismatches": 0
+    },
+    "WUSH": {
+      "bars_checked": 168,
+      "mismatches": 0
+    }
+  }
+}

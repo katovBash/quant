@@ -1,0 +1,26 @@
+{
+  "strategy_id": "cmf-20-buffer-1d",
+  "variant": "cmf_20_buffer",
+  "timeframe": "1D",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 476,
+  "signal_events_checked": 151,
+  "mismatches": 0,
+  "symbols": {
+    "UNAC": {
+      "bars_checked": 161,
+      "mismatches": 0
+    },
+    "ASTR": {
+      "bars_checked": 156,
+      "mismatches": 0
+    },
+    "SGZH": {
+      "bars_checked": 159,
+      "mismatches": 0
+    }
+  }
+}

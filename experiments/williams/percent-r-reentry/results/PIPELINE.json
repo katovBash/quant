@@ -1,0 +1,36 @@
+{
+  "experiment": "experiments/williams/percent-r-reentry",
+  "stage": "PAPER_REGISTERED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/williams/percent-r-reentry/results/paper_review.json",
+  "rule": {
+    "timeframe": "1D",
+    "variant": "williams_28_trend",
+    "symbols": 250,
+    "median_train_positive_share_pct": 54.17,
+    "median_train_mean_month_return_pct": 0.27,
+    "median_train_worst_month_pnl_rub": -51959.99,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.24
+  },
+  "stocks": [
+    "VKCO",
+    "POSI",
+    "SMLT",
+    "HYDR",
+    "MAGN",
+    "ALRS",
+    "SELG",
+    "PLZL",
+    "UNAC",
+    "UGLD"
+  ],
+  "strategy_id": "williams-28-trend-1d",
+  "accounts": 10
+}

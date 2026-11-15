@@ -1,0 +1,54 @@
+{
+  "strategy_id": "cci-20-trend-1d",
+  "variant": "cci_20_trend",
+  "timeframe": "1D",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 1741,
+  "signal_events_checked": 630,
+  "mismatches": 0,
+  "symbols": {
+    "SMLT": {
+      "bars_checked": 177,
+      "mismatches": 0
+    },
+    "MSNG": {
+      "bars_checked": 170,
+      "mismatches": 0
+    },
+    "VTBR": {
+      "bars_checked": 173,
+      "mismatches": 0
+    },
+    "PLZL": {
+      "bars_checked": 161,
+      "mismatches": 0
+    },
+    "SIBN": {
+      "bars_checked": 173,
+      "mismatches": 0
+    },
+    "ASTR": {
+      "bars_checked": 180,
+      "mismatches": 0
+    },
+    "UNAC": {
+      "bars_checked": 169,
+      "mismatches": 0
+    },
+    "TATN": {
+      "bars_checked": 175,
+      "mismatches": 0
+    },
+    "TATNP": {
+      "bars_checked": 173,
+      "mismatches": 0
+    },
+    "UGLD": {
+      "bars_checked": 190,
+      "mismatches": 0
+    }
+  }
+}

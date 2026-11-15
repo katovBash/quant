@@ -1,0 +1,39 @@
+{
+  "experiment": "experiments/keltner/atr-envelope-break",
+  "stage": "PAPER_REGISTERED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/keltner/atr-envelope-break/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "keltner_30_wide",
+    "symbols": 249,
+    "median_train_positive_share_pct": 50.0,
+    "median_train_mean_month_return_pct": 0.01,
+    "median_train_worst_month_pnl_rub": -49311.82,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.36
+  },
+  "stocks": [
+    "X5",
+    "WUSH",
+    "MTLR",
+    "SMLT",
+    "RUAL",
+    "ENPG",
+    "VKCO",
+    "PHOR",
+    "SFIN",
+    "UGLD",
+    "ALRS",
+    "BELU",
+    "SGZH"
+  ],
+  "strategy_id": "keltner-30-wide-4h",
+  "accounts": 13
+}

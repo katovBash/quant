@@ -90,6 +90,66 @@
       "label": "SMA30 · Bollinger 1,5σ · пробой · 1D",
       "experiment": "sma-band-close-breakout",
       "timeframe": "1D"
+    },
+    {
+      "id": "trendoscope-band-hits-30-2-2-cross-opp-1h",
+      "label": "Полосы Боллинджера · два касания · 1H",
+      "experiment": "band-based-trend-filter-breakout",
+      "timeframe": "1H"
+    },
+    {
+      "id": "aroon-25-cross-1d",
+      "label": "Aroon 25 · пересечение · 1D",
+      "experiment": "trend-cross",
+      "timeframe": "1D"
+    },
+    {
+      "id": "williams-28-trend-1d",
+      "label": "Williams %R 28 · тренд · 1D",
+      "experiment": "percent-r-reentry",
+      "timeframe": "1D"
+    },
+    {
+      "id": "stoch-28-cross-1w",
+      "label": "Stochastic 28 · пересечение · 1W",
+      "experiment": "stochastic-cross",
+      "timeframe": "1W"
+    },
+    {
+      "id": "keltner-30-wide-4h",
+      "label": "Keltner 30 · широкая зона · 4H",
+      "experiment": "atr-envelope-break",
+      "timeframe": "4H"
+    },
+    {
+      "id": "ichimoku-22-break-1d",
+      "label": "Ichimoku 22 · пробой облака · 1D",
+      "experiment": "visible-cloud-break",
+      "timeframe": "1D"
+    },
+    {
+      "id": "mfi-28-rebound-4h",
+      "label": "MFI 28 · возврат из зоны · 4H",
+      "experiment": "money-flow-reentry",
+      "timeframe": "4H"
+    },
+    {
+      "id": "cmf-20-buffer-1d",
+      "label": "CMF 20 · порог 0,05 · 1D",
+      "experiment": "money-flow-cross",
+      "timeframe": "1D"
+    },
+    {
+      "id": "dmi-14-adx25-4h",
+      "label": "DMI 14 · ADX 25 · 4H",
+      "experiment": "directional-cross",
+      "timeframe": "4H"
+    },
+    {
+      "id": "cci-20-trend-1d",
+      "label": "CCI 20 · продолжение · 1D",
+      "experiment": "deviation-extremes",
+      "timeframe": "1D"
     }
   ]
 }

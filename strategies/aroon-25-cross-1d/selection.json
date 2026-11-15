@@ -1,0 +1,83 @@
+{
+  "id": "aroon-25-cross-1d",
+  "timeframe": "1D",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/aroon/trend-cross/results/paper_review.json",
+  "variant": "aroon_25_cross",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/aroon/trend-cross/results/all_variants.csv",
+      "monthly_csv": "experiments/aroon/trend-cross/results/monthly_returns.csv",
+      "variant": "aroon_25_cross",
+      "timeframe": "1D"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "VKCO",
+      "net_return_pct": 49.69,
+      "closed_trades": 26,
+      "train_positive_share_pct": 75.0,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 79.95,
+      "closed_trades": 24,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "MSNG",
+      "net_return_pct": 24.0,
+      "closed_trades": 29,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "HYDR",
+      "net_return_pct": 28.24,
+      "closed_trades": 32,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "VTBR",
+      "net_return_pct": 23.49,
+      "closed_trades": 32,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "PLZL",
+      "net_return_pct": 20.03,
+      "closed_trades": 30,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "UGLD",
+      "net_return_pct": 16.64,
+      "closed_trades": 32,
+      "train_positive_share_pct": 41.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "ASTR",
+      "net_return_pct": 7.24,
+      "closed_trades": 35,
+      "train_positive_share_pct": 37.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "UNAC",
+      "net_return_pct": -13.42,
+      "closed_trades": 35,
+      "train_positive_share_pct": 33.33,
+      "late_positive_share_pct": 77.78
+    }
+  ]
+}

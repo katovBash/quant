@@ -1,0 +1,111 @@
+{
+  "id": "keltner-30-wide-4h",
+  "timeframe": "4H",
+  "snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "status": "HISTORICAL_RANKING",
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "source_review": "experiments/keltner/atr-envelope-break/results/paper_review.json",
+  "variant": "keltner_30_wide",
+  "selection_rule": "one global variant ranked on train months; all passing liquid stocks ranked on train months",
+  "history_sources": {
+    "after": {
+      "all_variants_csv": "experiments/keltner/atr-envelope-break/results/all_variants.csv",
+      "monthly_csv": "experiments/keltner/atr-envelope-break/results/monthly_returns.csv",
+      "variant": "keltner_30_wide",
+      "timeframe": "4H"
+    }
+  },
+  "top10": [
+    {
+      "symbol": "X5",
+      "net_return_pct": 21.93,
+      "closed_trades": 26,
+      "train_positive_share_pct": 66.67,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "WUSH",
+      "net_return_pct": 41.65,
+      "closed_trades": 40,
+      "train_positive_share_pct": 62.5,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "MTLR",
+      "net_return_pct": 31.31,
+      "closed_trades": 41,
+      "train_positive_share_pct": 58.33,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "SMLT",
+      "net_return_pct": 53.7,
+      "closed_trades": 40,
+      "train_positive_share_pct": 54.17,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "RUAL",
+      "net_return_pct": 32.42,
+      "closed_trades": 39,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "ENPG",
+      "net_return_pct": 24.44,
+      "closed_trades": 42,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 66.67
+    },
+    {
+      "symbol": "VKCO",
+      "net_return_pct": 22.06,
+      "closed_trades": 40,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "PHOR",
+      "net_return_pct": 11.58,
+      "closed_trades": 43,
+      "train_positive_share_pct": 50.0,
+      "late_positive_share_pct": 100.0
+    },
+    {
+      "symbol": "SFIN",
+      "net_return_pct": 37.96,
+      "closed_trades": 42,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 55.56
+    },
+    {
+      "symbol": "UGLD",
+      "net_return_pct": 26.85,
+      "closed_trades": 32,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "ALRS",
+      "net_return_pct": 18.56,
+      "closed_trades": 43,
+      "train_positive_share_pct": 45.83,
+      "late_positive_share_pct": 88.89
+    },
+    {
+      "symbol": "BELU",
+      "net_return_pct": 23.38,
+      "closed_trades": 38,
+      "train_positive_share_pct": 37.5,
+      "late_positive_share_pct": 77.78
+    },
+    {
+      "symbol": "SGZH",
+      "net_return_pct": 6.69,
+      "closed_trades": 38,
+      "train_positive_share_pct": 29.17,
+      "late_positive_share_pct": 88.89
+    }
+  ]
+}

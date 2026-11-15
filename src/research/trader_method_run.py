@@ -24,7 +24,7 @@ FIELDS = ("symbol", "timeframe", "variant", "bars", "pnl_rub", "net_return_pct",
 
 def write_csv(path: Path, rows: list[dict], fields=None):
     with path.open("w", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields or tuple(rows[0]))
+        writer = csv.DictWriter(stream, fieldnames=fields or tuple(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

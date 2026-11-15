@@ -1,0 +1,34 @@
+{
+  "experiment": "experiments/ichimoku/visible-cloud-break",
+  "stage": "PAPER_REGISTERED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/ichimoku/visible-cloud-break/results/paper_review.json",
+  "rule": {
+    "timeframe": "1D",
+    "variant": "ichimoku_22_break",
+    "symbols": 250,
+    "median_train_positive_share_pct": 53.12,
+    "median_train_mean_month_return_pct": 0.13,
+    "median_train_worst_month_pnl_rub": -47940.71,
+    "median_late_positive_share_pct": 55.56,
+    "median_late_mean_month_return_pct": 0.29
+  },
+  "stocks": [
+    "VKCO",
+    "VTBR",
+    "SMLT",
+    "HYDR",
+    "MAGN",
+    "MSNG",
+    "UNAC",
+    "UGLD"
+  ],
+  "strategy_id": "ichimoku-22-break-1d",
+  "accounts": 8
+}

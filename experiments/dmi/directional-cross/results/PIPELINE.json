@@ -1,0 +1,34 @@
+{
+  "experiment": "experiments/dmi/directional-cross",
+  "stage": "PAPER_REGISTERED",
+  "run_mode": "existing_results_revalidated",
+  "dividend_source": "SUBSCRIPTION_REQUIRED",
+  "experiment_gate": "PAPER_CANDIDATE",
+  "warnings": [
+    "Покрытие дивидендов или сплитов неполное; выход к реальным сделкам закрыт",
+    "В исходной вселенной есть календарные пропуски"
+  ],
+  "review": "experiments/dmi/directional-cross/results/paper_review.json",
+  "rule": {
+    "timeframe": "4H",
+    "variant": "dmi_14_adx25",
+    "symbols": 249,
+    "median_train_positive_share_pct": 45.83,
+    "median_train_mean_month_return_pct": 0.04,
+    "median_train_worst_month_pnl_rub": -46704.35,
+    "median_late_positive_share_pct": 44.44,
+    "median_late_mean_month_return_pct": -0.09
+  },
+  "stocks": [
+    "WUSH",
+    "CBOM",
+    "RUAL",
+    "VKCO",
+    "HYDR",
+    "SGZH",
+    "MTLR",
+    "X5"
+  ],
+  "strategy_id": "dmi-14-adx25-4h",
+  "accounts": 8
+}

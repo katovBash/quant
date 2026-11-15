@@ -1,0 +1,26 @@
+{
+  "strategy_id": "trendoscope-band-hits-30-2-2-cross-opp-1h",
+  "variant": "bh_30_20_2_cross_opp",
+  "timeframe": "1H",
+  "source": "MOEX ISS local snapshot 2026-10-30",
+  "method": "paper adapter on historical prefixes versus frozen experiment entry series",
+  "independent_signal_implementation": false,
+  "pine_verified_against_python": false,
+  "bars_checked": 537,
+  "signal_events_checked": 421,
+  "mismatches": 0,
+  "symbols": {
+    "PHOR": {
+      "bars_checked": 191,
+      "mismatches": 0
+    },
+    "MAGN": {
+      "bars_checked": 170,
+      "mismatches": 0
+    },
+    "TATNP": {
+      "bars_checked": 176,
+      "mismatches": 0
+    }
+  }
+}

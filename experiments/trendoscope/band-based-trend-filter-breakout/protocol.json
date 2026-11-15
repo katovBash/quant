@@ -1,0 +1,160 @@
+{
+  "indicator_id": "trendoscope",
+  "run_id": "band-based-trend-filter-breakout",
+  "method_id": "band-based-trend-filter-breakout",
+  "status": "PREREGISTERED",
+  "frozen_on": "2026-11-14",
+  "hypothesis": "Two or three separated closes beyond the same Bollinger band, with a return to the middle line between hits, may identify a persistent trend more reliably than a single band breakout.",
+  "research_provenance": {
+    "type": "mechanical_interpretation",
+    "actual_trades_verified": false,
+    "personal_return_status": "not_available",
+    "author": "Trendoscope (HeWhoMustNotBeNamed)",
+    "primary_source": "https://www.tradingview.com/script/qZRHn0Y5-Band-Based-Trend-Filter/",
+    "published_on": "2023-01-02",
+    "source_checked_on": "2026-11-14",
+    "source_status": "Author description available; open-source Pine not extracted or copied.",
+    "published_mechanism": "Upper/lower band closes mark direction. A further hit of the same band counts only after price touches the middle band; consecutive walks count as one hit.",
+    "adaptations": "Entry after second/third counted hit; exits at opposite qualified hit or middle-line cross; touch versus close-return definitions tested. These are research choices, not claimed author orders.",
+    "related_author_source": "https://www.bollingerbands.com/bollinger-band-rules",
+    "research_family": {
+      "sources_reviewed": 2,
+      "hypotheses_selected": 1,
+      "existing_comparators": [
+        "experiments/john-bollinger/sma-band-close-breakout",
+        "experiments/john-bollinger/bollinger-squeeze-breakout"
+      ]
+    }
+  },
+  "source_snapshot": "MOEX ISS local snapshot 2026-10-30",
+  "eligible_universe": {
+    "snapshot_file": "data/candles/moex_scan/universe_2026-10-30.json",
+    "cache_dir": "data/candles/moex_scan",
+    "board": "TQBR",
+    "requires_source_timeframes": [
+      "1D"
+    ]
+  },
+  "required_data": [
+    "completed OHLC bars"
+  ],
+  "availability_lag": "All OHLC, band and state values become actionable after the signal bar closes; order fills at next bar open.",
+  "corporate_actions": {
+    "status": "unchecked",
+    "applied_in_main_results": false,
+    "splits_status": "unchecked",
+    "dividend_source_status_file": "data/dividends/moex_coverage.json"
+  },
+  "signal_timeframes": [
+    "1H",
+    "4H",
+    "1D",
+    "1W"
+  ],
+  "entry_design": {
+    "mechanisms": [
+      "second separated same-side band hit",
+      "third separated same-side band hit"
+    ],
+    "confirmation": "middle return between counted closes outside the same band; two causal definitions tested",
+    "decision_time": "completed signal bar",
+    "delay_bars": 1,
+    "not_applicable": [
+      "sub-hour intervals absent from frozen snapshot",
+      "unseparated band walking is one hit"
+    ]
+  },
+  "exit_design": {
+    "mechanisms": [
+      "opposite qualified band hit",
+      "opposite middle-line cross"
+    ],
+    "parameter_ranges": {
+      "exit_mode": [
+        "opp",
+        "mid"
+      ]
+    },
+    "decision_time": "completed bar, next-open exit",
+    "not_applicable": []
+  },
+  "parameter_grid": {
+    "axes": {
+      "length": {
+        "values": [
+          20,
+          30
+        ]
+      },
+      "required_hits": {
+        "values": [
+          2,
+          3
+        ]
+      },
+      "midline_return": {
+        "values": [
+          "touch",
+          "cross"
+        ]
+      },
+      "exit_mode": {
+        "values": [
+          "opp",
+          "mid"
+        ]
+      }
+    },
+    "variant_template": "bh_{length}_20_{required_hits}_{midline_return}_{exit_mode}",
+    "include_baseline": true,
+    "max_combinations": 17
+  },
+  "expected_variants": [
+    "baseline",
+    "bh_20_20_2_touch_opp",
+    "bh_20_20_2_touch_mid",
+    "bh_20_20_2_cross_opp",
+    "bh_20_20_2_cross_mid",
+    "bh_20_20_3_touch_opp",
+    "bh_20_20_3_touch_mid",
+    "bh_20_20_3_cross_opp",
+    "bh_20_20_3_cross_mid",
+    "bh_30_20_2_touch_opp",
+    "bh_30_20_2_touch_mid",
+    "bh_30_20_2_cross_opp",
+    "bh_30_20_2_cross_mid",
+    "bh_30_20_3_touch_opp",
+    "bh_30_20_3_touch_mid",
+    "bh_30_20_3_cross_opp",
+    "bh_30_20_3_cross_mid"
+  ],
+  "parameter_rationale": "20 is the conventional Bollinger horizon and 30 checks a slower neighbor. Width is fixed at 2 standard deviations to isolate hit logic; 2/3 hits, two middle-return definitions, and two distinct exits form the complete declared grid. This is not a claim to search every conceivable setting. The fixed width is encoded as 20 in each variant ID rather than consuming a validator axis.",
+  "min_bars": 100,
+  "baseline": "One 25% long buy-and-hold position on the same stock and timeframe, filled next open",
+  "signal_rule": "After a completed close beyond upper/lower SMA+/-2 population-SD band, count first side hit. Count another hit of that side only if a previous completed bar returned to the middle by range touch or close crossing, as specified by variant. An opposite-band close resets the side and count. Enter after 2/3 hits at next open; exit/reverse by opposite qualified hit or exit at first adverse middle cross. No intrabar-order assumptions on bars touching middle and outer band together.",
+  "signal_semantics": "Independent directional order for each symbol; no common-capital cross-sectional ranking.",
+  "evaluation_unit": "Independent 1m RUB virtual account per stock and interval.",
+  "initial_capital_rub": 1000000,
+  "position_weight_pct": 25,
+  "simulator_cost_bps_per_side": 15,
+  "cost_status": "after_30bps_round_trip_transaction_cost_equivalent; excludes dividends, short borrow and exchange lots",
+  "start": "2024-01-01",
+  "split": "2026-01-01",
+  "late_sample_status": "seen_history",
+  "primary_evaluation": "monthly",
+  "selection": "Train-month ranking, then latest full 12m return >10% after model costs for each liquid stock; late history is seen, not an independent holdout.",
+  "run_command": "python3 -m pipeline.run experiments/trendoscope/band-based-trend-filter-breakout",
+  "limitations": [
+    "No verified personal trade journal or exact Pine extraction",
+    "No dividends or splits in primary PnL",
+    "No independent post-2026-10-30 holdout",
+    "No Pine/Python trade parity yet"
+  ],
+  "protocol_corrections": [
+    {
+      "date": "2026-11-14",
+      "reason": "Validator supports at most four varying axes; fixed sigma=2.0 was incorrectly listed as a fifth axis. Variant IDs and calculated signals are unchanged.",
+      "results_changed": false
+    }
+  ]
+}
