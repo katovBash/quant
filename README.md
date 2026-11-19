@@ -1,153 +1,77 @@
 # Quant
 
-Репозиторий для воспроизводимых экспериментов с торговыми правилами и виртуального paper trading. **Реальные заявки не отправляются.** Этот README — основная навигация; метод и результаты конкретного эксперимента хранятся в его `protocol.json`, CSV и `results/REPORT.md`.
+## Project purpose
 
-## Быстрый старт для трейдера (macOS)
+Quant is a local workspace for researching trading rules, checking historical results, and observing approved rules in virtual paper accounts. An experiment records its inputs, parameter search, monthly results, and review. A fixed strategy then supplies executable Python and Pine Script for signal comparison and paper trading. **The project does not place real orders.**
 
-Понадобятся Mac, доступ в интернет и Терминал. Система наблюдает за свечами MOEX ISS, ведёт отдельные **виртуальные** счета и показывает их в браузере. Подключать брокерский счёт или вводить ключи от него не нужно.
+The current market-data integration uses MOEX ISS. Historical experiment results and live paper-account PnL are separate: neither is a forecast. The machine-readable admission and review rules live in [guardrails/POLICY.json](guardrails/POLICY.json); each experiment's exact scope lives in its own `protocol.json`.
 
-### 1. Установить инструменты
+## Project structure
 
-Открой «Терминал» через Spotlight (`⌘` + `Пробел` → `Терминал`). Проверь, что доступны Git, Python не ниже **3.9** и `tmux`:
+| Path | Purpose |
+| --- | --- |
+| `experiments/<indicator>/<run>/` | Frozen protocol, experiment code, monthly results, report, and paper review. Start from [`experiments/template/`](experiments/template/). |
+| `pipeline/` | Runs an experiment through validation, review, signal parity, and paper registration. |
+| `eval/` and `guardrails/` | Historical evaluation and machine-readable admission and lifecycle rules. |
+| `strategies/<id>/` | Fixed executable strategy, Pine Script, selection, and parity evidence. |
+| `papertrading/setups/fleet/` | One configuration file per virtual account; generated account state is under `papertrading/live/`. |
+| `service/` | Market-data polling and virtual account execution. |
+| `web/` | Local dashboard for experiments, strategies, and paper accounts. |
+| `data/` | Candle cache, historical snapshots, and corporate-action data. Large candle snapshots are excluded from Git. |
+| `src/`, `scripts/`, `workers/`, `skills/`, `spec/`, `tests/` | Shared research code, utilities, automated research jobs, agent workflows, specifications, and tests. |
+
+## Installation and first run
+
+### 1. Install prerequisites
+
+Install Git and Python 3.9 or newer. The runtime uses Python's standard library; there is no `pip install` step. On macOS, Homebrew can provide Python if needed:
 
 ```sh
+brew install python
 git --version
 python3 --version
-tmux -V
 ```
 
-Если `python3` или `tmux` не найден, установи [Homebrew](https://brew.sh/), затем выполни:
+### 2. Clone and verify
 
 ```sh
-brew install python tmux
-```
-
-Если не найден Git, установи его командой `xcode-select --install` и повтори проверку. Для этого проекта пакеты через `pip` устанавливать не требуется: исполняемый Python-код использует стандартную библиотеку.
-
-### 2. Скачать проект
-
-```sh
-cd ~/Desktop
 git clone https://github.com/katovBash/quant.git
 cd quant
-```
-
-Если папка `quant` уже есть, повторно клонировать её не надо: открой её в Терминале командой `cd /полный/путь/к/quant`. **Все команды ниже выполняются из корня папки `quant`.** Быстрая проверка установки:
-
-```sh
 python3 -m unittest discover -s tests -t .
 ```
 
-Если тесты завершились строкой `OK`, код запускается. Тесты ничего не покупают и не продают.
+Run all following commands from the repository root. The tests do not submit orders.
 
-### 3. Запустить paper trading и панель
+### 3. Start the local dashboard and paper trading
 
-Проверь наличие подготовленных виртуальных счетов:
-
-```sh
-ls papertrading/setups/fleet/*.json
-```
-
-Каждый JSON-файл — настройка одного отдельного счёта. Если файлов нет, сначала нужно завершить отбор стратегии через описанный ниже пайплайн; пустому сервису нечего отслеживать.
-
-Запусти два процесса в отдельных фоновых сессиях Терминала:
+Open two terminal windows in the repository root. In the first, start the dashboard:
 
 ```sh
-tmux new-session -d -s quant-paper-fleet -c "$PWD" 'python3 -u -m service.paper_fleet --poll-seconds 900'
-tmux new-session -d -s quant-paper-web -c "$PWD" 'python3 -u -m web.server'
-open http://127.0.0.1:8765/
+python3 -m web.server
 ```
 
-`quant-paper-fleet` запрашивает свечи и обновляет виртуальные счета раз в 15 минут; `quant-paper-web` отдаёт панель в браузер. Первый опрос может занять время, если локальный кэш пуст. **Просто закрыть окно Терминала можно:** сессии `tmux` останутся работать. После перезагрузки Mac процессы остановятся; выполни эти команды снова. Сохранённые виртуальные журналы в `papertrading/live/` при перезапуске Mac остаются.
-
-На странице выбери стратегию, затем акцию. Там доступны позиции, PnL, сделки, исторические результаты и Pine Script для TradingView. Историческая доходность в таблице относится к эксперименту; PnL виртуального счёта — к текущему paper trading. Дневной график и часовой график не взаимозаменяемы: используй указанный возле стратегии таймфрейм.
-
-### 4. Проверить процессы и ошибки
+In the second, start the virtual-account poller:
 
 ```sh
-tmux ls
-tmux capture-pane -pt quant-paper-fleet -S -80
-tmux capture-pane -pt quant-paper-web -S -40
+python3 -m service.paper_fleet --poll-seconds 900
 ```
 
-В `tmux ls` должны быть `quant-paper-fleet` и `quant-paper-web`. Команды `capture-pane` показывают последние строки каждого процесса. Подробные ответы источника пишутся в `papertrading/live/fleet_requests.ndjson`, состояние каждого счёта — в `papertrading/live/<ID-счёта>/state.json`, общая сводка — в `papertrading/live/LIFECYCLE.md`.
+Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/) in a browser. The repository includes paper-account setup files; the poller needs internet access to fetch current MOEX candles. Use `Ctrl+C` in each terminal to stop its process. Virtual account state is stored locally in `papertrading/live/`.
 
-Если панель сообщает, что последнему опросу больше 30 минут, сначала проверь `quant-paper-fleet` и соединение с MOEX ISS. Если браузер показывает `HTTP 404` или не открывает `127.0.0.1:8765`, проверь `quant-paper-web` и повторно открой адрес. Старый HTML в браузере можно обновить `⌘R`.
+### 4. Reproduce an experiment (optional)
 
-Для остановки конкретного процесса:
+Full historical runs need the frozen snapshot in `data/candles/moex_scan/`, including the universe and candle files named by the experiment protocol. This large directory is not in Git. Copy it from a saved project instance before running:
+
+Replace `<indicator>`, `<run>`, and `<id>` below with the corresponding directory names.
 
 ```sh
-tmux kill-session -t quant-paper-fleet
-tmux kill-session -t quant-paper-web
+python3 -m pipeline.run 'experiments/<indicator>/<run>'
 ```
 
-Выполняй только нужную строку. Остановка сервиса не удаляет журналы. После изменения Python-кода соответствующий процесс нужно перезапустить; после изменения файлов настроек флот перечитывает их на следующем опросе.
+The resulting `results/PIPELINE.json` gives the current stage and next action. If it reports `NEEDS_FIXED_STRATEGY`, add `strategies/<id>/strategy.py` and `strategy.pine`, measure signal parity, and continue with:
 
-### Что доступно сразу, а что требует исторических данных
+```sh
+python3 -m pipeline.run 'experiments/<indicator>/<run>' --existing-results --strategy-dir 'strategies/<id>'
+```
 
-Для **наблюдения за уже настроенными paper счетами** сервис сам загружает необходимые свечи через MOEX ISS и сохраняет локальный кэш в `data/candles/moex_live/`. Для **повторного полного расчёта экспериментов** нужен замороженный исторический снимок `data/candles/moex_scan/` с указанным в протоколе файлом вселенной и свечами. Эта объёмная папка исключена из Git: в свежем клоне её нет. Скопируй её из сохранённого экземпляра проекта в то же место; без неё исторический прогон должен остановиться с ошибкой отсутствующих данных, а сохранённые результаты нельзя считать заново проверенными. Выплаты и статус доступа к ним лежат отдельно в `data/dividends/`.
-
-### Как читать панель
-
-- **Стратегия** — фиксированное правило входа и выхода. Внутри показаны только акции, для которых создан виртуальный счёт. Если акций нет, стратегия не торгуется в paper.
-- **Год / YTD** и **1 / 3 / 6 / 9 / 12 месяцев** — историческая доходность отдельной акции на сохранённых свечах. Смотри дату окончания истории над таблицей: это не доходность текущего счёта и не прогноз.
-- **После расходов / До расходов** переключает модель расходов именно в исторической таблице. Для оценки отбора используется результат **после** модельных расходов.
-- **LONG / SHORT / FLAT** — текущая виртуальная позиция: куплено / открыта короткая позиция / позиции нет. **PnL** рядом со счётом показывает текущий виртуальный результат.
-- **Ожидает** означает, что новый сигнал ещё не исполнен следующим доступным наблюдением. **Ошибка источника** означает проблему с котировками; смотри журнал процесса.
-- **Эксперименты** содержат отчёты по проверенным и отклонённым идеям. Результат одной исторической настройки нельзя переносить на другую настройку или другой таймфрейм.
-- **Исследовать улучшение** внутри активной стратегии запускает агента: сначала он показывает диагноз и одну гипотезу. Исправь задачу в поле под планом и нажми «Запустить проверку». Панель покажет этап, журнал и итоговый отчёт. «Остановить» прерывает текущий агентский процесс. Действующие paper счета не заменяются; новый кандидат проходит отбор отдельно. Для запуска нужен установленный и авторизованный `codex` CLI и локальный исторический снимок.
-
-Код фоновых задач лежит в `workers/`: `discovery/` ищет новые идеи, `experiment/` создаёт эксперимент, `optimization/` улучшает действующую стратегию. Локальные состояния задач хранятся рядом с соответствующим worker в `runtime/`.
-
-Чтобы проверить правило в TradingView, открой его в панели, нажми **«Показать Pine Script» → «Скопировать»**, вставь код в **Pine Editor**, сохрани и добавь на график той же акции и таймфрейма. Стрелки Pine полезны для ручной сверки, но его исполнение заявок, комиссии и доступная история могут отличаться от Python-эксперимента и виртуального счёта. Если кнопка недоступна, для этой активной стратегии Pine-файл не опубликован в каталоге.
-
-## Один пайплайн
-
-1. Зафиксировать гипотезу, все доступные тикеры, таймфреймы, сетку параметров, контроль, расходы и источники в `experiments/<имя>/protocol.json`. Исходные свечи — `data/candles/`, подтверждённые выплаты — `data/dividends/`. [Шаблон протокола](experiments/template/PROTOCOL_TEMPLATE.md).
-2. Выполнить `python3 -m pipeline.run experiments/<имя>`. Команда запускает полный расчёт, проверяет покрытие, свечи и корпоративные события, создаёт помесячный [отчёт по шаблону](experiments/template/REPORT.template.md), выбирает одну общую настройку и все акции, прошедшие годовой порог. `results/PIPELINE.json` хранит этап и причину остановки.
-3. Если этап `NEEDS_FIXED_STRATEGY`, создать `strategies/<id>/strategy.py`, `strategy.pine`, измеренную сверку `parity.json`, затем повторить команду с `--existing-results --strategy-dir strategies/<id>`. При выполнении проверок она регистрирует отдельный виртуальный счёт для каждой прошедшей акции.
-4. Флот опрашивает котировки каждые 15 минут и обновляет [живые этапы](papertrading/live/LIFECYCLE.json), [состояние счетов](papertrading/live/STATUS.md) и локальную панель `http://127.0.0.1:8765/`. [Машинные критерии](guardrails/POLICY.json) определяют пороги каждого этапа.
-
-## Автоматические критерии
-
-| Этап | Проверка | Автоматическое действие |
-| --- | --- | --- |
-| Эксперимент | Все допустимые тикеры, заявленные таймфреймы и сетка параметров; полные месяцы и окна 1/3/6/9/12; отдельный статус свечей, дивидендов и сплитов; расходы | `validation.json` получает `DATA_READY` или `REVIEW_ONLY`; отсутствие данных не заменяется нулевой доходностью |
-| Отбор | Не менее 100 подходящих акций в широком тесте; одна общая настройка по ранним месяцам (минимум 3 ранних и 1 поздний для диагностики); все акции из верхней четверти по обороту с доходностью >10% за последние полные 12 месяцев после расходов | `paper_review.json` фиксирует настройку, акции и причины отказа; поздние месяцы показываются отдельно, без подгонки выбора |
-| Вход в paper | Хотя бы одна прошедшая акция, базовая проверка её свечей, Python/Pine и совпадение сигналов на ≥100 барах без расхождений | Регистрируется отдельный виртуальный счёт для каждой прошедшей акции; неполные корпоративные события или календарные пропуски других пар остаются явным предупреждением |
-| 30 дней paper | Есть два наблюдения капитала и ≥30 календарных дней; чистая доходность счёта >0%, расходы подтверждены, для short отдельно подтверждена его стоимость | Положительный счёт — `PAPER_CONTINUE`, неположительный — `PAPER_STOP_REVIEW`, непроверенные расходы — `COST_REVIEW` |
-| Выход из paper | После 30 дней и полного статуса корпоративных событий выполняется отдельный разбор; результат нового периода, контроль, просадка и стоимость исполнения сохраняются | Только `EXIT_REVIEW`; реальные заявки система не включает автоматически |
-
-Число 100 сделок и 252 торговых дня применяется только для отдельной статистической метки `FORWARD_EVIDENCE_OF_EDGE`, не для допуска в paper и не для 30‑дневной оценки. Прибыльность каждого календарного месяца показывается, но 12/12 прибыльных месяцев не требуется. Значения порогов в [POLICY.json](guardrails/POLICY.json) читаются кодом; точная проверка полноты — в [валидаторе](skills/new-experiment/scripts/validate_run.py), выбор акций — в [prepare.py](skills/experiment-paper-review/scripts/prepare.py), переходы виртуальных счетов — в [lifecycle.py](guardrails/lifecycle.py).
-
-## Где лежат данные и код
-
-| Путь | Назначение |
-| --- | --- |
-| `data/candles/moex_scan/` | Локальный замороженный снимок OHLCV и вселенной бумаг; объёмные файлы исключены из Git |
-| `data/candles/moex_live/` | Текущий кэш свечей виртуального сервиса; исключён из Git |
-| `data/dividends/` | Версионированные подтверждённые выплаты с источниками; сейчас покрыт только SFIN |
-| `experiments/<имя>/` | Протокол, полный перебор, машинная проверка и отчёт, включая неудачные результаты |
-| `strategies/<id>/` | Фиксированный сигнал Python, Pine для ручной сверки, `selection.json` и история выбранных бумаг |
-| `papertrading/setups/fleet/` | Неизменяемая конфигурация каждого виртуального счёта |
-| `papertrading/live/` | Локальные журналы, позиции, PnL и машинные этапы; исключены из Git |
-| `eval/`, `guardrails/`, `pipeline/` | Оценка результатов, машинные ограничения и запуск полного цикла |
-| `service/`, `web/` | Виртуальный исполнитель и панель |
-
-`DATA_READY` подтверждает полноту данных, а не прибыльность. Исторический максимум выбран после просмотра истории и не обещает доход в следующий месяц. Непроверенная выплата не считается нулевой; дивиденды, сплиты и стоимость short могут оставлять результат только для виртуального наблюдения.
-
-Историю дивидендов MOEX ISS публикует через подписной CCI метод. `python3 scripts/fetch_moex_dividends.py` проверяет доступ и сохраняет [машинный статус](data/dividends/moex_coverage.json); пайплайн делает эту проверку автоматически. Без доступа ответ `SUBSCRIPTION_REQUIRED` не трактуется как отсутствие выплат. Для подписного доступа передай cookie через переменную окружения `MOEX_ISS_COOKIE`; сам cookie в репозиторий не записывается. Пока схема платного ответа и даты права на выплату не проверены, загруженная страница остаётся исходным материалом, а эксперименты не получают статус учтённых дивидендов.
-
-Текущий [индекс экспериментов](experiments/PACKAGE_STATUS.json) показывает полный месячный набор, проверку данных, отчёт и Pine для каждого сохранённого запуска. Старые прогоны с неполным месячным рядом или отрицательным капиталом удалены. Для новых гипотез используй [new-experiment](skills/new-experiment/SKILL.md); для идей из первоисточников трейдеров — [trader-research-experiment](skills/trader-research-experiment/SKILL.md); для дополнительного фильтра к существующему правилу — [improve-experiment](skills/improve-experiment/SKILL.md).
-
-Проверки: `python3 -m unittest discover -s tests -t .`.
-
-## Ежедневный discovery
-
-[Спецификация](spec/daily_discovery.md) реализована командой `python3 -m workers.discovery.daily run`. В локальной панели есть переключатель «Поиск новых стратегий»; те же операции доступны через `python3 -m workers.discovery.daily on|off|status`. Изначально переключатель **выключен**. Ежедневное расписание создаётся отдельно в Codex Automation и вызывает `run`; при `off` команда быстро завершает работу, ничего не записывая. Если отключить агент во время прогона, текущая стадия завершится, следующая не начнётся.
-
-Агент Codex сначала возвращает проверяемую гипотезу из источника, затем создаёт протокол, Python и Pine. Скрипт сохраняет отпечаток правила, не допускает повтор в тот же день, вызывает существующий `pipeline.run`, а при `NEEDS_FIXED_STRATEGY` создаёт фиксированную стратегию и отдаёт регистрацию обратно пайплайну. Ежедневные отчёты и состояние лежат в локальном `workers/discovery/runtime/`; файл игнорируется Git. Если источник нельзя проверить, Codex недоступен или правило не реализовано по протоколу, отчёт фиксирует остановку. Расписание и переключатель — две разные вещи: включённое расписание не обходит `off` в проекте.
-
-Для **Codex Automation** надёжнее запускать исследование самим агентом расписания. **Первый шаг до поиска и записи файлов:** `python3 -m workers.discovery.daily status`; если `enabled=false` или `last_run_day` уже сегодня по Москве, закончить запуск. Иначе агент проверяет первоисточник, создаёт эксперимент по [спецификации](spec/daily_discovery.md), записывает JSON гипотезы в `workers/discovery/runtime/candidate-YYYY-MM-DD.json` и вызывает `python3 -m workers.discovery.daily run --candidate-file workers/discovery/runtime/candidate-YYYY-MM-DD.json --prepared`. Файл гипотезы содержит `status: IDEA`, `indicator_id`, `run_id`, `source_url`, `source_evidence`, `hypothesis`, точные `signal_rule`/`entry_rule`/`exit_rule`, массивы `indicator_roles`/`timeframes`/`excluded_variants`, объект `parameter_axes` и `next_research`. CLI сравнивает отпечаток, проверяет протокол и только затем запускает пайплайн. При `NEEDS_FIXED_STRATEGY` агент расписания создаёт фиксированную стратегию, измеряет parity и повторяет `pipeline.run --existing-results --strategy-dir`, затем вызывает `python3 -m workers.discovery.daily finalize --experiment experiments/<indicator>/<run>` для обновления дневного отчёта. Сама команда `--prepared` регистрацию не форсирует. `run` без `--candidate-file` использует вложенный `codex exec`; если в окружении ему недоступны учётные данные или web, он завершится с отчётом `FAILED`, не выдумывая гипотезу.
-
-После `NO_IDEA` или ранней ошибки можно явно повторить поиск в тот же день командой `python3 -m workers.discovery.daily retry`. Если гипотеза уже зарезервирована, повторный полный расчёт блокируется: посмотри путь в ответе и после исправления запусти указанную `python3 -m pipeline.run experiments/<indicator>/<run>` вручную. Выключение во время стадии останавливает переход к следующей стадии, но не прерывает текущий расчёт посреди записи файлов.
+The pipeline applies the rules in [`guardrails/POLICY.json`](guardrails/POLICY.json) before registering virtual accounts. For automated hypothesis discovery, see [`spec/daily_discovery.md`](spec/daily_discovery.md) and [`workers/discovery/`](workers/discovery/).
